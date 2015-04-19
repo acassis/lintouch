@@ -1,0 +1,54 @@
+This directory contains various configuration files and scripts for
+distribution dependent package builders. They are installed along with qa-tools
+to your system directories so that they can be used right out of the box
+
+[Note: You need sudo without password prompting in order to use them]
+
+The quality of these scripts varies greatly and they should be considered `beta
+quality`. They are however able to acheive the desired tasks on my systems for
+the packages maintained by me.
+
+Debian (currently Sarge)
+------------------------
+
+[Note: requires working pbuilder, sudo]
+
+First of all, create the build chroot by invoking:
+
+$ pbuilder.debian create
+
+Then you can build binary deb packages and update builder apt cache using:
+
+$ pbuilder.debian build somedeb-someversion.dsc --resultdir /somewhere/else
+
+Ubuntu (currently Breezy)
+-------------------------
+
+[Note: requires working pbuilder, sudo]
+
+First of all, create the build chroot by invoking:
+
+$ pbuilder.ubuntu create
+
+Then you can build binary deb packages and update builder apt cache using:
+
+$ pbuilder.ubuntu build somepackage_version.dsc --resultdir /somewhere/else
+
+Fedora/Suse
+-----------
+
+[Note: requires working rpm, rpmbuild, sudo]
+
+The following command will build binary packages from .src.rpm and will install
+the resulting binary rpms.
+
+$ rpmbuilder build somepackage-version.src.rpm --resultdir /somewhere/else
+
+Mingw
+-----
+
+[Note: requires working mingw-builder]
+
+The following command will build binary exe installers for windows.
+
+$ mwbuilder build somepackage_version.dsc --resultdir /somewhere/else

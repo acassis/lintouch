@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" [
+
+<!ENTITY lnt "Lintouch">
+<!ENTITY version "1.10">
+
+]>
+
+<article>
+
+  <title>
+    &lnt; &version; Release Announcement
+  </title>
+
+  <articleinfo>
+    <author>
+      <firstname>Lintouch</firstname>
+      <surname>Team</surname>
+      <email>lintouch-dev@lintouch.org</email>
+    </author>
+    <pubdate>May 16th, 2006</pubdate>
+  </articleinfo>
+
+  <sect1>
+    <title>Introduction</title>
+
+    <para>
+      <figure id="logo">
+        <title>&lnt; Logo</title>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="images/lintouch.eps" format="EPS"/>
+          </imageobject>
+          <imageobject>
+            <imagedata fileref="images/lintouch.png" format="PNG"/>
+          </imageobject>
+          <textobject>
+            <phrase>&lnt; Logo</phrase>
+          </textobject>
+        </mediaobject>
+      </figure>
+    </para>
+
+    <para>
+      After four months of development we (the <ulink
+        url="http://lintouch.org">Lintouch Team</ulink>) are proud to
+      announce the availability of the new stable release of the
+      Lintouch Server, Lintouch Runtime, and Lintouch Editor.
+    </para>
+
+    <para>
+      This is the maintenance version including bug fixes and several
+      new features. You are welcome to download, install, test, and use
+      this version.
+    </para>
+
+    <para>
+      Please see <xref linkend="about"/> for more information about
+      &lnt;.
+    </para>
+
+  </sect1>
+
+  <sect1>
+    <title>What's New In &lnt; &version;</title>
+
+      <para>
+        <variablelist>
+          <varlistentry>
+            <term>Bug fixes</term>
+            <listitem>
+              <para>
+                Fixed a bug that prevented Modbus/TCP plug-in from
+                running properly on Big Endian platforms.
+              </para>
+              <para>
+                Modbus/TCP Master plug-in now generates unique
+                transaction ID for every variable he is asking for.
+                The previous behavior could have been confusing for
+                some Modbus slaves.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>Modbus/TCP Master Plug-in Improvements</term>
+            <listitem>
+              <para>
+                A couple of new parameters were added:
+              </para>
+              <para>
+                <emphasis>unitid</emphasis> -
+                target unit id. Also known as slave id. Default is 0.
+              </para>
+              <para>
+                <emphasis>serialize </emphasis> -
+                0 means that the modbus requests will be sent in
+                parallel for maximum performance of the plug-in. Although the
+                parallel sending might not work for some weak Modbus/TCP slaves.
+                When serialize is equal to 1, the plug-in will wait for response
+                after each request sent. This is safer but slower way.
+              </para>
+              <para>
+                <emphasis>timeout</emphasis> -
+                this parameter specifies time out interval
+                for socket operations. The value is
+                in milliseconds. Default is 200. Increase for slow devices.
+              </para>
+              <para>
+                See
+                <ulink
+                  url="https://lintouch.org/repos/lintouch/lsp-modbus/trunk/README">Modbus/TCP
+                  README</ulink>
+                for more details on Modbus/TCP plug-in.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>New Feature: Data Logging</term>
+            <listitem>
+              <para>
+                A new data logging facility was implemented 
+                in the server. &lnt; is now able to log every data
+                change that comes through connection plug-ins as well as
+                from the &lnt; Runtimes. The data change events are
+                passed over to active logging plug-ins, which log the
+                event either to a console, file or a remote device 
+                (an SQL server), depending on logging plug-in 
+                implementation. Which logging plug-ins should be active 
+                for the project might be configured through a new
+                Lintouch Editor Dialog "Server Logging".
+                As of version &version;, console 
+                and file logging plug-ins are implemented.
+              </para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </para>
+
+  </sect1>
+
+  <sect1>
+    <title>Obtaining and Installing &lnt;</title>
+
+    <sect2>
+      <title>Ready Made Binaries</title>
+
+      <para>
+        &lnt; can be downloaded and installed directly on the Windows
+        and Linux based platforms. The detailed instructions are
+        available at our <ulink
+          url="http://lintouch.org/static/download.html">web site</ulink>.
+      </para>
+
+      <para>
+        The list of supported platforms includes Microsoft Windows
+        2000/XP, SuSE Linux 10, Debian/GNU Linux 3.1
+        (sarge), and Ubuntu Linux 5.04 (breezy).
+        Source RPM archives are provided in order
+        to support other RPM based Linux distributions.
+      </para>
+
+    </sect2>
+
+    <sect2>
+      <title>Sources</title>
+      <para>
+        The source code of Lintouch Runtime, Lintouch Server, and
+        Lintouch Editor is
+        distributed under the GNU General Public License 2. It can be
+        downloaded and compiled by hand. The detailed instructions are
+        available at our <ulink
+          url="http://lintouch.org/static/download.html">website</ulink>.
+      </para>
+
+    </sect2>
+
+  </sect1>
+
+  <sect1 id="about">
+    <title>What is &lnt;</title>
+
+    <para>
+      Lintouch is an opensource HMI software. It lets you design user
+      interfaces for process automation. Lintouch runs on most popular
+      hardware and software platforms, is lightweight and easily extensible.
+    </para>
+
+    <para>
+      &lnt; supports variety of hardware/software platforms
+      (Win32+Intel, Linux+Intel, Linux+PPC).
+    </para>
+
+    <para>
+      &lnt; has been designed with extensibility in mind. New Server
+      Plugins can be developed to bring in new connectivity (ModBus/TCP,
+      and Hilscher already available). New Templates (GUI Objects) can be
+      implemented to define new control and visualization primitives
+      (Buttons, Lamps, and other Technical Objects already available).
+    </para>
+
+    <para>
+      To get more information about &lnt; please visit our website
+      <ulink url="http://lintouch.org">http://lintouch.org</ulink>.
+    </para>
+
+  </sect1>
+
+</article>
+
+<!-- vim: set et ts=2 sw=2 tw=72: -->

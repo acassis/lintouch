@@ -1,0 +1,45 @@
+---------------------------------------------------------------------------
+Lintouch Development Weekly News
+http://lintouch.org
+June 4th, 2004
+---------------------------------------------------------------------------
+
+Welcome to the fourteenth issue of the Lintouch Weekly Newsletter.
+
+We are proud to finally announce that Lintouch Editor has been released in
+version 1.0. Binaries are available for Linux and Windows[1]. Web page has
+been prepared as well[2].
+
+  1. http://lintouch.org/nonfree/lintouch-editor
+  2. http://lintouch.org/blog/editor
+
+Maintenance release of Lintouch Runtime (version 1.0.2) has been
+released[4]. The release fixes problem with German localization of user
+interface.
+
+  4. http://lintouch.org/blog/latest
+
+Everyone is busy preparing applications for the AUTOMATICA 2004 trade
+show[3] taking place from June 15th to 18th in Muenchen, Germany. Lintouch
+will be presented within the SWAC Booth with several demos which will be
+revealed at the right time, but not a minute before.
+
+ 3. http://www.messe-muenchen.de/pagepart/vdbdetail/vacid/111/vaeid/1/id/26076
+
+Optimization storm hitting the Lintouch Common Template Library. Hynek with
+Jiri did some testing (in process of demo preparation) and found out that
+performance of templates from Common templates library is disputable. Hynek
+then checked the code and complained about several operations being
+done way too often, usually unnecessarily. He then (using the
+"ping-pong-cvs-commit" technique(tm)) enhanced with Patrik the code so that
+all operations are done more effectively and affected templates should
+perform better now. As a bug fixing bonus, transparency is supported
+correctly by Image and Button template.
+
+That's all folks for this week, if you have any comments, corrections or
+ideas to be published, feel free to contact me directly[0].
+
+  0. mailto:mman@swac.cz.
+
+vim: set et tw=76:
+$Id: ldwn-2004-06-04.txt,v 1.1 2004/06/04 08:50:08 mman Exp $

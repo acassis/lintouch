@@ -1,0 +1,787 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" [
+
+<!ENTITY lnt "Lintouch">
+<!ENTITY vermaj "<filename>MAJOR</filename>">
+<!ENTITY vermin "<filename>MINOR</filename>">
+<!ENTITY verpat "<filename>PATCHLEVEL</filename>">
+<!ENTITY verpack "<filename>-PACKAGE</filename>">
+<!ENTITY verful "<filename>MAJOR.MINOR.PATCHLEVEL</filename>">
+
+]>
+
+<article>
+
+  <title>
+    &lnt; SVN Repository Structure
+  </title>
+
+  <articleinfo>
+
+    <author>
+      <honorific>Ing</honorific>
+      <firstname>Martin</firstname>
+      <surname>Man</surname>
+      <email>mman@swac.cz</email>
+    </author>
+
+    <copyright>
+      <year>2001-2004</year>
+      <holder>Martin Man</holder>
+    </copyright>
+
+    <pubdate>December 2004</pubdate>
+
+    <revhistory>
+
+      <revision>
+        <revnumber>1.3</revnumber>
+        <date>January 13th 2005</date>
+        <authorinitials>mman</authorinitials>
+        <revdescription>
+          <para>
+            Reorganize packaging related files, they are now residing in
+            its own <filename>packaging/</filename> subdirectory, releases go to
+            <filename>tags/</filename> from now on.
+          </para>
+        </revdescription>
+      </revision>
+
+      <revision>
+        <revnumber>1.2</revnumber>
+        <date>December 16th 2004</date>
+        <authorinitials>mman</authorinitials>
+        <revdescription>
+          <para>
+            Fix the commands and repository structure to really reflect
+            the real structure. Also fix the link to qa-tools.
+          </para>
+        </revdescription>
+      </revision>
+
+      <revision>
+        <revnumber>1.1</revnumber>
+        <date>December 14th 2004</date>
+        <authorinitials>mman</authorinitials>
+        <revdescription>
+          <para>
+            Describe how to achieve the common release related tasks.
+            Prepare section for QA Tools description.
+          </para>
+        </revdescription>
+      </revision>
+
+      <revision>
+        <revnumber>1.0</revnumber>
+        <date>December 3rd 2004</date>
+        <authorinitials>mman</authorinitials>
+        <revdescription>
+          <para>
+            Initial release.
+          </para>
+        </revdescription>
+      </revision>
+
+    </revhistory>
+
+  </articleinfo>
+
+  <sect1>
+    <title>Introduction</title>
+
+    <para>
+      &lnt; source code is managed through <ulink
+        url="http://subversion.tigris.org">Subversion</ulink> source code
+      management system. The abbreviation <emphasis>SVN</emphasis> is
+      used throughout this document when referring to Subversion.
+    </para>
+
+    <para>
+      The &lnt; SVN repository is accessible at the <ulink
+        url="https://lintouch.org/repos/lintouch"
+        >https://lintouch.org/repos/lintouch</ulink> URL.
+    </para>
+
+    <para>
+      The &lnt; SVN Repository Structure has been designed in such a way that
+      the following tasks are easily achievable:
+
+      <itemizedlist>
+        <listitem><para>
+            Multiple products can be stored within one repository.
+        </para></listitem>
+        <listitem><para>
+            Obtaining latest released versions of all products and their
+            possible &lnt; components that are part of certain
+            stable/unstable release. This can be useful to do manual
+            installation, and packaging.
+        </para></listitem>
+        <listitem><para>
+            Obtaining trunk version or specified version of whole &lnt; source
+            code base to prepare bug fixes, do quality testing, and make new
+            releases of affected components.
+        </para></listitem>
+        <listitem><para>
+            Obtaining packaging specific files to repackage
+            certain components.
+        </para></listitem>
+      </itemizedlist>
+
+    </para>
+
+  </sect1>
+
+  <sect1>
+    <title>&lnt; Release Process</title>
+
+    <sect2>
+      <title>Versioning Scheme</title>
+
+      <para>
+        &lnt; uses three digit version numbers for all its components. The
+        version is always in a form &verful;.
+        Version numbers  have the following meanings:
+
+        <variablelist>
+          <varlistentry>
+            <term><filename>MAJOR</filename></term>
+            <listitem><para>
+                Indicates the architecture version. Will not change very
+                often. Currently we are at major version 1.
+            </para></listitem>
+          </varlistentry>
+          <varlistentry>
+            <term><filename>MINOR</filename></term>
+            <listitem><para>
+                Indicates the API version. Changes every half a year. Even
+                numbers indicate stable releases, odd numbers indicate
+                unstable releases.
+            </para></listitem>
+          </varlistentry>
+          <varlistentry>
+            <term><filename>PATCHLEVEL</filename></term>
+            <listitem><para>
+                Indicates the release number. Changes with every release of
+                every &lnt; component.
+            </para></listitem>
+          </varlistentry>
+        </variablelist>
+
+      </para>
+
+      <para>
+        Linux and Windows packages of all &lnt; components contain
+        additionally so called &verpack; version number. This number
+        increases from 1 upwards with every repackaging of
+        affected component.
+      </para>
+
+      <para>
+        For example version number of
+        <filename>libltvariables</filename> Linux package might increase
+        like this: <filename>1.4.0-1</filename>,
+        <filename>1.4.0-2</filename>, <filename>1.4.1-1</filename>,
+        <filename>1.4.2-1</filename>, and so on.
+      </para>
+
+    </sect2>
+
+    <sect2>
+      <title>Modular architecture</title>
+
+      <para>
+        &lnt; is divided into several software components that have separate
+        release cycles. All software components that are part of
+        certain stable/unstable &lnt; release share the same &vermaj; and
+        &vermin; number.
+      </para>
+
+      <para>
+        For example the stable release &lnt; <filename>1.4</filename> might
+        be composed of the <filename>libltvariables-1.4.3</filename>,
+        <filename>libltfsm-1.4.1</filename>, and others.
+      </para>
+
+    </sect2>
+
+    <sect2>
+      <title>Stable Releases</title>
+
+      <para>
+        Stable releases (with even &vermin; version numbers) are made two
+        times per year (every six months). They are tested and intended for
+        production use. Their API is not going to change until the next stable
+        release is made.
+      </para>
+
+      <para>
+        Whenever a bug is found in a stable &lnt; source code base, the
+        developers fix it and make a new &verpat; release of affected
+        component.
+      </para>
+
+    </sect2>
+
+    <sect2>
+      <title>Unstable Releases</title>
+
+      <para>
+        Unstable releases (with odd &vermin; version numbers) are made
+        at some time after the latest stable version is released. They are
+        not tested as much as stable releases and they are considered a
+        <emphasis>work-in-progress</emphasis>. The unstable releases have no
+        concrete time schedule. They are made ad-hoc if it is necessary.
+      </para>
+
+    </sect2>
+
+  </sect1>
+
+  <sect1>
+    <title>SVN Repository Layout</title>
+
+    <para>
+      The &lnt; SVN Repository is accessible under the <ulink
+        url="https://lintouch.org/repos/lintouch"
+        >https://lintouch.org/repos/lintouch</ulink> URL.
+    </para>
+
+    <para>
+      Checking out whole repository is however not recommended for ordinary
+      users, because it creates rather huge working copy of the source code
+      containing the complete project history. Please see <xref
+        linkend="tasks-howto"/> for more information how to access particular
+      version of &lnt; source code base.
+    </para>
+
+    <para>
+      The &lnt; repository contains the following directory structure:
+    </para>
+
+    <para>
+      <screen>
+/lintouch/trunk/
+                README
+                ...
+                src/libltvariables/
+                ...
+                src/lintouch-server/
+                src/lintouch-runtime/
+                ...
+
+/lintouch/branches/
+                   1.2/
+                       README
+                       ...
+                       src/libltvariables/
+                       ...
+                       src/lintouch-server/
+                       src/lintouch-runtime/
+                       ...
+                   1.4/
+                   ...
+
+/lintouch/tags/
+               lintouch/
+                        1.2.0/
+                        1.2.1/
+                        ...
+                        current/
+                                README
+                                ...
+                                src/libltvariables/
+                                ...
+                                src/lintouch-runtime/
+                                ...
+               libltvariables/
+                              1.2.0/
+                              1.2.1/
+                              ...
+                              current/
+                                      README
+                                      ...
+                                      src/io.c
+                                      ...
+/lintouch/packaging/
+                    lintouch/
+                             debian/
+                                    trunk/
+                                    branches/
+                                             1.0/
+                                             1.2/
+                                    tags/
+                                         1.2.0-1/
+                                         1.2.1-1/
+                                         1.2.1-2/
+                             win32/
+                                   trunk/
+                                   branches/
+                                            1.0/
+                                            1.2/
+                                   tags/
+                                        1.2.0-1/
+                                        1.2.1-1/
+                                        1.2.1-2/
+                    libltvariables/
+                                   debian/
+                                   win32/
+                    ...
+                    lintouch-server/
+                    lintouch-runtime/
+                    ...
+      </screen>
+    </para>
+
+    <sect2>
+      <title><filename>trunk</filename> directory</title>
+
+      <para>
+        The <filename>trunk</filename> directory contains the latest &lnt;
+        source code structure. Ideally this directory should contain top-level
+        <filename>configure</filename> script allowing the complete sources to
+        be compiled, tested and installed.
+      </para>
+
+      <para>
+        Since every &lnt; component has its own release cycle, every
+        subdirectory of the <filename>trunk</filename> directory represents
+        such component and should contain its specific
+        <filename>configure</filename> script.
+      </para>
+
+      <para>
+        To checkout the latest &lnt; source code to the
+        <filename>trunk</filename> subdirectory of the current directory one
+        should use the following command:
+        <screen>
+$ svn co https://lintouch.org/repos/lintouch/lintouch/trunk
+        </screen>
+      </para>
+
+      <para>
+        Example structure of the <filename>trunk</filename> subdirectory:
+        <screen>
+/lintouch/trunk/
+                README
+                ...
+                src/libltvariables/
+                ...
+                src/lintouch-server/
+                src/lintouch-runtime/
+                ...
+        </screen>
+      </para>
+
+      <para>
+        There is usually no commit policy for the <filename>trunk</filename>
+        directory. Every developer can commit in changes, provided that he has
+        tested them properly.
+      </para>
+
+    </sect2>
+
+    <sect2>
+      <title><filename>branches</filename> directory</title>
+
+      <para>
+        The <filename>branches</filename> directory contains the same &lnt;
+        source code structure as the <filename>trunk</filename> directory for
+        every &lnt; release branch.
+      </para>
+
+      <para>
+        To checkout the specific &lnt; source code branch to the
+        subdirectory reflecting the branch version one
+        should use the following command (<filename>$VERSION</filename> should
+        be replaced with branch version, for example
+        <filename>1.2</filename>):
+        <screen>
+$ svn co https://lintouch.org/repos/lintouch/lintouch/branches/$VERSION
+        </screen>
+      </para>
+
+      <para>
+        To create new branch from the <filename>trunk</filename> version, one
+        should use the following command (<filename>$VERSION</filename>
+        should be replaced with branch version you are creating, for
+        example <filename>1.4</filename>):
+        <screen>
+$ svn copy https://lintouch.org/repos/lintouch/lintouch/trunk \
+           https://lintouch.org/repos/lintouch/lintouch/branches/1.4
+        </screen>
+      </para>
+
+      <para>
+        Example structure of the <filename>branches</filename> subdirectory:
+        <screen>
+/lintouch/branches/
+                   1.2/
+                       README
+                       ...
+                       src/libltvariables/
+                       ...
+                       src/lintouch-server/
+                       src/lintouch-runtime/
+                       ...
+                   1.4/
+                   ...
+        </screen>
+      </para>
+
+      <para>
+        Committing changes to the <filename>branches</filename>
+        directory is allowed for developers responsible for certain branch.
+        The changes in this directory must be done very carefully. For example
+        no API changes are allowed by default for any specific branch.
+      </para>
+
+    </sect2>
+
+    <sect2>
+      <title><filename>tags</filename> directory</title>
+
+      <para>
+        Every &lnt; component that can be released separately should
+        be present within the <filename>tags/</filename>
+        subdirectory. The name of the directory is always the same as
+        the name of the component itself (i.e.,
+        <filename>lintouch</filename>,
+        <filename>libltvariables</filename>, etc.).
+      </para>
+
+      <para>
+        For every component the tag directory matches the released
+        version.
+      </para>
+
+      <para>
+        Example structure of the <filename>tags/</filename> subdirectory:
+        <screen>
+/lintouch/tags/
+               lintouch/
+                        1.2.0/
+                        1.2.1/
+                        current/
+        </screen>
+      </para>
+    </sect2>
+
+    <sect2>
+      <title><filename>packaging</filename> directory</title>
+
+      <para>
+        Every &lnt; component that can be packaged separately should
+        be present within the <filename>releases</filename>
+        subdirectory. The name of the directory is always the same as
+        the name of the component itself (i.e.,
+        <filename>lintouch</filename>,
+        <filename>libltvariables</filename>, etc.).
+      </para>
+
+      <para>
+        For every component there are subdirectories for each packaging
+        platform with the following contents:
+
+        <variablelist>
+          <varlistentry>
+            <term><filename>debian/</filename></term>
+            <listitem>
+              <para>
+                Tracks the debian specific patches and packaging files.
+                Must contain <filename>trunk/</filename>,
+                <filename>branches/</filename> and
+                <filename>tags/</filename> subdirectory.
+              </para>
+              <para>
+                <filename>trunk/</filename> contains all debian specific
+                packaging files that are extracted over the upstream
+                sources to prepare debian specific
+                <filename>.dsc</filename>, and
+                <filename>.diff.gz</filename> files.
+              </para>
+              <para>
+                For every debian release, the
+                <filename>trunk/</filename> is <command>svn
+                  copy</command>-ied to the <filename>tags/</filename>
+                subdirectory.
+              </para>
+              <para>
+                Packaging files used to package upstream branch of the
+                component are tracked within
+                <filename>branches/</filename> and are for release
+                <command>svn copy</command>-ied
+                  to the <filename>tags/</filename>
+                subdirectory.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>win32/</term>
+            <listitem>
+              <para>
+                This subdirectory contains all win32-packaging specific
+                files. Much the same rules apply here as for the
+                <filename>debian/</filename> directory.
+              </para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+
+      </para>
+
+      <para>
+        Example structure of the <filename>packaging</filename> subdirectory:
+        <screen>
+/lintouch/packaging/
+                    lintouch/
+                             debian/
+                                    trunk/
+                                    branches/
+                                             1.2/
+                                    tags/
+                                         1.2.0-1/
+                                         1.2.1-1/
+                                         1.2.1-2/
+                             win32/
+                                   trunk/
+                                   branches/
+                                            1.2/
+                                   tags/
+                                        1.2.0-1/
+                                        1.2.1-1/
+                                        1.2.1-2/
+        </screen>
+      </para>
+    </sect2>
+  </sect1>
+
+  <sect1 id="tasks-howto">
+    <title>Tasks HOWTO</title>
+
+    <sect2 id="chk-trunk">
+      <title>Checking out trunk version of &lnt;</title>
+
+      <para>
+        To checkout &lnt; trunk version to the
+        <filename>lintouch-trunk</filename> subdirectory of the current
+        directory one would use the following command:
+        <screen>
+$ svn co https://lintouch.org/repos/lintouch/lintouch/trunk lintouch-trunk
+        </screen>
+      </para>
+
+    </sect2>
+
+    <sect2 id="chk-branch">
+      <title>Checking out particular branch of &lnt;</title>
+
+      <para>
+        To checkout specific branch (here 1.4) of &lnt; sources to the
+        <filename>lintouch-branch-1.4</filename> subdirectory of the current
+        directory one would use the following command:
+        <screen>
+$ svn co https://lintouch.org/repos/lintouch/lintouch/branches/1.4 lintouch-branch-1.4
+        </screen>
+      </para>
+
+    </sect2>
+
+    <sect2 id="ckj-release">
+      <title>Checking out particular version of a &lnt; component</title>
+
+      <para>
+        To checkout specific released $VERSION of &lnt; component
+        $COMPONENT to the
+        <filename>$COMPONENT-$VERSION</filename> subdirectory of the current
+        directory one would use the following command:
+        <screen>
+$ svn co https://lintouch.org/repos/lintouch/lintouch/tags/$COMPONENT/$VERSION $COMPONENT-$VERSION
+        </screen>
+      </para>
+      <para>
+        Note that you are not supposed to commit any changes to the
+        sources obtained this way. To (for example) fix a bug in some
+        specific version of a component, please check out the correct
+        branch, commit necessary changes and re-release the component.
+        See <xref linkend="fix-branch"/> for more instructions.
+      </para>
+
+    </sect2>
+
+    <sect2 id="fix-trunk">
+      <title>Fixing a bug in a trunk version of a &lnt; component</title>
+
+      <para>
+        First checkout the trunk version of the sources as described in
+        <xref linkend="chk-trunk"/>. Then make necessary changes and
+        ensure that the code works properly. Then you are allowed to
+        commit the changes.
+      </para>
+
+    </sect2>
+
+    <sect2 id="fix-branch">
+      <title>Fixing a bug in a specific version of a &lnt; component</title>
+
+      <para>
+        First checkout the required branch version of the sources as
+        described in <xref linkend="chk-branch"/>. Then make necessary
+        changes and ensure that the code works properly. Then you are
+        allowed to commit the changes.
+      </para>
+
+      <para>
+        Please note that commit policy for branches is rather strict.
+        The branched code has probably been released and changes that
+        are being made here can affect a lot of people.
+      </para>
+
+    </sect2>
+
+    <sect2 id="fix-packaging">
+      <title>Fixing a packaging bug of a &lnt; component (packaging a
+        component)</title>
+
+      <para>
+        First, checkout the $OS specific packaging files for the
+        component by using the following command (the files will be
+        placed in $COMPONENT-$OS):
+        <screen>
+$ svn co https://lintouch.org/repos/lintouch/lintouch/packaging/$COMPONENT/$OS/trunk $COMPONENT-$OS
+        </screen>
+      </para>
+
+      <para>
+        Since your packaging fixes will mostly relate to the latest
+        released version of the component, checkout the latest released
+        version to the component. The sources will be placed in the
+        $COMPONENT subdirectory of the current directory:
+        <screen>
+$ svn co https://lintouch.org/repos/lintouch/lintouch/tags/$COMPONENT/current $COMPONENT
+        </screen>
+      </para>
+
+      <para>
+        Then use your $OS specific method to prepare final package and
+        eventually commit the changes to the packaging files.
+      </para>
+
+    </sect2>
+
+    <sect2 id="branch">
+      <title>Branching &lnt;</title>
+
+      <para>
+        To create new &lnt; branch use the <command>svn copy</command>
+        command and fork the <filename>trunk</filename> version or any
+        other branch by using the following command (we will make a 1.4
+        branch from the trunk sources):
+        <screen>
+$ svn copy https://lintouch.org/repos/lintouch/lintouch/trunk \
+           https://lintouch.org/repos/lintouch/lintouch/branches/1.4
+        </screen>
+      </para>
+
+    </sect2>
+
+    <sect2 id="release">
+      <title>Releasing a &lnt; component</title>
+
+      <para>
+        To release a &lnt; component use <command>svn copy</command> to
+        make a copy of the component within the
+        <filename>tags</filename> subdirectory. For example we will
+        release new version 1.4.2 of the <filename>libltvariables</filename>
+        from the 1.4 branch:
+        <screen>
+$ svn copy
+https://lintouch.org/repos/lintouch/lintouch/branches/1.4/src/libltvariables \
+https://lintouch.org/repos/lintouch/lintouch/tags/libltvariables/1.4.2
+        </screen>
+      </para>
+
+      <para>
+        Additionally we have to update the <filename>current</filename>
+        release pointer of the <filename>libltvariables</filename> by
+        using the following commands:
+        <screen>
+$ svn remove \
+https://lintouch.org/repos/lintouch/lintouch/tags/libltvariables/current
+$ svn copy \
+https://lintouch.org/repos/lintouch/lintouch/tags/libltvariables/1.4.2 \
+https://lintouch.org/repos/lintouch/lintouch/tags/libltvariables/current
+        </screen>
+      </para>
+
+    </sect2>
+
+    <sect2 id="package-deb">
+      <title>Making a Debian release of a &lnt; component</title>
+
+      <para>
+        Use the instructions described in <xref linkend="fix-packaging"/>
+        to prepare the packaging files and when everything is ready, use
+        the following command to tag the debian release ($VV in this
+        example):
+        <screen>
+$ svn copy \
+https://lintouch.org/repos/lintouch/lintouch/packaging/libltvariables/debian/trunk \
+https://lintouch.org/repos/lintouch/lintouch/packaging/libltvariables/debian/tags/$VV
+        </screen>
+      </para>
+
+    </sect2>
+
+    <sect2 id="package-win32">
+      <title>Making a Win32 release of a &lnt; component</title>
+
+      <para>
+        Use the instructions described in <xref linkend="fix-packaging"/>
+        to prepare the packaging files and when everything is ready, use
+        the following command to tag the win32 release ($VV in this
+        example):
+        <screen>
+$ svn copy \
+https://lintouch.org/repos/lintouch/lintouch/packaging/libltvariables/win32/trunk \
+https://lintouch.org/repos/lintouch/lintouch/packaging/libltvariables/win32/tags/$VV
+        </screen>
+      </para>
+
+    </sect2>
+
+  </sect1>
+
+  <sect1>
+    <title>QA Helper tools</title>
+
+    <para>
+      WARNING: This section is not ready yet, don't take it seriously
+    </para>
+
+    <para>
+      To make the release process easier and to support automatic
+      building and testing of the &lnt; sources several tools have been
+      developed.
+    </para>
+
+    <para>
+      They are all stored within the SVN repository at path <ulink
+        url="https://lintouch.org/repos/lintouch/lintouch-qa-tools/trunk"
+        >https://lintouch.org/repos/lintouch/lintouch-qa-tools/trunk</ulink>
+    </para>
+
+    <para>
+      TO BE DONE: describe the tools in question, what platform they run
+      on, what should they do, what's the typical scenario where they
+      should be used (make distcheck, make check). Meanwhile README from
+      the lintouch-qa-tools should be enough.
+    </para>
+
+  </sect1>
+
+</article>
+
+<!-- vim: set et ts=2 sw=2 tw=72: -->
+<!-- $Id:$ -->

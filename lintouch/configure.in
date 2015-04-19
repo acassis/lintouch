@@ -1,0 +1,326 @@
+dnl Process this file with autoconf to produce a configure script.
+AC_INIT(README)
+AC_CONFIG_AUX_DIR(config)
+AM_INIT_AUTOMAKE(lintouch, 1.10)
+
+dnl Checks for programs
+AC_PROG_CC
+AC_PROG_CXX
+AC_PROG_LIBTOOL
+AC_PROG_INSTALL
+
+LNT_PROG_DOXYGEN
+
+dnl Checks for libraries
+AM_PATH_CPPUNIT(1.8.0,,[
+    AC_MSG_WARN([])
+    AC_MSG_WARN([CppUnit not found])
+    AC_MSG_WARN([Please install CppUnit from http://cppunit.sourceforge.net])
+    AC_MSG_WARN([])
+    AC_MSG_ERROR([Sorry, I can't continue without CppUnit])
+])
+
+AC_CHECK_LIB(wsock32, main, [LIBS="$LIBS -lwsock32"],)
+AC_CHECK_LIB(z, deflate)
+LNT_LIB_APR
+LNT_LIB_APU
+LNT_LIB_QT
+CHECK_QT_MISC
+
+dnl Checks for header files
+
+dnl Checks for typedefs, structures, and compiler characteristics.
+
+dnl Checks for library functions.
+
+dnl Miscelaneous Variables
+LNT_VAR_TODAY
+LNT_VAR_PREFIX
+LNT_VAR_CONDITIONAL(MWOPTTARGETS, copydeps.stamp, test "$host" == "i686-pc-mingw32" )
+
+dnl rpath needed to link & run testcases
+dnl will work only under linux
+TC_LFLAGS=""
+TC_LFLAGS="${TC_LFLAGS} -Wl,-rpath,../libltfsm/.libs"
+TC_LFLAGS="${TC_LFLAGS} -Wl,-rpath,../libltvariables/.libs"
+TC_LFLAGS="${TC_LFLAGS} -Wl,-rpath,../libltcp/.libs"
+TC_LFLAGS="${TC_LFLAGS} -Wl,-rpath,../libltzip/build"
+TC_LFLAGS="${TC_LFLAGS} -Wl,-rpath,../libltvfs/build"
+TC_LFLAGS="${TC_LFLAGS} -Wl,-rpath,../liblttemplates/build"
+TC_LFLAGS="${TC_LFLAGS} -Wl,-rpath,../libltproject/build"
+TC_LFLAGS="${TC_LFLAGS} -Wl,-rpath,../libltui/build"
+TC_LFLAGS="${TC_LFLAGS} -Wl,-rpath,../lintouch-server/.libs"
+TC_LFLAGS="${TC_LFLAGS} -Wl,-rpath,build"
+AC_SUBST(TC_LFLAGS)
+dnl rpath needed to link & run testcases within templates-libraries subdir
+dnl will work only under linux
+LTL_LFLAGS=""
+LTL_LFLAGS="${LTL_LFLAGS} -Wl,-rpath,../../libltvariables/.libs"
+LTL_LFLAGS="${LTL_LFLAGS} -Wl,-rpath,../../libltzip/build"
+LTL_LFLAGS="${LTL_LFLAGS} -Wl,-rpath,../../libltvfs/build"
+LTL_LFLAGS="${LTL_LFLAGS} -Wl,-rpath,../../liblttemplates/build"
+LTL_LFLAGS="${LTL_LFLAGS} -Wl,-rpath,build"
+AC_SUBST(LTL_LFLAGS)
+dnl rpath needed to link & run final exe files (assuming we will run them from
+dnl the top-level build directory)
+dnl will work only under linux
+EXE_LFLAGS=""
+EXE_LFLAGS="${EXE_LFLAGS} -Wl,-rpath,src/libltfsm/.libs"
+EXE_LFLAGS="${EXE_LFLAGS} -Wl,-rpath,src/libltvariables/.libs"
+EXE_LFLAGS="${EXE_LFLAGS} -Wl,-rpath,src/libltcp/.libs"
+EXE_LFLAGS="${EXE_LFLAGS} -Wl,-rpath,src/libltzip/build"
+EXE_LFLAGS="${EXE_LFLAGS} -Wl,-rpath,src/libltvfs/build"
+EXE_LFLAGS="${EXE_LFLAGS} -Wl,-rpath,src/liblttemplates/build"
+EXE_LFLAGS="${EXE_LFLAGS} -Wl,-rpath,src/libltproject/build"
+EXE_LFLAGS="${EXE_LFLAGS} -Wl,-rpath,src/libltui/build"
+EXE_LFLAGS="${EXE_LFLAGS} -Wl,-rpath,build"
+AC_SUBST(EXE_LFLAGS)
+
+dnl libltfsm
+LIBLTFSM_TOP_SRCDIR="\$(top_srcdir)/src/libltfsm"
+AC_SUBST(LIBLTFSM_TOP_SRCDIR)
+
+dnl libltvariables
+LIBLTVARIABLES_TOP_SRCDIR="\$(top_srcdir)/src/libltvariables"
+AC_SUBST(LIBLTVARIABLES_TOP_SRCDIR)
+
+dnl libltcp
+dnl .libs into LIBLTCP_LIBS will be appended automatically by libtool
+LIBLTCP_TOP_SRCDIR="\$(top_srcdir)/src/libltcp"
+LIBLTCP_CFLAGS="-I${LIBLTVARIABLES_TOP_SRCDIR}/include -I${LIBLTFSM_TOP_SRCDIR}/include"
+LIBLTCP_LIBS="-L\$(top_builddir)/src/libltvariables/ -lltvariables -L\$(top_builddir)/src/libltfsm/ -lltfsm"
+AC_SUBST(LIBLTCP_TOP_SRCDIR)
+AC_SUBST(LIBLTCP_CFLAGS)
+AC_SUBST(LIBLTCP_LIBS)
+
+dnl libltzip
+LIBLTZIP_TOP_SRCDIR="\$(top_srcdir)/src/libltzip"
+AC_SUBST(LIBLTZIP_TOP_SRCDIR)
+
+dnl libltvfs
+LIBLTVFS_TOP_SRCDIR="\$(top_srcdir)/src/libltvfs"
+LIBLTVFS_CFLAGS="-I${LIBLTZIP_TOP_SRCDIR}/include ${LIBLTVFS_CFLAGS}"
+LIBLTVFS_LIBS="-L\$(top_builddir)/src/libltzip/build -lltzip"
+AC_SUBST(LIBLTVFS_TOP_SRCDIR)
+AC_SUBST(LIBLTVFS_CFLAGS)
+AC_SUBST(LIBLTVFS_LIBS)
+
+dnl liblttemplates
+LIBLTTEMPLATES_TOP_SRCDIR="\$(top_srcdir)/src/liblttemplates"
+X="-I${LIBLTVFS_TOP_SRCDIR}/include ${LIBLTVFS_CFLAGS}"
+X="${X} -I${LIBLTVARIABLES_TOP_SRCDIR}/include"
+LIBLTTEMPLATES_CFLAGS="${X} ${APR_INCLUDES} ${APR_CFLAGS}"
+X="-L${LIBLTVARIABLES_TOP_SRCDIR}/.libs -lltvariables"
+X="${X} -L\$(top_builddir)/src/libltvfs/build -lltvfs ${LIBLTVFS_LIBS}"
+LIBLTTEMPLATES_LIBS="${X} ${APR_LIBS}"
+AC_SUBST(LIBLTTEMPLATES_TOP_SRCDIR)
+AC_SUBST(LIBLTTEMPLATES_CFLAGS)
+AC_SUBST(LIBLTTEMPLATES_LIBS)
+
+dnl libltproject
+LIBLTPROJECT_TOP_SRCDIR="\$(top_srcdir)/src/libltproject"
+X="-I${LIBLTCP_TOP_SRCDIR}/include ${LIBLTCP_CFLAGS}"
+LIBLTPROJECT_CFLAGS="${X} -I${LIBLTTEMPLATES_TOP_SRCDIR}/include ${LIBLTTEMPLATES_CFLAGS}"
+X="-L\$(top_builddir)/src/libltcp/.libs -lltcp"
+LIBLTPROJECT_LIBS="${X} -L\$(top_builddir)/src/liblttemplates/build -llttemplates ${LIBLTTEMPLATES_LIBS}"
+AC_SUBST(LIBLTPROJECT_TOP_SRCDIR)
+AC_SUBST(LIBLTPROJECT_CFLAGS)
+AC_SUBST(LIBLTPROJECT_LIBS)
+
+dnl libltui
+LIBLTUI_TOP_SRCDIR="\$(top_srcdir)/src/libltui"
+LIBLTUI_CFLAGS="-I${LIBLTPROJECT_TOP_SRCDIR}/include ${LIBLTPROJECT_CFLAGS}"
+LIBLTUI_LIBS="-L\$(top_builddir)/src/libltproject/build -lltproject ${LIBLTPROJECT_LIBS}"
+AC_SUBST(LIBLTUI_TOP_SRCDIR)
+AC_SUBST(LIBLTUI_CFLAGS)
+AC_SUBST(LIBLTUI_LIBS)
+
+dnl lintouch-runtime
+LTRUNTIME_TOP_SRCDIR="\$(top_srcdir)/src/lintouch-runtime"
+X="-I${LIBLTUI_TOP_SRCDIR}/include ${LIBLTUI_CFLAGS}"
+LTRUNTIME_CFLAGS="${X} -I${LIBLTCP_TOP_SRCDIR}/include ${LIBLTCP_CFLAGS}"
+X="-L\$(top_builddir)/src/libltui/build -lltui ${LIBLTUI_LIBS}"
+LTRUNTIME_LIBS="${X} -L\$(top_builddir)/src/libltcp/.libs -lltcp"
+AC_SUBST(LTRUNTIME_TOP_SRCDIR)
+AC_SUBST(LTRUNTIME_CFLAGS)
+AC_SUBST(LTRUNTIME_LIBS)
+
+dnl lintouch-server
+dnl .libs into LIBLTSERVER_LIBS will be appended automatically by libtool
+LTSERVER_TOP_SRCDIR="\$(top_srcdir)/src/lintouch-server"
+LTSERVER_CFLAGS="-I${LIBLTCP_TOP_SRCDIR}/include ${LIBLTCP_CFLAGS}"
+LTSERVER_LIBS="-L\$(top_builddir)/src/libltcp/ -lltcp ${LIBLTCP_LIBS}"
+AC_SUBST(LTSERVER_TOP_SRCDIR)
+AC_SUBST(LTSERVER_CFLAGS)
+AC_SUBST(LTSERVER_LIBS)
+
+dnl lintouch-server-starter
+LTSSTARTER_TOP_SRCDIR="\$(top_srcdir)/src/lintouch-server-starter"
+X="-I${LIBLTUI_TOP_SRCDIR}/include ${LIBLTUI_CFLAGS}"
+LTSSTARTER_CFLAGS="${X}"
+X="-L\$(top_builddir)/src/libltui/build -lltui ${LIBLTUI_LIBS}"
+LTSSTARTER_LIBS="${X}"
+AC_SUBST(LTSSTARTER_TOP_SRCDIR)
+AC_SUBST(LTSSTARTER_CFLAGS)
+AC_SUBST(LTSSTARTER_LIBS)
+
+dnl lsp-basic
+LSPBASIC_TOP_SRCDIR="\$(top_srcdir)/src/server-plugins/lsp-basic"
+AC_SUBST(LSPBASIC_TOP_SRCDIR)
+LSPBASIC_CFLAGS="-I${LTSERVER_TOP_SRCDIR}/include ${LTSERVER_CFLAGS}"
+LSPBASIC_LIBS="-L\$(top_builddir)/src/lintouch-server -lltserver ${LTSERVER_LIBS}"
+AC_SUBST(LSPBASIC_CFLAGS)
+AC_SUBST(LSPBASIC_LIBS)
+
+dnl lsp-null
+LSPNULL_TOP_SRCDIR="\$(top_srcdir)/src/server-plugins/lsp-null"
+AC_SUBST(LSPNULL_TOP_SRCDIR)
+LSPNULL_CFLAGS="-I${LTSERVER_TOP_SRCDIR}/include ${LTSERVER_CFLAGS}"
+LSPNULL_LIBS="-L\$(top_builddir)/src/lintouch-server -lltserver ${LTSERVER_LIBS}"
+AC_SUBST(LSPNULL_CFLAGS)
+AC_SUBST(LSPNULL_LIBS)
+
+dnl lsp-lua
+LSPLUA_TOP_SRCDIR="\$(top_srcdir)/src/server-plugins/lsp-lua"
+AC_SUBST(LSPLUA_TOP_SRCDIR)
+LSPLUA_CFLAGS="-I${LTSERVER_TOP_SRCDIR}/include ${LTSERVER_CFLAGS}"
+LSPLUA_LIBS="-L\$(top_builddir)/src/lintouch-server -lltserver ${LTSERVER_LIBS}"
+AC_SUBST(LSPLUA_CFLAGS)
+AC_SUBST(LSPLUA_LIBS)
+
+dnl CFLAGS and LIBS for template libraries
+LTL_CFLAGS="-I${LIBLTTEMPLATES_TOP_SRCDIR}/include ${LIBLTTEMPLATES_CFLAGS}"
+LTL_LIBS="-L\$(top_builddir)/src/liblttemplates/build -llttemplates ${LIBLTTEMPLATES_LIBS}"
+AC_SUBST(LTL_CFLAGS)
+AC_SUBST(LTL_LIBS)
+
+dnl ltl-display
+LTLDISPLAY_TOP_SRCDIR="\$(top_srcdir)/src/template-libraries/ltl-display"
+AC_SUBST(LTLDISPLAY_TOP_SRCDIR)
+
+dnl ltl-input
+LTLINPUT_TOP_SRCDIR="\$(top_srcdir)/src/template-libraries/ltl-input"
+AC_SUBST(LTLINPUT_TOP_SRCDIR)
+
+dnl llp-basic
+LLPBASIC_TOP_SRCDIR="\$(top_srcdir)/src/logging-plugins/llp-basic"
+AC_SUBST(LLPBASIC_TOP_SRCDIR)
+LLPBASIC_CFLAGS="-I${LTSERVER_TOP_SRCDIR}/include ${LTSERVER_CFLAGS}"
+LLPBASIC_LIBS="-L\$(top_builddir)/src/lintouch-server -lltserver ${LTSERVER_LIBS}"
+AC_SUBST(LLPBASIC_CFLAGS)
+AC_SUBST(LLPBASIC_LIBS)
+
+
+dnl lintouch-editor
+dnl PKG_CHECK_MODULES(LTEDITOR, libltui lintouch-server)
+LTEDITOR_TOP_SRCDIR="\$(top_srcdir)/src/lintouch-editor"
+LTEDITOR_CFLAGS="${LTRUNTIME_CFLAGS} -I${LTSERVER_TOP_SRCDIR}/include ${LTSERVER_CFLAGS}"
+LTEDITOR_LIBS="${LTRUNTIME_LIBS} -L\$(top_builddir)/src/lintouch-server/.libs -lltserver ${LTSERVER_LIBS} -L\$(top_builddir)/src/libltfsm/.libs"
+AC_SUBST(LTEDITOR_TOP_SRCDIR)
+AC_SUBST(LTEDITOR_CFLAGS)
+AC_SUBST(LTEDITOR_LIBS)
+
+dnl Output necessary files
+AC_OUTPUT([
+     Makefile
+     docs/Makefile
+     src/Makefile
+     src/libltfsm/Makefile
+     src/libltfsm/libltfsm.pc
+     src/libltfsm/include/Makefile
+     src/libltfsm/doc/Makefile
+     src/libltfsm/doc/libltfsm.dox
+     src/libltvariables/Makefile
+     src/libltvariables/libltvariables.pc
+     src/libltvariables/include/Makefile
+     src/libltvariables/doc/Makefile
+     src/libltvariables/doc/libltvariables.dox
+     src/libltcp/Makefile
+     src/libltcp/libltcp.pc
+     src/libltcp/include/Makefile
+     src/libltcp/doc/Makefile
+     src/libltcp/doc/libltcp.dox
+     src/libltzip/Makefile
+     src/libltzip/libltzip.pc
+     src/libltzip/config_shared.pri
+     src/libltzip/config_unix.pri
+     src/libltzip/doc/Makefile
+     src/libltzip/doc/libltzip.dox
+     src/libltvfs/Makefile
+     src/libltvfs/libltvfs.pc
+     src/libltvfs/config_shared.pri
+     src/libltvfs/config_unix.pri
+     src/libltvfs/doc/Makefile
+     src/libltvfs/doc/libltvfs.dox
+     src/liblttemplates/Makefile
+     src/liblttemplates/liblttemplates.pc
+     src/liblttemplates/config_shared.pri
+     src/liblttemplates/config_unix.pri
+     src/liblttemplates/doc/Makefile
+     src/liblttemplates/doc/liblttemplates.dox
+     src/liblttemplates/config.h
+     src/libltproject/Makefile
+     src/libltproject/libltproject.pc
+     src/libltproject/config_shared.pri
+     src/libltproject/config_unix.pri
+     src/libltproject/doc/Makefile
+     src/libltproject/doc/libltproject.dox
+     src/libltproject/config.h
+     src/libltui/Makefile
+     src/libltui/libltui.pc
+     src/libltui/config_shared.pri
+     src/libltui/config_unix.pri
+     src/libltui/doc/Makefile
+     src/libltui/doc/libltui.dox
+     src/libltui/config.h
+     src/lintouch-runtime/Makefile
+     src/lintouch-runtime/config_shared.pri
+     src/lintouch-runtime/config_unix.pri
+     src/lintouch-runtime/doc/Makefile
+     src/lintouch-runtime/doc/lintouch-runtime.dox
+     src/lintouch-runtime/config.h
+     src/lintouch-server/Makefile
+     src/lintouch-server/include/Makefile
+     src/lintouch-server/doc/Makefile
+     src/lintouch-server/doc/lintouch-server.dox
+     src/lintouch-server/lintouch-server.pc
+     src/lintouch-server/config.h
+     src/lintouch-server-starter/Makefile
+     src/lintouch-server-starter/config_shared.pri
+     src/lintouch-server-starter/config_unix.pri
+     src/lintouch-server-starter/doc/Makefile
+     src/lintouch-server-starter/doc/lintouch-sstarter.dox
+     src/lintouch-server-starter/config.h
+     src/server-plugins/Makefile
+     src/server-plugins/lsp-basic/Makefile
+     src/server-plugins/lsp-basic/config.h
+     src/server-plugins/lsp-null/Makefile
+     src/server-plugins/lsp-null/config.h
+     src/server-plugins/lsp-lua/Makefile
+     src/server-plugins/lsp-lua/config.h
+     src/server-plugins/lsp-lua/lua-5.0.2/config
+     src/template-libraries/Makefile
+     src/template-libraries/ltl-display/Makefile
+     src/template-libraries/ltl-display/config.h
+     src/template-libraries/ltl-display/config_shared.pri
+     src/template-libraries/ltl-display/config_unix.pri
+     src/template-libraries/ltl-display/doc/Makefile
+     src/template-libraries/ltl-display/doc/ltl-display.dox
+     src/template-libraries/ltl-input/Makefile
+     src/template-libraries/ltl-input/config.h
+     src/template-libraries/ltl-input/config_shared.pri
+     src/template-libraries/ltl-input/config_unix.pri
+     src/template-libraries/ltl-input/doc/Makefile
+     src/template-libraries/ltl-input/doc/ltl-input.dox
+     src/logging-plugins/Makefile
+     src/logging-plugins/llp-basic/Makefile
+     src/logging-plugins/llp-basic/config.h
+     src/lintouch-editor/Makefile
+     src/lintouch-editor/config_shared.pri
+     src/lintouch-editor/config_unix.pri
+     src/lintouch-editor/doc/Makefile
+     src/lintouch-editor/doc/lintouch-editor.dox
+     src/lintouch-editor/config.h
+])
+
+dnl vim: set et tw=0:

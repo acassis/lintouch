@@ -1,0 +1,381 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>MainWindowBase</class>
+<widget class="QMainWindow">
+    <property name="name">
+        <cstring>MainWindowBase</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>222</width>
+            <height>304</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>Lintouch Editor</string>
+    </property>
+</widget>
+<menubar>
+    <property name="name">
+        <cstring>MenuBar</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>222</width>
+            <height>46</height>
+        </rect>
+    </property>
+    <item text="&amp;Project" name="fileMenu">
+        <action name="fileNewAction"/>
+        <action name="fileOpenAction"/>
+        <separator/>
+        <action name="filePreferencesAction"/>
+        <action name="fileTemplateLibAction"/>
+        <separator/>
+        <separator/>
+        <action name="fileQuitAction"/>
+    </item>
+    <item text="&amp;Help" name="helpMenu">
+        <action name="helpManualAction"/>
+        <separator/>
+        <action name="helpAboutAction"/>
+    </item>
+</menubar>
+<toolbars>
+    <toolbar dock="2">
+        <property name="name">
+            <cstring>Toolbar</cstring>
+        </property>
+        <property name="label">
+            <string>Main Toolbar</string>
+        </property>
+        <action name="mainModifyAction"/>
+        <action name="mainMagnifyAction"/>
+        <action name="mainPanningAction"/>
+        <action name="mainPreviewAction"/>
+    </toolbar>
+    <toolbar dock="2">
+        <property name="name">
+            <cstring>Toolbar_2</cstring>
+        </property>
+        <property name="label">
+            <string>Online Toolbar</string>
+        </property>
+        <action name="onlineAction"/>
+    </toolbar>
+</toolbars>
+<actions>
+    <action>
+        <property name="name">
+            <cstring>fileNewAction</cstring>
+        </property>
+        <property name="text">
+            <string>New</string>
+        </property>
+        <property name="menuText">
+            <string>&amp;New</string>
+        </property>
+        <property name="accel">
+            <string>Ctrl+N</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>fileOpenAction</cstring>
+        </property>
+        <property name="text">
+            <string>Open</string>
+        </property>
+        <property name="menuText">
+            <string>&amp;Open...</string>
+        </property>
+        <property name="accel">
+            <string>Ctrl+O</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>fileQuitAction</cstring>
+        </property>
+        <property name="text">
+            <string>Quit</string>
+        </property>
+        <property name="menuText">
+            <string>&amp;Quit</string>
+        </property>
+        <property name="accel">
+            <string>Ctrl+Q</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>helpManualAction</cstring>
+        </property>
+        <property name="text">
+            <string>Manual</string>
+        </property>
+        <property name="menuText">
+            <string>&amp;Manual</string>
+        </property>
+        <property name="accel">
+            <string>F1</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>helpAboutAction</cstring>
+        </property>
+        <property name="text">
+            <string>About</string>
+        </property>
+        <property name="menuText">
+            <string>&amp;About...</string>
+        </property>
+    </action>
+    <actiongroup>
+        <property name="name">
+            <cstring>mainMenuActionGroup</cstring>
+        </property>
+        <property name="text">
+            <string>ActionGroup</string>
+        </property>
+        <property name="menuText">
+            <string>ActionGroup</string>
+        </property>
+        <property name="usesDropDown">
+            <bool>false</bool>
+        </property>
+        <action>
+            <property name="name">
+                <cstring>mainMagnifyAction</cstring>
+            </property>
+            <property name="toggleAction">
+                <bool>true</bool>
+            </property>
+            <property name="iconSet">
+                <iconset></iconset>
+            </property>
+            <property name="text">
+                <string>Magnify</string>
+            </property>
+            <property name="menuText">
+                <string>&amp;Magnify</string>
+            </property>
+            <property name="toolTip">
+                <string>Magnify</string>
+            </property>
+            <property name="whatsThis">
+                <string>Magnify</string>
+            </property>
+        </action>
+        <action>
+            <property name="name">
+                <cstring>mainModifyAction</cstring>
+            </property>
+            <property name="toggleAction">
+                <bool>true</bool>
+            </property>
+            <property name="on">
+                <bool>true</bool>
+            </property>
+            <property name="iconSet">
+                <iconset></iconset>
+            </property>
+            <property name="text">
+                <string>Modify</string>
+            </property>
+            <property name="menuText">
+                <string>&amp;Modify</string>
+            </property>
+            <property name="toolTip">
+                <string>Modify</string>
+            </property>
+            <property name="whatsThis">
+                <string>Modify</string>
+            </property>
+        </action>
+        <action>
+            <property name="name">
+                <cstring>mainPanningAction</cstring>
+            </property>
+            <property name="toggleAction">
+                <bool>true</bool>
+            </property>
+            <property name="iconSet">
+                <iconset></iconset>
+            </property>
+            <property name="text">
+                <string>Pan</string>
+            </property>
+            <property name="menuText">
+                <string>&amp;Pan</string>
+            </property>
+            <property name="toolTip">
+                <string>Pan</string>
+            </property>
+            <property name="whatsThis">
+                <string>Pan</string>
+            </property>
+        </action>
+        <action>
+            <property name="name">
+                <cstring>mainPreviewAction</cstring>
+            </property>
+            <property name="toggleAction">
+                <bool>true</bool>
+            </property>
+            <property name="iconSet">
+                <iconset></iconset>
+            </property>
+            <property name="text">
+                <string>Preview</string>
+            </property>
+            <property name="menuText">
+                <string>&amp;Preview</string>
+            </property>
+            <property name="toolTip">
+                <string>Preview</string>
+            </property>
+            <property name="whatsThis">
+                <string>Preview</string>
+            </property>
+        </action>
+    </actiongroup>
+    <action>
+        <property name="name">
+            <cstring>filePreferencesAction</cstring>
+        </property>
+        <property name="text">
+            <string>Editor Preferences</string>
+        </property>
+        <property name="menuText">
+            <string>Editor &amp;Preferences...</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>fileTemplateLibAction</cstring>
+        </property>
+        <property name="text">
+            <string>Template Libraries</string>
+        </property>
+        <property name="menuText">
+            <string>&amp;Template Libraries</string>
+        </property>
+    </action>
+    <actiongroup>
+        <property name="name">
+            <cstring>onlineActionGroup</cstring>
+        </property>
+        <property name="text">
+            <string>ActionGroup</string>
+        </property>
+        <property name="usesDropDown">
+            <bool>false</bool>
+        </property>
+        <action>
+            <property name="name">
+                <cstring>onlineAction</cstring>
+            </property>
+            <property name="text">
+                <string>Action</string>
+            </property>
+            <property name="toolTip">
+                <string>Go Online</string>
+            </property>
+        </action>
+    </actiongroup>
+</actions>
+<connections>
+    <connection>
+        <sender>fileQuitAction</sender>
+        <signal>activated()</signal>
+        <receiver>MainWindowBase</receiver>
+        <slot>close()</slot>
+    </connection>
+    <connection>
+        <sender>filePreferencesAction</sender>
+        <signal>activated()</signal>
+        <receiver>MainWindowBase</receiver>
+        <slot>showPreferencesSlot()</slot>
+    </connection>
+    <connection>
+        <sender>fileNewAction</sender>
+        <signal>activated()</signal>
+        <receiver>MainWindowBase</receiver>
+        <slot>createProjectSlot()</slot>
+    </connection>
+    <connection>
+        <sender>fileTemplateLibAction</sender>
+        <signal>activated()</signal>
+        <receiver>MainWindowBase</receiver>
+        <slot>showTemplateLibrariesDialogSlot()</slot>
+    </connection>
+    <connection>
+        <sender>fileOpenAction</sender>
+        <signal>activated()</signal>
+        <receiver>MainWindowBase</receiver>
+        <slot>openProjectSlot()</slot>
+    </connection>
+    <connection>
+        <sender>mainModifyAction</sender>
+        <signal>activated()</signal>
+        <receiver>MainWindowBase</receiver>
+        <slot>switchToModifyModeSlot()</slot>
+    </connection>
+    <connection>
+        <sender>mainMagnifyAction</sender>
+        <signal>activated()</signal>
+        <receiver>MainWindowBase</receiver>
+        <slot>switchToMagnifyModeSlot()</slot>
+    </connection>
+    <connection>
+        <sender>mainPanningAction</sender>
+        <signal>activated()</signal>
+        <receiver>MainWindowBase</receiver>
+        <slot>switchToPanModeSlot()</slot>
+    </connection>
+    <connection>
+        <sender>mainPreviewAction</sender>
+        <signal>activated()</signal>
+        <receiver>MainWindowBase</receiver>
+        <slot>switchToPreviewModeSlot()</slot>
+    </connection>
+    <connection>
+        <sender>helpManualAction</sender>
+        <signal>activated()</signal>
+        <receiver>MainWindowBase</receiver>
+        <slot>showHelpWindowSlot()</slot>
+    </connection>
+    <connection>
+        <sender>helpAboutAction</sender>
+        <signal>activated()</signal>
+        <receiver>MainWindowBase</receiver>
+        <slot>showAboutDialogSlot()</slot>
+    </connection>
+    <connection>
+        <sender>onlineAction</sender>
+        <signal>activated()</signal>
+        <receiver>MainWindowBase</receiver>
+        <slot>goOnlineSlot()</slot>
+    </connection>
+</connections>
+<slots>
+    <slot>switchToModifyModeSlot()</slot>
+    <slot>switchToMagnifyModeSlot()</slot>
+    <slot>switchToPanModeSlot()</slot>
+    <slot>switchToPreviewModeSlot()</slot>
+    <slot access="protected">showAboutDialogSlot()</slot>
+    <slot access="protected">showHelpWindowSlot()</slot>
+    <slot access="protected">showPreferencesSlot()</slot>
+    <slot access="protected">createProjectSlot()</slot>
+    <slot access="protected">showTemplateLibrariesDialogSlot()</slot>
+    <slot>openProjectSlot()</slot>
+    <slot>goOnlineSlot()</slot>
+</slots>
+<pixmapinproject/>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

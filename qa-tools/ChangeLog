@@ -1,0 +1,17 @@
+2006-01-20  Martin Man  <mman@swac.cz>
+
+	* Fix swapped function calls in svn-release-{deb,rpm}
+
+2006-01-19  Martin Man  <mman@swac.cz>
+
+	* Add pbuilder hook that is used to setup local repository within a
+	  pbuiler chroot. This repository contains everything found in
+	  /var/cache/apt/archives and can be used to access build dependencies
+	  built locally but not yet uploaded anywhere
+
+2006-01-16  Martin Man  <mman@swac.cz>
+
+	* Rewritten to make the product/suite description easier.
+	* Renamed all commands to be more intuitive
+	* Added example builders for Debian, Ubuntu, RPM based systems and
+	  Win32 (mingw powered)

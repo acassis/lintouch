@@ -1,0 +1,260 @@
+Lintouch Server Logging Specification
+
+S.W.A.C. Bohemia s.r.o., Strakonice, Czech Republic
+
+S.W.A.C. GmbH, München, Germany
+
+Patrik Modesto
+
+<modesto@swac.cz>
+
+March 2006
+
+Abstract
+
+This article describes the new Lintouch Server Logging module that should allow
+a developer to log all data that come from HW to Lintouch Server and from
+Lintouch Clients to the HW.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Table of Contents
+
+1. Introduction
+
+    1.1. Why do we need logging?
+    1.2. Global concept
+
+2. Implementation
+
+    2.1. Configuration
+    2.2. Lintouch Logging Plugins
+    2.3. Lintouch Server changes
+
+1. Introduction
+
+1.1. Why do we need logging?
+
+There are many reasons for logging data on the Lintouch Server side. Following
+are the most important ones.
+
+While creating a Lintouch Server Plugin, there is a need to watch and check
+data sent and received through the plugin. Now the only way to debug the plugin
+is to put printf in the code - a very unconfortable way of debugging.
+
+Another reason is that a developer may need to have all the data that go
+through a Lintouch Server Plugin for later analysis or playback.
+
+1.2. Global concept
+
+There are many ways a log could be written and how it should be formatted. Thus
+we have decided to develop new Lintouch Logging Plugins. They are responsible
+for formatting, storing, and sending the logs.
+
+Lintouch Logging Plugins are stored in the directory logging-plugins, next to
+Lintouch Server Plugins. Their first letter is capitalized. For example,
+"Console" Lintouch Logging Plugin is stored as Console.dll.
+
+Lintouch Server Logging is configured within Lintouch Project file and can only
+be enabled there. Logging is enabled if there is at least one Logging Plugin
+configured for the project.
+
+2. Implementation
+
+2.1. Configuration
+
+The configuration follows the same pattern as Connections configuration. There
+is a new section in project-descriptor.xml with following structure:
+
+<project-logging>
+  <logging name="Console" src="logging-console1.xml"/>
+  <logging name="File" src="logging-file1.xml"/>
+</project-logging>
+
+
+Here are declared two logging plugins. The first of name Console logging plugin
+with configuration stored in logging-console1.xml and the second of name File
+logging plugin with configuration stored in logging-file1.xml.
+
+Each per-Lintouch Logging Plugin file has the following structure:
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project-logging type="File">
+  <properties>
+    <property name="file-name" value="/tmp/server.log"/>
+  </properties>
+</project-logging>
+
+
+Here is example configuration for the second Lintouch Logging Plugin. The File
+Logging Lintouch Logging Plugin is of type File and has a property called
+file-name with a value /tmp/server.log.
+
+For handling this configuration, there is a new dialog in the Lintouch which
+looks like the Connections dialog. A Lintouch Logging Plugin can be added to or
+removed from the Lintouch Project. All its properties can be edited. All
+actions are undoable.
+
+2.2. Lintouch Logging Plugins
+
+A Lintouch Logging Plugin is a dynamicaly-loadable library which is .dll on MS
+Windows and .so on *nix system.
+
+A Lintouch Logging Plugin is responsible for formating and sending/writing the
+logged data out of the Lintouch Server. For the first version of logging we
+have decided that a Lintouch Logging Plugin will be single-thread library.
+Which means that Lintouch Logging Plugin has a function that gets called
+whenever there are data to log. Threaded Lintouch Logging Plugin may be added
+later and this specification will be updated.
+
+Lintouch Server will load a Lintouch Logging Plugin on the startup time and
+only when a Lintouch Logging Plugin is specified in the Lintouch. All Lintouch
+Logging Plugins are loaded and initialized before any of the Lintouch Server
+Plugins get loaded and initialized.
+
+2.2.1. Plugin Stub API
+
+Every Lintouch Logging Plugin has to have following function along with
+functions defined in Section 2.2.2, “Lintouch Logging Plugin API”:
+
+lt_version_info();
+
+
+This function returns array of null-terminated strings, that uniquely
+distinguish the DLL from other Lintouch Plugins or others DLLs. The array
+contains these fields:
+
+interface
+
+    The interface string has to look like this: interface=lt::LoggingPlugin
+
+apr_version
+
+    The apr_version string has to look like this: apr_version= [number]
+
+ltserver_major
+
+    The ltserver_major string has to look like this: ltserver_major= [number]
+
+ltserver_minor
+
+    The ltserver_minor string has to look like this: ltserver_minor= [number]
+
+ltserver_patchlevel
+
+    The ltserver_patchlevel string has to look like this: ltserver_patchlevel=
+    [number]
+
+The lt_version_info function is completely the same as for Lintouch Server
+Plugins but the interface string is different.
+
+When a Lintouch Logging Plugin is loaded, the Lintouch Server asks for
+lt_version_info function. If it is there it is checked for the correct
+interface string and correct versions. If this check pass, Lintouch Logging
+Plugin loader tries to find the other functions, see Section 2.2.2, “Lintouch
+Logging Plugin API”.
+
+2.2.2. Lintouch Logging Plugin API
+
+The API of Lintouch Logging Plugin consists with this listing:
+
+create();
+init();
+log();
+exit();
+
+
+The detailed description of each function follows.
+
+create(apr_pool_t* pool)
+
+    Initializes the plugin. Create a structure that contains the author,
+    version, build date, short and long descriptions and a hash of all
+    properties along with their default values. This function is called during
+    Lintouch Server startup or during Lintouch Editor startup to inspect the
+    properties.
+
+    It is possible to create a new thread here if the Lintouch Logging Plugin
+    require specific access to its resource. It is Lintouch Logging Plugins
+    responsibility to feed and control this thread. The thread must be
+    terminated in the exit() function when it is called. Lintouch Sever has no
+    control of this new thread. Also threaded logging is not requiured at all.
+
+init(apr_hash_t*)
+
+    Gets a hash of lt_project_connection_t structures. There are connection
+    name, type, lt_var_set_t and properties. If a Lintouch Server Plugin wants
+    to log connection name, it should store it in a hash with a key of the
+    first 12 bytes from the lt_var_set_t structure. An example:
+
+    (lt_project_connection_t*)apr_hash_get(connections, varset, 3*sizeof(varset));
+
+
+log(lt_var_set_t*, bool real, apr_time_exp_t*)
+
+    Called for whenever a Lintouch Server Plugin synces it's real or requested
+    values. Passed in are three parameters. The first is a pointer to the
+    lt_var_set_t structure that uniquelly identify the Lintouch Server Plugin
+    that is logged and the that contains the dirty real/requested values, the
+    second parameter is a flag if real or requested values are to be logged and
+    the third parameter is a pointer to the timestamp. See apr_time.h for time
+    formating posibilities.
+
+    The log method must be thread safe because it may be called from different
+    threads at the same time. It is not recommend to lock the whole log()
+    function but to protected just the critical write/send part.
+
+exit()
+
+    Called when Lintouch Server exits. Lintouch Logging Plugin should flush and
+    release all its external resources.
+
+2.3. Lintouch Server changes
+
+2.3.1. An overal look at the new things that will go inside the Lintouch Server
+
+When the Lintouch Server starts it parses the Lintouch Project and loads all
+necesary components. Lintouch Logging Plugins are loaded and initialized right
+before Lintouch Server Plugins. Every Lintouch Logging Plugin gets hash of all
+Lintouch Server Plugins. There are all information needed for a Lintouch
+Logging Plugin to find a connection name, type, properties and variable
+properties.
+
+2.3.2. Varset Changes
+
+A lt_var_set_t structure gets two new hooks:
+
+  ● The hook for sync real values
+
+  ● The hook for sync requested values
+
+The lt_var_set_real_values_sync() functions will call the apropriate hook just
+after the varset, on which it operates, is locked, but before the actual sync
+is made. The lt_var_set_requested_values_sync() functions will call the
+apropriate hook just after the source varset, to which it synces, is locked,
+but before the actual sync is made.
+
+2.3.3. The Logging Flow - Real Values
+
+A real value is created in a Lintouch Server Plugin. It is stored to a
+lt_var_set_t structure. At the end of a cycle inside the Lintouch Server Plugin
+all real values are synced to the Lintouch clients. Inside the
+lt_var_set_real_values_sync() function the new Lintouch Logging hook gets
+called. The Lintouch Logging Subsystem now walks through list of all Lintouch
+Logging Plugins and calls their lt_server_logging_plugin_log() function. After
+the all Lintouch Logging Plugins are called, Lintouch Logging Subsystem returns
+to the lt_var_set_real_values_sync() function and the workflow continues.
+
+2.3.4. The Logging Flow - Requested Values
+
+A requested value is created in a Lintouch Runtime, it is sent to the Lintouch
+Server and gets stored to a per-client lt_var_set_t structure. At the end of
+the cycle inside the client service, all requested values are synced to
+Lintouch Server Plugins. Inside the lt_var_set_requested_values_sync() function
+the new Lintouch Logging hook that gets called. The Lintouch Logging Subsystem
+now walks through list of all Lintouch Logging Plugins and calls their
+lt_server_logging_plugin_log() function. After the all Lintouch Logging Plugins
+are called, Lintouch Logging Subsystem returns to the
+lt_var_set_requested_values_sync() function and the workflow continues.
+

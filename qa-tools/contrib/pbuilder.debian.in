@@ -1,0 +1,38 @@
+#!/bin/sh
+
+set -e
+
+# find operation and dsc file
+op=$1
+shift
+dsc=$1
+resultdir=""
+
+sudo /usr/sbin/pbuilder $op --hookdir @MYDATA@/pbuilderhooks --configfile @MYDATA@/pbuilderrc.debian-sarge $@
+
+#find resultdir
+while ! [ -z "$1" ] ; do
+	if [ "$1" = "--buildresult" ] ; then
+		shift
+		resultdir="$1"
+	fi
+	shift
+done
+
+. @MYDATA@/pbuilderrc.debian-sarge
+
+echo "DSC file is $dsc"
+echo "RESULTDIR is $resultdir"
+echo "APTCACHE is $APTCACHE"
+
+#copy built debs from resultdir to the aptcache of pbuilder
+(cd "$resultdir"
+ echo "Copying built debs to aptcache..."
+ changes="`basename $dsc .dsc`_i386.changes"
+ echo "_i386.deb packages..."
+ grep _i386.deb $changes && grep _i386.deb $changes | cut -f 6 -d ' ' |xargs sudo cp --target-directory=$APTCACHE
+ echo "_all.deb packages..."
+ grep _all.deb $changes && grep _all.deb $changes | cut -f 6 -d ' ' |xargs sudo cp --target-directory=$APTCACHE
+ )
+
+exit 0

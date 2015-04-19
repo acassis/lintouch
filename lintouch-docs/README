@@ -1,0 +1,11 @@
+This directory contains Lintouch specific documentation and materials.
+
+news/           - Lintouch Development Weekly News
+meetings/       - Reports from Lintouch Meetings
+ra/             - Various release announcements
+
+common/         - XSL styles and XML author/copyright/license fragments for
+                  docbook based documents
+
+specifications/ - Lintouch Specifications
+guides/         - Guides and Tutorials

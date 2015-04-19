@@ -1,0 +1,507 @@
+Lintouch SVN Repository Structure
+
+Ing. Martin Man
+
+<mman@swac.cz>
+
+Copyright © 2001-2004 Martin Man
+
+December 2004
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│Revision History                                                             │
+├───────────────────────────┬────────────────────────────────────────┬────────┤
+│Revision 1.3               │January 13th 2005                       │mman    │
+├───────────────────────────┴────────────────────────────────────────┴────────┤
+│Reorganize packaging related files, they are now residing in its own         │
+│packaging/ subdirectory, releases go to tags/ from now on.                   │
+├───────────────────────────┬────────────────────────────────────────┬────────┤
+│Revision 1.2               │December 16th 2004                      │mman    │
+├───────────────────────────┴────────────────────────────────────────┴────────┤
+│Fix the commands and repository structure to really reflect the real         │
+│structure. Also fix the link to qa-tools.                                    │
+├───────────────────────────┬────────────────────────────────────────┬────────┤
+│Revision 1.1               │December 14th 2004                      │mman    │
+├───────────────────────────┴────────────────────────────────────────┴────────┤
+│Describe how to achieve the common release related tasks. Prepare section for│
+│QA Tools description.                                                        │
+├───────────────────────────┬────────────────────────────────────────┬────────┤
+│Revision 1.0               │December 3rd 2004                       │mman    │
+├───────────────────────────┴────────────────────────────────────────┴────────┤
+│Initial release.                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Table of Contents
+
+1. Introduction
+2. Lintouch Release Process
+
+    2.1. Versioning Scheme
+    2.2. Modular architecture
+    2.3. Stable Releases
+    2.4. Unstable Releases
+
+3. SVN Repository Layout
+
+    3.1. trunk directory
+    3.2. branches directory
+    3.3. tags directory
+    3.4. packaging directory
+
+4. Tasks HOWTO
+
+    4.1. Checking out trunk version of Lintouch
+    4.2. Checking out particular branch of Lintouch
+    4.3. Checking out particular version of a Lintouch component
+    4.4. Fixing a bug in a trunk version of a Lintouch component
+    4.5. Fixing a bug in a specific version of a Lintouch component
+    4.6. Fixing a packaging bug of a Lintouch component (packaging a component)
+    4.7. Branching Lintouch
+    4.8. Releasing a Lintouch component
+    4.9. Making a Debian release of a Lintouch component
+    4.10. Making a Win32 release of a Lintouch component
+
+5. QA Helper tools
+
+1. Introduction
+
+Lintouch source code is managed through Subversion source code management
+system. The abbreviation SVN is used throughout this document when referring to
+Subversion.
+
+The Lintouch SVN repository is accessible at the https://lintouch.org/repos/
+lintouch URL.
+
+The Lintouch SVN Repository Structure has been designed in such a way that the
+following tasks are easily achievable:
+
+  ● Multiple products can be stored within one repository.
+
+  ● Obtaining latest released versions of all products and their possible
+    Lintouch components that are part of certain stable/unstable release. This
+    can be useful to do manual installation, and packaging.
+
+  ● Obtaining trunk version or specified version of whole Lintouch source code
+    base to prepare bug fixes, do quality testing, and make new releases of
+    affected components.
+
+  ● Obtaining packaging specific files to repackage certain components.
+
+2. Lintouch Release Process
+
+2.1. Versioning Scheme
+
+Lintouch uses three digit version numbers for all its components. The version
+is always in a form MAJOR.MINOR.PATCHLEVEL. Version numbers have the following
+meanings:
+
+MAJOR
+
+    Indicates the architecture version. Will not change very often. Currently
+    we are at major version 1.
+
+MINOR
+
+    Indicates the API version. Changes every half a year. Even numbers indicate
+    stable releases, odd numbers indicate unstable releases.
+
+PATCHLEVEL
+
+    Indicates the release number. Changes with every release of every Lintouch
+    component.
+
+Linux and Windows packages of all Lintouch components contain additionally so
+called -PACKAGE version number. This number increases from 1 upwards with every
+repackaging of affected component.
+
+For example version number of libltvariables Linux package might increase like
+this: 1.4.0-1, 1.4.0-2, 1.4.1-1, 1.4.2-1, and so on.
+
+2.2. Modular architecture
+
+Lintouch is divided into several software components that have separate release
+cycles. All software components that are part of certain stable/unstable
+Lintouch release share the same MAJOR and MINOR number.
+
+For example the stable release Lintouch 1.4 might be composed of the
+libltvariables-1.4.3, libltfsm-1.4.1, and others.
+
+2.3. Stable Releases
+
+Stable releases (with even MINOR version numbers) are made two times per year
+(every six months). They are tested and intended for production use. Their API
+is not going to change until the next stable release is made.
+
+Whenever a bug is found in a stable Lintouch source code base, the developers
+fix it and make a new PATCHLEVEL release of affected component.
+
+2.4. Unstable Releases
+
+Unstable releases (with odd MINOR version numbers) are made at some time after
+the latest stable version is released. They are not tested as much as stable
+releases and they are considered a work-in-progress. The unstable releases have
+no concrete time schedule. They are made ad-hoc if it is necessary.
+
+3. SVN Repository Layout
+
+The Lintouch SVN Repository is accessible under the https://lintouch.org/repos/
+lintouch URL.
+
+Checking out whole repository is however not recommended for ordinary users,
+because it creates rather huge working copy of the source code containing the
+complete project history. Please see Section 4, “Tasks HOWTO” for more
+information how to access particular version of Lintouch source code base.
+
+The Lintouch repository contains the following directory structure:
+
+/lintouch/trunk/
+                README
+                ...
+                src/libltvariables/
+                ...
+                src/lintouch-server/
+                src/lintouch-runtime/
+                ...
+
+/lintouch/branches/
+                   1.2/
+                       README
+                       ...
+                       src/libltvariables/
+                       ...
+                       src/lintouch-server/
+                       src/lintouch-runtime/
+                       ...
+                   1.4/
+                   ...
+
+/lintouch/tags/
+               lintouch/
+                        1.2.0/
+                        1.2.1/
+                        ...
+                        current/
+                                README
+                                ...
+                                src/libltvariables/
+                                ...
+                                src/lintouch-runtime/
+                                ...
+               libltvariables/
+                              1.2.0/
+                              1.2.1/
+                              ...
+                              current/
+                                      README
+                                      ...
+                                      src/io.c
+                                      ...
+/lintouch/packaging/
+                    lintouch/
+                             debian/
+                                    trunk/
+                                    branches/
+                                             1.0/
+                                             1.2/
+                                    tags/
+                                         1.2.0-1/
+                                         1.2.1-1/
+                                         1.2.1-2/
+                             win32/
+                                   trunk/
+                                   branches/
+                                            1.0/
+                                            1.2/
+                                   tags/
+                                        1.2.0-1/
+                                        1.2.1-1/
+                                        1.2.1-2/
+                    libltvariables/
+                                   debian/
+                                   win32/
+                    ...
+                    lintouch-server/
+                    lintouch-runtime/
+                    ...
+
+
+3.1. trunk directory
+
+The trunk directory contains the latest Lintouch source code structure. Ideally
+this directory should contain top-level configure script allowing the complete
+sources to be compiled, tested and installed.
+
+Since every Lintouch component has its own release cycle, every subdirectory of
+the trunk directory represents such component and should contain its specific
+configure script.
+
+To checkout the latest Lintouch source code to the trunk subdirectory of the
+current directory one should use the following command:
+
+$ svn co https://lintouch.org/repos/lintouch/lintouch/trunk
+
+
+Example structure of the trunk subdirectory:
+
+/lintouch/trunk/
+                README
+                ...
+                src/libltvariables/
+                ...
+                src/lintouch-server/
+                src/lintouch-runtime/
+                ...
+
+
+There is usually no commit policy for the trunk directory. Every developer can
+commit in changes, provided that he has tested them properly.
+
+3.2. branches directory
+
+The branches directory contains the same Lintouch source code structure as the
+trunk directory for every Lintouch release branch.
+
+To checkout the specific Lintouch source code branch to the subdirectory
+reflecting the branch version one should use the following command ($VERSION
+should be replaced with branch version, for example 1.2):
+
+$ svn co https://lintouch.org/repos/lintouch/lintouch/branches/$VERSION
+
+
+To create new branch from the trunk version, one should use the following
+command ($VERSION should be replaced with branch version you are creating, for
+example 1.4):
+
+$ svn copy https://lintouch.org/repos/lintouch/lintouch/trunk \
+           https://lintouch.org/repos/lintouch/lintouch/branches/1.4
+
+
+Example structure of the branches subdirectory:
+
+/lintouch/branches/
+                   1.2/
+                       README
+                       ...
+                       src/libltvariables/
+                       ...
+                       src/lintouch-server/
+                       src/lintouch-runtime/
+                       ...
+                   1.4/
+                   ...
+
+
+Committing changes to the branches directory is allowed for developers
+responsible for certain branch. The changes in this directory must be done very
+carefully. For example no API changes are allowed by default for any specific
+branch.
+
+3.3. tags directory
+
+Every Lintouch component that can be released separately should be present
+within the tags/ subdirectory. The name of the directory is always the same as
+the name of the component itself (i.e., lintouch, libltvariables, etc.).
+
+For every component the tag directory matches the released version.
+
+Example structure of the tags/ subdirectory:
+
+/lintouch/tags/
+               lintouch/
+                        1.2.0/
+                        1.2.1/
+                        current/
+
+
+3.4. packaging directory
+
+Every Lintouch component that can be packaged separately should be present
+within the releases subdirectory. The name of the directory is always the same
+as the name of the component itself (i.e., lintouch, libltvariables, etc.).
+
+For every component there are subdirectories for each packaging platform with
+the following contents:
+
+debian/
+
+    Tracks the debian specific patches and packaging files. Must contain trunk
+    /, branches/ and tags/ subdirectory.
+
+    trunk/ contains all debian specific packaging files that are extracted over
+    the upstream sources to prepare debian specific .dsc, and .diff.gz files.
+
+    For every debian release, the trunk/ is svn copy-ied to the tags/
+    subdirectory.
+
+    Packaging files used to package upstream branch of the component are
+    tracked within branches/ and are for release svn copy-ied to the tags/
+    subdirectory.
+
+win32/
+
+    This subdirectory contains all win32-packaging specific files. Much the
+    same rules apply here as for the debian/ directory.
+
+Example structure of the packaging subdirectory:
+
+/lintouch/packaging/
+                    lintouch/
+                             debian/
+                                    trunk/
+                                    branches/
+                                             1.2/
+                                    tags/
+                                         1.2.0-1/
+                                         1.2.1-1/
+                                         1.2.1-2/
+                             win32/
+                                   trunk/
+                                   branches/
+                                            1.2/
+                                   tags/
+                                        1.2.0-1/
+                                        1.2.1-1/
+                                        1.2.1-2/
+
+
+4. Tasks HOWTO
+
+4.1. Checking out trunk version of Lintouch
+
+To checkout Lintouch trunk version to the lintouch-trunk subdirectory of the
+current directory one would use the following command:
+
+$ svn co https://lintouch.org/repos/lintouch/lintouch/trunk lintouch-trunk
+
+
+4.2. Checking out particular branch of Lintouch
+
+To checkout specific branch (here 1.4) of Lintouch sources to the
+lintouch-branch-1.4 subdirectory of the current directory one would use the
+following command:
+
+$ svn co https://lintouch.org/repos/lintouch/lintouch/branches/1.4 lintouch-branch-1.4
+
+
+4.3. Checking out particular version of a Lintouch component
+
+To checkout specific released $VERSION of Lintouch component $COMPONENT to the
+$COMPONENT-$VERSION subdirectory of the current directory one would use the
+following command:
+
+$ svn co https://lintouch.org/repos/lintouch/lintouch/tags/$COMPONENT/$VERSION $COMPONENT-$VERSION
+
+
+Note that you are not supposed to commit any changes to the sources obtained
+this way. To (for example) fix a bug in some specific version of a component,
+please check out the correct branch, commit necessary changes and re-release
+the component. See Section 4.5, “Fixing a bug in a specific version of a
+Lintouch component” for more instructions.
+
+4.4. Fixing a bug in a trunk version of a Lintouch component
+
+First checkout the trunk version of the sources as described in Section 4.1,
+“Checking out trunk version of Lintouch”. Then make necessary changes and
+ensure that the code works properly. Then you are allowed to commit the
+changes.
+
+4.5. Fixing a bug in a specific version of a Lintouch component
+
+First checkout the required branch version of the sources as described in
+Section 4.2, “Checking out particular branch of Lintouch”. Then make necessary
+changes and ensure that the code works properly. Then you are allowed to commit
+the changes.
+
+Please note that commit policy for branches is rather strict. The branched code
+has probably been released and changes that are being made here can affect a
+lot of people.
+
+4.6. Fixing a packaging bug of a Lintouch component (packaging a component)
+
+First, checkout the $OS specific packaging files for the component by using the
+following command (the files will be placed in $COMPONENT-$OS):
+
+$ svn co https://lintouch.org/repos/lintouch/lintouch/packaging/$COMPONENT/$OS/trunk $COMPONENT-$OS
+
+
+Since your packaging fixes will mostly relate to the latest released version of
+the component, checkout the latest released version to the component. The
+sources will be placed in the $COMPONENT subdirectory of the current directory:
+
+$ svn co https://lintouch.org/repos/lintouch/lintouch/tags/$COMPONENT/current $COMPONENT
+
+
+Then use your $OS specific method to prepare final package and eventually
+commit the changes to the packaging files.
+
+4.7. Branching Lintouch
+
+To create new Lintouch branch use the svn copy command and fork the trunk
+version or any other branch by using the following command (we will make a 1.4
+branch from the trunk sources):
+
+$ svn copy https://lintouch.org/repos/lintouch/lintouch/trunk \
+           https://lintouch.org/repos/lintouch/lintouch/branches/1.4
+
+
+4.8. Releasing a Lintouch component
+
+To release a Lintouch component use svn copy to make a copy of the component
+within the tags subdirectory. For example we will release new version 1.4.2 of
+the libltvariables from the 1.4 branch:
+
+$ svn copy
+https://lintouch.org/repos/lintouch/lintouch/branches/1.4/src/libltvariables \
+https://lintouch.org/repos/lintouch/lintouch/tags/libltvariables/1.4.2
+
+
+Additionally we have to update the current release pointer of the
+libltvariables by using the following commands:
+
+$ svn remove \
+https://lintouch.org/repos/lintouch/lintouch/tags/libltvariables/current
+$ svn copy \
+https://lintouch.org/repos/lintouch/lintouch/tags/libltvariables/1.4.2 \
+https://lintouch.org/repos/lintouch/lintouch/tags/libltvariables/current
+
+
+4.9. Making a Debian release of a Lintouch component
+
+Use the instructions described in Section 4.6, “Fixing a packaging bug of a
+Lintouch component (packaging a component)” to prepare the packaging files and
+when everything is ready, use the following command to tag the debian release
+($VV in this example):
+
+$ svn copy \
+https://lintouch.org/repos/lintouch/lintouch/packaging/libltvariables/debian/trunk \
+https://lintouch.org/repos/lintouch/lintouch/packaging/libltvariables/debian/tags/$VV
+
+
+4.10. Making a Win32 release of a Lintouch component
+
+Use the instructions described in Section 4.6, “Fixing a packaging bug of a
+Lintouch component (packaging a component)” to prepare the packaging files and
+when everything is ready, use the following command to tag the win32 release
+($VV in this example):
+
+$ svn copy \
+https://lintouch.org/repos/lintouch/lintouch/packaging/libltvariables/win32/trunk \
+https://lintouch.org/repos/lintouch/lintouch/packaging/libltvariables/win32/tags/$VV
+
+
+5. QA Helper tools
+
+WARNING: This section is not ready yet, don't take it seriously
+
+To make the release process easier and to support automatic building and
+testing of the Lintouch sources several tools have been developed.
+
+They are all stored within the SVN repository at path https://lintouch.org/
+repos/lintouch/lintouch-qa-tools/trunk
+
+TO BE DONE: describe the tools in question, what platform they run on, what
+should they do, what's the typical scenario where they should be used (make
+distcheck, make check). Meanwhile README from the lintouch-qa-tools should be
+enough.
+

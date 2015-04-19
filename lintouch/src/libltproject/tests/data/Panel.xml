@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<panel id="temperatureMonitor">
+  <property name="background_color" value="#ffffff"/>
+
+  <templates>
+
+    <template type="mytemplatelibrary.Lamp"
+              name="overHeat" shortcut="Shift+F11">
+      <geometry width="20" height="20" left="80" top="80"/>
+
+      <property name="border_off" value="#000000;2;SOLIDLINE"/>
+      <property name="fill_off" value="#FF0000;SOLIDPATTERN"/>
+    </template>
+
+    <template type="mytemplatelibrary.Lamp" name="underHeat">
+      <geometry width="20" height="20" left="180" top="80"/>
+
+      <property name="border_off" value="#000000;2;SOLIDLINE"/>
+      <property name="fill_off" value="#0000FF;SOLIDPATTERN"/>
+    </template>
+
+  </templates>
+</panel>
+

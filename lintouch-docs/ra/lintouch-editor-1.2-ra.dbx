@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" [
+
+<!ENTITY lnt "Lintouch">
+<!ENTITY lnte "Lintouch Editor">
+<!ENTITY version "1.2">
+
+]>
+
+<article>
+
+  <title>
+    &lnte; &version; Release Announcement
+  </title>
+
+  <articleinfo>
+    <author>
+      <firstname>Martin</firstname>
+      <surname>Man</surname>
+      <email>mman@swac.cz</email>
+    </author>
+    <pubdate>September 28th, 2004</pubdate>
+  </articleinfo>
+
+  <sect1>
+    <title>Introduction</title>
+
+    <para>
+      <figure id="logo">
+        <title>&lnt; Logo</title>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="images/lintouch.eps" format="EPS"/>
+          </imageobject>
+          <imageobject>
+            <imagedata fileref="images/lintouch.png" format="PNG"/>
+          </imageobject>
+          <textobject>
+            <phrase>&lnt; Logo</phrase>
+          </textobject>
+        </mediaobject>
+      </figure>
+    </para>
+
+    <para>
+      After six months of development we (the <ulink
+        url="http://lintouch.org">Lintouch Team</ulink>) are proud to
+      announce the availability of the new stable version of the
+      Lintouch Editor.
+    </para>
+
+    <para>
+      &lnte; is a tool to create the &lnt; Projects (control panels,
+      HMIs, MMIs or whatever name you use). &lnte; is freely available
+      to download and use for non-commercial purposes.
+    </para>
+
+    <para>
+      &lnte; is available for Linux and Windows in English, German, and
+      Czech version. Additionally it includes comprehensive and detailed
+      help (in English only) to get you started.
+    </para>
+
+    <para>
+      Please see <xref linkend="about"/> for more information about
+      &lnt;.
+    </para>
+
+  </sect1>
+
+  <sect1>
+    <title>What's New In &lnte; &version;</title>
+
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term>GUI redesigned and reworked</term>
+          <listitem>
+            <para>
+              We have been inspired by popular open source applications
+              and reworked the GUI so that it is more usable and
+              pleasant to work with. We have also implemented mandatory
+              features like zoom and undo/redo.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>Redefined use cases</term>
+          <listitem>
+            <para>
+              We have also re-defined the use cases of editor and
+              dropped several things that (according to our opinions)
+              were inappropriate for the ordinary user. It's not
+              necessary anymore to import Template Libraries manually
+              for example.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>Connection handling functionality dropped</term>
+          <listitem>
+            <para>
+              We have removed all free 1.0 version limitations. You have now
+              the full-fledged editor to create complete projects, but,
+              we have disabled the connection handling capabilities. In
+              the human words it means, that you will have to purchase
+              the professional version of the Lintouch Editor to be
+              actually able to connect your control panels to the real
+              world.
+            </para>
+            <para>
+              Nevertheless, the reworked preview mode capabilities will
+              allow you to see your panels in action even without
+              connecting to the real world.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+
+  </sect1>
+
+  <sect1>
+    <title>Obtaining and Installing &lnte;</title>
+
+    <sect2>
+      <title>Ready Made Binaries</title>
+
+      <para>
+        &lnt; can be downloaded and installed directly on the following
+        platforms. The detailed instructions are available at our
+        <ulink url="http://lintouch.org/blog/editor">website</ulink>.
+      </para>
+
+      <para>
+        Note that you will need &lnt; Runtime installed and working for
+        your platform. &lnte; uses several libraries distributed along
+        with the Runtime.
+      </para>
+
+      <para>
+        <variablelist>
+          <varlistentry>
+            <term>Windows 2000/XP</term>
+            <listitem>
+              <para>
+                Please see <ulink
+                  url="http://lintouch.org/win32">
+                  http://lintouch.org/win32</ulink>
+                for more information.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>Generic Linux binaries</term>
+            <listitem>
+              <para>
+                Please see <ulink
+                  url="http://lintouch.org/nonfree/lintouch-editor/linux/">
+                  http://lintouch.org/nonfree/lintouch-editor/linux/</ulink>
+                for more information.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>Debian/GNU Linux (sarge + sid)</term>
+            <listitem>
+              <para>
+                Please see <ulink
+                  url="http://lintouch.org/blog/download#linuxbin">
+                  http://lintouch.org/blog/download#linuxbin</ulink>
+                for more information. Lintouch Editor is available as a
+                <filename>lintouch-editor</filename> debian package.
+              </para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </para>
+
+    </sect2>
+
+  </sect1>
+
+  <sect1 id="about">
+    <title>What is &lnt;</title>
+
+    <para>
+      &lnt; is a real-time data monitoring/controlling system used in
+      automation industry and developed by S.W.A.C. GmbH Germany and
+      S.W.A.C. Bohemia s.r.o.
+    </para>
+
+    <para>
+      &lnt; is an effort to build fully software-based open source
+      control panel software suite. Control panels are usually called
+      <emphasis>HMI - Human Machine Interface</emphasis>, or
+      <emphasis>MMI - Man Machine Interface</emphasis> in
+      the automation industry.
+    </para>
+
+    <para>
+      &lnt; supports variety of hardware/software platforms
+      (Win32+Intel, Linux+Intel, Linux+PPC).
+    </para>
+
+    <para>
+      &lnt; has been designed with extensibility in mind. New Server
+      Plugins can be developed to bring in new connectivity (ModBus/TCP,
+      and Hilscher already available). New Templates (GUI Objects) an be
+      implemented to define new control and visualization primitives
+      (Buttons and Lamps already available).
+    </para>
+
+    <para>
+      To get more information about &lnt; please visit our website
+      <ulink url="http://lintouch.org">http://lintouch.org</ulink>.
+    </para>
+
+  </sect1>
+
+  <sect1>
+    <title>Screenshots</title>
+
+    <para>
+      <figure id="fig-editor">
+        <title>&lnt; Editor</title>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="images/editor-1.2.eps" format="EPS"/>
+          </imageobject>
+          <imageobject>
+            <imagedata fileref="images/editor-1.2.png" format="PNG"/>
+          </imageobject>
+          <textobject>
+            <phrase>&lnt; Editor Screenshot</phrase>
+          </textobject>
+        </mediaobject>
+      </figure>
+    </para>
+
+  </sect1>
+
+</article>
+
+<!-- vim: set et ts=2 sw=2 tw=72: -->

@@ -1,0 +1,315 @@
+<!DOCTYPE UI><UI version="3.2" stdsetdef="1">
+<class>ConnectWizardBase</class>
+<widget class="QWizard">
+    <property name="name">
+        <cstring>ConnectWizardBase</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>300</width>
+            <height>202</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>Connection Wizard - Lintouch Runtime</string>
+    </property>
+    <property name="sizeGripEnabled">
+        <bool>true</bool>
+    </property>
+    <widget class="QWidget">
+        <property name="name">
+            <cstring>ConnectPage</cstring>
+        </property>
+        <attribute name="title">
+            <string>Lintouch Server Connection Parameters</string>
+        </attribute>
+        <grid>
+            <property name="name">
+                <cstring>unnamed</cstring>
+            </property>
+            <widget class="QLayoutWidget" row="0" column="0">
+                <property name="name">
+                    <cstring>layout38</cstring>
+                </property>
+                <vbox>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <spacer>
+                        <property name="name">
+                            <cstring>spacer13</cstring>
+                        </property>
+                        <property name="orientation">
+                            <enum>Vertical</enum>
+                        </property>
+                        <property name="sizeType">
+                            <enum>Expanding</enum>
+                        </property>
+                        <property name="sizeHint">
+                            <size>
+                                <width>20</width>
+                                <height>30</height>
+                            </size>
+                        </property>
+                    </spacer>
+                    <widget class="QLayoutWidget">
+                        <property name="name">
+                            <cstring>layout10</cstring>
+                        </property>
+                        <hbox>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <widget class="QLabel">
+                                <property name="name">
+                                    <cstring>textLabel3</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Hostname:</string>
+                                </property>
+                            </widget>
+                            <widget class="QLineEdit">
+                                <property name="name">
+                                    <cstring>m_serverHost</cstring>
+                                </property>
+                            </widget>
+                            <widget class="QLabel">
+                                <property name="name">
+                                    <cstring>textLabel3_2</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Port:</string>
+                                </property>
+                            </widget>
+                            <widget class="QLineEdit">
+                                <property name="name">
+                                    <cstring>m_serverPort</cstring>
+                                </property>
+                                <property name="sizePolicy">
+                                    <sizepolicy>
+                                        <hsizetype>4</hsizetype>
+                                        <vsizetype>0</vsizetype>
+                                        <horstretch>0</horstretch>
+                                        <verstretch>0</verstretch>
+                                    </sizepolicy>
+                                </property>
+                            </widget>
+                        </hbox>
+                    </widget>
+                </vbox>
+            </widget>
+        </grid>
+    </widget>
+    <widget class="QWidget">
+        <property name="name">
+            <cstring>ProgressPage</cstring>
+        </property>
+        <attribute name="title">
+            <string>Connection Progress</string>
+        </attribute>
+        <grid>
+            <property name="name">
+                <cstring>unnamed</cstring>
+            </property>
+            <widget class="QLayoutWidget" row="0" column="0">
+                <property name="name">
+                    <cstring>layout26</cstring>
+                </property>
+                <vbox>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <widget class="QLayoutWidget">
+                        <property name="name">
+                            <cstring>layout12</cstring>
+                        </property>
+                        <hbox>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <widget class="QLabel">
+                                <property name="name">
+                                    <cstring>m_progressLabel</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Progress:</string>
+                                </property>
+                            </widget>
+                            <widget class="QProgressBar">
+                                <property name="name">
+                                    <cstring>m_buildProgress</cstring>
+                                </property>
+                            </widget>
+                        </hbox>
+                    </widget>
+                    <widget class="QTextEdit">
+                        <property name="name">
+                            <cstring>m_buildLog</cstring>
+                        </property>
+                        <property name="minimumSize">
+                            <size>
+                                <width>50</width>
+                                <height>50</height>
+                            </size>
+                        </property>
+                        <property name="textFormat">
+                            <enum>LogText</enum>
+                        </property>
+                        <property name="undoRedoEnabled">
+                            <bool>false</bool>
+                        </property>
+                    </widget>
+                </vbox>
+            </widget>
+        </grid>
+    </widget>
+    <widget class="QWidget">
+        <property name="name">
+            <cstring>SelectViewPage</cstring>
+        </property>
+        <attribute name="title">
+            <string>Project View Selection</string>
+        </attribute>
+        <grid>
+            <property name="name">
+                <cstring>unnamed</cstring>
+            </property>
+            <widget class="QLayoutWidget" row="0" column="0">
+                <property name="name">
+                    <cstring>layout39</cstring>
+                </property>
+                <hbox>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <widget class="QListBox">
+                        <property name="name">
+                            <cstring>m_viewList</cstring>
+                        </property>
+                        <property name="minimumSize">
+                            <size>
+                                <width>100</width>
+                                <height>0</height>
+                            </size>
+                        </property>
+                        <property name="variableHeight">
+                            <bool>false</bool>
+                        </property>
+                    </widget>
+                    <widget class="QLayoutWidget">
+                        <property name="name">
+                            <cstring>layout22</cstring>
+                        </property>
+                        <vbox>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <widget class="QPushButton">
+                                <property name="name">
+                                    <cstring>m_moveUp</cstring>
+                                </property>
+                                <property name="sizePolicy">
+                                    <sizepolicy>
+                                        <hsizetype>1</hsizetype>
+                                        <vsizetype>1</vsizetype>
+                                        <horstretch>0</horstretch>
+                                        <verstretch>0</verstretch>
+                                    </sizepolicy>
+                                </property>
+                                <property name="minimumSize">
+                                    <size>
+                                        <width>40</width>
+                                        <height>40</height>
+                                    </size>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                            </widget>
+                            <spacer>
+                                <property name="name">
+                                    <cstring>spacer9</cstring>
+                                </property>
+                                <property name="orientation">
+                                    <enum>Vertical</enum>
+                                </property>
+                                <property name="sizeType">
+                                    <enum>Expanding</enum>
+                                </property>
+                                <property name="sizeHint">
+                                    <size>
+                                        <width>20</width>
+                                        <height>190</height>
+                                    </size>
+                                </property>
+                            </spacer>
+                            <widget class="QPushButton">
+                                <property name="name">
+                                    <cstring>m_moveDown</cstring>
+                                </property>
+                                <property name="sizePolicy">
+                                    <sizepolicy>
+                                        <hsizetype>1</hsizetype>
+                                        <vsizetype>1</vsizetype>
+                                        <horstretch>0</horstretch>
+                                        <verstretch>0</verstretch>
+                                    </sizepolicy>
+                                </property>
+                                <property name="minimumSize">
+                                    <size>
+                                        <width>40</width>
+                                        <height>40</height>
+                                    </size>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                            </widget>
+                        </vbox>
+                    </widget>
+                </hbox>
+            </widget>
+        </grid>
+    </widget>
+</widget>
+<connections>
+    <connection>
+        <sender>m_serverHost</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>ConnectWizardBase</receiver>
+        <slot>slotHostInputChanged(const QString&amp;)</slot>
+    </connection>
+    <connection>
+        <sender>m_serverPort</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>ConnectWizardBase</receiver>
+        <slot>slotPortInputChanged(const QString&amp;)</slot>
+    </connection>
+    <connection>
+        <sender>m_viewList</sender>
+        <signal>highlighted(QListBoxItem*)</signal>
+        <receiver>ConnectWizardBase</receiver>
+        <slot>slotViewIdHighlighted(QListBoxItem*)</slot>
+    </connection>
+    <connection>
+        <sender>m_viewList</sender>
+        <signal>selected(QListBoxItem*)</signal>
+        <receiver>ConnectWizardBase</receiver>
+        <slot>slotViewIdSelected(QListBoxItem*)</slot>
+    </connection>
+</connections>
+<tabstops>
+    <tabstop>m_serverHost</tabstop>
+    <tabstop>m_serverPort</tabstop>
+    <tabstop>m_viewList</tabstop>
+</tabstops>
+<slots>
+    <slot access="protected">slotViewIdHighlighted( QListBoxItem* )</slot>
+    <slot access="protected">slotViewIdSelected( QListBoxItem* )</slot>
+    <slot access="protected">slotHostInputChanged( const QString&amp; )</slot>
+    <slot access="protected">slotPortInputChanged( const QString&amp; )</slot>
+</slots>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

@@ -1,0 +1,17 @@
+
+                     LINTOUCH DISTRIBUTION LICENSE
+                    ================================
+
+Lintouch Server, Lintouch Runtime, and Lintouch Editor are distributed
+under the GNU General Public License 2.  The license is available at
+http://www.gnu.org/licenses/licenses.html#GPL
+
+libltfsm, libltvariables, libltcp, libltserver, liblttemplates,
+libltproject, and libltui are distributed under the GNU Lesser General
+Public License 2.  The license is available at
+http://www.gnu.org/licenses/licenses.html#LGPL
+
+Each component of Lintouch source code tree contains the appropriate
+license in its COPYING file.
+
+vim: set et tw=72:

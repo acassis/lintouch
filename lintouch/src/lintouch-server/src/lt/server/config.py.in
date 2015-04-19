@@ -1,0 +1,4 @@
+import sys, os.path
+version="@PACKAGE@-@VERSION@ release"
+prefix="@PREFIX_NATIVE@"
+appdir=os.path.dirname( os.path.abspath( sys.argv[0] ) )

@@ -1,0 +1,79 @@
+---------------------------------------------------------------------------
+Lintouch Development Weekly News
+http://lintouch.org
+January 30th, 2004
+---------------------------------------------------------------------------
+
+Welcome to the seventh issue of the Lintouch Development Weekly Newsletter
+codenamed "Need less RAM ? Run Runtime (Lintouch) :-)"
+
+Everyone following these weekly news should know that we expect Lintouch API
+freeze at February 1st. Without too much whistles & bells, I'm announcing,
+that the API freeze will happen. We will devote the February to make the
+code robust, documented and usable by my mother (well that's not granted).
+
+But let's start from the beginning. I've reworked _libwtngcp_ - the
+Communication Protocol Library so that it does not depend on any network
+facilities such as sockets, IP addresses and others[1]. The library takes
+care of message decoding/encoding process, protocol flow logic (handled
+under the hoods by finite state machine diagram) and uses for input and
+output plain char * buffers. This means that is not bound to any particular
+networking API, can be thoroughly tested, and can be easily interfaced to
+various programming languages.
+
+    1. http://lintouch.org/pipermail/lintouch-cvs/2004-January/000951.html
+
+At this moment library handles _connected_ variant of the Lintouch TCP/IP
+Communication Protocol[2] and can already send the most important messages
+needed for server/client communication.
+
+    2. http://lintouch.org/cvs/lintouch/docs/specs/lintouch-cp.html
+
+Jiri (aka jbar) jumped hard to the server and his results are pretty
+impressive. Several lines of code (much less in the C land) do what they
+should and it seems that all problems on the server side will have to be
+solved by fixing the implementation or design bugs in C code of our libwtng*
+libraries. Go python, go.
+
+Hynek imported its Modbus TCP/IP[3] library written in python to private
+swac CVS for testing. Its library can already send/receive changed bits
+(called `coils' in Modbus jargon). Additionally he started to write Modbus
+TCP/IP Master Plugin which, when plugged to the Lintouch Server, will allow
+us to control Modbus TCP/IP Slaves.
+
+    4. http://www.modbus.org
+
+Patrik is continuing hardly on Lintouch Runtime UI & code polishing, his
+walk through TODO list is clearing the bugs which will be the most visible
+ones, surely the work which deserves a big appreciation.
+
+Thursday, devoted to bug squashing resulted in first (alpha quality) version
+of Lintouch Runtime and Lintouch Server which (if you are lucky and have
+been really nice to your computer over the past year) will work together[5].
+Server will serve a project and allow you to use _Loopback_ plugin which
+simply loops back all changed bits. Runtime will connect, download a project
+from the server and let you to press Buttons to change bits and see they are
+changed through Lamps.
+
+    5. http://lintouch.org/pipermail/lintouch-dev/2004-January/000357.html
+
+Download, compile, run, let it crash and report... is the only thing I'd
+like you to do over the next week, collect bugs, gdb backtraces and wishes,
+they will be fulfilled.
+
+Brush up on your bugzilla[6] knowledge, this will be our daily bread from
+now on....
+
+    6. http://lintouch.org/bugzilla
+
+Good work guys, we are reaching the long awaited milestone, we will do our
+best so that we can have a really cool Lintouch 1.0 release party... one
+beer from me for explained bug, two beers for bug properly fixed :-)
+
+That's all folks for this week, if you have any comments, corrections or
+ideas to be published, feel free to contact me directly[0].
+
+    0. mailto:mman@swac.cz.
+
+vim: set et tw=76:
+$Id: ldwn-2004-01-30.txt,v 1.1 2004/01/30 14:54:22 mman Exp $

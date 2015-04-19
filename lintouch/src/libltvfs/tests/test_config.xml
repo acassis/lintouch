@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!--
+  - This is the example configuration file with various features used.
+  -->
+<test_config>
+	<parameters>
+		<parameter name="paramS" value="value"/>
+		<parameter name="paramI" value="0x200"/>
+		<parameter name="paramF" value="10.10"/>
+		<parameter name="paramB" value="true"/>
+	</parameters>
+	<paramS>value</paramS>
+	<paramI>0x200</paramI>
+	<paramF>10.10</paramF>
+	<paramB>True</paramB>
+
+	<swac:xxx xmlns:swac="http://swac.cz/Test">
+		<swac:test name="yyy" swac:value="zzz"/>
+	</swac:xxx>
+</test_config>

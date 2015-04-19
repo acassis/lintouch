@@ -1,0 +1,1588 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>
+    Lintouch Editor User's Guide
+  </title><meta name="generator" content="DocBook XSL Stylesheets V1.68.1"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="article" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="id2405782"></a>
+    Lintouch Editor User's Guide
+  </h2></div><div><h3 class="subtitle"><i>
+    covering Lintouch Editor version 1.6.x
+  </i></h3></div><div><div class="authorgroup"><h3 class="corpauthor">
+        Lintouch Team
+      </h3></div></div></div><hr></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="sect1"><a href="#id2452258">Introduction</a></span></dt><dt><span class="sect1"><a href="#id2452320">Lintouch</a></span></dt><dd><dl><dt><span class="sect2"><a href="#id2452326">What is Lintouch?</a></span></dt><dt><span class="sect2"><a href="#id2491114">Lintouch Architecture</a></span></dt></dl></dd><dt><span class="sect1"><a href="#id2454590">Lintouch Project</a></span></dt><dd><dl><dt><span class="sect2"><a href="#id2454596">Project</a></span></dt><dt><span class="sect2"><a href="#id2454663">View</a></span></dt><dt><span class="sect2"><a href="#id2454727">Panel</a></span></dt><dt><span class="sect2"><a href="#id2454787">Template</a></span></dt><dt><span class="sect2"><a href="#id2450709">Connections and Plugins</a></span></dt><dt><span class="sect2"><a href="#id2450857">Variables</a></span></dt><dt><span class="sect2"><a href="#id2500463">Template Bindings and IOPins</a></span></dt></dl></dd><dt><span class="sect1"><a href="#id2500603">Windows within Lintouch Editor</a></span></dt><dd><dl><dt><span class="sect2"><a href="#id2500659">Context aware tool windows</a></span></dt></dl></dd><dt><span class="sect1"><a href="#id2500764">Paramount Tasks</a></span></dt><dd><dl><dt><span class="sect2"><a href="#id2500770">Quitting the editor</a></span></dt><dt><span class="sect2"><a href="#id2500797">Starting the editor</a></span></dt></dl></dd><dt><span class="sect1"><a href="#id2500814">Working with Projects</a></span></dt><dd><dl><dt><span class="sect2"><a href="#id2500820">Creating a new project</a></span></dt><dt><span class="sect2"><a href="#id2500893">Opening an existing project</a></span></dt><dt><span class="sect2"><a href="#id2500987">Saving a project</a></span></dt><dt><span class="sect2"><a href="#id2501122">Closing a project</a></span></dt><dt><span class="sect2"><a href="#id2501158">Modifying project properties</a></span></dt></dl></dd><dt><span class="sect1"><a href="#id2501307">When something goes wrong</a></span></dt><dd><dl><dt><span class="sect2"><a href="#id2501313">You did something you did not want</a></span></dt></dl></dd><dt><span class="sect1"><a href="#id2501396">Drawing graphics, or templates</a></span></dt><dd><dl><dt><span class="sect2"><a href="#id2501436">Adding templates</a></span></dt><dt><span class="sect2"><a href="#id2501647">Removing templates</a></span></dt><dt><span class="sect2"><a href="#id2501674">Moving templates</a></span></dt><dt><span class="sect2"><a href="#id2501741">Resizing templates</a></span></dt><dt><span class="sect2"><a href="#id2501806">Changing the common properties of templates (position, size,
+      etc.) collectively</a></span></dt><dt><span class="sect2"><a href="#id2501894">Changing color, text, fill, and other properties of templates
+      </a></span></dt><dt><span class="sect2"><a href="#id2501995">Selecting templates</a></span></dt><dt><span class="sect2"><a href="#id2502175">Moving and copying multiple templates</a></span></dt><dt><span class="sect2"><a href="#id2502396">Advanced template positioning</a></span></dt><dt><span class="sect2"><a href="#id2502723">Overlaying issues</a></span></dt></dl></dd><dt><span class="sect1"><a href="#id2502944">Visual enhancements for editing</a></span></dt><dd><dl><dt><span class="sect2"><a href="#id2502958">Grid</a></span></dt><dt><span class="sect2"><a href="#id2503221">Zooming</a></span></dt><dt><span class="sect2"><a href="#id2503489">Scrolling in panel</a></span></dt></dl></dd><dt><span class="sect1"><a href="#id2503559">Templates, the Lintouch Part</a></span></dt><dd><dl><dt><span class="sect2"><a href="#id2503574">Template shortcuts</a></span></dt><dt><span class="sect2"><a href="#id2503810">Tab order of templates, focusing templates</a></span></dt><dt><span class="sect2"><a href="#id2503919">Template names</a></span></dt><dt><span class="sect2"><a href="#id2504113">More on template libraries</a></span></dt><dt><span class="sect2"><a href="#id2504218">External resources of template</a></span></dt><dt><span class="sect2"><a href="#id2504528">The Preview mode</a></span></dt></dl></dd><dt><span class="sect1"><a href="#id2504776">Panels and views</a></span></dt><dd><dl><dt><span class="sect2"><a href="#id2504806">Adding a panel to a view</a></span></dt><dt><span class="sect2"><a href="#id2504906">Removing a panel from a view</a></span></dt><dt><span class="sect2"><a href="#id2504942">Renaming a panel</a></span></dt><dt><span class="sect2"><a href="#id2504976">Changing the panel order</a></span></dt><dt><span class="sect2"><a href="#id2505020">Adding a view to the project</a></span></dt><dt><span class="sect2"><a href="#id2505120">Switching to another view</a></span></dt><dt><span class="sect2"><a href="#id2505165">Removing a view from the project</a></span></dt><dt><span class="sect2"><a href="#id2505202">Change the resolution of a view</a></span></dt><dt><span class="sect2"><a href="#id2505311">Renaming a view</a></span></dt><dt><span class="sect2"><a href="#id2505344">Changing the order of views</a></span></dt></dl></dd><dt><span class="sect1"><a href="#id2505390">Connectivity</a></span></dt><dd><dl><dt><span class="sect2"><a href="#id2505396">Tags, tagnames, and tagname lists</a></span></dt><dt><span class="sect2"><a href="#id2505466">Using tagname lists with Lintouch</a></span></dt><dt><span class="sect2"><a href="#id2505736">Connecting Lintouch to the real world</a></span></dt><dt><span class="sect2"><a href="#id2505794">Connecting the real world to Lintouch</a></span></dt><dt><span class="sect2"><a href="#id2505874">Binding the template inputs and outputs</a></span></dt><dt><span class="sect2"><a href="#id2505942">Testing the binding</a></span></dt><dt><span class="sect2"><a href="#id2506017">Online mode for testing the project</a></span></dt><dt><span class="sect2"><a href="#id2506083">Creating a connection</a></span></dt><dt><span class="sect2"><a href="#id2506213">Renaming a connection</a></span></dt><dt><span class="sect2"><a href="#id2506282">Modifying the connection properties</a></span></dt><dt><span class="sect2"><a href="#id2506368">Removing a connection</a></span></dt><dt><span class="sect2"><a href="#id2506408">Creating a variable</a></span></dt><dt><span class="sect2"><a href="#id2506540">Renaming a variable</a></span></dt><dt><span class="sect2"><a href="#id2506615">Modifying the variable properties</a></span></dt><dt><span class="sect2"><a href="#id2506703">Removing a variable</a></span></dt></dl></dd><dt><span class="glossary"><a href="#id2506743">Glossary</a></span></dt></dl></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2452258"></a>Introduction</h2></div></div></div><p>
+      Welcome to Lintouch Editor, a visual tool that lets you create
+      and manage Lintouch Projects. Lintouch Project defines the look
+      and behavior of the control panel(s) in Lintouch.
+      And Lintouch, it is is an open-source real-time visual control center.
+      Lintouch lets you control and monitor details of processes such in
+      manufacturing, security, mass transit and any other environment
+      that requires analysis and monitoring.
+    </p><p>
+      With Lintouch Editor, you can work
+      with the Lintouch objects just like in other graphics and diagram
+      editors or studios. Some of the editor's many features include
+      accurate positioning and mass operation with pre-defined controls,
+      context aware tool windows,
+      and the ability to preview the whole project - just like it will
+      appear in the real working environment.
+    </p><p>
+      </p><div class="figure"><a name="ed-editor"></a><p class="title"><b>Figure 1. Lintouch Editor</b></p><div class="mediaobject"><img src="images/ed-editor.png" alt="Lintouch Editor"></div></div><p>
+    </p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2452320"></a>Lintouch</h2></div></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2452326"></a>What is Lintouch?</h3></div></div></div><p>
+        Lintouch is an open-source real-time visual control center
+        application.  It has been designed with easy extensibility in mind.
+        The main features of Lintouch are the server-client architecture and
+        the extensibility: using <a href="#plugin"><em class="glossterm">Server
+          Plugins</em></a> on the server side, and using <a href="#template"><em class="glossterm">Templates</em></a> on the client side.
+      </p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2491114"></a>Lintouch Architecture</h3></div></div></div><p>
+        </p><div class="figure"><a name="fig-architecture"></a><p class="title"><b>Figure 2. Lintouch Architecture</b></p><div class="mediaobject"><img src="images/architecture.png" alt="Lintouch Architecture"></div></div><p>
+      </p><p>
+        Lintouch consists of two principal parts (see <a href="#fig-architecture" title="Figure 2. Lintouch Architecture">Figure 2, &#8220;Lintouch Architecture&#8221;</a> for details):
+        </p><div class="variablelist"><dl><dt><span class="term">Lintouch Server</span></dt><dd><p>
+                An application running on a dedicated computer (such as a
+                low-profile Motorola CPU) and monitoring your system as
+                specified by the instructions defined
+                in the <a href="#project"><em class="glossterm">Lintouch
+                  Project</em></a>.
+              </p></dd><dt><span class="term">Lintouch Runtime</span></dt><dd><p>
+                An application running on an industrial PC with touch
+                screen, a handheld computer or another device with TCP/IP
+                connectivity. It obtains the <a href="#project"><em class="glossterm">Lintouch Project</em></a> from the
+                server it is connected to and visualizes the state of your
+                system the way the project defines.
+              </p></dd></dl></div><p>
+      </p><p>
+        The behavior of Lintouch Server is controlled by <a href="#project"><em class="glossterm">Lintouch Project</em></a> (a .zip file with
+        .ltp extension containing configuration for the Runtime and the
+        Server).
+        Lintouch Server sets up the connections that read/write actual data
+        from/to the monitored system. Every such connection is handled by
+        an appropriate <a href="#plugin"><em class="glossterm">Server Plugin</em></a>
+        (SNMP Plugin, ModBUS/TCP Plugin or another).
+      </p><p>
+        Lintouch Runtime connects to a specific Lintouch Server. It
+        downloads the project from the server and visualizes the data
+        handled by the Lintouch Server. The data are visualized by
+        displaying one or more <a href="#panel"><em class="glossterm">Panels</em></a>.
+        Every panel displays one or more
+        <a href="#template"><em class="glossterm">Templates</em></a> (Lamps, Buttons,
+        Input fields) reflecting the real state of the system.
+      </p><p>
+        <a href="#template"><em class="glossterm">Templates</em></a> are integrated
+        into <a href="#template-library"><em class="glossterm">Template
+          Libraries</em></a> and can perform various tasks.
+        <span class="emphasis"><em>Lamp</em></span> Template typically visualizes the state of
+        a <a href="#monitored-variable"><em class="glossterm">monitored
+          variable</em></a> from your system. A
+        <span class="emphasis"><em>Button</em></span> Template, on the other hand, can change
+        the value of a<a href="#monitored-variable"><em class="glossterm">monitored
+          variable</em></a> of your system when activated by a mouse
+        button or touch screen.  This way you can alter the state of your
+        <a href="#monitored-system"><em class="glossterm">system</em></a>.
+      </p></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2454590"></a>Lintouch Project</h2></div></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2454596"></a>Project</h3></div></div></div><p>
+        On the global scale, you work with Lintouch Projects in the editor.
+        A project is represented by a project window.
+      </p><p>
+        </p><div class="figure"><a name="ed-pw"></a><p class="title"><b>Figure 3. Lintouch Editor Project Window</b></p><div class="mediaobject"><img src="images/ed-pw.png" alt="Lintouch Editor Project Window"></div></div><p>
+      </p><p>
+        You can have multiple projects open at once. So it is, you can have
+        several project windows in the lintouch editor. Every project
+        window updates its caption to the name of the project it holds.
+      </p><p>
+        From the persistency point of view, a project is represented by a
+        file. When satisfied with the look of the project, you will
+        upload this file to the reach of the lintouch server and let
+        the lintouch server start with this project. Finally, you will
+        connect to the server using the lintouch runtime(s).
+      </p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2454663"></a>View</h3></div></div></div><p>
+        Every project consists of <span class="emphasis"><em>Views</em></span>. A view is
+        nothing more than a collection of
+        panels. In addition, every view has a name and a resolution.
+        To skip ahead a little, all the panels within a view
+        have that resolution.
+      </p><p>
+        To switch among the views of the project, use the dropdown list
+        at the bottom right hand corner of the project window.
+      </p><p>
+        </p><div class="figure"><a name="ed-switchviews"></a><p class="title"><b>Figure 4. Changing the current view</b></p><div class="mediaobject"><img src="images/ed-switchviews.png" alt="Changing the current view"></div></div><p>
+      </p><p>
+        Initially, an empty project contains one view.
+      </p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2454727"></a>Panel</h3></div></div></div><p>
+        Each view consists of <span class="emphasis"><em>Panels</em></span>. A panel is a
+        surface that can contains Templates - LEDs, lamps, images, switches,
+        buttons, and all other controls.
+      </p><p>
+        You can switch among panels of a view by clicking on the panels
+        tab within the project window.
+      </p><p>
+        </p><div class="figure"><a name="ed-switchpanels"></a><p class="title"><b>Figure 5. Changing the current panel</b></p><div class="mediaobject"><img src="images/ed-switchpanels.png" alt="Changing the current panel"></div></div><p>
+      </p><p>
+         Initially, an empty view contains one panel.
+      </p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2454787"></a>Template</h3></div></div></div><p>
+        <span class="emphasis"><em>Template</em></span> is the basic organizational unit
+        within Lintouch. It
+        represents a real world control switch, button, LED, lamp, sensor,
+        etc. Templates are contained within template libraries.
+      </p><p>
+        The template to use are located in the template palette, a visual
+        filling most of the main window. In addition, the templates within
+        the palette are grouped by the template libraries - the dropdown
+        list just above the palette.
+      </p><p>
+        </p><div class="figure"><a name="ed-palette"></a><p class="title"><b>Figure 6. Template Palette</b></p><div class="mediaobject"><img src="images/ed-palette.png" alt="Template Palette"></div></div><p>
+      </p><p>
+        Lintouch comes with a few pre-defined templates. You can design
+        and implement templates of your own. The details of this process
+        are beyond scope of this document and may be found at the
+        lintouch homepage at <a href="http://lintouch.org" target="_top">http://lintouch.org</a>.
+      </p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2450709"></a>Connections and Plugins</h3></div></div></div><p>
+        To connect the real device to Lintouch, you have to create a
+        <span class="emphasis"><em>connection</em></span>. Connection is
+        an abstraction that refers to a device, a PLC, a set of
+        devices, or anything that another entity, called the <span class="emphasis"><em>
+        server plugin</em></span>, defines.
+      </p><p>
+        For example, the plugin ModBusTCP, shipped with Lintouch,
+        implements the protocol ModBus over TCP and lets you access the
+        remote device from Lintouch. Or, the plugin Generator
+        simulates a device that regularly changes its output. In fact,
+        there is no limit as to what a server plugin can handle.
+      </p><p>
+        </p><div class="figure"><a name="ed-connection"></a><p class="title"><b>Figure 7. Connections and plugins</b></p><div class="mediaobject"><img src="images/ed-connection.png" alt="Connections and plugins"></div></div><p>
+      </p><p>
+        This way, the server plugin tells Lintouch what to send or
+        receive with the particular connection and thus acts as the
+        type of that connection. To put it another way, a connection
+        is an instance of a server plugin.
+      </p><p>
+        Lintouch contains only a couple of plugins meant for
+        testing or demo purposes. Usually, you will write your own
+        plugins for your specific devices or let someone do the task
+        for you. The interface to those are open and can be found at
+        the lintouch homepage at <a href="http://lintouch.org" target="_top">http://lintouch.org</a>
+        Be aware of the fact, the real world plugins may be as
+        complex as the real world itself is and sometimes it may
+        take weeks to complete them!
+      </p><p>
+        Once you have written a complex plugin, it is more than likely
+        you would like it to work for other instances as well. You
+        decide it is only some addresses, or other parameters that you
+        need to feed to your plugin to make it work again. This is the
+        time when the user should set the properties for the
+        corresponding connection. In fact, almost every plugin comes
+        with a set of properties that are different from one instance
+        of plugin (i.e. connection) to another:
+      </p><p>
+        </p><div class="figure"><a name="ed-connectionproperties"></a><p class="title"><b>Figure 8. Connections properties (filled in properties of ModBusTCP plugin)</b></p><div class="mediaobject"><img src="images/ed-createconnectionproperties.png" alt="Connections properties (filled in properties of ModBusTCP plugin)"></div></div><p>
+      </p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2450857"></a>Variables</h3></div></div></div><p>
+        Lintouch <span class="emphasis"><em>variable</em></span> represents the measured or
+        monitored quantity within connection, such as voltage, wind speed,
+        limit check, or the status of a server. Some people refer to variable
+        as <span class="emphasis"><em>tag</em></span>. The meaning of variable is defined
+        by the plugin that handles the corresponding connection. This plugin
+        also defines, expects, and sends the variable values as of one of
+        the three types:
+      </p><div class="itemizedlist"><ul type="disc"><li><p>bit</p></li><li><p>number</p></li><li><p>string</p></li></ul></div><p>
+        For example, the weather plugin may be grabbing the temperature from
+        one of the connected thermometers. So, the variables of this
+        connection are temperatures and are of the type number.
+      </p><p>
+        </p><div class="figure"><a name="ed-variable"></a><p class="title"><b>Figure 9. Variable</b></p><div class="mediaobject"><img src="images/ed-variable.png" alt="Variable"></div></div><p>
+      </p><p>
+        Of course, the variables have to be distinguished one from another,
+        so each variable has a name. In addition, some scenarios require
+        variables to have additional information associated with them, such
+        as bus address, credentials, or IP address. This additional
+        information is called the <span class="emphasis"><em>variable properties</em></span>.
+      </p><p>
+        </p><div class="figure"><a name="ed-variableproperties"></a><p class="title"><b>Figure 10. Variable properties (filled in properties of ModBusTCP plugin?)</b></p><div class="mediaobject"><img src="images/ed-createvariableproperties.png" alt="Variable properties (filled in properties of ModBusTCP plugin?)"></div></div><p>
+      </p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2500463"></a>Template Bindings and IOPins</h3></div></div></div><p>
+        A template connects to a variable by one of its <span class="emphasis"><em>IOPins
+        </em></span> to receive and process the data coming in from the real
+        devices, or to send some data out to the world (for example, when
+        a user presses a button).
+      </p><p>
+        When connected (the state also referred to as the IOPin
+        <span class="emphasis"><em>bound</em></span> to a variable), Lintouch receives the
+        data from the real device by a server plugin; this sets the variable
+        of the corresponding connection and the value is delivered to
+        the connected IOPins. Then, it is up to the template to decide
+        how to react to the received value.
+      </p><p>
+        </p><div class="figure"><a name="ed-worldtotemplate"></a><p class="title"><b>Figure 11. Receiving data by IOPins</b></p><div class="mediaobject"><img src="images/ed-worldtotemplate.png" alt="Receiving data by IOPins"></div></div><p>
+      </p><p>
+        The other way around, when a template decides to send out a signal
+        (or a number, etc.), it does so by setting its IOPins. It may be
+        so that it reacts to the user's press of a button, text input,
+        timer event, etc. Then, the signal propagates through the bound
+        variables to the plugin via a connection. Last, the plugin decides
+        to send the signal out and finally translates the event to the
+        protocol of the connected device.
+      </p><p>
+        </p><div class="figure"><a name="ed-templatetoworld"></a><p class="title"><b>Figure 12. Sending data by IOPins</b></p><div class="mediaobject"><img src="images/ed-templatetoworld.png" alt="Sending data by IOPins"></div></div><p>
+      </p><p>
+        If you thought about templates as LEDs, simple displays, buttons,
+        etc., IOPins would be the interface between the template and the
+        outside world.
+      </p><p>
+        For example, there is a LED monitoring a status of a device. This
+        LED is sitting on a bus, that meaning two wires are going to the
+        LED's pins. If you thought about the two wires as a variable, the
+        LED's pins as an IOPin of the LED, the LED as a template, and the
+        bus as a connection, you would get what the Lintouch is about.
+      </p></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2500603"></a>Windows within Lintouch Editor</h2></div></div></div><p>
+      As you may already know, there are many windows within the lintouch
+      editor. They are:
+    </p><div class="itemizedlist"><ul type="disc"><li><p>
+          the main window - containing the main menu, the main toolbar,
+          and the palette
+        </p></li><li><p>
+          a project window - representing a project
+        </p></li><li><p>
+          a tool window - modeless dialogs for managing views, panels,
+          properties, templates, resources, etc.
+        </p></li><li><p>
+          a modal dialog - dialogs requiring immediate action and/or
+          blocking the rest of the editor
+        </p></li></ul></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2500659"></a>Context aware tool windows</h3></div></div></div><p>
+        One of the nice features of the editor that makes it stand out
+        is the context aware way of operation.
+      </p><p>
+        Every tool window is modeless. That means you can work with the
+        rest of the editor while this window stays open. In addition,
+        when the selection, panel, or view changes, this tool window
+        is updated to reflect the current situation changed - when applies.
+      </p><p>
+        For example, you have opened the Template Properties dialog to edit
+        the properties of the selected template. When you shift the focus
+        to another panel, view, or even a project, the Template Properties
+        dialog repaints itself to the properties of the new selection.
+      </p><p>
+        </p><div class="figure"><a name="ed-templateproperties"></a><p class="title"><b>Figure 13. Editing properties of a template</b></p><div class="mediaobject"><img src="images/ed-templateproperties.png" alt="Editing properties of a template"></div></div><p>
+      </p><p>
+        </p><div class="figure"><a name="ed-templateproperties2"></a><p class="title"><b>Figure 14. The selection has changed</b></p><div class="mediaobject"><img src="images/ed-templateproperties2.png" alt="The selection has changed"></div></div><p>
+      </p></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2500764"></a>Paramount Tasks</h2></div></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2500770"></a>Quitting the editor</h3></div></div></div><p>
+        Choose <span class="guimenuitem">Quit</span> from the
+        <span class="guimenu">File</span> menu to quit the lintouch editor. You will
+        be asked to confirm the exit when there are unsaved projects.
+      </p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2500797"></a>Starting the editor</h3></div></div></div><p>
+        In addition to starting the lintouch editor by clicking the
+        corresponding icon or from the command line, you can tell the editor
+        to open project(s) after starting up. Pass the file name(s) of the
+        project(s) as the parameters to the editor.
+      </p></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2500814"></a>Working with Projects</h2></div></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2500820"></a>Creating a new project</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li><p>
+            To create a new project, choose <span class="guimenuitem">New</span>
+            from the <span class="guimenu">File</span> menu of
+            the main window.
+          </p></li><li><p>
+            Alternatively, you can choose <span class="guimenuitem">New</span>
+            from the <span class="guimenu">File</span> context menu of
+            a project window (this means a project has to be open).
+          </p></li></ul></div><p>
+        A new project will set its properties, view sizes, etc. as specified
+        by the menu item <span class="guimenuitem">Editor Preferences...</span>
+        of the <span class="guimenu">File</span>.
+      </p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2500893"></a>Opening an existing project</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li><p>
+            To open an existing project, choose
+            <span class="guimenuitem">Open...</span> from the
+            <span class="guimenu">File</span> menu of the main window.
+          </p></li><li><p>
+            Alternatively, you can choose <span class="guimenuitem">Open...</span>
+            from the <span class="guimenu">File</span> context menu
+            of a project window (this means a project has to be open).
+          </p></li><li><p>
+            Or, you can pass the file name of the project as an argument
+            to the editor on the command line when the editor starts.
+          </p></li><li><p>
+            Last, you can open a project from the
+            <span class="guimenuitem">Open Recent</span> menu
+            of the <span class="guimenu">File</span> menu of the main window. This
+            menu contains recent
+            projects that you have been working on (opened or saved
+            projects). The number of the remembered projects can be adjusted
+            from the Editor Preferences... menu of the File menu.
+          </p></li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2500987"></a>Saving a project</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li><p>
+            To save the current project, choose
+            <span class="guimenuitem">Save</span> from the
+            <span class="guimenu">File</span> context
+            menu of the project window. If a new project has not yet been
+            saved, you will be asked its name. If the project has been
+            saved, you will not be prompted and it will be saved
+            immediately.
+          </p></li><li><p>
+            To save the current project under a different file name,
+            choose <span class="guimenuitem">Save As...</span> from the
+            <span class="guimenu">File</span> context menu of the project
+            window.
+          </p></li></ul></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2501049"></a>The modified flag</h4></div></div></div><p>
+          You can see whether a project has been modified and needs saving
+          in order to preserve the modified data by looking at the status
+          bar of the project window; it may read <span class="emphasis"><em>Project is
+          unsaved</em></span>.
+        </p><p>
+          </p><div class="figure"><a name="fig-statusbar"></a><p class="title"><b>Figure 15. Project Window Status bar</b></p><div class="mediaobject"><img src="images/ed-statusbar.png" alt="Project Window Status bar"></div></div><p>
+        </p></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2501098"></a>The time-stamp checking</h4></div></div></div><p>
+          Whenever you are about to save a project preliminary checks are
+          being made. One of them is the time-stamp checking. Before
+          the project file is updated, the editor checks if the file
+          has been modified by another project window, or another process.
+          If it is so, a confirmation to continue is required.
+        </p></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2501122"></a>Closing a project</h3></div></div></div><p>
+        You stop working with a project by closing the project window or
+        by choosing <span class="guimenuitem">Close</span> from the
+        <span class="guimenu">File</span> context menu of the project window.
+      </p><p>
+        Before the attempt to close the project is carried out, the editor
+        checks whether the project has been modified and asks to continue
+        if so.
+      </p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2501158"></a>Modifying project properties</h3></div></div></div><p>
+        Besides the control and view information, every project contains
+        optional information, structured into
+      </p><div class="itemizedlist"><ul type="disc"><li><p>author</p></li><li><p>version</p></li><li><p>creation date</p></li><li><p>short description</p></li><li><p>long description</p></li></ul></div><p>
+        These fields can contain almost any information and are optional.
+        They are referred to as the <span class="emphasis"><em>Project Properties</em></span>
+        collectively and server no other than informative purpose. They show
+        at the runtime.
+      </p><p>
+        </p><div class="figure"><a name="fig-projectproperties"></a><p class="title"><b>Figure 16. Changind the project properties</b></p><div class="mediaobject"><img src="images/ed-projectproperties.png" alt="Changind the project properties"></div></div><p>
+      </p><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2501243"></a>Specifying the default project properties</h4></div></div></div><p>
+          You can specify project properties that every new project
+          will have when it is created. Choose
+          <span class="guimenuitem">Editor Preferences...</span> from the
+          <span class="guimenu">File</span> menu of the main window. Go to
+          <span class="guilabel">Project Defaults</span> tab.
+        </p></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2501278"></a>Changing the project properties</h4></div></div></div><p>
+          Choose <span class="guimenuitem">Project Properties</span> from the
+          <span class="guimenu">Dialogs</span> context menu of the project window
+          to edit the project properties.
+        </p></div></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2501307"></a>When something goes wrong</h2></div></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2501313"></a>You did something you did not want</h3></div></div></div><p>
+        To revert a change you did while editing a project, such as
+        moving a template, removing a template, adding a panel, or renaming
+        a view, you can use the unlimited undo feature. To revert a
+        change, choose <span class="guimenuitem">Undo</span> from the
+        <span class="guimenu">Edit</span> context menu of the project window.
+      </p><p>
+        Note: you will more likely be using the shortcut to this action,
+        <span class="keysym">Ctrl+Z</span>. Beware of the fact, the same as
+        for other shortcuts within the lintouch editor, the corresponding
+        project window must be active (have focus) in order to carry out
+        the action.
+      </p><p>
+        To revert a reverted change, choose <span class="guimenuitem">Redo</span>
+        from the <span class="guimenu">Edit</span> context menu of the project window.
+      </p><p>
+        To revert all the changes that have been made since the last
+        save or since editing started, choose
+        <span class="guimenuitem">Revert to Saved</span> from the
+        <span class="guimenu">File</span> context menu.
+      </p></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2501396"></a>Drawing graphics, or templates</h2></div></div></div><p>
+      Now we get to explain the most interesting part of the editor;
+      working with the basic elements of Lintouch: templates. Templates
+      can be thought of controlling or monitoring units on control panel,
+      such as thermometers, LEDs, buttons, or switches.
+    </p><p>
+      Before reading on, make sure you have opened or created a project
+      by <span class="guimenuitem">Open...</span> or
+      <span class="guimenuitem">New</span> from the <span class="guimenu">File</span>
+      of the main window.
+    </p><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2501436"></a>Adding templates</h3></div></div></div><p>
+        To place a template on a panel:
+      </p><div class="orderedlist"><ol type="1"><li><p>
+            Choose the template library from the dropdown list of
+            the available template libraries in the main window. More
+            on the libraries futher on.
+          </p><p>
+            </p><div class="figure"><a name="fig-tldropdown"></a><p class="title"><b>Figure 17. Select a template library</b></p><div class="mediaobject"><img src="images/ed-tldropdown.png" alt="Select a template library"></div></div><p>
+          </p><p>
+            Below the selection you will see the buttons representing
+            all the templates from the library - the palette.
+          </p></li><li><p>
+            Select a template by clicking on its button. The button
+            will depress and stay so to indicate this template is selected.
+          </p><p>
+            </p><div class="figure"><a name="ed-selectedtemplate"></a><p class="title"><b>Figure 18. Select a template from the palette</b></p><div class="mediaobject"><img src="images/ed-selectedtemplate.png" alt="Select a template from the palette"></div></div><p>
+          </p></li><li><p>
+            Move the mouse over the panel. You will immediately see
+            the cursor has change to cross - the template placement
+            mode. Now you have two options:
+            </p><div class="itemizedlist"><ul type="disc"><li><p>
+                  Click in the panel. The new template will be added to
+                  the panel, with its upper left hand corner in the
+                  position you indicated with the default size.
+                </p></li><li><p>
+                  To place a template with the size that is on your mind,
+                  drag a rectangle on the canvas now:
+                </p><div class="orderedlist"><ol type="a"><li><p>press the button on the panel in the
+                  position of the upper left corner and,</p></li><li><p>keep the button pushed and move the
+                  mouse to the position of the bottom right corner.
+                  </p></li></ol></div></li></ul></div><p>
+          </p><p>
+            </p><div class="figure"><a name="ed-addedtemplate"></a><p class="title"><b>Figure 19. Template added to panel</b></p><div class="mediaobject"><img src="images/ed-addedtemplate.png" alt="Template added to panel"></div></div><p>
+          </p></li></ol></div><p>
+        And that is all there is to it. You have added a template to a
+        panel.
+      </p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2501647"></a>Removing templates</h3></div></div></div><p>
+        To remove a template or templates from a panel, you have to
+        select them first. To select a template, just simple single
+        click on it.
+        Read on to find out more on the selections.
+        Then, just press <span class="keysym">Delete</span> to
+        remove the template.
+      </p><p>
+        You can of course use the undo if you have accidentally placed
+        template on a panel.
+      </p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2501674"></a>Moving templates</h3></div></div></div><p>
+        You can freely drag a template across a panel to change its
+        position within the panel.
+      </p><div class="orderedlist"><ol type="1"><li><p>
+            Press down the mouse button when the
+            cursor is above the template.
+          </p></li><li><p>
+            Hold down the mouse button and
+            move the mouse to drag the template to the desired position.
+          </p></li><li><p>
+            Release the mouse button.
+          </p></li></ol></div><p>
+        In addition, you can use the arrow keys to move the selected
+        template one pixel in that direction (or one grid unit when the
+        snap to grid option is on).
+      </p><p>
+        Alternatively, you can modify the X and Y values in the Template
+        Properties dialog to pin point the upper left hand corner of the
+        template (later in this section). This lets you move the template
+        that has become inaccessible by other means, for example.
+      </p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2501741"></a>Resizing templates</h3></div></div></div><p>
+        To change the size of a template, first select it by clicking
+        on it. A frame with small red rectangles appears around
+        the template. Then, drag one of the red rectangles to change
+        the size of the template in the respective direction.
+      </p><p>
+        </p><div class="figure"><a name="ed-resizingtemplates"></a><p class="title"><b>Figure 20. Resizing templates</b></p><div class="mediaobject"><img src="images/ed-resizingtemplates.png" alt="Resizing templates"></div></div><p>
+      </p><p>
+        Also, you can modify the Width and Height values in the Template
+        Properties dialog to specify the exact size of the
+        template (later in this section). This lets you move the templates
+        that have become too large to handle by the method above, for
+        example.
+      </p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2501806"></a>Changing the common properties of templates (position, size,
+      etc.) collectively</h3></div></div></div><p>
+        Every template has a set of properties akin to all templates. They
+        are:
+      </p><div class="itemizedlist"><ul type="disc"><li><p>position</p></li><li><p>size</p></li><li><p>name</p></li><li><p>z-order aka layer</p></li></ul></div><p>
+        To change any of these, double click on the template to bring up
+        the Template Properties dialog. Then, look for the first tab
+        <span class="emphasis"><em>General</em></span>.
+      </p><p>
+        </p><div class="figure"><a name="ed-templategeneralproperties"></a><p class="title"><b>Figure 21. General Template Properties</b></p><div class="mediaobject"><img src="images/ed-templategeneralproperties.png" alt="General Template Properties"></div></div><p>
+      </p><p>
+        The same as for the other properties, the changes in this dialog
+        occur immediately and are context sensitive. Read the next section
+        to find out more.
+      </p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2501894"></a>Changing color, text, fill, and other properties of templates
+      </h3></div></div></div><p>
+        To change properties of a template, double click on it. The
+        Template Properties dialog will appear.
+      </p><p>
+        </p><div class="figure"><a name="ed-templateproperties-1"></a><p class="title"><b>Figure 22. Changing Template Properties</b></p><div class="mediaobject"><img src="images/ed-templateproperties.png" alt="Changing Template Properties"></div></div><p>
+      </p><p>
+        As you change a property of a template, the change will
+        immediately take effect. There is no need to confirm that change.
+      </p><p>
+        To edit properties of several templates at the time, keep the
+        Template Properties dialog open. Then, just single click on
+        the template that you want to edit. The dialog will update its
+        content to that of the selected template. Edit its properties
+        and click on another one.
+      </p><p>
+        </p><div class="figure"><a name="ed-templateproperties2-1"></a><p class="title"><b>Figure 23. Keep the Template Properties dialog open and select another
+          template</b></p><div class="mediaobject"><img src="images/ed-templateproperties2.png" alt="Keep the Template Properties dialog open and select another template"></div></div><p>
+      </p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2501995"></a>Selecting templates</h3></div></div></div><p>
+        Many operations of the lintouch editor work on selections. Read
+        on to learn and master selecting templates within the lintouch
+        editor.
+      </p><p>
+        The templates in the current selection have a frame with eight
+        small rectangles outside the template corners and the middle of each
+        edge. The small rectangles of one template within the selection
+        are red, the rectangles of the other templates are green.
+      </p><div class="itemizedlist"><ul type="disc"><li><p>
+            The red selection rectangles mark the current template. The
+            current template is part of the selection. In addition,
+            all operations working on the current template are carried
+            out with this template.
+          </p></li><li><p>
+            The green selection rectangles mark other templates within
+            the selection.
+          </p></li></ul></div><p>
+        </p><div class="figure"><a name="ed-selection"></a><p class="title"><b>Figure 24. Template selection</b></p><div class="mediaobject"><img src="images/ed-selection.png" alt="Template selection"></div></div><p>
+      </p><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2502071"></a>Removing selection</h4></div></div></div><p>
+          To get rid of the selection, click in the panel to a place
+          with no templates. No template will get selected.
+        </p><p>
+          Alternatively, you may choose
+          <span class="guimenuitem">Unselect All</span> from the
+          <span class="guimenu">Edit</span> context menu of the project window.
+        </p></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2502106"></a>Initiating a selection</h4></div></div></div><p>
+          To make a selection contain just one template, just click on
+          the template. The current selection will be lost and the new
+          selection will contain the template.
+        </p></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2502121"></a>Replacing a selection</h4></div></div></div><p>
+          See Initiating a selection.
+        </p></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2502134"></a>Extending a selection</h4></div></div></div><p>
+          To add a template to the current selection, hold down the
+          <span class="keysym">Shift</span>
+          key and click on the template. You will see the selection box
+          appear around the template. In addition, this template will
+          become the current template.
+        </p></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2502156"></a>Shrinking a selection</h4></div></div></div><p>
+          To remove a template from the selection, hold down the
+          <span class="keysym">Shift</span> key and click on the template.
+        </p></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2502175"></a>Moving and copying multiple templates</h3></div></div></div><p>
+        All the operations in this section of the manual work on selections.
+        To learn how to work with selections, review the previous section.
+      </p><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2502190"></a>Copying templates</h4></div></div></div><p>
+          To create a copy of templates within a panel, select the
+          templates and choose <span class="guimenuitem">Duplicate</span> from
+          the <span class="guimenu">Edit</span> context menu of the project window.
+        </p><p>
+          To copy templates from the current panel to another, or within
+          the same panel:
+
+          </p><div class="orderedlist"><ol type="1"><li><p>
+                Select the templates on the panel.
+              </p></li><li><p>
+                Copy the selection to the clipboard by
+                <span class="guimenuitem">Copy</span> from the
+                <span class="guimenu">Edit</span> context menu of the project window.
+              </p></li><li><p>
+                Switch to the panel of your choice.
+              </p></li><li><p>
+                Paste the selection from the clipboard by
+                <span class="guimenuitem">Paste</span> from the
+                <span class="guimenu">Edit</span> context menu of the project window.
+              </p></li></ol></div><p>
+        </p></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2502298"></a>Moving templates</h4></div></div></div><p>
+          To move templates within the current panel, select them and
+          drag them across the panel. All the templates within the selection
+          will move.
+        </p><p>
+          To move templates from the current panel to another, or within
+          the same panel:
+
+          </p><div class="orderedlist"><ol type="1"><li><p>
+                Select the templates on the panel.
+              </p></li><li><p>
+                Move the selection to the clipboard by
+                <span class="guimenuitem">Cut</span> from the
+                <span class="guimenu">Edit</span> context menu of the project window.
+              </p></li><li><p>
+                Switch to the panel of your choice.
+              </p></li><li><p>
+                Paste the selection from the clipboard by
+                <span class="guimenuitem">Paste</span> from the
+                <span class="guimenu">Edit</span> context menu of the project window.
+              </p></li></ol></div><p>
+        </p></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2502396"></a>Advanced template positioning</h3></div></div></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2502402"></a>Aligning templates to left, right, top, center, etc.</h4></div></div></div><p>
+          To align a group of templates left so that each template
+          starts at the same position
+          (meaning it has the same x-coordinate), select the templates,
+          and choose <span class="guimenuitem">Left</span> from the
+          <span class="guimenu">Align</span> menu under the context menu
+          <span class="guimenu">Selection</span> of the project window. All the
+          templates shift leftwards so that their left position is the
+          same as the leftmost template of this group.
+        </p><p>
+          </p><div class="figure"><a name="ed-aligningleft"></a><p class="title"><b>Figure 25. Before the alignment</b></p><div class="mediaobject"><img src="images/ed-aligningleft.png" alt="Before the alignment"></div></div><p>
+        </p><p>
+          </p><div class="figure"><a name="ed-alignedleft"></a><p class="title"><b>Figure 26. After the alignment</b></p><div class="mediaobject"><img src="images/ed-alignedleft.png" alt="After the alignment"></div></div><p>
+        </p><p>
+          You can align templates to right, center, top, middle, or bottom
+          by selecting the appropriate from the same menu
+          <span class="guimenu">Align</span> from the <span class="guimenu">Selection</span>
+          context menu of the project window.
+        </p></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2502520"></a>Distributing templates evenly</h4></div></div></div><p>
+          To place the templates so that they equally occupy the space
+          from the beginning of the group to its end, choose
+          <span class="guimenuitem">Lay Out Horizontally</span> or
+          <span class="guimenuitem">Lay Out Vertically</span> from the
+          <span class="guimenu">Align</span> menu of the
+          <span class="guimenu">Selection</span> context menu of the project window.
+        </p><p>
+          </p><div class="figure"><a name="ed-layingouthorizontally"></a><p class="title"><b>Figure 27. Before the layout</b></p><div class="mediaobject"><img src="images/ed-layingouthorizontally.png" alt="Before the layout"></div></div><p>
+        </p><p>
+          </p><div class="figure"><a name="ed-laidouthorizontally"></a><p class="title"><b>Figure 28. After the layout</b></p><div class="mediaobject"><img src="images/ed-laidouthorizontally.png" alt="After the layout"></div></div><p>
+        </p></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2502623"></a>Placing templates next to each other</h4></div></div></div><p>
+          To place templates next to each other horizontally or vertically,
+          choose <span class="guimenuitem">Adjacent</span> or
+          <span class="guimenuitem">Stacked</span> respectively, from the
+          <span class="guimenu">Selection</span> of the
+          <span class="guimenu">Selection</span> context menu of the project window.
+        </p><p>
+          </p><div class="figure"><a name="ed-stacking"></a><p class="title"><b>Figure 29. Before stacking up</b></p><div class="mediaobject"><img src="images/ed-stacking.png" alt="Before stacking up"></div></div><p>
+        </p><p>
+          </p><div class="figure"><a name="ed-stacked"></a><p class="title"><b>Figure 30. After stacking up</b></p><div class="mediaobject"><img src="images/ed-stacked.png" alt="After stacking up"></div></div><p>
+        </p></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2502723"></a>Overlaying issues</h3></div></div></div><p>
+        Every template remembers its z-order position. To simplify,
+        it keeps track behind which templates and in front of which
+        templates it is situated. So it is, every template is in a layer.
+        When you manipulate with the overlaying, you are actually
+        manipulating with the template's layer.
+      </p><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2502744"></a>Bringing templates to front</h4></div></div></div><p>
+          To bring up a template (or a selection of templates) in front of
+          others, choose <span class="guimenuitem">One Layer Up</span> from the
+          <span class="guimenu">Selection</span> context menu of the project
+          window.
+        </p><p>
+          Note however, this only changes the layer position of the
+          selection; it brings the templates one layer to the front. This
+          may not be enough for the templates to be visible, if the other
+          templates are high on the layer stack. You may have to repeat
+          this command to achieve what you wanted. Read on.
+        </p><p>
+          </p><div class="figure"><a name="ed-layeringup"></a><p class="title"><b>Figure 31. Before the Layer-Up command</b></p><div class="mediaobject"><img src="images/ed-layeringup.png" alt="Before the Layer-Up command"></div></div><p>
+        </p><p>
+          </p><div class="figure"><a name="ed-layeredup"></a><p class="title"><b>Figure 32. After the Layer-Up command</b></p><div class="mediaobject"><img src="images/ed-layeredup.png" alt="After the Layer-Up command"></div></div><p>
+        </p><p>
+          To bring the selection of templates to the most front position,
+          choose <span class="guimenuitem">Bring to Front</span> from the
+          <span class="guimenu">Selection</span> context menu of the project window.
+        </p></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2502867"></a>Sending templates to back</h4></div></div></div><p>
+          To send the selection of templates behind of others, choose
+          <span class="guimenuitem">One Layer Down</span> from the
+          <span class="guimenu">Selection</span> context menu of the project
+          window.
+        </p><p>
+          The group of templates will get shifted towards the surface of
+          the panel, meaning it will decrease on the layer stack. To
+          send the templates back behind all the templates, choose
+          <span class="guimenuitem">Send to Back</span> from the
+          <span class="guimenu">Selection</span> context menu of the project window.
+        </p></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2502917"></a>Specifying the z-order directly</h4></div></div></div><p>
+          Double click on the template to open up the Template Properties
+          dialog. Enter the desired z-order in the field
+          <span class="guilabel">Layer</span>. This can help when the template
+          has been lost due to excessive manipulation with the functions
+          above, for example.
+        </p></div></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2502944"></a>Visual enhancements for editing</h2></div></div></div><p>
+      The features discussed in this section do not affect the way
+      the project will be rendered or used in the runtime - when
+      it is used in the real environment. The allow for more convenient
+      editing.
+    </p><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2502958"></a>Grid</h3></div></div></div><p>
+        The grid allows you for better aligning and positioning templates
+        within the panel. Every project window has its own grid and
+        grid properties. Panels within a project window share the grid
+        and its properties.
+      </p><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2502972"></a>Turning the grid on/off</h4></div></div></div><p>
+          To turn the visibility of the grid off or on, choose
+          <span class="guimenuitem">Grid Settings...</span> from the
+          <span class="guimenu">View</span> context menu of the project window.
+          Un/check the <span class="guilabel">Show grid</span> to turn the it
+          off or on.
+        </p><p>
+          To always start a new project with the grid on or off,
+          choose <span class="guimenuitem">Editor Properties...</span> of the
+          <span class="guimenu">File</span> of the main window. Click on the
+          <span class="guilabel">Project Defaults</span> tab and un/check the
+          corresponding checkbox.
+        </p></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2503036"></a>Changing the grid color or its dimensions</h4></div></div></div><p>
+          To change the color of the grid or its spacings, go to
+          Grid Settings dialog by choosing
+          <span class="guimenuitem">Grid Settings...</span> from the
+          <span class="guimenu">View</span> context menu of the project window.
+        </p><p>
+          You can change this properties of the grid for projects to come.
+          Go to <span class="guimenuitem">Editor Preferences...</span> of the
+          <span class="guimenu">File</span> and select the <span class="guilabel">Grid</span>
+          tab.
+        </p></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2503091"></a>Aligning with the grid, or snapping to grid</h4></div></div></div><p>
+          When snapping to grid is turned on, moving a template does not
+          place it directly where you left it but shift it to the
+          nearest grid edge.
+        </p><p>
+          To turn the the snapping to grid off or on, choose
+          <span class="guimenuitem">Grid Settings...</span> from the
+          <span class="guimenu">View</span> context menu of the project window. There,
+          un/check the option <span class="guilabel">Snap to grid</span> to turn
+          the snapping off or on.
+        </p><p>
+          Alternatively, you can click into the
+          <span class="guilabel">Snap to grid</span> checkbox, located at the
+          bottom of the project window.
+        </p><p>
+          </p><div class="figure"><a name="ed-snaptogrid"></a><p class="title"><b>Figure 33. Snap to grid option</b></p><div class="mediaobject"><img src="images/ed-snaptogrid.png" alt="Snap to grid option"></div></div><p>
+        </p><p>
+          Beware of the fact that the snapping is entirely free of the
+          grid's visibility. You can have the grid invisible and still
+          be able to snap to it; even though you cannot see it. Or, you can
+          have the snapping turned off while the grid is visible.
+        </p><p>
+          To always start a new project with the snapping turned on or off,
+          choose <span class="guimenuitem">Editor Properties...</span> of the
+          <span class="guimenu">File</span> of the main window. Click on the
+          <span class="guilabel">Project Defaults</span> tab and un/check the
+          corresponding checkbox.
+        </p></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2503221"></a>Zooming</h3></div></div></div><p>
+        Zooming in and out lets you view and edit the project just like
+        under a magnifying glass. The panel dimensions will not change
+        but everything will get big so you can command the detail
+        or it will get small so you can overview the whole panel.
+      </p><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2503236"></a>Zooming in, or magnifying a the panel</h4></div></div></div><p>
+          To zoom in, choose <span class="guimenuitem">Zoom In</span> from the
+          <span class="guimenu">View</span> context menu of the project window.
+        </p><p>
+          You can zoom a specific portion of the panel so that you can
+          see the part you want by using the zoom mode. Click on the
+          <span class="guibutton">Zoom</span> in the toolbar of the main window.
+          Then, click onto the part of the panel that you want to enlarge.
+        </p><p>
+          </p><div class="figure"><a name="ed-zoomtool"></a><p class="title"><b>Figure 34. Zooming tool</b></p><div class="mediaobject"><img src="images/ed-zoomtool.png" alt="Zooming tool"></div></div><p>
+        </p><p>
+          Alternatively, you can specify the zooming factor directly by
+          picking up the ratio or entering it directly in in the bottom of
+          the project window.
+        </p><p>
+          </p><div class="figure"><a name="ed-zoomfactor"></a><p class="title"><b>Figure 35. Zooming factor</b></p><div class="mediaobject"><img src="images/ed-zoomfactor.png" alt="Zooming factor"></div></div><p>
+        </p><p>
+          Or you can pick the factor from the <span class="guimenu">Zoom</span> of
+          the <span class="guimenu">View</span> context menu of the project window.
+        </p></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2503364"></a>Zooming out, or view from distance</h4></div></div></div><p>
+          To zoom out, choose <span class="guimenuitem">Zoom Out</span> from the
+          <span class="guimenu">View</span> context menu of the project window.
+        </p><p>
+          You can zoom out by using the mouse too.by using the zoom mode.
+          Click on the
+          <span class="guibutton">Zoom</span> in the toolbar of the main window.
+          Then, hold down the <span class="keysym">Shift</span> while clicking
+          into the panel simultaneously.
+        </p><p>
+          Or, you can specify the zooming factor directly by
+          picking up the ratio or entering it directly in in the bottom of
+          the project window.
+        </p></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2503418"></a>Zooming just about right</h4></div></div></div><p>
+          To zoom in or out so that the entire area of the panel is visible
+          and not more, choose <span class="guimenuitem">Fit to Window</span>
+          from the <span class="guimenu">View</span> context menu of the project
+          window.
+        </p></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2503446"></a>Remembering zoom from one session to another</h4></div></div></div><p>
+          To specify the default zooming factor, go to
+          <span class="guimenuitem">Editor Properties...</span> of the
+          <span class="guimenu">File</span> of the main window. Then, select
+          <span class="guilabel">Project Defaults</span> tab and specify the value
+          under <span class="guilabel">Zoom level</span>.
+        </p></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2503489"></a>Scrolling in panel</h3></div></div></div><p>
+        Moving about in a panel can be a pain, especially when you have
+        zoomed in by a great factor. To ease the task for you, we have
+        developed a tool called the panning. To activate panning, push
+        the <span class="guibutton">Pan</span> button on the toolbar of the main
+        window. The cursor changes to reflect the mode.
+      </p><p>
+        </p><div class="figure"><a name="ed-pantool"></a><p class="title"><b>Figure 36. Panning tool</b></p><div class="mediaobject"><img src="images/ed-pantool.png" alt="Panning tool"></div></div><p>
+      </p><p>
+        In the panning mode, you can scroll freely along the panel. Hold
+        down the mouse button and move the mouse in the project window.
+        You will see the panel
+        scrolls in the direction the mouse is moving.
+      </p><p>
+        Of course, you can use the scrollbars of the project window as usual
+        to scroll the panel in the desired direction.
+      </p></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2503559"></a>Templates, the Lintouch Part</h2></div></div></div><p>
+      You will learn how to work with templates when Lintouch comes in
+      in this section. In other words, this section talks about the tasks
+      that are specific to Lintouch connections, bindings, panels, etc.
+    </p><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2503574"></a>Template shortcuts</h3></div></div></div><p>
+        Some templates can respond to keyboard events. In order to access
+        the templates by keyboard, i.e. to focus them, one can use the
+        template shortcut, or the <span class="keysym">Tab</span> key to shift focus
+        to that template.
+      </p><p>
+        Every template can have a key shortcut to it. When a real project
+        is run, one can switch among templates on the panel using keys.
+      </p><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2503602"></a>Assigning a shortcut to a template</h4></div></div></div><p>
+          To assign a shortcut to a template:
+        </p><div class="orderedlist"><ol type="1"><li><p>
+              Select it. Although, strictly speaking, you can select it
+              later on too.
+            </p></li><li><p>
+              Then, bring up the Templates dialog
+              by choosing <span class="guimenuitem">Templates</span> from the
+              <span class="guimenu">Dialogs</span> context menu of the project window.
+            </p></li><li><p>
+              Double click the current selected line in the dialog in the
+              Shortcut column.
+            </p><p>
+              </p><div class="figure"><a name="ed-shorcut"></a><p class="title"><b>Figure 37. Assigning shortcut</b></p><div class="mediaobject"><img src="images/ed-shortcut.png" alt="Assigning shortcut"></div></div><p>
+            </p></li><li><p>
+              Press the shortcut keys to assign the shortcut. To cancel this
+              mode, press <span class="keysym">Escape</span> or click into another
+              dialog, the main window, or the project window.
+            </p></li></ol></div><p>
+          You have assigned a shortcut to the current template. You should
+          see the shortcut name in the Shortcut column next to the template
+          name.
+        </p></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2503721"></a>Removing or changing a shortcut to a template</h4></div></div></div><p>
+          To remove a shortcut to a template, follow the instructions as
+          in Assigning a shortcut to a template except press
+          <span class="keysym">Escape</span> when asked for the key combination.
+        </p><p>
+          To change a shortcut to a template, follow the instructions as
+          in Assigning a shortcut to a template.
+        </p></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2503750"></a>Trying out template shortcuts</h4></div></div></div><p>
+          To check if and how the template shortcuts work, switch to the
+          Preview mode in the editor. To turn this mode on, click on the
+          <span class="guibutton">Preview</span> button on the toolbar of the main
+          window.
+        </p><p>
+          </p><div class="figure"><a name="ed-previewtool"></a><p class="title"><b>Figure 38. Preview mode</b></p><div class="mediaobject"><img src="images/ed-previewtool.png" alt="Preview mode"></div></div><p>
+        </p><p>
+          You will not be able to edit templates in the preview mode.
+        </p></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2503810"></a>Tab order of templates, focusing templates</h3></div></div></div><p>
+        Some templates can respond to keyboard events. In order to access
+        the templates by keyboard, i.e. to focus them, one can use the
+        template shortcut, or the <span class="keysym">Tab</span> key to shift focus
+        to from one template to another.
+      </p><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2503831"></a>Changing the tab order</h4></div></div></div><p>
+          To change the tab order of the templates within a panel, choose
+          <span class="guimenuitem">Templates</span> from the
+          <span class="guimenu">Dialogs</span> context menu of the project window.
+          The Templates dialog appears.
+        </p><p>
+          In this dialog, the order of listing of the template names
+          is the tab order of templates. To move a template up or down
+          the tab order, click on the template name and press the
+          <span class="guibutton">Move Up</span> button or
+          <span class="guibutton">Move Down</span> button, respectively.
+        </p></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2503881"></a>Testing the tab order of templates</h4></div></div></div><p>
+          To try out the tab order of the templates within a panel, activate
+          the preview mode as discussed earlier by clicking on the
+          <span class="guibutton">Preview</span> button on the toolbar of the main
+          window.
+        </p><p>
+          Note however, you will not be able to see the focus changed to
+          a particular template when the template has not been
+          <span class="emphasis"><em>implemented</em></span> to respond to the keyboard
+          events or the focus change.
+        </p></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2503919"></a>Template names</h3></div></div></div><p>
+        In Lintouch, every template has its name. This name is unique
+        within a panel and servers as an identification of the template
+        instance. It is used in various ways, one of them being the linking
+        to another panel feature.
+      </p><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2503934"></a>Renaming a template</h4></div></div></div><p>
+          To change a template name:
+        </p><p>
+          Double click on the template to bring up the Template Properties
+          dialog.
+        </p><p>
+          </p><div class="figure"><a name="ed-templaterename"></a><p class="title"><b>Figure 39. Changing a template name</b></p><div class="mediaobject"><img src="images/ed-templaterename.png" alt="Changing a template name"></div></div><p>
+        </p><p>
+          Switch to the tab <span class="guilabel">General</span> if not selected,
+          and edit the field <span class="guilabel">Name</span>.
+        </p></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2504001"></a>Renaming several templates</h4></div></div></div><p>
+          You can use the method described above. Remember, clicking on
+          another template with the Template Properties dialog open will
+          update the content of the dialog, thus letting you rename several
+          templates effectively. There are times though when you would like
+          to review all the template names and change their names when
+          needed. Unlike all the other template properties, the name
+          is not visible and therefore cannot be double checked by
+          overlooking the panel.
+        </p><p>
+          To review and change the template name, you can also use the
+          following method:
+        </p><div class="orderedlist"><ol type="1"><li><p>
+              Open up the Templates dialog by choosing
+              <span class="guimenuitem">Templates</span> from the
+              <span class="guimenu">Dialogs</span> context menu of the project window.
+            </p></li><li><p>
+              Click in the current selected line in the dialog in the
+              Name column. You will enter the in-place edit mode that
+              will let you edit the template name.
+            </p><p>
+              </p><div class="figure"><a name="ed-templatename"></a><p class="title"><b>Figure 40. Changing a template name</b></p><div class="mediaobject"><img src="images/ed-templatename.png" alt="Changing a template name"></div></div><p>
+            </p><p>
+              Press <span class="keysym">Enter</span> when done with the editing.
+            </p></li></ol></div></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2504113"></a>More on template libraries</h3></div></div></div><p>
+        A template library is a collection of templates. It is represented
+        as a dynamic loading library (DLL) aka a shared library (SO).
+      </p><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2504127"></a>Library locations</h4></div></div></div><p>
+          The editor tries to find and load all the template libraries on
+          the startup. The template libraries to use must
+          be installed into standard locations
+          (using the provided installers, for example). The editor then
+          enumerates all the files in those locations and tries to load and
+          treat them as template libraries.
+        </p><p>
+          </p><div class="figure"><a name="ed-templatelibraries"></a><p class="title"><b>Figure 41. Template Libraries</b></p><div class="mediaobject"><img src="images/ed-templatelibraries.png" alt="Template Libraries"></div></div><p>
+        </p></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2504179"></a>Loading template libraries</h4></div></div></div><p>
+          You can view extra information on the loaded libraries as well
+          as on those that were tried in the Template Libraries dialog.
+          To bring up that dialog, choose
+          <span class="guimenuitem">Template Libraries</span> from the
+          <span class="guimenu">File</span> menu of the main window.
+        </p><p>
+          You can also use --debug &lt;filename&gt; commandline option when
+          starting Lintouch Editor to get more detailed information about
+          Editor execution.
+        </p></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2504218"></a>External resources of template</h3></div></div></div><p>
+        Some templates refer to filenames. For example, the Image template
+        from Common Templates displays an image file that is part of the
+        project. When a file is part of the project's resources, you can
+        refer to it by its filename only - or by the name you have assigned
+        it.
+      </p><p>
+        The lintouch editor takes the burden of the resources management off
+        your shoulders. It lets you add, rename, and remove resource files
+        from the project.
+      </p><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2504247"></a>Adding a resource to project</h4></div></div></div><p>
+          To add a file to the project's resources, bring up the Resources
+          dialog by choosing <span class="guimenuitem">Resources</span> from the
+          <span class="guimenu">Dialogs</span> context menu of the project window.
+          There, press the <span class="guibutton">New</span> button. Browse
+          for the file, select it and press the button
+          <span class="guibutton">Open</span>.
+        </p><p>
+          Finally, the file will be copied to the project's resources and
+          assigned a unique filename. This name is the name portion of the
+          filename by default but can be different if another resource
+          of that name exists.
+        </p></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2504298"></a>Removing a resource from project</h4></div></div></div><p>
+          To remove a resource, bring up the Resources
+          dialog by choosing <span class="guimenuitem">Resources</span> from the
+          <span class="guimenu">Dialogs</span> context menu of the project window.
+          There, press the <span class="guibutton">New</span> button. Next,
+          highlight the the resource name by clicking on it and
+          press the <span class="guibutton">Delete</span> button.
+        </p><p>
+          After that, the resource will be removed from the project. You
+          can no longer refer to it, by templates for example.
+        </p><p>
+          Note that every action within the lintouch editor can be reverted.
+          So it is, the filename is actually moved to a temporary trash so
+          you can undo the removal. This trash will be destroyed after you
+          close the project.
+        </p></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2504358"></a>Renaming a resource</h4></div></div></div><p>
+          To rename a resource, bring up the Resources
+          dialog by choosing <span class="guimenuitem">Resources</span> from the
+          <span class="guimenu">Dialogs</span> context menu of the project window.
+          Then, select the resource name by clicking on it. Next,
+          click on the name once again to switch to the in-place editing
+          mode. Change the name and confirm by the <span class="keysym">Enter</span>
+          key.
+        </p><p>
+          </p><div class="figure"><a name="ed-renameresource"></a><p class="title"><b>Figure 42. Renaming a resource</b></p><div class="mediaobject"><img src="images/ed-renameresource.png" alt="Renaming a resource"></div></div><p>
+        </p></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2504426"></a>Updating a resource</h4></div></div></div><p>
+          Sometimes, the resource you have been working with is updated
+          in its original location. For example, you may be editing
+          an image with your favorite photo editor. Then, you would like
+          to make sure the resource in the lintouch project gets updated
+          too.
+        </p><p>
+          Or, you decide to use another resource file for the same resource
+          and you want to keep the association between all the templates
+          using that resource and the resource.
+        </p><p>
+          To refresh or change a resource, bring up the Resources
+          dialog by choosing <span class="guimenuitem">Resources</span> from the
+          <span class="guimenu">Dialogs</span> context menu of the project window.
+          Then, select the resource name by clicking on it. Next, press the
+          <span class="guibutton">Reimport </span> button to open the file dialog
+          box.
+         </p><div class="itemizedlist"><ul type="disc"><li><p>
+               If the original resource still exists, it will be
+               highlighted, so you can just confirm the refresh by pressing
+               the <span class="keysym">Enter</span>.
+             </p></li><li><p>
+               If the resource has been deleted, or you would just like to
+               use another file, pick the file of your choice and confirm.
+             </p></li></ul></div><p>
+           After the resource has been re-read or changed, all the templates
+           using the resources will update.
+         </p></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2504528"></a>The Preview mode</h3></div></div></div><p>
+        You can view how the project will look like in the runtime, i.e.
+        how the controls will look like and how they will respond to the
+        mouse and keyboard in the preview mode.
+      </p><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2504542"></a>Turning the preview mode on and off</h4></div></div></div><p>
+          To turn the preview mode on, click on the
+          <span class="guibutton">Preview</span> button on the toolbar of the main
+          window. To turn in off, click on another button in the toolbar
+          or select a template to add to a panel.
+        </p><p>
+          </p><div class="figure"><a name="ed-previewtool2"></a><p class="title"><b>Figure 43. Preview mode</b></p><div class="mediaobject"><img src="images/ed-previewtool.png" alt="Preview mode"></div></div><p>
+        </p><p>
+          Clicking the Preview toolbutton again will not turn off the
+          preview mode. Instead, it will show the Preview dialog. More on
+          the dialog later.
+        </p></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2504603"></a>Checking how templates respond to input</h4></div></div></div><p>
+          To check how a template respond to the events within Lintouch,
+          turn on the preview mode and be sure the Preview dialog is
+          visible. If that is not so, click on the
+          <span class="guibutton">Preview</span> button on the toolbar of the main
+          window.
+        </p><p>
+          Then, select the tab Templates/IOPins and find the template you
+          want to test by name in the dialog.
+          Next, decide which input (aka IOPin) you want to simulate to
+          change. Then, depending on what type the IOPin is of,
+        </p><div class="itemizedlist"><ul type="disc"><li><p>
+              click on the <span class="guibutton">0</span> or
+              <span class="guibutton">1</span> to set the bit of the input off or
+              on, or
+            </p></li><li><p>
+              enter a number in the column <span class="guilabel">Number</span>
+              to set the IOPin to that number, or
+            </p></li><li><p>
+              enter a string into the column <span class="guilabel">String</span>
+              to set the IOPin to the string.
+            </p></li></ul></div><p>
+          Last, the template will act as if its IOPin were changed in
+          runtime. For example, a lamp might change its color when its bit
+          input changed its value.
+        </p><p>
+          </p><div class="figure"><a name="ed-changeiopin"></a><p class="title"><b>Figure 44. Simulating a real connection</b></p><div class="mediaobject"><img src="images/ed-changeiopin.png" alt="Simulating a real connection"></div></div><p>
+        </p></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2504735"></a>Verifying shortcuts to templates</h4></div></div></div><p>
+          The preview mode lets you test if the shortcuts to the templates
+          have been assigned accordingly. Just turn on the preview mode,
+          switch to the project window and start experimenting.
+        </p></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2504751"></a>Verifying the tab order of templates</h4></div></div></div><p>
+          The preview mode lets you check the tab order of the templates
+          within a panel. Turn on the preview mode,
+          switch to the project window and start experimenting with the
+          <span class="keysym">Shift+Tab</span> and <span class="keysym">Tab</span> keys.
+        </p></div></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2504776"></a>Panels and views</h2></div></div></div><p>
+      You have learned to work with templates within a panel. For big
+      projets however, you will operate with several panels, each of them
+      possibly controlling or monitoring different parts of the connected
+      device or even several different devices.
+    </p><p>
+      In addition, some panels might be controlled via special devices,
+      such as handhelds or proprietary devices. For those devices, one
+      will operate in a very different resolutions - that when the View
+      business comes handy.
+    </p><p>
+      This way, a project consists of views. Each view contains panels.
+      And panels contain templates. Initially, every new project contains
+      a view and a panel within that view.
+    </p><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2504806"></a>Adding a panel to a view</h3></div></div></div><p>
+        To add a panel to the current view, open up the Panels dialog
+        by choosing <span class="guimenuitem">Panels</span> from the
+        <span class="guimenu">Dialogs</span> context menu of the project window.
+      </p><p>
+        </p><div class="figure"><a name="ed-addpanel"></a><p class="title"><b>Figure 45. Adding a panel</b></p><div class="mediaobject"><img src="images/ed-addpanel.png" alt="Adding a panel"></div></div><p>
+      </p><p>
+        Now, you can add an empty panel, or duplicate an existing one.
+      </p><div class="itemizedlist"><ul type="disc"><li><p>
+            To add an empty panel, simply press the button
+            <span class="guibutton">New</span>.
+          </p></li><li><p>
+            To duplicate an existing panel, click the panel you want to
+            duplicate. Then, click the button
+            <span class="guibutton">Duplicate</span>. All the templates will be
+            copied to the new panel.
+          </p></li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2504906"></a>Removing a panel from a view</h3></div></div></div><p>
+        To remove a panel from the current view, open up the Panels dialog
+        by choosing <span class="guimenuitem">Panels</span> from the
+        <span class="guimenu">Dialogs</span> context menu of the project window.
+        Then, select the panel to remove and press the
+        <span class="guibutton">Delete</span> button.
+      </p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2504942"></a>Renaming a panel</h3></div></div></div><p>
+        To rename a panel, open up the Panels dialog
+        by choosing <span class="guimenuitem">Panels</span> from the
+        <span class="guimenu">Dialogs</span> context menu of the project window. Then,
+        click the line with the panel name. Next, click it again to enter
+        the in-place edit mode which lets you change the name. Last,
+        confirm the name with the key <span class="keysym">Enter</span>.
+      </p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2504976"></a>Changing the panel order</h3></div></div></div><p>
+        To change the order of the panel tabs within the current view,
+        open up the Panels dialog
+        by choosing <span class="guimenuitem">Panels</span> from the
+        <span class="guimenu">Dialogs</span> context menu of the project window.
+        Then, click the panel you want to move in the panel tabs left or
+        right. Next, push the button <span class="guibutton">Up</span> or
+        <span class="guibutton">Down</span> to move the panel tab left or right,
+        respectively.
+      </p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2505020"></a>Adding a view to the project</h3></div></div></div><p>
+        To add a view to the project, bring up the Views dialog by choosing
+        <span class="guimenuitem">Views</span> from the <span class="guimenu">Dialogs</span>
+        context menu of the project window.
+      </p><p>
+        </p><div class="figure"><a name="ed-addview"></a><p class="title"><b>Figure 46. Adding a view</b></p><div class="mediaobject"><img src="images/ed-addview.png" alt="Adding a view"></div></div><p>
+      </p><p>
+        Now, as with the panels, you have two options:
+      </p><div class="itemizedlist"><ul type="disc"><li><p>
+            To add an empty view , simply press the button
+            <span class="guibutton">New</span>.
+          </p></li><li><p>
+            To duplicate an existing view, click the view you want to
+            duplicate. Then, click the button
+            <span class="guibutton">Duplicate</span>. All the panels and their
+            content will be copied to the new view.
+          </p></li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2505120"></a>Switching to another view</h3></div></div></div><p>
+        To work with the panels of another view, select the view in the
+        dropdown Views at the bottom right hand corner of the project
+        window.
+      </p><p>
+        </p><div class="figure"><a name="ed-switchviews-1"></a><p class="title"><b>Figure 47. Changing the current view</b></p><div class="mediaobject"><img src="images/ed-switchviews.png" alt="Changing the current view"></div></div><p>
+      </p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2505165"></a>Removing a view from the project</h3></div></div></div><p>
+        To remove a view from the current project, open up the Views dialog
+        by choosing <span class="guimenuitem">Views</span> from the
+        <span class="guimenu">Dialogs</span> context menu of the project window.
+        Then click the line with the view you want to remove and press the
+        <span class="guibutton">Delete</span> button.
+      </p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2505202"></a>Change the resolution of a view</h3></div></div></div><p>
+        To change a resolution of a view, first open up the Views dialog
+        by choosing <span class="guimenuitem">Views</span> from the
+        <span class="guimenu">Dialogs</span> context menu of the project window.
+        Next, click the line with the view you want to remove and press the
+        <span class="guibutton">Resize</span> button. In the dialog appearing next,
+        specify the new values for the all the panels of the view.
+      </p><p>
+        </p><div class="figure"><a name="ed-resizeview"></a><p class="title"><b>Figure 48. Resizing a view</b></p><div class="mediaobject"><img src="images/ed-resizeview.png" alt="Resizing a view"></div></div><p>
+      </p><p>
+        With the checkbox <span class="guilabel">Keep aspect ratio</span> on,
+        specify one of the coordinates - the other will be computed
+        to maintain the same portion of the horizontal and vertical size
+        as the current size.
+      </p><p>
+        When done, confirm the changes by clicking the button
+        <span class="guibutton">Apply</span> or <span class="guibutton">Ok</span>. All the
+        panels of the view will change its size, removing
+        each the template that is positioned beyond the new dimensions.
+      </p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2505311"></a>Renaming a view</h3></div></div></div><p>
+        To rename a view, open up the Views dialog
+        by choosing <span class="guimenuitem">Views</span> from the
+        <span class="guimenu">Dialogs</span> context menu of the project window.
+        Click the view name you want to change and click it again to enter
+        the in-place editing mode that lets you edit the view name. When
+        done, pres the key <span class="keysym">Enter</span>.
+      </p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2505344"></a>Changing the order of views</h3></div></div></div><p>
+        To change the order of views as appeared in every list in Lintouch,
+        open up the Views dialog
+        by choosing <span class="guimenuitem">Views</span> from the
+        <span class="guimenu">Dialogs</span> context menu of the project window. Then,
+        select the view you want to raise or lower within the list of views.
+        Then, press the button <span class="guibutton">Up</span> or
+        <span class="guibutton">Down</span> to move the selected view up or down,
+        respectively.
+      </p></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2505390"></a>Connectivity</h2></div></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2505396"></a>Tags, tagnames, and tagname lists</h3></div></div></div><p>
+        If you are coming from the industry world of PLCs and such, you may
+        have been wondering how tagnames fit into Lintouch. It is easy as
+      </p><div class="itemizedlist"><ul type="disc"><li><p>
+            <span class="emphasis"><em>tag</em></span> is variable in Lintouch
+          </p></li><li><p>
+            <span class="emphasis"><em>tagname</em></span> is the name of the variable
+          </p></li><li><p>
+            <span class="emphasis"><em>tagname list</em></span> is roughly represented by a
+            connection and its import and export facilities.
+          </p></li></ul></div><p>
+        In addition to ordinary tags, variables in Lintouch may have
+        properties associated with them. This allows for an easy
+        configuration of the connection parameters and leaves the
+        interpreting tag name lists in the realm of crossword puzzles.
+        Anyhow, you are not lost even with tag name lists with Lintouch.
+      </p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2505466"></a>Using tagname lists with Lintouch</h3></div></div></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2505472"></a>Format of tagname list</h4></div></div></div><p>
+          There are lots of formats used for tagname lists. Lintouch uses
+          the simple and proven, good old comma separated, or CSV format.
+          You will have to prepare the file aforehand in a spreadsheet such
+          as Excel, Gnumeric, or even a plain text editor. The preparation
+          is very easy however. Here is an example of the CSV that will
+          import into Lintouch:
+        </p><pre class="programlisting">
+            Connection,Type,latency
+            ChemicalSet,Loopback,0
+
+            Variable,Type
+            Catalysator,BIT
+            Acid,BIT
+
+            Variable,Type
+            Temperature,NUMBER
+        </pre><div class="orderedlist"><ol type="1"><li><p>
+              Here, <span class="emphasis"><em>Catalysator</em></span>, <span class="emphasis"><em>Acid</em></span>,
+              and <span class="emphasis"><em>Temperature</em></span> are tag names. You will
+              very likely add like thousand such lines for the real world
+              application. <span class="emphasis"><em>BIT</em></span>, and
+              <span class="emphasis"><em>NUMBER</em></span> denote the type of the input/output.
+            </p></li><li><p>
+              The last thing you can see is the header. The very first line
+              always begins with <span class="emphasis"><em>Connection,Type</em></span> and is
+              followed by the names of the connection parameters. Sor for
+              ModbusTCP Master, for example, this will be
+            </p><pre class="programlisting">
+Connection,Type,host,port,refresh
+            </pre></li><li><p>
+              The second line contains the name of the connection,
+              type of the connection (the plugin name),
+              and the values of the respective parameters on the first line.
+            </p></li></ol></div><p>
+          And that is all there is to it. If you still fear the formats,
+          just create a connection with a few tags within Lintouch Editor,
+          export it, edit in a spreadsheet, and import it back.
+        </p></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2505595"></a>Importing tagname lists into Lintouch</h4></div></div></div><p>
+          To import a tagname list into Lintouch, open the Connections
+          dialog by choosing <span class="guimenuitem">Connections</span> from
+          <span class="guimenu">Dialogs</span> context menu of the project window. Or,
+          just click the button <span class="guibutton">Edit</span> in the Variables
+          dialog if the dialog is up.
+        </p><p>
+          Then, press the button <span class="guibutton">Import</span> and browse
+          for the CVS file. The format of the file is described in the
+          previous section. Do not worry, you can always export an example,
+          or a stub connection, and then edit it in your favorite
+          spreadsheet in order to satisfy the lintouch editor import
+          parser.
+        </p></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2505650"></a>Exporting tagname list from Lintouch</h4></div></div></div><p>
+          To export a tag name list, or the variable name list of a
+          connection, first open the Connections
+          dialog by choosing <span class="guimenuitem">Connections</span> from
+          <span class="guimenu">Dialogs</span> context menu of the project window.
+        </p><p>
+          Next, select the connection that you want to export. Then,
+          press the button <span class="guibutton">Export</span>. Pick the name
+          of the file for the export and confirm the selection. 
+        </p></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2505694"></a>Updating the tagname list</h4></div></div></div><p>
+          There might be times when you want to update an existing
+          connection by incorporating changes from the last import of a
+          tag name list. Bring up the Connections
+          dialog by choosing <span class="guimenuitem">Connections</span> from
+          <span class="guimenu">Dialogs</span> context menu of the project window.
+        </p><p>
+          Select the connection you want to update and press the
+          <span class="guibutton">Reimport</span>.
+        </p></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2505736"></a>Connecting Lintouch to the real world</h3></div></div></div><p>
+        This situation implies you have your templates ready and want to
+        seem them respond to the events that come from the outer devices.
+        Then you need to
+      </p><div class="itemizedlist"><ul type="disc"><li><p>
+            Bind the templates, or better, their IOPins to the variables.
+            Prior to that, as you can see, you will have to create those
+            variables.
+          </p></li><li><p>
+            Create the variables. As you can see, again, you are to have
+            a connection that is to contain those variables.
+          </p></li><li><p>
+            Create the connection. This is actually the place where you
+            would have started if you had known the facts. Do not worry
+            though, Lintouch will lead you through the whole process so
+            you do not have to memorize the succession of the steps.
+          </p></li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2505794"></a>Connecting the real world to Lintouch</h3></div></div></div><p>
+        If you are starting from this point, you may be just looking at
+        the empty project with the idea of the device to connect to. This
+        is okay too, as it is easy to enter into Lintouch what is already on
+        your mind:
+      </p><div class="itemizedlist"><ul type="disc"><li><p>
+            Create a connection. That is, specify the properties of the
+            device to connect to: the way you connect (the connection type)
+            and the properties of that connection.
+          </p></li><li><p>
+            Next, add variables to the connection. Those are actually the
+            data entities, quantities, or measured features of the device.
+            A variable corresponds to the single flow of data from Lintouch
+            to the device and/or the other way around. The meaning of the
+            variable data is up to you to interpret: were it for voltage,
+            temperature, pressure, simple check, or the handle position,
+            button, or lever.
+          </p></li><li><p>
+            Then, you need to get these variables displayed. This act is
+            also known as <span class="emphasis"><em>binding the variables to the
+            IOPins</em></span> of templates. So, now create some
+            templates that can display or alter the variables.
+          </p></li><li><p>
+            Finally, bind the IOPins, or input and outputs, of the templates
+            to the variables you have created.
+          </p></li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2505874"></a>Binding the template inputs and outputs</h3></div></div></div><p>
+        To bind the template's inputs and/or outputs (IOPins) to variables,
+        double-click on the template. The template properties dialog
+        appears. Alternatively, you may choose
+        <span class="guimenuitem">Properties</span> from the
+        <span class="guimenu">Selection</span> context menu of the project window.
+      </p><p>
+        </p><div class="figure"><a name="ed-bindiopins"></a><p class="title"><b>Figure 49. Binding IOPins</b></p><div class="mediaobject"><img src="images/ed-bindiopins.png" alt="Binding IOPins"></div></div><p>
+      </p><p>
+        Find the IOPin group containing the IOPin to bind in the left part
+        of the dialog and click it. Now find your IOPin among the IOPins
+        and select the connection and the variable to bind to.
+      </p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2505942"></a>Testing the binding</h3></div></div></div><p>
+        The instant you bind the IOPin, you can try out how the template
+        responds to the changing variable in the Preview mode.
+      </p><p>
+        To turn the preview mode on, click on the
+        <span class="guibutton">Preview</span> button on the toolbar of the main
+        window. To turn in off, click on another button in the toolbar
+        or select a template to add to a panel.
+      </p><p>
+        In the Preview dialog, click on the Used Variables tab and find
+        the variable that you want to test. You can see how the
+        template responds to or affects the connected variables. Note the
+        dialog contains only the variables that have been bound.
+      </p><p>
+        </p><div class="figure"><a name="ed-previewvariables"></a><p class="title"><b>Figure 50. Previewing Variables</b></p><div class="mediaobject"><img src="images/ed-previewvariables.png" alt="Previewing Variables"></div></div><p>
+      </p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2506017"></a>Online mode for testing the project</h3></div></div></div><p>
+        There is no testing the project like running it for real. By
+        invoking the online mode, you create the instance of Lintouch Server
+        and Lintouch Runtime that operate on the current project.
+      </p><p>
+        Of course, the environment is the same so you have to have the real
+        devices connected and up for the online mode to work. If you cannot
+        fulfill this requirement, you can always test the project in the
+        Preview mode.
+      </p><p>
+        To go to the online mode, click on the toolbar button
+        <span class="guibutton">Go Online</span> in the main window.
+      </p><p>
+        </p><div class="figure"><a name="ed-onlinemode"></a><p class="title"><b>Figure 51. Online mode</b></p><div class="mediaobject"><img src="images/ed-onlinemode.png" alt="Online mode"></div></div><p>
+      </p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2506083"></a>Creating a connection</h3></div></div></div><p>
+        To create a connection, bring up the Connections dialog by choosing
+        <span class="guimenuitem">Connections</span> from
+        <span class="guimenu">Dialogs</span> context menu of the project window. Or,
+        just click the button <span class="guibutton">Edit</span> in the Variables
+        dialog if the dialog is up.
+      </p><p>
+        </p><div class="figure"><a name="ed-createconnection"></a><p class="title"><b>Figure 52. Creating a connection</b></p><div class="mediaobject"><img src="images/ed-createconnection.png" alt="Creating a connection"></div></div><p>
+      </p><p>
+        Press the button <span class="guibutton">New</span> to bring up the
+        Connection Properties dialog.
+      </p><p>
+        </p><div class="figure"><a name="ed-createconnectionproperties"></a><p class="title"><b>Figure 53. New connection properties</b></p><div class="mediaobject"><img src="images/ed-createconnectionproperties.png" alt="New connection properties"></div></div><p>
+      </p><p>
+        Now, specify the type of the connection. Note that you will not be
+        able to change the type of the connection after you close the
+        dialog.
+      </p><p>
+        Fill in the properties of the connection and press
+        <span class="guibutton">Ok</span>. You can modify these connection
+        properties later if you wish.
+      </p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2506213"></a>Renaming a connection</h3></div></div></div><p>
+        To rename a connection, open up the Connections dialog box by
+        choosing <span class="guimenuitem">Connections</span> from the
+        <span class="guimenu">Dialogs</span> context menu of the project window.
+        Click the connection name you want to change and click it again to
+        enter the in-place editing mode that lets you edit the connection.
+        Press <span class="keysym">Enter</span> when done. You can also enter the
+        in-place editing mode by pressing the key <span class="keysym">F2</span>.
+      </p><p>
+        </p><div class="figure"><a name="ed-renameconnection"></a><p class="title"><b>Figure 54. Renaming a connection</b></p><div class="mediaobject"><img src="images/ed-renameconnection.png" alt="Renaming a connection"></div></div><p>
+      </p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2506282"></a>Modifying the connection properties</h3></div></div></div><p>
+        Most connections have properties associated with them. You can edit
+        the properties when creating the connection or you can change them
+        later: first, bring up the Connections dialog box by
+        choosing <span class="guimenuitem">Connections</span> from the
+        <span class="guimenu">Dialogs</span> context menu of the project window.
+        Double-click on the desired connection or select it and press the
+        button <span class="guibutton">Properties</span>. This will open the
+        Connection Properties dialog box.
+      </p><p>
+        </p><div class="figure"><a name="ed-editconnectionproperties"></a><p class="title"><b>Figure 55. Connection properties</b></p><div class="mediaobject"><img src="images/ed-editconnectionproperties.png" alt="Connection properties"></div></div><p>
+      </p><p>
+        When done, press the button <span class="guibutton">Ok</span>. Note the
+        connection type has been disabled and you cannot change it. To
+        change the type of the connection, you have to delete it and create
+        it again.
+      </p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2506368"></a>Removing a connection</h3></div></div></div><p>
+        To remove a connection from the project, open up the Connections
+        dialog box by choosing <span class="guimenuitem">Connections</span> from
+        the <span class="guimenu">Dialogs</span> context menu of the project window.
+        Then, select the connection to remove and press the
+        <span class="guibutton">Delete</span> button. When you remove the connection
+        from the project, all the corresponding variables and bindings will
+        be removed too of course.
+      </p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2506408"></a>Creating a variable</h3></div></div></div><p>
+        To create a variable, bring up the Variables dialog by choosing
+        <span class="guimenuitem">Variables</span> from
+        <span class="guimenu">Dialogs</span> context menu of the project window.
+      </p><p>
+        </p><div class="figure"><a name="ed-createvariable"></a><p class="title"><b>Figure 56. Creating a variable</b></p><div class="mediaobject"><img src="images/ed-createvariable.png" alt="Creating a variable"></div></div><p>
+      </p><p>
+        From the dropdown list, select the connection for which you want to
+        create the variable. If no connections are defined, or you want to
+        create a variable for yet an inexisting connection, press the button
+        <span class="guibutton">Edit</span> to open the Connections dialog and
+        define the connection there.
+      </p><p>
+        Then, Push the button <span class="guibutton">New</span> to bring up the
+        Variable Properties dialog.
+      </p><p>
+        </p><div class="figure"><a name="ed-createvariableproperties"></a><p class="title"><b>Figure 57. New variable properties</b></p><div class="mediaobject"><img src="images/ed-createvariableproperties.png" alt="New variable properties"></div></div><p>
+      </p><p>
+        Select the type of the variable from the dropdown list. Note you
+        will not be able to change the type of the variable after you
+        exit this dialog. Fill in the properties of the variable and press
+        <span class="guibutton">Ok</span>. Unlike the type, you will be able to
+        modify these variable properties later.
+      </p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2506540"></a>Renaming a variable</h3></div></div></div><p>
+        To rename a variable, open up the Variables dialog box by
+        choosing <span class="guimenuitem">Variables</span> from the
+        <span class="guimenu">Dialogs</span> context menu of the project window.
+      </p><p>
+        Select the connection that contains the variable from
+        the dropdown list. Then, click the variable to select it and then
+        click it again to enter the in-place editing mode that lets you
+        modify the variable name. When done, pres <span class="keysym">Enter</span>.
+        You can also press the key <span class="keysym">F2</span> to enter the in-place
+        editing mode.
+      </p><p>
+        </p><div class="figure"><a name="ed-renamevariable"></a><p class="title"><b>Figure 58. Renaming a variable</b></p><div class="mediaobject"><img src="images/ed-renamevariable.png" alt="Renaming a variable"></div></div><p>
+      </p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2506615"></a>Modifying the variable properties</h3></div></div></div><p>
+        To change the properties of a variable, bring up the Variables
+        dialog by choosing <span class="guimenuitem">Variables</span> from
+        <span class="guimenu">Dialogs</span> context menu of the project window.
+      </p><p>
+        Find the connection with the variable in the Connection dropdown
+        box. Then, select the variable and press the button
+        <span class="guibutton">Properties</span> to open the Variable Properties
+        dialog.
+      </p><p>
+        </p><div class="figure"><a name="ed-editvariableproperties"></a><p class="title"><b>Figure 59. Variable properties</b></p><div class="mediaobject"><img src="images/ed-editvariableproperties.png" alt="Variable properties"></div></div><p>
+      </p><p>
+        Edit the variable properties and confirm with the button <span class="guibutton">
+        Ok</span>. Note that you cannot change the type of the
+        variable. You can do this only when creating a variable. To change
+        the type of the variable, you have to delete it and create it again.
+      </p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2506703"></a>Removing a variable</h3></div></div></div><p>
+        To remove a variable from a connection, choose
+        <span class="guimenuitem">Connections</span> from the
+        <span class="guimenu">Dialogs</span> context menu of the project window.
+        Then, find the connection in the Connection dropdown list. Now
+        select the variable and press the <span class="guibutton">Delete</span>
+        button. Of course, all the corresponding bindings will be removed
+        after you remove the variable.
+      </p></div></div><div class="glossary"><div class="titlepage"><div><div><h2 class="title"><a name="id2506743"></a>Glossary</h2></div></div></div><dl><dt><a name="home-panel"></a>Home Panel</dt><dd><p>
+          The Panel that is displayed automatically when its View is selected.
+        </p><p>See Also <a href="#panel">Panel</a>, <a href="#view">View</a>.</p></dd><dt><a name="project"></a>Lintouch Project</dt><dd><p>
+          An effort to build an open-source real-time visual control center
+          application suite which can be used to monitor/control various
+          systems in the real time. More information can be found at the
+          <a href="http://lintouch.org" target="_top">http://lintouch.org</a>
+          website.
+        </p></dd><dd><p>
+          Set of XML configuration files packed together into a .zip
+          archive that define how your monitored system should be accessed
+          and how its various states should be visualized.
+        </p><p>
+          Every Project usually defines one or more connections to your
+          monitored system and one or more views which define the look and
+          feel of your visual control center. This look and feel uses
+          templates loaded from the specified template libraries for the
+          interaction with the user.
+        </p><p>See Also <a href="#connection">Server Connection</a>, <a href="#view">View</a>, <a href="#template-library">Template Library</a>.</p></dd><dt><a name="runtime"></a>Lintouch Runtime</dt><dd><p>
+          An application that serves as a visual control center
+          for your monitored system. It can connect to a specific Lintouch
+          Server, download the Project from it and interact (via
+          the Lintouch Server) with your monitored system.
+        </p><p>
+          How the state of your system is visualized is defined by a Project
+          - which is downloaded from the Server.
+        </p><p>See Also <a href="#project">Lintouch Project</a>, <a href="#server">Lintouch Server</a>.</p></dd><dt><a name="server"></a>Lintouch Server</dt><dd><p>
+          An application that serves as a monitoring/controlling
+          proxy between your monitored system and instances of Lintouch
+          Runtime that allow you to control your system. It reads values of
+          the monitored variables and changes them according to user
+          requirements performed through instances of Lintouch Runtime.
+        </p><p>
+          How to forward the requests is defined by a Lintouch Project that
+          the server is running. A Lintouch Server can only run one Lintouch
+          Project at a time and can serve it to several Lintouch Runtimes
+          simultaneously.
+        </p><p>See Also <a href="#project">Lintouch Project</a>, <a href="#runtime">Lintouch Runtime</a>.</p></dd><dt><a name="monitored-system"></a>Monitored System</dt><dd><p>
+          The system that you monitor and control. It
+          can be a part of the production line in a factory, key
+          machines in your company's network, etc.
+        </p><p>
+          Monitoring and controlling a system is carried out by
+          reading/writing the values of the monitored variables.
+        </p><p>See Also <a href="#monitored-variable">Monitored Variable</a>, <a href="#connection">Server Connection</a>.</p></dd><dt><a name="monitored-variable"></a>Monitored Variable</dt><dd><p>
+          Elementary piece of data that you want to monitor/control within
+          your system. Could be for example a position of an elevator,
+          temperature in a server room, speed of a motor or anything else.
+        </p><p>
+          A variable can be of type BIT (true/false), NUMBER (4 bytes signed
+          integer) or STRING (utf-8 encoded message of virtually unlimited
+          length).
+        </p><p>
+          Variables define the state of your monitored system.
+        </p><p>
+          How exactly the value of a specific variable is read/written is
+          defined by the Server Plugin handling the connection that contains
+          this variable.
+        </p><p>See Also <a href="#monitored-system">Monitored System</a>, <a href="#plugin">Server Plugin</a>, <a href="#connection">Server Connection</a>.</p></dd><dt><a name="panel"></a>Panel</dt><dd><p>
+          A rectangular area displayed by the Lintouch Runtime that contains
+          templates which represent parts of your monitored system.
+        </p><p>
+          Only one panel can be visible on-screen at a time.
+        </p><p>
+          Every panel can contain hyperlinks to other panels in the same
+          view.  For example, you may want to create a panel that displays
+          the overall state of your monitored system and that contains links
+          to the other panels that focus on specific parts of the system.
+        </p><p>See Also <a href="#home-panel">Home Panel</a>, <a href="#view">View</a>.</p></dd><dt><a name="plugin"></a>Server Plugin</dt><dd><p>
+          A piece of code that defines how the data (monitored variables)
+          from a monitored system should be obtained and how they could be
+          altered.
+        </p><p>
+          One can think of a Server Plugin that connects to the
+          system being monitored by SNMP (Simple Network Management Protocol),
+          Modbus/TCP protocol, etc.
+        </p><p>
+          A Plugin can run in more instances on the server; each instance
+          represents one connection to the monitored system.
+        </p><p>See Also <a href="#monitored-variable">Monitored Variable</a>.</p></dd><dt><a name="connection"></a>Server Connection</dt><dd><p>
+          A process that monitors (reads from and/or writes to) a set of
+          logically coherent monitored variables.
+        </p><p>
+          The reading/writing variables' values is defined by
+          the respective Server Plugin.
+        </p><p>See Also <a href="#plugin">Server Plugin</a>.</p></dd><dt><a name="template"></a>Template</dt><dd><p>
+          A visualization, monitoring and controlling primitive. It
+          represents a piece of your monitored system (such as Elevator,
+          Computer, Conveyor, etc.). It can display the status of the
+          piece it represents and might
+          control it. A Template paints itself in a rectangular area on
+          a Panel and can react to the mouse events occurring in the area.
+        </p><p>
+          Templates interact with the Lintouch Server through a set of
+          iopins (Input/Output Pins) which carry the values of the monitored
+          variables.
+        </p><p>
+          The visual appearance and the logical behavior of a Template can be
+          altered by changing the values of the properties defined by the
+          Template.
+        </p><p>
+          Templates are wrapped in and distributed with template libraries.
+        </p><p>See Also <a href="#template-iopin">Template IOPin</a>, <a href="#template-property">Template Property</a>, <a href="#template-library">Template Library</a>.</p></dd><dt><a name="template-iopin"></a>Template IOPin</dt><dd><p>
+          A Pin (akin to an electrical chip) that carries in and out the
+          value of a monitored variable. Templates use their iopins for the
+          communication with the monitored system.
+        </p><p>
+          Each iopin of a template can be connected to one
+          monitored variable.
+        </p><p>
+          Every monitored variable can be connected to zero, one or more
+          iopins of zero, one or more templates.
+        </p><p>
+          The connection between templates' iopins and monitored variables
+          is defined by a Project running at the Server.
+        </p><p>See Also <a href="#template">Template</a>, <a href="#project">Lintouch Project</a>, <a href="#monitored-variable">Monitored Variable</a>.</p></dd><dt><a name="template-library"></a>Template Library</dt><dd><p>
+          A collection of logically coherent templates. Examples:
+          a template library of network monitoring templates
+          (Host, Router, Server, Service, etc.), a template library of
+          transportation systems (Elevator, Conveyor, etc.).
+        </p><p>See Also <a href="#template">Template</a>.</p></dd><dt><a name="template-property"></a>Template Property</dt><dd><p>
+          A typed variable whose value is set by a Project. The
+          value can control how the template should be painted, how it should
+          react to mouse clicks, etc.
+        </p><p>
+          The author of a template decides what properties to create and
+          which to make available to the user for customization.
+        </p><p>
+          Template properties can define which font should be used to draw
+          text, what should be the color of the text, what should happen
+          when the user clicks with the mouse on the template, etc.
+        </p><p>See Also <a href="#template">Template</a>.</p></dd><dt><a name="view"></a>View</dt><dd><p>
+          A collection of panels that usually represents a consistent view
+          of the monitored system.
+        </p><p>
+          A Project can define several views. For example, one has been
+          created for devices with small screen resolutions, another one for
+          overall monitoring of the system, and yet another one for very
+          experienced operators.
+        </p><p>
+          When a specific view is selected (opened) its home panel will be
+          displayed automatically.
+        </p><p>See Also <a href="#panel">Panel</a>, <a href="#home-panel">Home Panel</a>, <a href="#monitored-system">Monitored System</a>.</p></dd></dl></div></div></body></html>

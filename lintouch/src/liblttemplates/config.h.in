@@ -1,0 +1,4 @@
+#define PREFIX "@PREFIX@"
+#define PREFIX_NATIVE "@PREFIX_NATIVE@"
+#define VERSION "@VERSION@ (@PACKAGE@-@VERSION@ release)"
+#define TODAY "@TODAY@"

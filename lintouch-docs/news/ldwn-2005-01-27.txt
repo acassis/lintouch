@@ -1,0 +1,55 @@
+---------------------------------------------------------------------------
+Lintouch Development Weekly News
+http://lintouch.org
+January 27th, 2005
+---------------------------------------------------------------------------
+
+Welcome to the nineteenth issue of the LDWN.
+
+Lintouch is in SVN. I am proud to announce, that all the sources produced by
+the Lintouch Team and needed to compile Lintouch have been moved to the new
+SVN based repository[1]. They have been cleaned up, and compile and run fine
+under Linux. The work is in progress to compile them cleanly under Windows
+again. The windows build system will use MinGW compiler suite[2] (basically
+GCC port to windows).
+
+    1. https://lintouch.org/repos/lintouch
+    2. http://www.mingw.org
+
+Windows packaging made easy. Jbar has been working hard to get
+_mingw-package_[3] to the super stable state, and we must say that he has
+succeeded. All Lintouch dependencies (cppunit, log4cpp, apr, sharedptr,
+swaloun-framework) are already packaged under windows and the packaging
+process is very similar (if not the 100% same) as under Linux.
+
+    3. https://lintouch.org/repos/lintouch/mingw-package/trunk
+
+Template Libraries reorganized. Lintouch 1.4 will be shipped with the two
+template libraries. *Display*[4] template library will contain Lamps, Chart,
+Number, Tester, Meter, basically all templates used to display values of
+different types in different manners. *Input*[5] template library will
+contain Button, LineInput, and Slider template. These can be used to change
+values of different types.
+
+    4. https://lintouch.org/repos/lintouch/lintouch/trunk/src/template-libraries/ltl-display
+    5. https://lintouch.org/repos/lintouch/lintouch/trunk/src/template-libraries/ltl-input
+
+Generator Plugin[6] enhanced. As of now, the Generator server plugin is able to
+generate 0/1 bit changes, and numerical sequences. The frequency can be
+adjusted.
+
+    6. https://lintouch.org/repos/lintouch/lintouch/trunk/src/server-plugins/lsp-basic
+
+Lintouch 1.3 in preparation. As soon as the windows builders finish the
+windows installer, the 1.3 (unstable) release of Lintouch will be
+made. It will contain ability to bind templates to the variables and will
+allow the users to produce fully functioning projects using Loopback and
+Generator plugins.
+
+That's all folks for this week, if you have any comments, corrections or
+ideas to be published, feel free to contact me directly[0].
+
+    0. mailto:mman@swac.cz.
+
+vim: set et tw=76:
+$Id: template.txt,v 1.1 2003/12/04 12:42:51 mman Exp $

@@ -1,0 +1,66 @@
+---------------------------------------------------------------------------
+Lintouch Meeting Report
+http://lintouch.org
+December 6th, 2004
+---------------------------------------------------------------------------
+
+Assembled by Martin Man <mman@swac.cz>
+
+1) Font rendering problems
+--------------------------
+
+mman has described why algorithm designed by Hynek on meeting 2004-12-29
+does not work for Editor and zoom coefficients different from 100%.
+
+It has been designed that we should examine how QPicture class handles SVG
+rendering with respect to fonts, font sizes, canvas scaling, etc. Patrik
+will port SVGTemplate to the latest API and mman will see how it behaves in
+Editor and Runtime.
+
+Additionally the Text template (from whichever library) should support two
+new properties "wrap enabled" and "always fit" with the following
+meanings:
+
+- "wrap enabled" (off by default) will allow Text template to auto layout text
+  within the Text template rectangle. This could cause the described
+  problems with text being wrapped differently on Windows, Linux and under
+  different zoom coefficients.
+
+- "always fit" will compute bounding rectangle of the text and chooses the
+  font in a way that text will never be clipped and will always fit into the
+  template rectangle.
+
+2) Canvas drawing optimizations
+-------------------------------
+
+Canvas drawing optimizations are going pretty well. We have started doing
+quite intensive optimizations in Editor, which resulted in some strange
+artifacts appearing at the panel while moving, resizing, etc., templates.
+Patrik is working to get rid of these.
+
+Additionally Runtime should never call canvas()->update() directly but
+always from Single Shot timer (QTimer::singelShot( ..., 0 ) ) resulting in
+the repaints occurring only when system and application are idle. mman should
+take care of this.
+
+3) SVN->CVS transition
+----------------------
+
+To make the release process smooth for all Lintouch components as well as
+for Lintouch itself, Hynek has proposed to create one top level configure
+script for whole Lintouch, that would somehow union all configure scripts
+from all Lintouch components. mman will work on this.
+
+The structure of the SVN repository is almost fixed and mman should also
+prepare some of the helper scripts to make the most common release-process
+tasks simpler. These are namely
+
+- script to branch a component
+- script to release a component
+- script to package a component
+
+No details has been discussed yet, but all these scripts should provide good
+foundation for lintouch auto building and quality verification.
+
+vim: set et tw=76:
+$Id: template.txt,v 1.1 2004/11/30 11:38:29 mman Exp $

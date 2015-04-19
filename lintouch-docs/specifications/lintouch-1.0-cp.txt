@@ -1,0 +1,525 @@
+Lintouch 1.0 TCP/IP Communication Protocol Specification
+
+S.W.A.C. Bohemia s.r.o., Strakonice, Czech Republic
+
+S.W.A.C. GmbH, München, Germany
+
+Ing. Martin Man
+
+<mman@swac.cz>
+
+Copyright © 2001-2005 Martin Man
+
+Copyright © 2001-2005 S.W.A.C. Bohemia s.r.o., Strakonice, Czech Republic
+
+Copyright © 2001-2005 S.W.A.C. GmbH, Münich, Germany
+
+No part of this publication may be reproduced, stored in a retrieval system, or
+transmitted, in any form or by means, electronic, mechanical, photocopying, or
+otherwise, without prior written permission of the publisher.
+
+The copyright holders make no warranty or representation, either express or
+implied, with respect to this manual, its quality, accuracy, merchantability,
+or fittness for a particular purpose. As a result this manual is sold "AS IS",
+and you, the purchaser, are assuming the entire risk as to its quality and
+accuracy.
+
+May 2003
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│Revision History                                                             │
+├────────────────────────────────┬───────────────────────────────────┬────────┤
+│Revision 0.96.1                 │August 17th 2004                   │mman    │
+├────────────────────────────────┴───────────────────────────────────┴────────┤
+│Make docbook source valid again.                                             │
+├────────────────────────────────┬───────────────────────────────────┬────────┤
+│Revision 0.96                   │11 December 2003                   │mman    │
+├────────────────────────────────┴───────────────────────────────────┴────────┤
+│Use Lintouch in place of Wintouch New Generation.                            │
+├────────────────────────────────┬───────────────────────────────────┬────────┤
+│Revision 0.95                   │05 October 2003                    │mman    │
+├────────────────────────────────┴───────────────────────────────────┴────────┤
+│Ramcard is dead, vivat Ramcard.                                              │
+├────────────────────────────────┬───────────────────────────────────┬────────┤
+│Revision 0.94                   │18 July 2003                       │mman    │
+├────────────────────────────────┴───────────────────────────────────┴────────┤
+│Finally document message_timestamp field.                                    │
+├────────────────────────────────┬───────────────────────────────────┬────────┤
+│Revision 0.93                   │19 June 2003                       │mman    │
+├────────────────────────────────┴───────────────────────────────────┴────────┤
+│Added message_id field and description of Simplified BER encoding.           │
+├────────────────────────────────┬───────────────────────────────────┬────────┤
+│Revision 0.92                   │11 June 2003                       │mman    │
+├────────────────────────────────┴───────────────────────────────────┴────────┤
+│Changed syntax of a message, status field removed because it was essentially │
+│unnecessary                                                                  │
+├────────────────────────────────┬───────────────────────────────────┬────────┤
+│Revision 0.91                   │4 June 2003                        │mman    │
+├────────────────────────────────┴───────────────────────────────────┴────────┤
+│Clarification, added more explanatory images                                 │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+Abstract
+
+This article describes the TCP/IP based communication protocol used by Lintouch
+servers and clients. The protocol is used to transfer named variables of types
+BIT, NUMBER and STRING between the Lintouch servers and clients.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Table of Contents
+
+1. Introduction to variables
+
+    1.1. Name of the variable
+    1.2. Data type of the variable's value
+
+2. Communication protocol
+
+    2.1. Message structure
+    2.2. Message types
+    2.3. Protocol types
+    2.4. Connection oriented protocol
+    2.5. Streaming oriented protocol
+
+A. BER description
+B. Simplified BER description
+References
+
+1. Introduction to variables
+
+Lintouch uses the concept of variables for data mining and alteration.
+
+Every variable is defined by its name and value. Value of concrete variable has
+a data type (see fig. Figure 1, “Lintouch variable description”).
+
+Figure 1. Lintouch variable description
+
+Lintouch variable is defined by name (of type STRING) and value (of type BIT,
+NUMBER or STRING)
+
+1.1. Name of the variable
+
+The name of the variable is always of the type STRING. It can contain arbitrary
+Unicode characters (see Section 1.2, “Data type of the variable's value” for
+detailed description of all data types).
+
+1.2. Data type of the variable's value
+
+At the time of this writing, Lintouch supports four basic data types. They are
+mapped one-to-one to the same ASN.1 data types and encoded using either BER or
+rather SBER (see Table 1, “Lintouch data types mapped to ASN.1 data types.” for
+the mapping details and Appendix A, BER description and Appendix B, Simplified
+BER description for details on BER and SBER encodings).
+
+Table 1. Lintouch data types mapped to ASN.1 data types.
+
+┌───────────┬──────────────────┬─────────────────────────────┬────────────────┐
+│ Lintouch  │ ASN.1 data type  │            Notes            │    Example     │
+│ data type │                  │                             │                │
+├───────────┼──────────────────┼─────────────────────────────┼────────────────┤
+│BIT        │BOOLEAN           │                             │logical zero /  │
+│           │                  │                             │logical one     │
+├───────────┼──────────────────┼─────────────────────────────┼────────────────┤
+│NUMBER     │INTEGER           │                             │-12345          │
+├───────────┼──────────────────┼─────────────────────────────┼────────────────┤
+│STRING     │DEFINITE LENGTH   │UTF-8 (big endian) encoded   │robot has moved │
+│           │OCTET STRING      │string                       │                │
+├───────────┼──────────────────┼─────────────────────────────┼────────────────┤
+│SEQUENCE   │DEFINITE LENGTH   │sequence of BIT, NUMBER,     │                │
+│           │SEQUENCE          │STRING, SEQUENCE types       │                │
+└───────────┴──────────────────┴─────────────────────────────┴────────────────┘
+
+2. Communication protocol
+
+Lintouch communication protocol is used to transfer values of named variables
+from one machine to another. Unless stated otherwise, all numeric fields are
+transmitted in network order (big endian).
+
+Communication protocol sends all data within messages, each of which has a
+specific meaning and defines what the message header and payload look like.
+
+Communication protocol uses TCP/IP as a transport protocol and can be used in
+connection oriented mode (server to client and vice versa) or streaming mode
+(server to clients).
+
+2.1. Message structure
+
+Every message contains header and payload.
+
+2.1.1. Message header
+
+Message header is fixed for all types of messages, it consists of message
+length, id, timestamp and message type (see Table 2, “Lintouch message header”
+for details).
+
+Table 2. Lintouch message header
+
+┌─────────────────┬─────────┬─────────────────────────────────────────────────┐
+│                 │ length  │                                                 │
+│      field      │   (in   │                      Notes                      │
+│                 │ octets) │                                                 │
+├─────────────────┼─────────┼─────────────────────────────────────────────────┤
+│message_length   │4 (big   │contains size of the whole packet including      │
+│                 │endian)  │payload and this field                           │
+├─────────────────┼─────────┼─────────────────────────────────────────────────┤
+│                 │         │contains random number (requestid) that the      │
+│                 │4 (big   │client can fill in order to associate responses  │
+│message_id       │endian)  │from the server with its requests. Server will   │
+│                 │         │copy message_id unchanged into the header of the │
+│                 │         │generated response message.                      │
+├─────────────────┼─────────┼─────────────────────────────────────────────────┤
+│message_timestamp│8 (big   │timestamp in microseconds since 00:00:00 january │
+│                 │endian)  │1, 1970 UTC when the message was generated       │
+├─────────────────┼─────────┼─────────────────────────────────────────────────┤
+│message_type     │2 (big   │see Table 5, “Lintouch message types - connection│
+│                 │endian)  │setup” for details                               │
+├─────────────────┼─────────┼─────────────────────────────────────────────────┤
+│                 │specified│                                                 │
+│message_payload  │by       │see Section 2.1.2, “Message payload” for details │
+│                 │payload  │                                                 │
+│                 │itself   │                                                 │
+└─────────────────┴─────────┴─────────────────────────────────────────────────┘
+
+2.1.2. Message payload
+
+At the time of this writing, message payload has fixed structure as specified
+in Section 2.1.2, “Message payload”. It always contains SEQUENCE of values that
+either represent an ARRAY (possibly of length zero, one or more) or a HASHTABLE
+where each two consecutive values represent one row in such hashtable (meaning
+the key-value pairs). In case of a hashtable sequence should contain obviously
+odd number of elements (see Figure 2, “message payload_data description” for
+details). The payload data can be encoded either using BER (see Appendix A, BER
+description) or rather with Simplified BER (see Appendix B, Simplified BER
+description) which is easier and faster to encode/decode.
+
+Figure 2. message payload_data description
+
+message payload is a SEQUENCE of values which either represent an ARRAY or
+HASHTABLE. HASHTABLE is encoded such that each two consecutive values represent
+a key-value pairs.
+
+Table 3. Lintouch message payload
+
+┌──────────────┬────────────┬─────────────────────────────────────────────────┐
+│    field     │  size (in  │                      Notes                      │
+│              │  octets)   │                                                 │
+├──────────────┼────────────┼─────────────────────────────────────────────────┤
+│payload_length│4 (big      │contains size of the whole payload including this│
+│              │endian)     │field                                            │
+├──────────────┼────────────┼─────────────────────────────────────────────────┤
+│payload_type  │2 (big      │see Table 4, “Lintouch message payload           │
+│              │endian)     │encodings.” for details                          │
+├──────────────┼────────────┼─────────────────────────────────────────────────┤
+│              │depends on  │BER or SBER encoded SEQUENCE. Meaning of the     │
+│payload_data  │payload_type│values transferred via this sequence is defined  │
+│              │            │by each message.                                 │
+└──────────────┴────────────┴─────────────────────────────────────────────────┘
+
+Table 4. Lintouch message payload encodings.
+
+┌─────────────────────┬──────────┬────────────────────────────────────────────┐
+│        name         │ numeric  │                   Notes                    │
+│                     │   code   │                                            │
+├─────────────────────┼──────────┼────────────────────────────────────────────┤
+│BER_ENCODED_SEQUENCE │0x0001    │see Appendix A, BER description for details │
+├─────────────────────┼──────────┼────────────────────────────────────────────┤
+│SBER_ENCODED_SEQUENCE│0x0002    │see Appendix B, Simplified BER description  │
+│                     │          │for details                                 │
+└─────────────────────┴──────────┴────────────────────────────────────────────┘
+
+2.2. Message types
+
+Every message is identified by its type. The following tables describe the
+documented message types. Any message type not mentioned here shall be
+considered as a protocol implementation bug and receiving side should
+immediately terminate the connection.
+
+Table 5. Lintouch message types - connection setup
+
+┌───────────────────┬────────────┬────────────────────┬───────────────────────┐
+│       name        │message_type│  message_payload   │         Notes         │
+├───────────────────┼────────────┼────────────────────┼───────────────────────┤
+│                   │            │                    │reserved for internal  │
+│                   │            │                    │use of application,    │
+│                   │            │                    │must never be sent to  │
+│                   │            │                    │the network, if so,    │
+│INVALID            │0x00        │payload_length = 0  │such message shall     │
+│                   │            │                    │cause the connection to│
+│                   │            │                    │be terminated          │
+│                   │            │                    │immediately by the     │
+│                   │            │                    │receiving side.        │
+├───────────────────┼────────────┼────────────────────┼───────────────────────┤
+│                   │            │                    │reserved for internal  │
+│                   │            │                    │use of application,    │
+│                   │            │                    │must never be sent to  │
+│                   │            │                    │the network, if so,    │
+│ANY                │0xff        │payload_length = 0  │such message shall     │
+│                   │            │                    │cause the connection to│
+│                   │            │                    │be terminated          │
+│                   │            │                    │immediately by the     │
+│                   │            │                    │receiving side.        │
+├───────────────────┼────────────┼────────────────────┼───────────────────────┤
+│                   │            │                    │can be used as a form  │
+│                   │            │                    │of keep-alive. Shall be│
+│NONE               │0x01        │payload_length = 0  │ignored by the         │
+│                   │            │                    │receiving side or used │
+│                   │            │                    │as a note that sending │
+│                   │            │                    │side is alive.         │
+├───────────────────┼────────────┼────────────────────┼───────────────────────┤
+│                   │            │ARRAY of exactly one│                       │
+│                   │            │NUMBER indicating   │                       │
+│                   │            │the communication   │request for connection │
+│CONNECT            │0x010       │mode, see Table 7,  │sent by the client to  │
+│                   │            │“Lintouch protocol  │the server             │
+│                   │            │type codes (used by │                       │
+│                   │            │CONNECT payload)”   │                       │
+│                   │            │for details         │                       │
+├───────────────────┼────────────┼────────────────────┼───────────────────────┤
+│                   │            │ARRAY of exactly one│response to CONNECT    │
+│                   │            │STRING containing   │from the server to the │
+│PROJECT_URL        │0x011       │the URL from which  │client, client shall   │
+│                   │            │the project should  │continue with          │
+│                   │            │be downloaded.      │SELECT_VIEW            │
+├───────────────────┼────────────┼────────────────────┼───────────────────────┤
+│                   │            │ARRAY of exactly one│response to CONNECT    │
+│                   │            │STRING describing   │from the server to the │
+│CONNECTION_REFUSED │0x012       │the reason why      │client, client shall   │
+│                   │            │server can not      │terminate the TCP/IP   │
+│                   │            │accept the client   │connection.            │
+│                   │            │connection.         │                       │
+├───────────────────┼────────────┼────────────────────┼───────────────────────┤
+│                   │            │                    │request for connection │
+│                   │            │                    │termination, sent by   │
+│DISCONNECT         │0x013       │payload_length = 0  │the client to the      │
+│                   │            │                    │server when the        │
+│                   │            │                    │connection is not      │
+│                   │            │                    │needed anymore.        │
+├───────────────────┼────────────┼────────────────────┼───────────────────────┤
+│                   │            │ARRAY of exactly one│request for view       │
+│SELECT_VIEW        │0x020       │STRING containing   │selection sent by the  │
+│                   │            │the name of the view│client to the server   │
+│                   │            │to be monitored     │                       │
+├───────────────────┼────────────┼────────────────────┼───────────────────────┤
+│                   │            │HASHTABLE of values │                       │
+│                   │            │of type STRING,     │                       │
+│                   │            │NUMBER or BIT. Each │response to SELECT_VIEW│
+│AVAILABLE_VARIABLES│0x021       │row in a hashtable  │sent by the server to  │
+│                   │            │representing        │the client.            │
+│                   │            │variable name and   │                       │
+│                   │            │its initial value.  │                       │
+├───────────────────┼────────────┼────────────────────┼───────────────────────┤
+│                   │            │ARRAY of exactly one│client can continue    │
+│                   │            │string describing   │with another           │
+│VIEW_NOT_SELECTED  │0x022       │the reason why the  │SELECT_VIEW or with    │
+│                   │            │view could not be   │DISCONNECT             │
+│                   │            │selected.           │                       │
+├───────────────────┼────────────┼────────────────────┼───────────────────────┤
+│                   │            │                    │client sends this      │
+│                   │            │                    │message when he wants  │
+│                   │            │                    │to select another view,│
+│UNSELECT_VIEW      │0x023       │payload_length = 0  │e.g., before           │
+│                   │            │                    │SELECT_VIEW, or when he│
+│                   │            │                    │wants to terminate the │
+│                   │            │                    │connection, .e.g,      │
+│                   │            │                    │before DISCONNECT      │
+└───────────────────┴────────────┴────────────────────┴───────────────────────┘
+
+Table 6. Lintouch message types - monitoring/altering variables
+
+┌────────────────────┬────────────┬────────────────┬──────────────────────────┐
+│        name        │message_type│message_payload │          Notes           │
+├────────────────────┼────────────┼────────────────┼──────────────────────────┤
+│                    │            │ARRAY of STRING │                          │
+│                    │            │values          │                          │
+│                    │            │describing      │request for change        │
+│MONITOR_VARIABLES   │0x030       │variables to be │notification sent by the  │
+│                    │            │monitored. Their│client to the server      │
+│                    │            │changes will be │                          │
+│                    │            │reported via    │                          │
+│                    │            │VARIABLE_VALUES.│                          │
+├────────────────────┼────────────┼────────────────┼──────────────────────────┤
+│                    │            │ARRAY of STRING │                          │
+│                    │            │values          │                          │
+│                    │            │describing      │                          │
+│                    │            │variables to be │request to stop change    │
+│UNMONITOR_VARIABLES │0x031       │unmonitored.    │notifications sent by the │
+│                    │            │Their changes   │client to the server      │
+│                    │            │will not be     │                          │
+│                    │            │reported via    │                          │
+│                    │            │VARIABLE_VALUES │                          │
+│                    │            │any further.    │                          │
+├────────────────────┼────────────┼────────────────┼──────────────────────────┤
+│                    │            │                │confirmation sent by the  │
+│                    │            │                │server to the client as a │
+│                    │            │ARRAY of STRING │response to               │
+│                    │            │values          │MONITOR_VARIABLES or      │
+│                    │            │describing      │UNMONITOR_VARIABLES.      │
+│                    │            │variables that  │Receiving side must not   │
+│MONITORING_VARIABLES│0x032       │are being       │assume that returned ARRAY│
+│                    │            │monitored and   │will be the same one as   │
+│                    │            │whose changes   │requested by              │
+│                    │            │are sent to the │MONITOR_VARIABLES. It can │
+│                    │            │client.         │be, but it's up to the    │
+│                    │            │                │sending side to decide    │
+│                    │            │                │which changes it will     │
+│                    │            │                │forward to the client.    │
+├────────────────────┼────────────┼────────────────┼──────────────────────────┤
+│                    │            │HASHTABLE where │request for change of     │
+│                    │            │each row        │values of one or more     │
+│                    │            │describes       │variables sent by the     │
+│MODIFY_VARIABLES    │0x040       │variable and its│client to the server (as a│
+│                    │            │desired new     │result of user interaction│
+│                    │            │value.          │with the application for  │
+│                    │            │                │example).                 │
+├────────────────────┼────────────┼────────────────┼──────────────────────────┤
+│                    │            │ARRAY of STRING │                          │
+│                    │            │values          │                          │
+│                    │            │describing      │request for value of one  │
+│READ_VARIABLES      │0x041       │variables whose │or more variables sent by │
+│                    │            │actual values   │the client to the server  │
+│                    │            │are to be sent  │                          │
+│                    │            │to the client.  │                          │
+├────────────────────┼────────────┼────────────────┼──────────────────────────┤
+│                    │            │                │response to the           │
+│                    │            │                │MONITOR_VARIABLES,        │
+│                    │            │                │READ_VARIABLES or         │
+│                    │            │                │MODIFY_VARIABLES sent by  │
+│                    │            │                │the server to the client  │
+│                    │            │                │either periodically (in   │
+│                    │            │                │case of monitoring) or    │
+│                    │            │                │only once (in case of     │
+│                    │            │HASHTABLE where │READing or MODIFYing      │
+│                    │            │each row        │certain variables).       │
+│VARIABLE_VALUES     │0x050       │describes a     │Receiving side shall not  │
+│                    │            │variable and its│assume that returned      │
+│                    │            │actual value    │HASHTABLE will contain all│
+│                    │            │                │variables requested by    │
+│                    │            │                │READ_VARIABLES,           │
+│                    │            │                │MODIFY_VARIABLES or       │
+│                    │            │                │MONITOR_VARIABLES. It's up│
+│                    │            │                │to the sending side to    │
+│                    │            │                │decide which values it    │
+│                    │            │                │will forward to the       │
+│                    │            │                │receiving side.           │
+└────────────────────┴────────────┴────────────────┴──────────────────────────┘
+
+2.3. Protocol types
+
+Lintouch communication protocol can operate in the following two modes:
+
+Connection oriented protocol is used where full control over all variables is
+required (e.g., alteration and visualization according to the project view is
+necessary). Client can select the view and variables defined by this view that
+he is interested in and that he wants to monitor and possibly alter.
+
+Streaming oriented mode is used to simply watch all variables server has access
+to. All changes of those variables are automatically forwarded to the client.
+Client can as well modify values of those variables. This mode puts almost no
+logical complexity on the server and can be therefore run on
+low-power-low-consumption devices. Note that in this mode runtime has no access
+to the full project and is therefore unavailable to visualize the variables
+according to the project.
+
+Table 7. Lintouch protocol type codes (used by CONNECT payload)
+
+┌────────────────────────────┬───────┬────────────────────────────────────────┐
+│            name            │numeric│                 Notes                  │
+│                            │ code  │                                        │
+├────────────────────────────┼───────┼────────────────────────────────────────┤
+│                            │       │server and client must follow Figure 3, │
+│PROTOCOL_CONNECTION_ORIENTED│0x0001 │“Lintouch TCP/IP connection oriented    │
+│                            │       │protocol (state diagram)”               │
+├────────────────────────────┼───────┼────────────────────────────────────────┤
+│                            │       │server and client must follow Figure 4, │
+│PROTOCOL_STREAM_ORIENTED    │0x0002 │“Lintouch TCP/IP stream oriented        │
+│                            │       │protocol (state diagram)”               │
+└────────────────────────────┴───────┴────────────────────────────────────────┘
+
+2.4. Connection oriented protocol
+
+The following state diagram describes the Lintouch connection oriented
+communication protocol. Servers and clients must comply with this diagram in
+terms that only indicated transitions are allowed. Any transition not mentioned
+in this diagram must cause the underlying TCP/IP connection to be terminated
+immediately.
+
+In the connection oriented mode client requests connection and receives the url
+from which to download the project. After downloading the project client can
+open it and determine which view to select. After the client selects view,
+server simply remembers it. Server will however not send any variable changes
+to the client unless the client will require them via MONITOR_VARIABLES
+message.
+
+This protocol mode puts more responsibilities on the server and as such should
+be used only on hardware that can handle such complexity.
+
+Figure 3. Lintouch TCP/IP connection oriented protocol (state diagram)
+
+State diagram describing the Lintouch TCP/IP connection oriented protocol.
+
+2.5. Streaming oriented protocol
+
+The following state diagram describes the Lintouch streaming oriented
+communication protocol. Servers and clients must comply with this diagram in
+terms that only indicated transitions are allowed. Any transition not mentioned
+in this diagram must cause the underlying TCP/IP connection to be terminated
+immediately.
+
+In this mode client requests connection and server simply answers with the
+hashtable of all available variables and their actual (or initial) values.
+Server then continues to periodically send all changes of the variable values.
+Client can alter value of certain variables by sending MODIFY_VARIABLES to the
+server.
+
+This protocol mode puts less responsibilities on the server and as such should
+be used even on hardware that has limited processing power.
+
+Figure 4. Lintouch TCP/IP stream oriented protocol (state diagram)
+
+State diagram describing the Lintouch TCP/IP stream oriented protocol.
+
+A. BER description
+
+BER stands for Binary Encoded Representation and is used to encode ASN.1 data
+types into stream of bits.
+
+one octet = tag, one or more octets = length, one or more octets = contents
+
+tags: 0x1 boolean, 0x2 integer, 0x24 octet string, 0x30 definite-length
+sequence
+
+length: 0-127 in one byte, more in more bytes with MSB set to 1 except the last
+one (encoded in big endian with base 128)
+
+contents: 00/FF boolean, big endian integer, big endian utf-8 string
+
+TBD: table of most common rules, such as for OCTET STRING, INTEGER, BOOLEAN,
+SEQUENCE.
+
+B. Simplified BER description
+
+Simplified BER is a slightly modified and tightened version of BER. Only a
+small subset of value types is supported and their encoding is a bit restricted
+in order to suit most scenarios while speeding up encoding and decoding
+process.
+
+tag (1 octet), length (4 octets optionally), data
+
+tag 0x1: BIT, followed by 1 octet 0x00/false or 0xff/true
+
+tag 0x2: NUMBER, followed by 4 octets representing big endian int32_t
+
+tag 0x24: STRING, followed by 4 octets representing big endian uint32_t length,
+followed by `length` octets of actual string contents
+
+tag 0x30: SEQUENCE, followed by 4 octets representing big endian uint32_t
+number of items in a sequence, followed by `items` values encoded with SBER
+
+TBD: cleanup and examples.
+
+References
+
+[Layman] Burton S. Kalisky. Copyright © 1991 RSA Data Security, Inc.. A
+Layman's Guide to a Subset of ASN.1, BER and DER.
+

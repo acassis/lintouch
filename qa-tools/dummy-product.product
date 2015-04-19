@@ -1,0 +1,22 @@
+# This is a configuration file describing a product that should be
+# automatically built by QA Tools.
+
+# what comes in and what comes out
+REPOSITORY=${REPOSITORY:="https://lintouch.org/repos/lintouch"}
+PRODUCT=${PRODUCT:="dummy-product"}
+RESULTDIR="/tmp/${PRODUCT}"
+
+# svn repository layout
+LAYOUT="default-svn-layout.conf"
+
+# package builders
+DEB_BUILDER="default-deb-builder.conf"
+RPM_BUILDER="default-rpm-builder.conf"
+MINGW_BUILDER="default-mingw-builde.conf"
+
+# supported distros
+DEB_DISTROS=${DISTROS:-"debian ubuntu"}
+RPM_DISTROS=${DISTROS:-"suse10 fc4"}
+MINGW_DISTROS=${DISTROS:-"mingw"}
+
+# vim set ft=sh:

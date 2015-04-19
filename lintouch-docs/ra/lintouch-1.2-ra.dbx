@@ -1,0 +1,518 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" [
+
+<!ENTITY lnt "Lintouch">
+<!ENTITY version "1.2">
+
+]>
+
+<article>
+
+  <title>
+    &lnt; &version; Release Announcement
+  </title>
+
+  <articleinfo>
+    <author>
+      <firstname>Martin</firstname>
+      <surname>Man</surname>
+      <email>mman@swac.cz</email>
+    </author>
+    <pubdate>September 17th, 2004</pubdate>
+  </articleinfo>
+
+  <sect1>
+    <title>Introduction</title>
+
+    <para>
+      <figure id="logo">
+        <title>&lnt; Logo</title>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="images/lintouch.eps" format="EPS"/>
+          </imageobject>
+          <imageobject>
+            <imagedata fileref="images/lintouch.png" format="PNG"/>
+          </imageobject>
+          <textobject>
+            <phrase>&lnt; Logo</phrase>
+          </textobject>
+        </mediaobject>
+      </figure>
+    </para>
+
+    <para>
+      After six months of development we (<ulink
+        url="http://lintouch.org">Lintouch Team</ulink>) are proud to
+      announce the availability of the new stable version of the
+      Lintouch Server and the Lintouch Runtime.
+    </para>
+
+    <para>
+      This version includes bug fixes plus several new important
+      features. You are welcome to download, install, test and use this
+      version.
+    </para>
+
+    <para>
+      Please see <xref linkend="about"/> for more information about
+      &lnt;.
+    </para>
+
+  </sect1>
+
+  <sect1>
+    <title>What's New In &lnt; &version;</title>
+
+    <sect2>
+      <title>Global Changes</title>
+
+      <para>
+        <variablelist>
+          <varlistentry>
+            <term>New Project File Extension</term>
+            <listitem>
+              <para>
+                From now on, all &lnt; Projects use
+                <filename>.ltp</filename> as the default file extension.
+                The projects are still ordinary ZIP archives, but different
+                extension makes it easier to associate &lnt;
+                applications with such files.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>New Project File Format</term>
+            <listitem>
+              <para>
+                To support Panel reuse + keyboard event handling, the
+                format of the project files as been slightly changed.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>New Template Property Types</term>
+            <listitem>
+              <para>
+                Property types <emphasis>color</emphasis>,
+                <emphasis>link</emphasis>, and
+                <emphasis>resource</emphasis> have been introduced.
+                They were needed to make the &lnt; Editor operate
+                smoothly.
+              </para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </para>
+
+    </sect2>
+
+    <sect2>
+      <title>&lnt; Runtime</title>
+
+      <para>
+        <variablelist>
+          <varlistentry>
+            <term>Improved Panel Rendering</term>
+            <listitem>
+              <para>
+                Panel + Template rendering has been reworked to achieve
+                more readable texts. The results are better than what
+                we had in &lnt; 1.0, namely when talking about fonts
+                being rendered at small sizes.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>Focus + Keyboard Events Handling</term>
+            <listitem>
+              <para>
+                Templates can now define their focus policy (whether
+                they want to receive events from keyboard). Once they do
+                so, they can process the keyboard events and react to
+                shortcuts. This feature enables the use of &lnt; in
+                environments requiring more input devices than just the
+                plain touch screens.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>Access to Variable's Properties</term>
+            <listitem>
+              <para>
+                From now on a Template can access the properties of
+                Variable(s) it has been bound to. The properties of
+                variables usually contain important configuration
+                information for the Server that may be displayed at the
+                Runtime side.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>Template IOPin + Property Grouping</term>
+            <listitem>
+              <para>
+                Namely to support more user comfort while working with
+                &lnt; Editor, the Templates can group their IOPins and
+                Properties. A Template can for example define "Inputs",
+                and "Outputs" IOPin groups and "Inactive", and "Active"
+                Property groups.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>Template Localization</term>
+            <listitem>
+              <para>
+                Templates and Template Libraries can be fully localized.
+                This includes templates' description, IOPin names, and
+                Property names. Again a feature namely useful when working
+                with &lnt; Editor.
+              </para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </para>
+
+    </sect2>
+
+    <sect2>
+      <title>&lnt; Server</title>
+
+      <para>
+        <variablelist>
+          <varlistentry>
+            <term>Access to Project Resources</term>
+            <listitem>
+              <para>
+                Plugins now have access to the project's resources. We
+                already had one plugin that needed access to some
+                external file for its operation. Now such files can be
+                obtained directly from the project which simplifies a
+                lot the deployment of &lnt; Projects.
+              </para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </para>
+
+    </sect2>
+
+  </sect1>
+
+  <sect1>
+    <title>Obtaining and Installing &lnt;</title>
+
+    <sect2>
+      <title>Ready Made Binaries</title>
+
+      <para>
+        &lnt; can be downloaded and installed directly on the following
+        platforms. The detailed instructions are available at our
+        <ulink url="http://lintouch.org/blog/latest">website</ulink>.
+      </para>
+
+      <para>
+        <variablelist>
+          <varlistentry>
+            <term>Windows 2000/XP</term>
+            <listitem>
+              <para>
+                Please see <ulink
+                  url="http://lintouch.org/blog/download#win32bin">
+                  http://lintouch.org/blog/download#win32bin</ulink>
+                for more information.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>Debian/GNU Linux (sarge + sid)</term>
+            <listitem>
+              <para>
+                Please see <ulink
+                  url="http://lintouch.org/blog/download#linuxbin">
+                  http://lintouch.org/blog/download#linuxbin</ulink>
+                for more information.
+              </para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </para>
+
+    </sect2>
+
+    <sect2>
+      <title>Installation from Sources</title>
+
+      <para>
+        &lnt; sources can be downloaded from the
+        <ulink url="http://lintouch.org/blog/download">sources</ulink>
+        section at our <ulink
+          url="http://lintouch.org/blog/latest">website</ulink>.
+      </para>
+
+      <sect3>
+        <title>External Dependencies</title>
+
+        <para>
+          The following libraries and applications must be installed
+          before you try to compile lintouch sources.
+        </para>
+
+        <para>
+          <variablelist>
+            <varlistentry>
+              <term>Apache Portable Runtime 2.0 +</term>
+              <listitem>
+                <para>
+                  Available at <ulink
+                    url="http://apr.apache.org">
+                    http://apr.apache.org</ulink>.
+                </para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term>Cppunit: A Unit test framework for C++</term>
+              <listitem>
+                <para>
+                  Available at <ulink
+                    url="http://cppunit.sourceforge.net">
+                    http://cppunit.sourceforge.net</ulink>.
+                </para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term>Doxygen: documentation system for C++, C</term>
+              <listitem>
+                <para>
+                  Available at <ulink
+                    url="http://www.doxygen.org">
+                    http://www.doxygen.org</ulink>.
+                </para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term>pkg-config: System for managing link/compile flags</term>
+              <listitem>
+                <para>
+                  Available at <ulink
+                    url="http://freshmeat.net/projects/pkgconfig/">
+                    http://freshmeat.net/projects/pkgconfig/</ulink>.
+                </para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term>SharedPtr: Smart Pointer C++ Template Class</term>
+              <listitem>
+                <para>
+                  Available at <ulink
+                    url="http://lintouch.org/blog/projects#sharedptr">
+                    http://lintouch.org/blog/projects#sharedptr</ulink>.
+                </para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term>Swaloun Framework</term>
+              <listitem>
+                <para>
+                  Available at <ulink
+                    url="http://lintouch.org/blog/projects#swaloun">
+                    http://lintouch.org/blog/projects#swaloun</ulink>.
+                </para>
+              </listitem>
+            </varlistentry>
+          </variablelist>
+        </para>
+
+      </sect3>
+
+      <sect3>
+        <title>Installation Order</title>
+
+        <para>
+          &lnt; components should be installed in the following order:
+        </para>
+
+        <para>
+          <orderedlist>
+            <listitem>
+              <para>
+                <ulink
+                  url="http://lintouch.org/sources/libwtngio">
+                  libwtngio (needed by Server + Runtime)</ulink>
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+                <ulink
+                  url="http://lintouch.org/sources/libwtngfsm">
+                  libwtngfsm (needed by Server + Runtime)</ulink>
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+                <ulink
+                  url="http://lintouch.org/sources/libwtngvars">
+                  libwtngvars (needed by Server + Runtime)</ulink>
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+                <ulink
+                  url="http://lintouch.org/sources/libwtngcp">
+                  libwtngcp (needed by Server + Runtime)</ulink>
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+                <ulink
+                  url="http://lintouch.org/sources/python-wtng">
+                  python-wtng (needed by Server)</ulink>
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+                <ulink
+                  url="http://lintouch.org/sources/lintouch-server">
+                  lintouch-server (needed by Server)</ulink>
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+                <ulink
+                  url="http://lintouch.org/sources/libwtngzip">
+                  libwtngzip (needed by Runtime)</ulink>
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+                <ulink
+                  url="http://lintouch.org/sources/libwtngvfs">
+                  libwtngvfs (needed by Runtime)</ulink>
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+                <ulink
+                  url="http://lintouch.org/sources/libwtnglocalizator">
+                  libwtnglocalizator (needed by Runtime)</ulink>
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+                <ulink
+                  url="http://lintouch.org/sources/libwtngtemplates">
+                  libwtngtemplates (needed by Runtime)</ulink>
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+                <ulink
+                  url="http://lintouch.org/sources/libwtngproject">
+                  libwtngproject (needed by Runtime)</ulink>
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+                <ulink
+                  url="http://lintouch.org/sources/libwtngpanel">
+                  libwtngpanel (needed by Runtime)</ulink>
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+                <ulink
+                  url="http://lintouch.org/sources/lintouch-runtime">
+                  lintouch-runtime (needed by Runtime)</ulink>
+              </para>
+            </listitem>
+          </orderedlist>
+        </para>
+
+      </sect3>
+
+    </sect2>
+
+  </sect1>
+
+  <sect1 id="about">
+    <title>What is &lnt;</title>
+
+    <para>
+      &lnt; is a real-time data monitoring/controlling system used in
+      automation industry and developed by S.W.A.C. GmbH Germany and
+      S.W.A.C. Bohemia s.r.o.
+    </para>
+
+    <para>
+      &lnt; is an effort to build fully software-based open source
+      control panel software suite. Control panels are usually called
+      <emphasis>HMI - Human Machine Interface</emphasis>, or
+      <emphasis>MMI - Man Machine Interface</emphasis> in
+      the automation industry.
+    </para>
+
+    <para>
+      &lnt; supports variety of hardware/software platforms
+      (Win32+Intel, Linux+Intel, Linux+PPC).
+    </para>
+
+    <para>
+      &lnt; has been designed with extensibility in mind. New Server
+      Plugins can be developed to bring in new connectivity (ModBus/TCP,
+      and Hilscher already available). New Templates (GUI Objects) an be
+      implemented to define new control and visualization primitives
+      (Buttons and Lamps already available).
+    </para>
+
+    <para>
+      To get more information about &lnt; please visit our website
+      <ulink url="http://lintouch.org">http://lintouch.org</ulink>.
+    </para>
+
+  </sect1>
+
+  <sect1>
+    <title>Screenshots</title>
+
+    <para>
+      <figure id="fig-server">
+        <title>&lnt; Server</title>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="images/server-1.2.eps" format="EPS"/>
+          </imageobject>
+          <imageobject>
+            <imagedata fileref="images/server-1.2.png" format="PNG"/>
+          </imageobject>
+          <textobject>
+            <phrase>&lnt; Server Screenshot</phrase>
+          </textobject>
+        </mediaobject>
+      </figure>
+    </para>
+
+    <para>
+      <figure id="fig-runtime">
+        <title>&lnt; Runtime</title>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="images/runtime-1.2.eps" format="EPS"/>
+          </imageobject>
+          <imageobject>
+            <imagedata fileref="images/runtime-1.2.png" format="PNG"/>
+          </imageobject>
+          <textobject>
+            <phrase>&lnt; Runtime Screenshot</phrase>
+          </textobject>
+        </mediaobject>
+      </figure>
+    </para>
+
+  </sect1>
+
+</article>
+
+<!-- vim: set et ts=2 sw=2 tw=72: -->

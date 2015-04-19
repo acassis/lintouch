@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- $Id: legal.dbi,v 1.2 2004/07/08 19:55:09 mman Exp $ -->
+
+<copyright>
+  <year>2001-2005</year>
+  <holder>Martin Man</holder>
+</copyright>
+
+<copyright>
+  <year>2001-2005</year>
+  <holder>S.W.A.C. Bohemia s.r.o., Strakonice, Czech Republic</holder>
+</copyright>
+
+<copyright>
+  <year>2001-2005</year>
+  <holder>S.W.A.C. GmbH, Münich, Germany</holder>
+</copyright>
+
+<legalnotice>
+  <para>
+    No part of this publication may be reproduced, stored in a retrieval
+    system, or transmitted, in any form or by means, electronic, mechanical,
+    photocopying, or otherwise, without prior written permission of the
+    publisher.
+  </para>
+</legalnotice>
+
+<legalnotice>
+  <para>
+    The copyright holders make no warranty or representation, either
+    express or implied, with respect to this manual, its quality, accuracy,
+    merchantability, or fittness for a particular purpose. As a result this
+    manual is sold "AS IS", and you, the purchaser, are assuming the entire
+    risk as to its quality and accuracy.
+  </para>
+</legalnotice>
+
+<!-- vim: set et ts=2 sw=2: -->
+<!-- $Id: legal.dbi,v 1.2 2004/07/08 19:55:09 mman Exp $ -->

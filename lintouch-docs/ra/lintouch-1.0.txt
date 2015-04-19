@@ -1,0 +1,53 @@
+---------------------------------------------------------------------------
+Lintouch 1.0 Release Announcement
+http://lintouch.org
+March 4th, 2004
+---------------------------------------------------------------------------
+
+[...after six months of development and according to the schedule...]
+
+It's my great privilege to announce on behalf of the Lintouch Development
+Team the immediate availability of the Lintouch 1.0 opensource real-time
+visual control center application.
+
+Lintouch is a monitoring/controlling software developed as the alternative
+to pure-hardware based control panels used mainly in automation industry.
+It's oriented towards low-cost embedded and industrial computers equipped
+with touch screens and single-purpose keyboards.
+
+Lintouch is being developed as the opensource application distributed under
+the General Public License version 2 (GPL2). It's operating system and
+machine architecture independent, currently it runs on Linux/i386 and
+Windows/i386, preliminary tests with great results has been made to run it
+on Linux/powerpc and Linux/arm.
+
+Lintouch is modeled after the server-client pattern. Server controls the
+real-world system, gathers the data and serves them to one or more Runtimes.
+Runtimes through the Server obtain the necessary data to visualize and
+control the real-world system. How the data should be obtained and altered
+and how they should be visualized is described by set of configuration files
+which, when put together, form a Lintouch Project.
+
+Lintouch Modular architecture allows its users to write their own Server
+Plugins which define how the real-world system is accessed. Users can also
+write their own Visualization and Controlling Primitives (called Templates)
+that easily extend the functionality of a Runtime.
+
+To find out more, see the screenshots, download and try the code, please go
+to the Lintouch Website[1]. Point-and-click installers are available for
+Microsoft Windows 2000/XP and precompiled binary packages are available
+for Debian/GNU Linux 3.0 (sarge) and Debian/GNU Linux unstable (sid).
+
+    1. http://lintouch.org
+
+The 1.0 branch represents the stable, production release. Only bugfixes will
+propagate to 1.0.x making it a suitable platform for mission-critical usage.
+Next stable release will be numbered 1.2 and is scheduled for the September
+1st 2004.
+
+Work on new/experimental features will continue within the 1.1 branch, which
+is considered to be "experimental". Lintouch 1.1.x releases are not planned
+in advance and will be made as required.
+
+vim: set et tw=76:
+$Id: lintouch-1.0.txt,v 1.1 2004/03/04 20:45:22 mman Exp $

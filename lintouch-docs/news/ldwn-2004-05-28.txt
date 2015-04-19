@@ -1,0 +1,54 @@
+---------------------------------------------------------------------------
+Lintouch Development Weekly News
+http://lintouch.org
+May 28th, 2004
+---------------------------------------------------------------------------
+
+Welcome to the thirteenth issue of the Lintouch Weekly Newsletter.
+
+Yet another polishing of Production Line Simulation Project, which is from
+now on called _Rollenbahn Simulation Project_ was done by Jiri. I have taken
+screenshots of this project along with our older _Network Monitoring_ and
+_Weather Monitoring_ projects and published them to the web[1].
+
+    1. http://lintouch.org/blog/screenshots
+
+The latest remaining problem causing Lintouch to display fonts incorrectly
+on Qt Embedded was resolved[2]. Qt Embedded does not like to display fonts
+when their pixel size is specified instead of point size. Patrik sent
+detailed report about the situation and added simple guide[3] explaining how
+to use truetype fonts from Qt Embedded based application. Additionally he
+created screenshot[4] of Lintouch running under Qt Embedded virtual
+framebuffer server our Installation Verifier project. We can say Lintouch is
+Qt Embedded ready[5].
+
+    2. http://lintouch.org/pipermail/lintouch-dev/2004-May/000540.html
+    3. http://lintouch.org/pipermail/lintouch-dev/2004-May/000545.html
+    4. http://www.swac.cz/~modesto/screenshots/ltqteiv2.png
+    5. http://lintouch.org/pipermail/lintouch-dev/2004-May/000544.html
+
+Porting to embedded world continues. During this week the Lintouch Server
+has been for the first time run on the Motorola PowerPC 853e based board
+with 64MB of RAM using Linux Kernel 2.4.20 with NFS mounted root file system.
+I have sent in detailed installation report[6]. Now effort has to be
+concentrated on stripping all unnecessary parts of environment used to
+compile lintouch server to really see how much space it will need.
+
+    6. http://lintouch.org/pipermail/lintouch-dev/2004-May/000546.html
+
+Editor having problems to display transparent templates. The latest
+bigger issue of Lintouch Editor turned out to be not so simple to implement.
+The code handling transparency of templates which is in CVS is working in
+90% of cases well, but can not be considered _rock solid_. Some hacks has
+been used to implement it which result in bad (if not even poor) performance
+when moving or resizing big templates. Next week will show whether this
+feature can be included into the upcoming 1.0 release of editor or whether
+it will be postponed for future versions.
+
+That's all folks for this week, if you have any comments, corrections or
+ideas to be published, feel free to contact me directly[0].
+
+    0. mailto:mman@swac.cz.
+
+vim: set et tw=76:
+$Id: ldwn-2004-05-28.txt,v 1.1 2004/05/28 21:25:34 mman Exp $

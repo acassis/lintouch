@@ -1,0 +1,96 @@
+---------------------------------------------------------------------------
+Lintouch Development Weekly News
+http://lintouch.org
+May 7th, 2004
+---------------------------------------------------------------------------
+
+Welcome to the tenth issue of the LDWN in the year 2004. Since we have been
+pretty busy with the 1.0 release a short break was necessary for all team
+members which resulted in no news being published for almost two months. I
+will try to summarize everything that happened since then.
+
+Lintouch CVS code base has been immediately after the release branched and
+stable Lintouch 1.0.x sources are now separate from the HEAD sources. In
+order to obtain the stable sources from CVS you have to follow the
+instructions specified in announcement email[1]. The email contains as well
+a proposal on how to handle 1.0.x and HEAD commits.
+
+    1. http://lintouch.org/pipermail/lintouch-dev/2004-March/000458.html
+
+Lintouch 1.0.1 maintenance release has been silently released during the
+April 15th[2]. New release includes several important bug fixes which are
+described within a ChangeLog for each source entity. ChangeLogs can be
+accessed directly from the web[3] without the need to download the sources.
+
+    2. http://lintouch.org/pipermail/lintouch-dev/2004-April/000484.html
+    3. http://lintouch.org/blog/latest
+
+Lintouch 1.0.1 release includes two important documents called _Lintouch
+Runtime User's Guide_[4] and _Lintouch Server User's Guide_[5]. They are
+distributed along with the sources, binaries and they are also available
+directly on the web.
+
+    4. http://lintouch.org/cvs/lintouch/runtime/help/runtime.html
+    5. http://lintouch.org/cvs/lintouch/server/help/server.html
+
+Website[6] has been reorganized so that its structure is prepared for
+addition of new documents, demonstration projects, etc. Several new
+documents (_Templates HOWTO_, _Server Plugins HOWTO_, _Projects HOWTO_) are
+under preparation and even that they are not complete yet you can already
+examine their structure and main points on the web[6] and provide comments.
+
+    6. http://lintouch.org/blog/documentation
+
+We have prepared a Morphix[7] based _Lintouch Demo CD_ containing latest
+versions of Lintouch preinstalled and preconfigured so that it can be run
+straight out by point-and-clicking. The Demo CD features three demo projects
+showing Lintouch in various monitoring scenarios:
+
+    - Weather monitoring project visualizes meteorological data obtained
+      from Sea Buoys located at Californian coast.
+
+    - Network Monitoring projects visualizes state of several hosts on the
+      network by pinging them periodically in a similar way that for example
+      famous Nagios[8] project does.
+
+    - Production Line project visualizes state of a simplified factory car
+      production line and allows the full control of the line as well as
+      failure monitoring and recovery.
+
+Screenshots of the projects described above should be available on the web
+soon. The image of the Demo CD is around 400MB in size and has not yet been
+made available for download. If you are interested in getting the CD don't
+hesitate to contact lintouch-dev[9] mailinglist and we will arrange it
+somehow.
+
+    7. http://www.morphix.org
+    8. http://www.nagios.org
+    9. mailto:lintouch-dev@lintouch.org
+
+Lintouch Porting to embedded platforms started. The long term goal is to
+minimize server memory usage and allow runtime to be used on devices
+supported by QT Embedded[10]. Patrik kindly provided patch[11] for CVS HEAD
+which allows runtime to be compiled against QTE 3.1.2 which will be included
+in upcoming Debian/GNU Linux Sarge release[12]. Runtime can be compiled
+successfully but does not run yet. Investigation is in the progress.
+
+    10. http://www.trolltech.com/products/embedded/index.html
+    11. http://lintouch.org/pipermail/lintouch-dev/2004-May/000506.html
+    12. http://www.debian.org
+
+Modbus/TCP Python library and Lintouch Server Plugin are doing well. Hynek
+already implemented Modbus Slave and Modbus Master functionality and is
+polishing the code so that we can make it officially available. He also got
+his hands dirty with real Modbus/TCP based devices and had a chance to
+communicate with them from his Python library. The testing results raised
+some concerns[13] related to speed of the library.
+
+    13. http://lintouch.org/pipermail/lintouch-dev/2004-May/000503.html
+
+That's all folks for this week, if you have any comments, corrections or
+ideas to be published, feel free to contact me directly[0].
+
+    0. mailto:mman@swac.cz.
+
+vim: set et tw=76:
+$Id: ldwn-2004-05-07.txt,v 1.2 2004/05/21 08:27:36 mman Exp $

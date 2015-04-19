@@ -1,0 +1,68 @@
+LSP_BOOTSTRAP_DATA
+
+def usage
+  puts "Lintouch Server Plugin bootstraper\n" +
+    "Usage: lsp-bootstrap.rb <new-plugin-name>"
+end
+
+## main
+if ARGV.size != 1
+  usage()
+  exit -1
+end
+
+lspn = File.basename(ARGV[0])
+lspp = File.dirname(ARGV[0])
+
+unless lspn.include?("lsp-")
+  lspn = "lsp-#{lspn}"
+end
+
+lspn2 = lspn.sub('-','_')
+
+lspcn = "LSP#{lspn[4..-1].capitalize}"
+lspfp = "#{lspp}/#{lspn}"
+
+##TODO: check the name
+if File.exist?(lspfp)
+  puts "#{lspfp} already exist. Can't continue."
+  exit -1
+end
+
+f = Tempfile.new('lsp-bootstrap.tar.bz2')
+tfn = f.path
+f.write(Base64.decode64(data))
+f.close
+
+# Dir.mkdir(lspfp)
+unless system("install -d #{lspfp}")
+  puts "Can't create the destination directory"
+  exit -1
+end
+
+unless system("tar -xjf #{tfn} -C #{lspfp}")
+  puts "An error has occured during bootstrap process"
+  exit -1
+end
+
+begin
+
+  Dir.chdir(lspfp)
+
+  `find . -name '*lsp-bootstrap*'`.split("\n").each do |f|
+    File.rename(f, f.sub('lsp-bootstrap',lspn))
+  end
+
+  `grep -rli bootstrap .`.split("\n").each do |f|
+    unless system("sed -s -i -e 's/lsp-bootstrap/#{lspn}/g' #{f}") &&
+        system("sed -s -i -e 's/lsp_bootstrap/#{lspn2}/g' #{f}") &&
+        system("sed -s -i -e 's/LSPBOOTSTRAP/#{lspcn.upcase}/g' #{f}")
+
+      puts "An error occured while finalizing bootstrap process!"
+      return -1
+    end
+  end
+rescue => e
+  puts "#{e.message}"
+  exit -1
+end

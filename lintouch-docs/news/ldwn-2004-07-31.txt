@@ -1,0 +1,76 @@
+---------------------------------------------------------------------------
+Lintouch Development Weekly News
+http://lintouch.org
+July 31st, 2004
+---------------------------------------------------------------------------
+
+Welcome to the fifteenth issue of the Lintouch Weekly Newsletter.
+
+As you can see it is already almost two months since the last issue of LDWN
+has been published. We hope you are enjoying summer weather and holidays and
+we hope you are visiting lot of interesting places in the world to get
+inspiration.
+
+Nevertheless, work on Lintouch is continuing successfully.
+
+Patrik has been experimenting with SVG[1] (Scalable Vector Graphics) format
+and its support within Qt library. SVG is very popular format within the
+Linux Desktop community. Both major Linux desktops KDE[2] and Gnome[3] use
+SVG to draw icons. The icons can be smoothly scaled, because SVG is vector
+format in its very nature.
+
+Patrik has found out that SVG is supported in Qt by default and quickly
+coded _SVGTemplate_ which is able to display SVG images on Lintouch panels.
+The code has been kept in the private CVS for now but we plan to release it
+along with upcoming Lintouch 1.2.
+
+  1. http://www.w3.org/TR/SVG/
+  2. http://www.kde.org
+  3. http://www.gnome.org
+
+Lintouch Project has been presented during the third week of June at the
+AUTOMATICA 2004 fair in Muenchen, Germany. SWAC booth was 90% of the time
+full of interesting people.
+
+Development of new stable version of Lintouch 1.2 has started right after
+the fair. Necessary changes and new features has been summarized[4] and
+coding style document for the project was prepared[5] so that more people
+can easily join in.
+
+  4. http://lintouch.org/pipermail/lintouch-dev/2004-June/000558.html
+  5. http://lintouch.org/pipermail/lintouch-dev/2004-June/000556.html
+
+The freeze date for 1.2 release has been set to September 1st and release
+date to October 1st. The main objective of this release is to stabilize
+the Runtime and the Server while introducing only small amount of new
+features and to make huge progress on the Editor, the third remaining key
+piece of the Lintouch Architecture.
+
+Heinz Haeberle from Pilz international[6] reported the successful
+compilation and setup[7] of Lintouch on the StrongARM based device running
+Debian Sarge. He faced several problems with fonts rendering and CPU power
+consumption but we are all happy to hear that this was possible.
+
+  6. http://www.pilz.de
+  7. http://lintouch.org/pipermail/lintouch-dev/2004-July/000565.html
+
+Work has already started on Lintouch Editor 1.2. The editor (as in version
+1.0) will be freely available with certain limitations but not open source
+and will include many many more new features for Lintouch Project editing.
+
+And last but not least the maintenance release of Lintouch Runtime version
+1.0.3 and other supporting libraries has been made silently on Friday July
+30th. This release includes several accumulated bug fixes and is planned to
+be the last release of 1.0 series of Lintouch. Server and its dependent
+libraries however contain several important bugs[8] which has yet to be
+hunted down before their maintenance release can be made.
+
+  8. http://www.lintouch.org/bugzilla/buglist.cgi?product=Lintouch&bug_status=NEW&bug_status=ASSIGNED&bug_status=REOPENED
+
+That's all folks for this week, if you have any comments, corrections or
+ideas to be published, feel free to contact me directly[0].
+
+  0. mailto:mman@swac.cz.
+
+vim: set et tw=76:
+$Id: ldwn-2004-07-31.txt,v 1.1 2004/07/31 09:45:57 mman Exp $

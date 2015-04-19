@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" [
+
+<!ENTITY lnt "Lintouch">
+<!ENTITY version "1.4">
+
+]>
+
+<article>
+
+  <title>
+    &lnt; &version; Release Announcement
+  </title>
+
+  <articleinfo>
+    <author>
+      <firstname>Lintouch</firstname>
+      <surname>Team</surname>
+      <email>lintouch-dev@lintouch.org</email>
+    </author>
+    <pubdate>March 7th, 2005</pubdate>
+  </articleinfo>
+
+  <sect1>
+    <title>Introduction</title>
+
+    <para>
+      <figure id="logo">
+        <title>&lnt; Logo</title>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="images/lintouch.eps" format="EPS"/>
+          </imageobject>
+          <imageobject>
+            <imagedata fileref="images/lintouch.png" format="PNG"/>
+          </imageobject>
+          <textobject>
+            <phrase>&lnt; Logo</phrase>
+          </textobject>
+        </mediaobject>
+      </figure>
+    </para>
+
+    <para>
+      After six months of development we (the <ulink
+        url="http://lintouch.org">Lintouch Team</ulink>) are proud to
+      announce the availability of the new stable release of the
+      Lintouch Server, Lintouch Runtime, and Lintouch Editor.
+    </para>
+
+    <para>
+      This version includes bug fixes plus several new important
+      features. You are welcome to download, install, test, and use this
+      version.
+    </para>
+
+    <para>
+      Please see <xref linkend="about"/> for more information about
+      &lnt;.
+    </para>
+
+  </sect1>
+
+  <sect1>
+    <title>What's New In &lnt; &version;</title>
+
+    <sect2>
+      <title>Global Changes</title>
+
+      <para>
+        <variablelist>
+          <varlistentry>
+            <term>New Visualization Objects</term>
+            <listitem>
+              <para>
+                Lintouch Visualization Objects (called Templates) have
+                been split into the following two Template Libraries:
+                <variablelist>
+                  <varlistentry>
+                    <term>Display Templates</term>
+                    <listitem>
+                      <para>
+                        containing all templates related to visualization of
+                        different types of variables in different forms.
+                        This template library includes for example
+                        <emphasis>Chart</emphasis>,
+                        <emphasis>Meter</emphasis>, and
+                        <emphasis>Lamp</emphasis> templates.
+                      </para>
+                    </listitem>
+                  </varlistentry>
+                  <varlistentry>
+                    <term>Input Templates</term>
+                    <listitem>
+                      <para>
+                        containing all templates related to control of
+                        different types of variables in different forms.
+                        This template library includes for example
+                        <emphasis>Slider</emphasis>,
+                        <emphasis>Button</emphasis>, and
+                        <emphasis>LineInput</emphasis> templates.
+                      </para>
+                    </listitem>
+                  </varlistentry>
+                </variablelist>
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>New Connectivity Options</term>
+            <listitem>
+              <para>
+                Support for <emphasis>Modbus/TCP</emphasis> connectivity
+                is available via Lintouch ModbusTCP Plugin. The plugin
+                is written in Python and although not optimized for
+                time-critical tasks, it can be very effectively used for
+                testing and teaching purposes.
+              </para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </para>
+
+    </sect2>
+
+    <sect2>
+      <title>&lnt; Runtime</title>
+
+      <para>
+        <variablelist>
+          <varlistentry>
+            <term>Industry Ready</term>
+            <listitem>
+              <para>
+                Runtime has been enhanced to support full screen mode,
+                and automatic reconnects to the server in case of
+                connectivity problems. All the features (such as
+                connecting to a new server, switching panels, etc.) can
+                be disabled/enabled on demand according to concrete
+                deployment requirements.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>Support for Local Projects</term>
+            <listitem>
+              <para>
+                Runtime can be also used in a <emphasis>local
+                  mode</emphasis> in which no Lintouch Server is
+                required. This mode is designed for devices without
+                TCP/IP connectivity (small touch screen systems) that
+                are connected via industry buses directly to the
+                monitored system and always run only one controlling
+                screen for one monitored system.
+              </para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </para>
+
+    </sect2>
+
+    <sect2>
+      <title>&lnt; Editor</title>
+
+      <para>
+        <variablelist>
+          <varlistentry>
+            <term>Support for Connections and Variables editing</term>
+            <listitem>
+              <para>
+                Editor has been enhanced to support full
+                Connections and Variables editing. Users can
+                design and test their projects
+                comfortably from within the Lintouch Editor. The preview
+                mode can verify the reaction of the screens to various
+                variable changes.
+              </para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>Support for Online Mode</term>
+            <listitem>
+              <para>
+                When Editor preview mode is not enough to thoroughly
+                test the screens, the online mode takes the project and
+                executes it within Lintouch Runtime in the same way it will
+                be finally executed on a target system.
+              </para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </para>
+
+    </sect2>
+
+  </sect1>
+
+  <sect1>
+    <title>Obtaining and Installing &lnt;</title>
+
+    <sect2>
+      <title>Ready Made Binaries</title>
+
+      <para>
+        &lnt; can be downloaded and installed directly on the Windows
+        and Linux based platforms. The detailed instructions are
+        available at our <ulink
+          url="http://lintouch.org/static/download.html">website</ulink>.
+      </para>
+
+    </sect2>
+
+    <sect2>
+      <title>Sources</title>
+      <para>
+        The source code of Lintouch Runtime and Lintouch Server is
+        distributed under the GNU General Public License 2. It can be
+        downloaded and compiled by hand. The detailed instructions are
+        available at our <ulink
+          url="http://lintouch.org/static/download.html">website</ulink>.
+      </para>
+
+    </sect2>
+
+  </sect1>
+
+  <sect1 id="about">
+    <title>What is &lnt;</title>
+
+    <para>
+      &lnt; is a real-time data monitoring/controlling system used in
+      automation industry and developed by S.W.A.C. GmbH Germany and
+      S.W.A.C. Bohemia s.r.o.
+    </para>
+
+    <para>
+      &lnt; is an effort to build fully software-based open source
+      control panel software suite. Control panels are usually called
+      <emphasis>HMI - Human Machine Interface</emphasis>, or
+      <emphasis>MMI - Man Machine Interface</emphasis> in
+      the automation industry.
+    </para>
+
+    <para>
+      &lnt; supports variety of hardware/software platforms
+      (Win32+Intel, Linux+Intel, Linux+PPC).
+    </para>
+
+    <para>
+      &lnt; has been designed with extensibility in mind. New Server
+      Plugins can be developed to bring in new connectivity (ModBus/TCP,
+      and Hilscher already available). New Templates (GUI Objects) can be
+      implemented to define new control and visualization primitives
+      (Buttons and Lamps already available).
+    </para>
+
+    <para>
+      To get more information about &lnt; please visit our website
+      <ulink url="http://lintouch.org">http://lintouch.org</ulink>.
+    </para>
+
+  </sect1>
+
+  <sect1>
+    <title>Screenshots</title>
+
+    <para>
+      <figure id="fig-editor">
+        <title>&lnt; Editor</title>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="images/editor-1.4.eps" format="EPS"/>
+          </imageobject>
+          <imageobject>
+            <imagedata fileref="images/editor-1.4.jpg" format="JPG"/>
+          </imageobject>
+          <textobject>
+            <phrase>&lnt; Editor Screenshot</phrase>
+          </textobject>
+        </mediaobject>
+      </figure>
+    </para>
+
+  </sect1>
+
+</article>
+
+<!-- vim: set et ts=2 sw=2 tw=72: -->

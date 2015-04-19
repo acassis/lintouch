@@ -1,0 +1,254 @@
+=================================
+Lintouch ModbusTCP Server Plugins
+=================================
+
+:Authors:
+  Jiri Barton <jbar@swac.cz>,
+  Martin Man <mman@swac.cz>,
+  Hynek Petrak <hynek@swac.cz>
+:Date: 2005-06-21
+
+
+1. Description
+--------------
+
+Lintouch ModbusTCP Server Plugins lets you connect to ModbusTCP
+based devices. It can work either in the slave mode (ModbusSlave Plugin)
+- also known as the server mode - listening for the connections coming from
+ModbusTCP master devices at the specified port (default TCP 502), or in
+the master mode (ModbusMaster Plugin) - also known as the client mode -
+connecting to a remote ModbusTCP slave device. You can learn more about
+Modbus at http://www.modbus.org.
+
+The ModbusTCP slave supports the following modbus functions:
+
+*  READ_COILS
+*  READ_DISCRETE_INPUTS
+*  READ_HOLDING_REGISTERS
+*  READ_INPUT_REGISTERS
+*  WRITE_SINGLE_COIL
+*  WRITE_SINGLE_REGISTER
+*  WRITE_MULTIPLE_COILS
+*  WRITE_MULTIPLE_REGISTERS
+*  MASK_WRITE_REGISTER
+*  READWRITE_MULTIPLE_REGISTERS
+
+The ModbusTCP master uses the following functions (i.e. the ModbusTCP slave
+on the other side of the connection should support them for the proper
+function):
+
+*  READ_COILS
+*  READ_DISCRETE_INPUTS
+*  READ_HOLDING_REGISTERS
+*  READ_INPUT_REGISTERS
+*  WRITE_SINGLE_COIL
+*  WRITE_SINGLE_REGISTER
+
+The Modbus variables recognized by the plugins are bits and numbers. Each
+variable has to define the address property. This property uses the
+following addressing scheme:
+
+*  COn for coils (bits)
+*  DIn for discrete inputs (bits)
+*  HRn for holding registers (numbers)
+*  IRn for input registers (numbers)
+
+where *n* stands for the address of the variable within the modbus slave
+address space as defined by the Modbus specification: 0-1999 for the bit
+data types, 0-124 for the number data types. *n* can contain leading and
+trailing whitespaces.
+
+
+1.1 Conformance and Performance
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+These ModbusTCP plugins have been tested with the real modbus devices
+(PLCs).
+
+The ModbusTCP Slave Plugin have been connected to TSX Momentum
+(from Modicon) ModbusTCP master. The plugin was able to process
+three messages per a millisecond on a 1.4GHz Centrino, still with very low
+CPU load.
+
+The ModbusTCP Master Plugin has been tested with BC900 PLC from Beckhoff.
+
+
+2. Requirements
+---------------
+
+Lintouch Server + Lintouch Runtime from http://lintouch.org. In order to
+create Lintouch Projects effectively you will also need Lintouch Editor.
+
+
+3. Installation
+---------------
+
+::
+
+  $ ./configure --prefix=/where/is/your/lintouch/installed
+  $ make
+  $ make install
+
+The last command might require the root privileges in case you've
+installed Lintouch to some system directories.
+
+
+3.1 Verifying your installation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To verify the ModbusTCP Slave Plugin functionality, execute the
+following two commands in separate commandline instances:
+(lintouch-server needs access to stdin and can not be run in background
+via &)::
+
+  $ lintouch-server projects/factory.ltp -l
+  $ python tests/test_modbusslave.py
+
+To verify the ModbusTCP Master Plugin functionality, , execute the
+following three (or four) commands in separate commandline instances (in the
+order listed), and watch the lintouch runtime::
+
+  $ python tests/test_modbusmaster.py -s
+  $ lintouch-server projects/parking.ltp -v 4 -l
+  $ lintouch-runtime localhost
+  $ python tests/test_modbusmaster.py -c
+
+The last command will show the content of the address space of the modbus
+server started with the first command.
+
+4. Configuration
+----------------
+
+4.1 Plugin Properties
+~~~~~~~~~~~~~~~~~~~~~
+
+Modbus TCP Slave Plugin supports the following properties:
+
+port
+    The TCP port that will be used to listen for incoming
+    connections from Modbus TCP Master devices (502 by default).
+
+Modbus TCP Master Plugin supports the following properties:
+
+host
+    The host address of the Modbus slave.
+
+port
+    The TCP port of the Modbus slave host to connect to (502 by default)
+
+refresh
+    The poll interval in milliseconds. After this period elapses,
+    lintouch will request new values from the Modbus slave (200ms by
+    default).
+
+unitid
+    Target unit id. Also known as slave id. Default is 0.
+
+serialize
+    0 means that the modbus requests will be sent in parallel for maximum
+    preformance of the plugin. Although the parallel sending might not
+    work for some weak Modbus/TCP slaves.
+    When serialize is equal to 1, the plugin will will wait for response
+    after each request sent. This is safer but slower way.
+
+timeout
+    "timeout" parameter specifies time out interval for socket 
+    operations. The value is in miliseconds. Default is 200. Increase 
+    for slow devices.
+
+
+4.2 Plugin Variables
+~~~~~~~~~~~~~~~~~~~~
+
+variable: bit
+
+    Will report a bit variable at specified modbus ``address``. There are
+    read-only variables and read-write variables within the modbus
+    architecture:
+
+    * **discrete inputs** are the read-only bit variables. Their property
+      *address* starts with ``DI`` and is followed by the actual address
+      within the modbus slave address space (a non-negative integer).
+
+    * **coils** are the read-write variables. Their property
+      *address* starts with ``CO`` and is followed by the actual address
+      within the modbus slave address space (a non-negative integer).
+
+variable: number
+
+    Will report a bit variable at specified modbus ``address``. There are
+    read-only variables and read-write variables within the modbus
+    architecture. Such variables hold a two byte integer - i.e. 0..65535
+    values are allowed for unsigned, or -32768..32767 for signed.
+
+    * **input registers** are the read-only number variables. Their
+      property *address* starts with ``IR``, and is followed by the modbus
+      address.
+
+    * **holding registers** are the read-write number variables. Their
+      property *address* starts with ``HR``, and is followed by the modbus
+      address.
+
+5. Example Connection Descriptor
+--------------------------------
+
+5.1. Example Connection Descriptor for Modbus TCP Slave Plugin
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+  <project-connection type="ModbusTCPSlave">
+      <properties>
+          <!-- Modbus TCP port -->
+          <property name="port" value="502"/>
+      </properties>
+
+      <variables>
+          <!-- global variables -->
+
+          <variable name="valve opening" type="bit">
+              <property name="address" value="CO 17"/>:
+          </variable>
+
+          <variable name="steam pressure" type="number">
+              <property name="address" value="IR2"/>:
+          </variable>
+
+      </variables>
+
+  </project-connection>
+
+5.2. Example Connection Descriptor for Modbus TCP Master Plugin
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+  <project-connection type="ModbusTCPMaster">
+      <properties>
+          <!-- Modbus TCP host -->
+          <property name="port" value="bc9000"/>
+
+          <!-- Modbus TCP port -->
+          <property name="port" value="502"/>
+
+          <!-- The poll interval  -->
+          <property name="refresh" value="50"/>
+      </properties>
+
+      <variables>
+          <!-- global variables -->
+
+          <variable name="parking lot free" type="bit">
+              <property name="address" value="DI  123"/>:
+          </variable>
+
+          <variable name="slots available" type="number">
+              <property name="address" value="HR 8"/>:
+          </variable>
+
+      </variables>
+
+  </project-connection>
+
+.. vim: set et tw=72:
+

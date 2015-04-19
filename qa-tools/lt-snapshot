@@ -1,0 +1,36 @@
+#!/bin/bash
+# (c) 2004 Martin Man <mman@swac.cz>
+#
+# Use this script to snapshot lintouch from top-level tree
+
+set -e
+
+export DONTWAIT=yes
+
+. lintouch.conf
+
+PKG_CONFIG_PATH=$PREFIX/lib/pkgconfig:$PKG_CONFIG_PATH
+export PKG_CONFIG_PATH
+
+LD_LIBRARY_PATH=$PREFIX/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH
+
+PATH=$PREFIX/bin:$PATH
+export PATH
+
+# build lintouch dependencies
+export WORKDIR
+export PREFIX
+
+./ltqa-snapshot sharedptr.conf -t
+./ltqa-install sharedptr.conf -t
+./ltqa-snapshot swaloun-framework.conf -t
+./ltqa-install swaloun-framework.conf -t
+
+unset WORKDIR
+unset PREFIX
+# EOF build lintouch dependencies
+
+./ltqa-snapshot lintouch.conf -t
+./ltqa-install lintouch.conf -t
+

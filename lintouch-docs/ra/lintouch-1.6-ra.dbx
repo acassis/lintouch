@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" [
+
+<!ENTITY lnt "Lintouch">
+<!ENTITY version "1.6">
+
+]>
+
+<article>
+
+  <title>
+    &lnt; &version; Release Announcement
+  </title>
+
+  <articleinfo>
+    <author>
+      <firstname>Lintouch</firstname>
+      <surname>Team</surname>
+      <email>lintouch-dev@lintouch.org</email>
+    </author>
+    <pubdate>July 1st, 2005</pubdate>
+  </articleinfo>
+
+  <sect1>
+    <title>Introduction</title>
+
+    <para>
+      <figure id="logo">
+        <title>&lnt; Logo</title>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="images/lintouch.eps" format="EPS"/>
+          </imageobject>
+          <imageobject>
+            <imagedata fileref="images/lintouch.png" format="PNG"/>
+          </imageobject>
+          <textobject>
+            <phrase>&lnt; Logo</phrase>
+          </textobject>
+        </mediaobject>
+      </figure>
+    </para>
+
+    <para>
+      After three months of development we (the <ulink
+        url="http://lintouch.org">Lintouch Team</ulink>) are proud to
+      announce the availability of the new stable release of the
+      Lintouch Server, Lintouch Runtime, and Lintouch Editor.
+    </para>
+
+    <para>
+      This version includes bug fixes plus several new important
+      features. You are welcome to download, install, test, and use this
+      version.
+    </para>
+
+    <para>
+      Please see <xref linkend="about"/> for more information about
+      &lnt;.
+    </para>
+
+  </sect1>
+
+  <sect1>
+    <title>What's New In &lnt; &version;</title>
+
+    <sect2>
+      <title>Global Changes</title>
+
+      <para>
+        <variablelist>
+          <varlistentry>
+            <term>Lintouch Server reimplemented in C</term>
+            <listitem>
+              <para>
+                The original Python based implementation of the Lintouch
+                Server was deprecated due to various reasons (speed,
+                size, and ease of installation being among them) in
+                favor of plain C based implementation.
+              </para>
+              <para>
+                The new server (excluding any server plugins) consumes
+                less then 200kb of the disk space. You have to add
+                another ~ 500kb for Apache Portable Runtime plus its
+                dependencies and a space for your Linux system. The
+                small size makes the Lintouch Server ideal for
+                specialized low-cost and low-speed embedded devices.
+              </para>
+              <para>
+                All existing server plugins have been ported to the new
+                C language based API to maintain backwards
+                compatibility.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>New Visualization Objects</term>
+            <listitem>
+              <para>
+                <variablelist>
+                  <varlistentry>
+                    <term>Display Templates</term>
+                    <listitem>
+                      <para>
+                        The
+                        <emphasis>SVGImage</emphasis> template is able
+                        to render not-so-complex SVG images (due to
+                        SVG rendering limitations posed by Qt library).
+                        It will help you make your projects more
+                        portable across various screen resolutions,
+                        because SVG is essentially a vector based image
+                        format (unlike bitmap based JPG or PNG formats).
+                      </para>
+                    </listitem>
+                  </varlistentry>
+                  <varlistentry>
+                    <term>Qt Technical Widgets template library</term>
+                    <listitem>
+                      <para>
+                        New template library
+                        <emphasis>ltl-qwt</emphasis> contains all
+                        widgets from <ulink
+                          url="http://qwt.sf.net">Qwt</ulink> library
+                        available as Lintouch Templates. The library
+                        includes control &amp; visualization primitives
+                        such as <emphasis>Knob</emphasis>,
+                        <emphasis>Dial</emphasis>,
+                        <emphasis>Wheel</emphasis>,
+                        <emphasis>Plot</emphasis>, and others.
+                      </para>
+                    </listitem>
+                  </varlistentry>
+                </variablelist>
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>New Connectivity Options</term>
+            <listitem>
+              <para>
+                <variablelist>
+                  <varlistentry>
+                    <term>Modbus/TCP</term>
+                    <listitem>
+                      <para>
+                        New pure-C based implementation of Modbus/TCP
+                        connectivity for Lintouch provides
+                        ModbusTCPMaster and ModbusTCPSlave plugins that
+                        have been successfully tested with PLCs from
+                        Modicon and Beckhoff.
+                      </para>
+                    </listitem>
+                  </varlistentry>
+                  <varlistentry>
+                    <term>SNMP (Simple Network Management Protocol)</term>
+                    <listitem>
+                      <para>
+                        Lintouch SNMP Server Plugin allows the Lintouch
+                        Server to periodically poll specified SNMP OIDs
+                        (Object IDs) using SNMP v1/SNMP v2c protocol.
+                      </para>
+                      <para>
+                        SNMP protocol is usually used to
+                        manage/configure/monitor networking equipment
+                        such as routers, switches, and servers.
+                      </para>
+                    </listitem>
+                  </varlistentry>
+                  <varlistentry>
+                    <term>Exec</term>
+                    <listitem>
+                      <para>
+                        Lintouch Exec Server Plugin allows the Lintouch
+                        Server to periodically execute configured
+                        commands and grab their return value and/or
+                        output.
+                      </para>
+                      <para>
+                        This way an arbitrary commands can be executed
+                        at the server machine to provide a bridge to
+                        monitor the data that can not be accessed via
+                        other server plugins.
+                      </para>
+                      <para>
+                        Similar approach is used by the <ulink
+                          url="http://www.nagios.org">Nagios</ulink> an
+                        open source host, service and network monitoring
+                        program.
+                      </para>
+                    </listitem>
+                  </varlistentry>
+                </variablelist>
+              </para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </para>
+
+    </sect2>
+
+    <sect2>
+      <title>&lnt; Runtime Changes</title>
+
+      <para>
+        <variablelist>
+          <varlistentry>
+            <term>Uses only the Loopback interface when in Local Mode</term>
+            <listitem>
+              <para>
+                Lintouch Runtime does not bind anymore to all network
+                interfaces when used without Lintouch Server in so
+                called <emphasis>Local Mode</emphasis>. This protects
+                the Lintouch Server embedded within the Lintouch Runtime
+                from being accessed via network from the other
+                computers.
+              </para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </para>
+
+    </sect2>
+
+    <sect2>
+      <title>&lnt; Editor Changes</title>
+
+      <para>
+        <variablelist>
+          <varlistentry>
+            <term>Import/Export/Reimport Connection</term>
+            <listitem>
+              <para>
+                Existing connections can be exported from Lintouch
+                projects to a custom CSV (comma separated values) format
+                understood by all major spreadsheet applications.
+              </para>
+              <para>
+                New connections described in CSV can be imported and
+                later on updated into the existing Lintouch Projects
+                making it easier and more comfortable to edit connections
+                with a lot of variables.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>Import/Export/Reimport Resource</term>
+            <listitem>
+              <para>
+                Working with resources (images, text files, or arbitrary
+                data files) is now easier. It is possible to export
+                existing resources from the projects and reimport
+                (update) new versions of the existing resources to the
+                projects.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>Other UI Changes</term>
+            <listitem>
+              <para>
+                Template Properties Dialog has been reorganized and
+                contains the ability to manually move/resize template to
+                the precisely specified coordinates. New keyboard
+                shortcuts have been added to speed up access to the
+                Variables Dialog (Ctrl-K), Resources Dialog (Ctrl-R),
+                and Preview Dialog (Ctrl-P).
+              </para>
+              <para>
+                Selection/Move/Resize handles are now painted always
+                above all other templates and outside of the template
+                occupied area. This makes it easier to move/resize
+                objects that are partially occupied by another objects.
+                It is also possible to resize templates to a very small
+                size (think in pixels).
+              </para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </para>
+
+    </sect2>
+
+  </sect1>
+
+  <sect1>
+    <title>Obtaining and Installing &lnt;</title>
+
+    <sect2>
+      <title>Ready Made Binaries</title>
+
+      <para>
+        &lnt; can be downloaded and installed directly on the Windows
+        and Linux based platforms. The detailed instructions are
+        available at our <ulink
+          url="http://lintouch.org/static/download.html">website</ulink>.
+      </para>
+
+      <para>
+        The list of supported platforms includes Microsoft Windows
+        2000/XP, SuSE Linux 9.x, Debian/GNU Linux 3.1 (sarge), and LSB
+        based distributions. Source RPM archives are provided in order
+        to support other RPM based Linux distributions.
+      </para>
+
+    </sect2>
+
+    <sect2>
+      <title>Sources</title>
+      <para>
+        The source code of Lintouch Runtime and Lintouch Server is
+        distributed under the GNU General Public License 2. It can be
+        downloaded and compiled by hand. The detailed instructions are
+        available at our <ulink
+          url="http://lintouch.org/static/download.html">website</ulink>.
+      </para>
+
+    </sect2>
+
+  </sect1>
+
+  <sect1 id="about">
+    <title>What is &lnt;</title>
+
+    <para>
+      &lnt; is a real-time data monitoring/controlling system used in
+      automation industry and developed by S.W.A.C. GmbH Germany and
+      S.W.A.C. Bohemia s.r.o.
+    </para>
+
+    <para>
+      &lnt; is an effort to build fully software-based open source
+      control panel software suite. Control panels are usually called
+      <emphasis>HMI - Human Machine Interface</emphasis>, or
+      <emphasis>MMI - Man Machine Interface</emphasis> in
+      the automation industry.
+    </para>
+
+    <para>
+      &lnt; supports variety of hardware/software platforms
+      (Win32+Intel, Linux+Intel, Linux+PPC).
+    </para>
+
+    <para>
+      &lnt; has been designed with extensibility in mind. New Server
+      Plugins can be developed to bring in new connectivity (ModBus/TCP,
+      and Hilscher already available). New Templates (GUI Objects) can be
+      implemented to define new control and visualization primitives
+      (Buttons, Lamps, and other Technical Objects already available).
+    </para>
+
+    <para>
+      To get more information about &lnt; please visit our website
+      <ulink url="http://lintouch.org">http://lintouch.org</ulink>.
+    </para>
+
+  </sect1>
+
+  <sect1>
+    <title>Screenshots</title>
+
+    <para>
+      <figure id="fig-editor">
+        <title>&lnt; Editor</title>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="images/editor-1.6.eps" format="EPS"/>
+          </imageobject>
+          <imageobject>
+            <imagedata fileref="images/editor-1.6.jpg" format="JPG"/>
+          </imageobject>
+          <textobject>
+            <phrase>&lnt; Editor Screenshot</phrase>
+          </textobject>
+        </mediaobject>
+      </figure>
+    </para>
+
+  </sect1>
+
+</article>
+
+<!-- vim: set et ts=2 sw=2 tw=72: -->

@@ -1,0 +1,209 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>AboutDialogBase</class>
+<widget class="QDialog">
+    <property name="name">
+        <cstring>AboutDialogBase</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>629</width>
+            <height>402</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>About - Lintouch Editor</string>
+    </property>
+    <property name="sizeGripEnabled">
+        <bool>true</bool>
+    </property>
+    <vbox>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <widget class="QLayoutWidget">
+            <property name="name">
+                <cstring>layout10</cstring>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QLayoutWidget">
+                    <property name="name">
+                        <cstring>layout8</cstring>
+                    </property>
+                    <vbox>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <widget class="QLabel">
+                            <property name="name">
+                                <cstring>m_logo</cstring>
+                            </property>
+                            <property name="sizePolicy">
+                                <sizepolicy>
+                                    <hsizetype>0</hsizetype>
+                                    <vsizetype>0</vsizetype>
+                                    <horstretch>0</horstretch>
+                                    <verstretch>0</verstretch>
+                                </sizepolicy>
+                            </property>
+                            <property name="pixmap">
+                                <pixmap>image0</pixmap>
+                            </property>
+                            <property name="alignment">
+                                <set>AlignTop</set>
+                            </property>
+                        </widget>
+                        <spacer>
+                            <property name="name">
+                                <cstring>spacer5</cstring>
+                            </property>
+                            <property name="orientation">
+                                <enum>Vertical</enum>
+                            </property>
+                            <property name="sizeType">
+                                <enum>Expanding</enum>
+                            </property>
+                            <property name="sizeHint">
+                                <size>
+                                    <width>20</width>
+                                    <height>40</height>
+                                </size>
+                            </property>
+                        </spacer>
+                    </vbox>
+                </widget>
+                <widget class="QLayoutWidget">
+                    <property name="name">
+                        <cstring>layout9</cstring>
+                    </property>
+                    <vbox>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <widget class="QLabel">
+                            <property name="name">
+                                <cstring>textLabel1_2</cstring>
+                            </property>
+                            <property name="sizePolicy">
+                                <sizepolicy>
+                                    <hsizetype>1</hsizetype>
+                                    <vsizetype>0</vsizetype>
+                                    <horstretch>0</horstretch>
+                                    <verstretch>0</verstretch>
+                                </sizepolicy>
+                            </property>
+                            <property name="text">
+                                <string>&lt;b&gt;&lt;h2&gt;About Lintouch&lt;/h2&gt;&lt;/b&gt;</string>
+                            </property>
+                            <property name="textFormat">
+                                <enum>AutoText</enum>
+                            </property>
+                            <property name="alignment">
+                                <set>AlignVCenter</set>
+                            </property>
+                        </widget>
+                        <widget class="QLabel">
+                            <property name="name">
+                                <cstring>textLabel1_3_2</cstring>
+                            </property>
+                            <property name="sizePolicy">
+                                <sizepolicy>
+                                    <hsizetype>3</hsizetype>
+                                    <vsizetype>1</vsizetype>
+                                    <horstretch>0</horstretch>
+                                    <verstretch>0</verstretch>
+                                </sizepolicy>
+                            </property>
+                            <property name="text">
+                                <string>Lintouch is an opensource HMI software. It lets you design user interfaces for process automation. Lintouch runs on most popular hardware and software platforms, is lightweight and easily extensible.
+
+Lintouch is free software and is distributed under the GNU General Public License.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+Copyright (c) 2001-2006 S.W.A.C. GmbH, Germany.
+Copyright (c) 2001-2006 S.W.A.C. Bohemia s.r.o., Czech Republic.</string>
+                            </property>
+                            <property name="textFormat">
+                                <enum>PlainText</enum>
+                            </property>
+                            <property name="alignment">
+                                <set>WordBreak|AlignVCenter</set>
+                            </property>
+                        </widget>
+                        <widget class="QLabel">
+                            <property name="name">
+                                <cstring>m_label2</cstring>
+                            </property>
+                            <property name="sizePolicy">
+                                <sizepolicy>
+                                    <hsizetype>1</hsizetype>
+                                    <vsizetype>1</vsizetype>
+                                    <horstretch>0</horstretch>
+                                    <verstretch>0</verstretch>
+                                </sizepolicy>
+                            </property>
+                            <property name="text">
+                                <string>&lt;version&gt;</string>
+                            </property>
+                        </widget>
+                    </vbox>
+                </widget>
+            </hbox>
+        </widget>
+        <widget class="QLayoutWidget">
+            <property name="name">
+                <cstring>layout5</cstring>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <spacer>
+                    <property name="name">
+                        <cstring>spacer1</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>40</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>pushButton2</cstring>
+                    </property>
+                    <property name="text">
+                        <string>OK</string>
+                    </property>
+                </widget>
+            </hbox>
+        </widget>
+    </vbox>
+</widget>
+<images>
+    <image name="image0">
+        <data format="XPM.GZ" length="16733">789ceddb5b4fd44018c6f17b3e4543ef88a93dcc4cdb182f38281e58e40c62bc9823a0a21c16108ddfddce33a051d45db030c6bc2f57bf84b4ffb7ddee269becfda9646b69904cdd9f381ecae19e4ef4ae3c4aa6ccc9fefef9abd70f3f4f4c16254f8ab24c44951493f72626d344276955964a29cf53b02a756003b2d228ed7906d655ae8ce747b0adaac04d5076b49e1f4053d5ca791ad05e72d993e595d4b9e71bb0aab44655012ac675e5790c5ad668e6f90e74acd5dc9379f282a9c01ae4cc69e1b9034ace75e3f9d253145c69e9790e326e3516d420e72ef03d28441e380736a2d4d87716948269ec7b046a5107ce80a623f65dba601bf8087442064e7bd6b9500657630d2c840e3c012b610d2e8e005dad0cf67decd914b50e3c006da30c16dcf06c599b1bacb0078ab60cccc1ba65061bcd83cd25dd0579e00a285b115881aa6d0cf67d0aeab60d5cf4945ab616b76c1f74d25844bef55485b4819fc052bac02db052b9c51d7c0e3255063e0179c7da73006a256debc93d35d3a5c5820ad4ba3b93e710ec6eb6c5657fe6696a235ce929c1c6d48125a88d725861dbd3e6c63944ee82dd8bd2a1ea10e497b4a0b1c6a1ea05e8ac75b829eb9e2eb72e701564ae7278e81640d3fda139033160ccb90848e3ccb78048e7f705088876feae8002be07dcf9eb9f022880027e1720d51fe78763fcf95f471ce077017ac43bc79525ae3914400114400114400114400114400114d06b80fed5983b0cf8e58c7b000aa0000aa0000aa0000aa0000aa0000aa0000aa0000aa0000aa0801b06d8d8012e76c0ce6ee480742f76c09bb79103d277fbb71bf07e5440fae1e0f036038e4606a4e9f1f016034ec608484fcfbecfc773ff1df9a7de02a6c709b83aaeb78099d801b3b103e662078c7e0cfff78047b1031ec70e988f1df0e466014f7b0b7876b380e7bd052c8cf369747506bd05648bb1035e2c450ec806cb9103b295d801ab6b9103b2c3eb3f09fd0664eb1b9b7103b26ceb65e4806c3b2fe206645959b1b801dd70519b2666c06d0e0550000550c0cf017f3fcd78ef993fccbff47bc39801f10afafbd9ef0d6e3fce7f19106f26bf3c98f80a2b409821</data>
+    </image>
+</images>
+<connections>
+    <connection>
+        <sender>pushButton2</sender>
+        <signal>clicked()</signal>
+        <receiver>AboutDialogBase</receiver>
+        <slot>close()</slot>
+    </connection>
+</connections>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

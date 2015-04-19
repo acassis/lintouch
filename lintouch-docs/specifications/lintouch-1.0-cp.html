@@ -1,0 +1,313 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>
+    Lintouch 1.0 TCP/IP Communication Protocol Specification
+  </title><meta name="generator" content="DocBook XSL Stylesheets V1.68.1"><meta name="description" content="Abstract 
+        This article describes the TCP/IP based communication protocol
+        used by Lintouch servers and clients. The protocol is used to
+        transfer named variables of types BIT, NUMBER and STRING
+        between the Lintouch servers and clients.
+      "></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="article" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="id2451051"></a>
+    Lintouch 1.0 TCP/IP Communication Protocol Specification
+  </h2></div><div><h3 class="corpauthor">
+  S.W.A.C. Bohemia s.r.o., Strakonice, Czech Republic
+</h3></div><div><h3 class="corpauthor">
+  S.W.A.C. GmbH, München, Germany
+</h3></div><div><div class="author"><h3 class="author"><span class="honorific">Ing</span>. <span class="firstname">Martin</span> <span class="surname">Man</span></h3><code class="email">&lt;<a href="mailto:mman@swac.cz">mman@swac.cz</a>&gt;</code></div></div><div><p class="copyright">Copyright © 2001-2005 Martin Man</p></div><div><p class="copyright">Copyright © 2001-2005 S.W.A.C. Bohemia s.r.o., Strakonice, Czech Republic</p></div><div><p class="copyright">Copyright © 2001-2005 S.W.A.C. GmbH, Münich, Germany</p></div><div><div class="legalnotice"><a name="id2501107"></a><p>
+    No part of this publication may be reproduced, stored in a retrieval
+    system, or transmitted, in any form or by means, electronic, mechanical,
+    photocopying, or otherwise, without prior written permission of the
+    publisher.
+  </p></div></div><div><div class="legalnotice"><a name="id2501117"></a><p>
+    The copyright holders make no warranty or representation, either
+    express or implied, with respect to this manual, its quality, accuracy,
+    merchantability, or fittness for a particular purpose. As a result this
+    manual is sold "AS IS", and you, the purchaser, are assuming the entire
+    risk as to its quality and accuracy.
+  </p></div></div><div><p class="pubdate">May 2003</p></div><div><div class="revhistory"><table border="1" width="100%" summary="Revision history"><tr><th align="left" valign="top" colspan="3"><b>Revision History</b></th></tr><tr><td align="left">Revision 0.96.1</td><td align="left">August 17th 2004</td><td align="left">mman</td></tr><tr><td align="left" colspan="3">
+          <p>
+            Make docbook source valid again.
+          </p>
+        </td></tr><tr><td align="left">Revision 0.96</td><td align="left">11 December 2003</td><td align="left">mman</td></tr><tr><td align="left" colspan="3">
+          <p>
+            Use Lintouch in place of Wintouch New Generation.
+          </p>
+        </td></tr><tr><td align="left">Revision 0.95</td><td align="left">05 October 2003</td><td align="left">mman</td></tr><tr><td align="left" colspan="3">
+          <p>
+            Ramcard is dead, vivat Ramcard.
+          </p>
+        </td></tr><tr><td align="left">Revision 0.94</td><td align="left">18 July 2003</td><td align="left">mman</td></tr><tr><td align="left" colspan="3">
+          <p>
+            Finally document message_timestamp field.
+          </p>
+        </td></tr><tr><td align="left">Revision 0.93</td><td align="left">19 June 2003</td><td align="left">mman</td></tr><tr><td align="left" colspan="3">
+          <p>
+            Added message_id field and description of Simplified BER
+            encoding.
+          </p>
+        </td></tr><tr><td align="left">Revision 0.92</td><td align="left">11 June 2003</td><td align="left">mman</td></tr><tr><td align="left" colspan="3">
+          <p>
+            Changed syntax of a message, status field removed because it
+            was essentially unnecessary
+          </p>
+        </td></tr><tr><td align="left">Revision 0.91</td><td align="left">4 June 2003</td><td align="left">mman</td></tr><tr><td align="left" colspan="3">
+          <p>
+            Clarification, added more explanatory images
+          </p>
+        </td></tr></table></div></div><div><div class="abstract"><p class="title"><b>Abstract</b></p><p>
+        This article describes the TCP/IP based communication protocol
+        used by Lintouch servers and clients. The protocol is used to
+        transfer named variables of types <span class="type">BIT</span>, <span class="type">NUMBER</span> and <span class="type">STRING</span>
+        between the Lintouch servers and clients.
+      </p></div></div></div><hr></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="sect1"><a href="#id2451918">1. Introduction to <span class="emphasis"><em>variables</em></span></a></span></dt><dd><dl><dt><span class="sect2"><a href="#id2452012">1.1. Name of the variable</a></span></dt><dt><span class="sect2"><a href="#dtype">1.2. Data type of the variable's value</a></span></dt></dl></dd><dt><span class="sect1"><a href="#id2452767">2. Communication protocol</a></span></dt><dd><dl><dt><span class="sect2"><a href="#id2452794">2.1. Message structure</a></span></dt><dt><span class="sect2"><a href="#id2514042">2.2. Message types</a></span></dt><dt><span class="sect2"><a href="#id2514588">2.3. Protocol types</a></span></dt><dt><span class="sect2"><a href="#id2451369">2.4. Connection oriented protocol</a></span></dt><dt><span class="sect2"><a href="#id2514921">2.5. Streaming oriented protocol</a></span></dt></dl></dd><dt><span class="appendix"><a href="#ber">A. BER description</a></span></dt><dt><span class="appendix"><a href="#sber">B. Simplified BER description</a></span></dt><dt><span class="bibliography"><a href="#id2515091">References</a></span></dt></dl></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2451918"></a>1. Introduction to <span class="emphasis"><em>variables</em></span></h2></div></div></div><p>
+      Lintouch uses the concept of variables for data mining and
+      alteration.
+    </p><p>
+      Every variable is defined by its <span class="emphasis"><em>name</em></span> and
+      <span class="emphasis"><em>value</em></span>. Value of concrete variable has a
+      <span class="emphasis"><em>data type</em></span> (see fig. <a href="#wtng-var" title="Figure 1. Lintouch variable description">Figure 1, &#8220;Lintouch variable description&#8221;</a>).
+    </p><p>
+      </p><div class="figure"><a name="wtng-var"></a><p class="title"><b>Figure 1. Lintouch variable description</b></p><div class="mediaobject"><img src="images/variable.png" alt="Lintouch variable is defined by name (of type
+              STRING) and value (of type BIT, NUMBER or
+              STRING)"></div></div><p>
+    </p><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2452012"></a>1.1. Name of the variable</h3></div></div></div><p>
+        The name of the variable is always of the type <span class="type">STRING</span>. It can
+        contain arbitrary Unicode characters (see <a href="#dtype" title="1.2. Data type of the variable's value">Section 1.2, &#8220;Data type of the variable's value&#8221;</a> for detailed description of all data types).
+      </p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="dtype"></a>1.2. Data type of the variable's value</h3></div></div></div><p>
+        At the time of this writing, Lintouch supports four basic data
+        types.  They are mapped one-to-one to the same ASN.1 data types
+        and encoded using either BER or rather SBER (see <a href="#wtng-to-asn" title="Table 1. Lintouch data types mapped to ASN.1 data types.">Table 1, &#8220;Lintouch data types mapped to ASN.1 data types.&#8221;</a> for the mapping details and <a href="#ber" title="A. BER description">Appendix A, <i>BER description</i></a> and <a href="#sber" title="B. Simplified BER description">Appendix B, <i>Simplified BER description</i></a> for details on BER
+        and SBER encodings).
+      </p><p>
+        </p><div class="table"><a name="wtng-to-asn"></a><p class="title"><b>Table 1. Lintouch data types mapped to ASN.1 data types.</b></p><table summary="Lintouch data types mapped to ASN.1 data types." border="1"><colgroup><col><col><col><col></colgroup><thead><tr><th>Lintouch data type</th><th>ASN.1 data type</th><th>Notes</th><th>Example</th></tr></thead><tbody><tr><td>BIT</td><td>BOOLEAN</td><td> </td><td>logical zero / logical one</td></tr><tr><td>NUMBER</td><td>INTEGER</td><td> </td><td>-12345</td></tr><tr><td>STRING</td><td>DEFINITE LENGTH OCTET STRING</td><td>UTF-8 (big endian) encoded string</td><td>robot has moved</td></tr><tr><td>SEQUENCE</td><td>DEFINITE LENGTH SEQUENCE</td><td>sequence of BIT, NUMBER, STRING, SEQUENCE
+                  types</td><td> </td></tr></tbody></table></div><p>
+      </p></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2452767"></a>2. Communication protocol</h2></div></div></div><p>
+      Lintouch communication protocol is used to transfer values of named
+      variables from one machine to another. Unless stated otherwise,
+      all numeric fields are transmitted in network order (big endian).
+    </p><p>
+      Communication protocol sends all data within messages, each of
+      which has a specific meaning and defines what the message header
+      and payload look like.
+    </p><p>
+      Communication protocol uses TCP/IP as a transport protocol and can
+      be used in connection oriented mode (server to client and vice
+      versa) or streaming mode (server to clients).
+    </p><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2452794"></a>2.1. Message structure</h3></div></div></div><p>
+        Every message contains <span class="emphasis"><em>header</em></span> and
+        <span class="emphasis"><em>payload</em></span>.
+      </p><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2452810"></a>2.1.1. Message header</h4></div></div></div><p>
+          Message header is fixed for all types of messages, it consists
+          of message length, id, timestamp and message type (see <a href="#message-header" title="Table 2. Lintouch message header">Table 2, &#8220;Lintouch message header&#8221;</a> for details).
+        </p><p>
+          </p><div class="table"><a name="message-header"></a><p class="title"><b>Table 2. Lintouch message header</b></p><table summary="Lintouch message header" border="1"><colgroup><col><col><col></colgroup><thead><tr><th>field</th><th>length (in octets)</th><th>Notes</th></tr></thead><tbody><tr><td>message_length</td><td>4 (big endian)</td><td>contains size of the whole packet including payload
+                    and this field</td></tr><tr><td>message_id</td><td>4 (big endian)</td><td>contains random number (requestid) that the
+                    client can fill in order to associate responses from
+                    the server with its requests. Server will copy
+                    message_id unchanged into the header of the
+                    generated response message.</td></tr><tr><td>message_timestamp</td><td>8 (big endian)</td><td>timestamp in microseconds since 00:00:00 january 1,
+                    1970 UTC when the message was generated</td></tr><tr><td>message_type</td><td>2 (big endian)</td><td>see <a href="#message-types" title="Table 5. Lintouch message types - connection setup">Table 5, &#8220;Lintouch message types - connection setup&#8221;</a> for
+                    details</td></tr><tr><td>message_payload</td><td>specified by payload itself</td><td>see <a href="#payload" title="2.1.2. Message payload">Section 2.1.2, &#8220;Message payload&#8221;</a> for details</td></tr></tbody></table></div><p>
+        </p></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="payload"></a>2.1.2. Message payload</h4></div></div></div><p>
+          At the time of this writing, message payload has fixed
+          structure as specified in <a href="#payload" title="2.1.2. Message payload">Section 2.1.2, &#8220;Message payload&#8221;</a>. It always
+          contains <span class="type">SEQUENCE</span> of values that either represent an <span class="type">ARRAY</span>
+          (possibly of length zero, one or more) or a <span class="type">HASHTABLE</span> where
+          each two consecutive values represent one row in such
+          hashtable (meaning the key-value pairs). In case of a
+          hashtable sequence should contain obviously odd number of
+          elements (see <a href="#array-vs-hash" title="Figure 2. message payload_data description">Figure 2, &#8220;message payload_data description&#8221;</a> for details).
+          The payload data can be encoded either using BER (see <a href="#ber" title="A. BER description">Appendix A, <i>BER description</i></a>) or rather with Simplified BER (see <a href="#sber" title="B. Simplified BER description">Appendix B, <i>Simplified BER description</i></a>) which is easier and faster to
+          encode/decode.
+        </p><p>
+          </p><div class="figure"><a name="array-vs-hash"></a><p class="title"><b>Figure 2. message payload_data description</b></p><div class="mediaobject"><img src="images/payload-logic.png" alt=" message payload is a SEQUENCE of values which
+                  either represent an ARRAY or HASHTABLE.
+                  HASHTABLE is encoded such that each two consecutive
+                  values represent a key-value pairs.  "></div></div><p>
+        </p><p>
+          </p><div class="table"><a name="message-payload"></a><p class="title"><b>Table 3. Lintouch message payload</b></p><table summary="Lintouch message payload" border="1"><colgroup><col><col><col></colgroup><thead><tr><th>field</th><th>size (in octets)</th><th>Notes</th></tr></thead><tbody><tr><td>payload_length</td><td>4 (big endian)</td><td>contains size of the whole payload including
+                    this field</td></tr><tr><td>payload_type</td><td>2 (big endian)</td><td>see <a href="#payload-encodings" title="Table 4. Lintouch message payload encodings.">Table 4, &#8220;Lintouch message payload encodings.&#8221;</a> for
+                    details </td></tr><tr><td>payload_data</td><td>depends on payload_type</td><td>BER or SBER encoded <span class="type">SEQUENCE</span>.  Meaning of the
+                    values transferred via this sequence is defined by
+                    each message.</td></tr></tbody></table></div><p>
+        </p><p>
+          </p><div class="table"><a name="payload-encodings"></a><p class="title"><b>Table 4. Lintouch message payload encodings.</b></p><table summary="Lintouch message payload encodings." border="1"><colgroup><col><col><col></colgroup><thead><tr><th>name</th><th>numeric code</th><th>Notes</th></tr></thead><tbody><tr><td>BER_ENCODED_SEQUENCE</td><td>0x0001</td><td>see <a href="#ber" title="A. BER description">Appendix A, <i>BER description</i></a> for details</td></tr><tr><td>SBER_ENCODED_SEQUENCE</td><td>0x0002</td><td>see <a href="#sber" title="B. Simplified BER description">Appendix B, <i>Simplified BER description</i></a> for details</td></tr></tbody></table></div><p>
+        </p></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2514042"></a>2.2. Message types</h3></div></div></div><p>
+        Every message is identified by its type. The following tables
+        describe the documented message types. Any message type not
+        mentioned here shall be considered as a protocol implementation
+        bug and receiving side should immediately terminate the
+        connection.
+      </p><p>
+        </p><div class="table"><a name="message-types"></a><p class="title"><b>Table 5. Lintouch message types - connection setup</b></p><table summary="Lintouch message types - connection setup" border="1"><colgroup><col><col><col><col></colgroup><thead><tr><th>name</th><th>message_type</th><th>message_payload</th><th>Notes</th></tr></thead><tbody><tr><td>INVALID</td><td>0x00</td><td>payload_length = 0</td><td>reserved for internal use of application, must
+                  never be sent to the network, if so, such message
+                  shall cause the connection to be terminated
+                  immediately by the receiving side.</td></tr><tr><td>ANY</td><td>0xff</td><td>payload_length = 0</td><td>reserved for internal use of application, must
+                  never be sent to the network, if so, such message
+                  shall cause the connection to be terminated
+                  immediately by the receiving side.</td></tr><tr><td>NONE</td><td>0x01</td><td>payload_length = 0</td><td>can be used as a form of keep-alive. Shall be
+                  ignored by the receiving side or used as a note that
+                  sending side is alive.</td></tr><tr><td>CONNECT</td><td>0x010</td><td><span class="type">ARRAY</span> of exactly one <span class="type">NUMBER</span> indicating the
+                  communication mode, see <a href="#protocol-types" title="Table 7. Lintouch protocol type codes (used by CONNECT payload)">Table 7, &#8220;Lintouch protocol type codes (used by CONNECT payload)&#8221;</a> for details</td><td>request for connection sent by the client to the
+                  server</td></tr><tr><td>PROJECT_URL</td><td>0x011</td><td><span class="type">ARRAY</span> of exactly one <span class="type">STRING</span> containing the
+                  URL from which the project should be downloaded.
+                  </td><td>response to CONNECT from the server to the
+                  client, client shall continue with
+                  SELECT_VIEW</td></tr><tr><td>CONNECTION_REFUSED</td><td>0x012</td><td><span class="type">ARRAY</span> of exactly one <span class="type">STRING</span> describing the
+                  reason why server can not accept the client
+                  connection.  </td><td>response to CONNECT from the server to the
+                  client, client shall terminate the TCP/IP
+                  connection.</td></tr><tr><td>DISCONNECT</td><td>0x013</td><td>payload_length = 0</td><td>request for connection termination, sent by the
+                  client to the server when the connection is not needed
+                  anymore.</td></tr><tr><td>SELECT_VIEW</td><td>0x020</td><td><span class="type">ARRAY</span> of exactly one <span class="type">STRING</span> containing the
+                  name of the view to be monitored</td><td>request for view selection sent by the client
+                  to the server</td></tr><tr><td>AVAILABLE_VARIABLES</td><td>0x021</td><td><span class="type">HASHTABLE</span> of values of type <span class="type">STRING</span>, <span class="type">NUMBER</span>
+                  or <span class="type">BIT</span>. Each row in a hashtable representing
+                  variable name and its initial value.  </td><td>response to SELECT_VIEW sent by the server to
+                  the client.</td></tr><tr><td>VIEW_NOT_SELECTED</td><td>0x022</td><td><span class="type">ARRAY</span> of exactly one string describing the
+                  reason why the view could not be selected.
+                </td><td>client can continue with another SELECT_VIEW
+                  or with DISCONNECT </td></tr><tr><td>UNSELECT_VIEW</td><td>0x023</td><td>payload_length = 0</td><td>client sends this message when he wants to select
+                  another view, e.g., before SELECT_VIEW, or when
+                  he wants to terminate the connection, .e.g, before
+                  DISCONNECT</td></tr></tbody></table></div><p>
+      </p><p>
+        </p><div class="table"><a name="message-types-active"></a><p class="title"><b>Table 6. Lintouch message types - monitoring/altering variables</b></p><table summary="Lintouch message types - monitoring/altering variables" border="1"><colgroup><col><col><col><col></colgroup><thead><tr><th>name</th><th>message_type</th><th>message_payload</th><th>Notes</th></tr></thead><tbody><tr><td>MONITOR_VARIABLES</td><td>0x030</td><td><span class="type">ARRAY</span> of <span class="type">STRING</span> values describing variables
+                  to be monitored.  Their changes will be reported via
+                  VARIABLE_VALUES.</td><td>request for change notification sent by the
+                  client to the server</td></tr><tr><td>UNMONITOR_VARIABLES</td><td>0x031</td><td><span class="type">ARRAY</span> of <span class="type">STRING</span> values describing variables
+                  to be unmonitored.  Their changes will not be reported
+                  via VARIABLE_VALUES any further.</td><td>request to stop change notifications sent by the
+                  client to the server</td></tr><tr><td>MONITORING_VARIABLES</td><td>0x032</td><td><span class="type">ARRAY</span> of <span class="type">STRING</span> values describing variables
+                  that are being monitored and whose changes are sent to
+                  the client.</td><td>confirmation sent by the server to the client as
+                  a response to MONITOR_VARIABLES or
+                  UNMONITOR_VARIABLES.  Receiving side must not assume
+                  that returned <span class="type">ARRAY</span> will be the same one as
+                  requested by MONITOR_VARIABLES. It can be, but it's up
+                  to the sending side to decide which changes it will
+                  forward to the client.  </td></tr><tr><td>MODIFY_VARIABLES</td><td>0x040</td><td><span class="type">HASHTABLE</span> where each row describes variable and
+                  its desired new value.</td><td>request for change of values of one or more
+                  variables sent by the client to the server (as a
+                  result of user interaction with the application for
+                  example).</td></tr><tr><td>READ_VARIABLES</td><td>0x041</td><td><span class="type">ARRAY</span> of <span class="type">STRING</span> values describing variables
+                  whose actual values are to be sent to the
+                  client.</td><td>request for value of one or more variables sent
+                  by the client to the server</td></tr><tr><td>VARIABLE_VALUES</td><td>0x050</td><td><span class="type">HASHTABLE</span> where each row describes a variable
+                  and its actual value</td><td>response to the MONITOR_VARIABLES, READ_VARIABLES
+                  or MODIFY_VARIABLES sent by the server to the client
+                  either periodically (in case of monitoring) or only
+                  once (in case of READing or MODIFYing certain
+                  variables).  Receiving side shall not assume that
+                  returned <span class="type">HASHTABLE</span> will contain all variables
+                  requested by READ_VARIABLES, MODIFY_VARIABLES or
+                  MONITOR_VARIABLES. It's up to the sending side to
+                  decide which values it will forward to the receiving
+                  side.</td></tr></tbody></table></div><p>
+      </p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2514588"></a>2.3. Protocol types</h3></div></div></div><p>
+        Lintouch communication protocol can operate in the following two
+        modes:
+      </p><p>
+        Connection oriented protocol is used where full control over all
+        variables is required (e.g., alteration and visualization
+        according to the project view is necessary). Client can select the
+        view and variables defined by this view that he is
+        interested in and that he wants to monitor and possibly alter.
+      </p><p>
+        Streaming oriented mode is used to simply watch all variables
+        server has access to. All changes of those variables are
+        automatically forwarded to the client. Client can as well modify
+        values of those variables.  This mode puts almost no logical
+        complexity on the server and can be therefore run on
+        low-power-low-consumption devices. Note that in this mode
+        runtime has no access to the full project and is therefore
+        unavailable to visualize the variables according to the project.
+      </p><p>
+        </p><div class="table"><a name="protocol-types"></a><p class="title"><b>Table 7. Lintouch protocol type codes (used by CONNECT payload)</b></p><table summary="Lintouch protocol type codes (used by CONNECT payload)" border="1"><colgroup><col><col><col></colgroup><thead><tr><th>name</th><th>numeric code</th><th>Notes</th></tr></thead><tbody><tr><td>PROTOCOL_CONNECTION_ORIENTED</td><td>0x0001</td><td>server and client must follow <a href="#state-diagram-connection" title="Figure 3. Lintouch TCP/IP connection oriented protocol (state
+            diagram)">Figure 3, &#8220;Lintouch TCP/IP connection oriented protocol (state
+            diagram)&#8221;</a></td></tr><tr><td>PROTOCOL_STREAM_ORIENTED</td><td>0x0002</td><td>server and client must follow <a href="#state-diagram-stream" title="Figure 4. Lintouch TCP/IP stream oriented protocol (state
+            diagram)">Figure 4, &#8220;Lintouch TCP/IP stream oriented protocol (state
+            diagram)&#8221;</a></td></tr></tbody></table></div><p>
+      </p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2451369"></a>2.4. Connection oriented protocol</h3></div></div></div><p>
+        The following state diagram describes the Lintouch connection
+        oriented communication protocol. Servers and clients must comply
+        with this diagram in terms that only indicated transitions are
+        allowed. Any transition not mentioned in this diagram must cause
+        the underlying TCP/IP connection to be terminated immediately.
+      </p><p>
+        In the connection oriented mode client requests connection and
+        receives the url from which to download the project.
+        After downloading the project client can open it and determine
+        which view to select. After the client selects view, server
+        simply remembers it. Server will however not send any variable
+        changes to the client unless the client will require them via
+        MONITOR_VARIABLES message.
+      </p><p>
+        This protocol mode puts more responsibilities on the server and
+        as such should be used only on hardware that can handle such
+        complexity.
+      </p><p>
+        </p><div class="figure"><a name="state-diagram-connection"></a><p class="title"><b>Figure 3. Lintouch TCP/IP connection oriented protocol (state
+            diagram)</b></p><div class="mediaobject"><img src="images/connected-protocol.png" alt=" State diagram describing the Lintouch TCP/IP connection
+                oriented protocol.  "></div></div><p>
+      </p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2514921"></a>2.5. Streaming oriented protocol</h3></div></div></div><p>
+        The following state diagram describes the Lintouch streaming
+        oriented communication protocol. Servers and clients must comply
+        with this diagram in terms that only indicated transitions are
+        allowed. Any transition not mentioned in this diagram must cause
+        the underlying TCP/IP connection to be terminated immediately.
+      </p><p>
+        In this mode client requests connection and server simply
+        answers with the hashtable of all available variables and their
+        actual (or initial) values.  Server then continues to
+        periodically send all changes of the variable values. Client can
+        alter value of certain variables by sending MODIFY_VARIABLES to
+        the server.
+      </p><p>
+        This protocol mode puts less responsibilities on the server and
+        as such should be used even on hardware that has limited
+        processing power.
+      </p><p>
+        </p><div class="figure"><a name="state-diagram-stream"></a><p class="title"><b>Figure 4. Lintouch TCP/IP stream oriented protocol (state
+            diagram)</b></p><div class="mediaobject"><img src="images/streamed-protocol.png" alt=" State diagram describing the Lintouch TCP/IP stream
+                oriented protocol.  "></div></div><p>
+      </p></div></div><div class="appendix" lang="en"><h2 class="title" style="clear: both"><a name="ber"></a>A. BER description</h2><p>
+      BER stands for Binary Encoded Representation and is used to encode
+      ASN.1 data types into stream of bits.
+    </p><p>
+      one octet = tag, one or more octets = length, one or more octets =
+      contents
+    </p><p>
+      tags: 0x1 boolean, 0x2 integer, 0x24 octet string, 0x30
+      definite-length sequence
+    </p><p>
+      length: 0-127 in one byte, more in more bytes with MSB set to 1
+      except the last one (encoded in big endian with base 128)
+    </p><p>
+      contents: 00/FF boolean, big endian integer, big endian utf-8
+      string
+    </p><p>
+      TBD: table of most common rules, such as for OCTET STRING,
+      INTEGER, BOOLEAN, SEQUENCE.
+    </p></div><div class="appendix" lang="en"><h2 class="title" style="clear: both"><a name="sber"></a>B. Simplified BER description</h2><p>
+      Simplified BER is a slightly modified and tightened version of
+      BER. Only a small subset of value types is supported and their
+      encoding is a bit restricted in order to suit most scenarios while
+      speeding up encoding and decoding process.
+    </p><p>
+      tag (1 octet), length (4 octets optionally), data
+    </p><p>
+      tag 0x1: BIT, followed by 1 octet 0x00/false or 0xff/true
+    </p><p>
+      tag 0x2: NUMBER, followed by 4 octets representing big endian
+      int32_t
+    </p><p>
+      tag 0x24: STRING, followed by 4 octets representing big endian
+      uint32_t length, followed by `length` octets of actual string
+      contents
+    </p><p>
+      tag 0x30: SEQUENCE, followed by 4 octets representing big endian
+      uint32_t number of items in a sequence, followed by `items` values
+      encoded with SBER
+    </p><p>
+      TBD: cleanup and examples.
+    </p></div><div class="bibliography"><div class="titlepage"><div><div><h2 class="title"><a name="id2515091"></a>References</h2></div></div></div><div class="biblioentry"><p>[<span class="abbrev">Layman</span>] <span class="authorgroup"><span class="firstname">Burton S.</span> <span class="surname">Kalisky</span>. </span><span class="copyright">Copyright © 1991 RSA Data Security, Inc.. </span><span class="title"><i><a href="http://www.dcc.ufmg.br/~coelho/nm/asn.1.intro.pdf" target="_top">A
+          Layman's Guide to a Subset of ASN.1, BER and DER</a></i>. </span></p></div></div></div></body></html>

@@ -1,0 +1,16 @@
+---------------------------------------------------------------------------
+Lintouch Meeting Report
+http://lintouch.org
+November 29th, 2004
+---------------------------------------------------------------------------
+
+Assembled by Martin Man <mman@swac.cz>
+
+1) Topic one
+------------
+
+2) Topic two
+------------
+
+vim: set et tw=76:
+$Id: template.txt,v 1.1 2004/11/30 11:38:29 mman Exp $

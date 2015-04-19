@@ -1,0 +1,60 @@
+dnl Process this file with autoconf to produce a configure script.
+AC_INIT(README)
+AC_CONFIG_AUX_DIR(config)
+AM_INIT_AUTOMAKE(qa-tools, 1.2)
+
+dnl Checks for programs
+AC_PROG_INSTALL
+
+dnl Checks for libraries
+
+dnl Checks for header files
+
+dnl Checks for typedefs, structures, and compiler characteristics.
+
+dnl Checks for library functions.
+
+dnl Misc variables
+LNT_VAR_PREFIX
+MYDATA="$PREFIX/share/qa-tools"
+AC_SUBST(MYDATA)
+
+dnl Output necessary files
+AC_OUTPUT([
+    Makefile
+    functions
+    qat-product-cleanup
+    qat-product-install
+    qat-product-release
+    qat-product-release-deb
+    qat-product-release-predeb
+    qat-product-release-mingw
+    qat-product-release-premingw
+    qat-product-release-rpm
+    qat-product-release-prerpm
+    qat-product-snapshot
+    qat-product-snapshot-deb
+    qat-product-snapshot-mingw
+    qat-product-snapshot-rpm
+    qat-product-svn-branch
+    qat-product-svn-branch-deb
+    qat-product-svn-branch-mingw
+    qat-product-svn-branch-rpm
+    qat-product-svn-release
+    qat-product-svn-release-deb
+    qat-product-svn-release-mingw
+    qat-product-svn-release-rpm
+    contrib/Makefile
+    contrib/pbuilder.debian
+    contrib/pbuilder.ubuntu
+    qat-suite-snapshot
+    qat-suite-release
+    qat-suite-snapshot-deb
+    qat-suite-snapshot-mingw
+    qat-suite-snapshot-rpm
+    qat-suite-release-deb
+    qat-suite-release-mingw
+    qat-suite-release-rpm
+])
+
+dnl vim: set et tw=0:

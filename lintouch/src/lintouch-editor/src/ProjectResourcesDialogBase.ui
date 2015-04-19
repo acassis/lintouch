@@ -1,0 +1,194 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>ProjectResourcesDialogBase</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>ProjectResourcesDialogBase</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>362</width>
+            <height>236</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>$(filename_without_extension) Resources - Lintouch Editor</string>
+    </property>
+    <property name="focusPolicy">
+        <enum>NoFocus</enum>
+    </property>
+    <vbox>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <widget class="QListView">
+            <column>
+                <property name="text">
+                    <string>Resource</string>
+                </property>
+                <property name="clickable">
+                    <bool>false</bool>
+                </property>
+                <property name="resizable">
+                    <bool>true</bool>
+                </property>
+            </column>
+            <property name="name">
+                <cstring>m_resources</cstring>
+            </property>
+            <property name="selectionMode">
+                <enum>Single</enum>
+            </property>
+            <property name="allColumnsShowFocus">
+                <bool>true</bool>
+            </property>
+            <property name="resizeMode">
+                <enum>LastColumn</enum>
+            </property>
+            <property name="defaultRenameAction">
+                <enum>Accept</enum>
+            </property>
+        </widget>
+        <widget class="QLayoutWidget">
+            <property name="name">
+                <cstring>layout4</cstring>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>m_buttonNew</cstring>
+                    </property>
+                    <property name="text">
+                        <string>New</string>
+                    </property>
+                </widget>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>m_buttonReimport</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Reimport</string>
+                    </property>
+                </widget>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>m_buttonExport</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Export</string>
+                    </property>
+                </widget>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>m_buttonDelete</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Delete</string>
+                    </property>
+                </widget>
+            </hbox>
+        </widget>
+        <widget class="QLayoutWidget">
+            <property name="name">
+                <cstring>layout1</cstring>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <spacer>
+                    <property name="name">
+                        <cstring>spacer1</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>40</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>m_buttonClose</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&amp;Close</string>
+                    </property>
+                    <property name="accel">
+                        <string>Alt+C</string>
+                    </property>
+                </widget>
+            </hbox>
+        </widget>
+    </vbox>
+</widget>
+<connections>
+    <connection>
+        <sender>m_buttonNew</sender>
+        <signal>clicked()</signal>
+        <receiver>ProjectResourcesDialogBase</receiver>
+        <slot>newResourceSlot()</slot>
+    </connection>
+    <connection>
+        <sender>m_buttonClose</sender>
+        <signal>clicked()</signal>
+        <receiver>ProjectResourcesDialogBase</receiver>
+        <slot>close()</slot>
+    </connection>
+    <connection>
+        <sender>m_buttonDelete</sender>
+        <signal>clicked()</signal>
+        <receiver>ProjectResourcesDialogBase</receiver>
+        <slot>deleteResourceSlot()</slot>
+    </connection>
+    <connection>
+        <sender>m_resources</sender>
+        <signal>itemRenamed(QListViewItem*,int)</signal>
+        <receiver>ProjectResourcesDialogBase</receiver>
+        <slot>itemRenamed(QListViewItem*,int)</slot>
+    </connection>
+    <connection>
+        <sender>m_resources</sender>
+        <signal>selectionChanged()</signal>
+        <receiver>ProjectResourcesDialogBase</receiver>
+        <slot>selectionChanged()</slot>
+    </connection>
+    <connection>
+        <sender>m_buttonReimport</sender>
+        <signal>clicked()</signal>
+        <receiver>ProjectResourcesDialogBase</receiver>
+        <slot>reimportResourceSlot()</slot>
+    </connection>
+    <connection>
+        <sender>m_buttonExport</sender>
+        <signal>clicked()</signal>
+        <receiver>ProjectResourcesDialogBase</receiver>
+        <slot>exportResourceSlot()</slot>
+    </connection>
+</connections>
+<tabstops>
+    <tabstop>m_resources</tabstop>
+    <tabstop>m_buttonNew</tabstop>
+    <tabstop>m_buttonDelete</tabstop>
+    <tabstop>m_buttonClose</tabstop>
+</tabstops>
+<slots>
+    <slot access="protected">newResourceSlot()</slot>
+    <slot access="protected">deleteResourceSlot()</slot>
+    <slot access="protected">itemRenamed( QListViewItem* i, int c)</slot>
+    <slot access="protected">selectionChanged()</slot>
+    <slot access="protected">reimportResourceSlot()</slot>
+    <slot access="protected">exportResourceSlot()</slot>
+</slots>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

@@ -1,0 +1,44 @@
+dnl Process this file with autoconf to produce a configure script.
+AC_INIT(README)
+AC_CONFIG_AUX_DIR(config)
+AM_INIT_AUTOMAKE(libltfsm, 1.7.0)
+
+dnl Checks for programs
+AC_PROG_CC
+AC_PROG_CXX
+AC_PROG_LIBTOOL
+AC_PROG_INSTALL
+
+LNT_PROG_DOXYGEN
+
+dnl Checks for libraries
+AM_PATH_CPPUNIT(1.8.0,,[
+    AC_MSG_WARN([])
+    AC_MSG_WARN([CppUnit not found])
+    AC_MSG_WARN([Please install CppUnit from http://cppunit.sourceforge.net])
+    AC_MSG_WARN([])
+    AC_MSG_ERROR([Sorry, I can't continue without CppUnit])
+])
+
+LNT_LIB_APR
+
+dnl Checks for header files
+
+dnl Checks for typedefs, structures, and compiler characteristics.
+
+dnl Checks for library functions.
+
+dnl Miscelaneous Variables
+LIBLTFSM_TOP_SRCDIR="\$(top_srcdir)"
+AC_SUBST(LIBLTFSM_TOP_SRCDIR)
+
+dnl Output necessary files
+AC_OUTPUT([
+     Makefile
+     libltfsm.pc
+     include/Makefile
+     doc/Makefile
+     doc/libltfsm.dox
+])
+
+dnl vim: set et tw=0:

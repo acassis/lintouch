@@ -1,0 +1,66 @@
+#!/bin/sh
+#
+# This is the builder helper file for rpmbuild. It should be invoked like this
+# rpmbuilder build package-version.src.rpm --resultdir /somewhere/else
+
+set -e
+
+# find operation and dsc file
+op=$1
+shift
+dsc=$1
+resultdir=""
+
+if [ "$op" != "build" ] ; then
+	echo "usage is: $0 build package.src.rpm --buildresult <dir>"
+	exit 1
+fi
+
+#find resultdir
+while ! [ -z "$1" ] ; do
+	if [ "$1" = "--buildresult" ] ; then
+		shift
+		resultdir="$1"
+	fi
+	shift
+done
+
+echo "SRCRPM file is $dsc"
+echo "RESULTDIR is $resultdir"
+
+#find out package and upstream version
+xxx=$(rpm -qp $dsc --qf '%{NAME} %{VERSION} %{RELEASE}')
+package=$(echo $xxx|awk 'BEGIN{FS=" "}{print $1}')
+version=$(echo $xxx|awk 'BEGIN{FS=" "}{print $2}')
+release=$(echo $xxx|awk 'BEGIN{FS=" "}{print $3}')
+
+echo "package is $package"
+echo "upstream version is $version"
+echo "release version is $release"
+
+#create binary rpms
+rpmbuild --rebuild $dsc
+
+#install source rpm to get a spec file
+rpm -Uvh $dsc
+
+#we need to figure out what has been build and where to find it
+destdir=`rpm --eval=%_topdir`
+cpu=`rpm --eval=%_target_cpu`
+#packages will include also the source package name
+packages=`rpm -q --specfile $destdir/SPECS/$package.spec --qf '[%{NAME}\n]'`
+
+for i in $packages; do
+	fn="$i-$version-$release.$cpu.rpm"
+	echo "trying to find a package file $fn"
+	if [ -f $destdir/RPMS/$cpu/$fn ] ; then
+		echo "...found, copying to $resultdir"
+		cp $destdir/RPMS/$cpu/$fn $resultdir
+		echo "installing as a build-dep for next build"
+		rpm -Uvh --nodeps $destdir/RPMS/$cpu/$fn
+	else
+		echo "...not found"
+	fi
+done
+
+exit 0

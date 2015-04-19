@@ -1,0 +1,3 @@
+#define PREFIX "@PREFIX@"
+#define PREFIX_NATIVE "@PREFIX_NATIVE@"
+#define TODAY "@TODAY@"

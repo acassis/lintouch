@@ -1,0 +1,55 @@
+.. $Id: background.txt,v 1.1 2004/12/16 15:27:06 barton Exp $
+
+=====================
+MSYS/MINGW Background
+=====================
+
+:Author: Jiri Barton <jbar@swac.cz>
+:Date: 2004-12-16
+
+1. GCC
+======
+
+There are several compilers for Microsoft Windows. While the Microsoft
+Visual C++ (MSVC) has become de facto standard for developing applications
+for Windows, no sooner version than 7.1. supports the latest ANSI C++.
+And above all, MSVC is not free and free of charge. Worst of all, its
+makefiles are not portable.
+
+Speaking of the porting, the quality of the compiler, and the price, GCC
+and GNU seem a better option. There are two mainstream ports of GCC for
+Windows:
+
+* Cygwin (http://www.cygwin.com)
+* MinGW (http://www.mingw.org)
+
+Cygwin environment provides a Unix shell (bash) and other Unix like
+utilities. It is merely a port of the Unix environment in Windows. In order
+to provide full support for the Unix features not available on Windows,
+Cygwin contains many hacks and workarounds. These work pretty well in fact
+but the application developed with Cygwin have to link to Cygwin DLLs is not
+a native Windows application.
+
+The MingW project provides a GCC for Windows that build native Windows
+applications which link to Windows native DLLs. Best of all, MinGW is
+officially supported compiler for Qt whereas Cygwin GCC is not.
+
+2. Shell
+=========
+
+The MinGW GCC package contains tools for working with GNU Makefiles.
+Makefile is always interpreted by the current shell. In the Windows
+environment, this means ``cmd.exe``. Such makefiles are not portable though;
+they cannot be interpreted by the ``sh``-like shells.
+
+Fortunately, the provides such a decent shell as part of the environment
+called ``MSYS`` (http://www.mingw.org/msys.shtml). ``MSYS`` contains an old
+``BASH`` as its shell.
+
+``MSYS`` contains an xterm-like terminal that works much to the extent that
+the today's linux geek expects. In addition, there are several standard
+utilities such as sed, grep, ssh, and cvs. The only thing I was missing was
+a subversion client but the official svn client for Windows works pretty
+well (http://subversion.tigris.org/project_packages.html).
+
+.. $Id: background.txt,v 1.1 2004/12/16 15:27:06 barton Exp $

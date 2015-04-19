@@ -1,0 +1,62 @@
+---------------------------------------------------------------------------
+Lintouch Development Weekly News
+http://lintouch.org
+January 14th, 2005
+---------------------------------------------------------------------------
+
+Welcome to the eighteenth issue of the LDWN.
+
+After the discussion on topic of windows packaging, JBar implemented
+_mingw-package_[1] software that will create .exe installers for your
+sources much the same way debian packages are created. In the end it means
+that:
+
+    - one or more .exe installers can be created from the same sources
+    - .exe installers are built non-interactively, automated nightly builds
+      are possible
+    - win32 architecture does not need to be treated differently from unix
+      architectures, the process of releasing a package for end users is
+      almost the same for all architectures that we support.
+
+At this moment _mingw-package_ depends on MSYS windows shell[2] (minimal port
+of bash used by MinGW), and Python, but should not depend on MinGW itself for
+compilation (provided you know how to compile your sources
+non-interactively).
+
+    1. https://lintouch.org/repos/lintouch/mingw-package/trunk/
+    2. http://www.mingw.org/
+
+Another good news is that 90% of the Lintouch sources are in SVN[3]. This
+includes Runtime, Server, and Basic Plugins (Loopback and Generator). The
+build system has been reworked so interested people can checkout the sources
+and compile them with the famous:
+
+    ./configure && make && make install
+
+The build system has also been reworked in a way that it does install
+everything under specified prefix. If you configure lintouch using:
+
+    ./configure --prefix=/usr/local/my_unstable_lintouch
+
+Everything gets installed under /usr/local/my_unstable_lintouch. This
+enables you to install multiple versions of lintouch in parallel (for
+testing purposes) and does not pollute your existing system (namely Python
+installation where lintouch-server and plugins were installed).
+
+    3. https://lintouch.org/repos/lintouch/lintouch/trunk/
+
+Template Libraries will need reorganization before they can be moved to SVN
+and before they can be made part of the official Lintouch sources.
+
+Lintouch Editor is now in a rather good shape and should be released in
+unstable version 1.3 as soon as the build system for windows is ready. It
+will feature Loopback and Generator connectivity options and will allow
+users to play with real world (albeit connectivity limited) projects.
+
+That's all folks for this week, if you have any comments, corrections or
+ideas to be published, feel free to contact me directly[0].
+
+    0. mailto:mman@swac.cz.
+
+vim: set et tw=76:
+$Id: template.txt,v 1.1 2003/12/04 12:42:51 mman Exp $

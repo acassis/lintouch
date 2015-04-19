@@ -1,0 +1,266 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>ProjectViewResizeDialogBase</class>
+<widget class="QDialog">
+    <property name="name">
+        <cstring>ProjectViewResizeDialogBase</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>301</width>
+            <height>186</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>Resize View $(viewname) - Lintouch Editor</string>
+    </property>
+    <property name="modal">
+        <bool>true</bool>
+    </property>
+    <grid>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <widget class="QLabel" row="0" column="0">
+            <property name="name">
+                <cstring>textLabel1</cstring>
+            </property>
+            <property name="text">
+                <string>Original width</string>
+            </property>
+        </widget>
+        <widget class="QLabel" row="1" column="1">
+            <property name="name">
+                <cstring>m_origHeight</cstring>
+            </property>
+            <property name="sizePolicy">
+                <sizepolicy>
+                    <hsizetype>7</hsizetype>
+                    <vsizetype>5</vsizetype>
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                </sizepolicy>
+            </property>
+            <property name="text">
+                <string>N/A</string>
+            </property>
+        </widget>
+        <widget class="QLabel" row="0" column="1">
+            <property name="name">
+                <cstring>m_origWidth</cstring>
+            </property>
+            <property name="sizePolicy">
+                <sizepolicy>
+                    <hsizetype>7</hsizetype>
+                    <vsizetype>5</vsizetype>
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                </sizepolicy>
+            </property>
+            <property name="text">
+                <string>N/A</string>
+            </property>
+        </widget>
+        <widget class="QSpinBox" row="3" column="1">
+            <property name="name">
+                <cstring>m_newHeight</cstring>
+            </property>
+            <property name="maxValue">
+                <number>4000</number>
+            </property>
+            <property name="minValue">
+                <number>1</number>
+            </property>
+        </widget>
+        <widget class="QCheckBox" row="4" column="1">
+            <property name="name">
+                <cstring>m_keepAspect</cstring>
+            </property>
+            <property name="text">
+                <string>Keep aspect ratio</string>
+            </property>
+            <property name="checked">
+                <bool>true</bool>
+            </property>
+        </widget>
+        <widget class="QLabel" row="2" column="0">
+            <property name="name">
+                <cstring>textLabel5</cstring>
+            </property>
+            <property name="text">
+                <string>New width</string>
+            </property>
+        </widget>
+        <widget class="QSpinBox" row="2" column="1">
+            <property name="name">
+                <cstring>m_newWidth</cstring>
+            </property>
+            <property name="maxValue">
+                <number>4000</number>
+            </property>
+            <property name="minValue">
+                <number>1</number>
+            </property>
+        </widget>
+        <widget class="QLabel" row="3" column="0">
+            <property name="name">
+                <cstring>textLabel6</cstring>
+            </property>
+            <property name="text">
+                <string>New height</string>
+            </property>
+        </widget>
+        <widget class="QLabel" row="1" column="0">
+            <property name="name">
+                <cstring>textLabel2</cstring>
+            </property>
+            <property name="text">
+                <string>Original height</string>
+            </property>
+        </widget>
+        <widget class="QLayoutWidget" row="6" column="0" rowspan="1" colspan="2">
+            <property name="name">
+                <cstring>layout2</cstring>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <spacer>
+                    <property name="name">
+                        <cstring>spacer1</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>20</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>m_buttonClose</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&amp;Close</string>
+                    </property>
+                    <property name="accel">
+                        <string>Alt+C</string>
+                    </property>
+                    <property name="autoDefault">
+                        <bool>false</bool>
+                    </property>
+                </widget>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>m_applyButton</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&amp;Apply</string>
+                    </property>
+                    <property name="accel">
+                        <string>Alt+A</string>
+                    </property>
+                    <property name="autoDefault">
+                        <bool>false</bool>
+                    </property>
+                </widget>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>m_okButton</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&amp;Ok</string>
+                    </property>
+                    <property name="accel">
+                        <string>Alt+O</string>
+                    </property>
+                    <property name="autoDefault">
+                        <bool>false</bool>
+                    </property>
+                </widget>
+            </hbox>
+        </widget>
+        <spacer row="5" column="1">
+            <property name="name">
+                <cstring>spacer2</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Vertical</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>20</width>
+                    <height>40</height>
+                </size>
+            </property>
+        </spacer>
+    </grid>
+</widget>
+<connections>
+    <connection>
+        <sender>m_buttonClose</sender>
+        <signal>clicked()</signal>
+        <receiver>ProjectViewResizeDialogBase</receiver>
+        <slot>closeSlot()</slot>
+    </connection>
+    <connection>
+        <sender>m_okButton</sender>
+        <signal>clicked()</signal>
+        <receiver>ProjectViewResizeDialogBase</receiver>
+        <slot>okSlot()</slot>
+    </connection>
+    <connection>
+        <sender>m_applyButton</sender>
+        <signal>clicked()</signal>
+        <receiver>ProjectViewResizeDialogBase</receiver>
+        <slot>applySlot()</slot>
+    </connection>
+    <connection>
+        <sender>m_newWidth</sender>
+        <signal>valueChanged(int)</signal>
+        <receiver>ProjectViewResizeDialogBase</receiver>
+        <slot>widthValueChangedSlot(int)</slot>
+    </connection>
+    <connection>
+        <sender>m_newHeight</sender>
+        <signal>valueChanged(int)</signal>
+        <receiver>ProjectViewResizeDialogBase</receiver>
+        <slot>heightValueChangedSlot(int)</slot>
+    </connection>
+    <connection>
+        <sender>m_keepAspect</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>ProjectViewResizeDialogBase</receiver>
+        <slot>aspectToggledSlot(bool)</slot>
+    </connection>
+</connections>
+<tabstops>
+    <tabstop>m_newWidth</tabstop>
+    <tabstop>m_newHeight</tabstop>
+    <tabstop>m_keepAspect</tabstop>
+    <tabstop>m_buttonClose</tabstop>
+    <tabstop>m_applyButton</tabstop>
+    <tabstop>m_okButton</tabstop>
+</tabstops>
+<slots>
+    <slot access="protected">applySlot()</slot>
+    <slot access="protected">closeSlot()</slot>
+    <slot access="protected">okSlot()</slot>
+    <slot access="protected">widthValueChangedSlot(int)</slot>
+    <slot access="protected">heightValueChangedSlot(int)</slot>
+    <slot access="protected">aspectToggledSlot(bool)</slot>
+</slots>
+<pixmapinproject/>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

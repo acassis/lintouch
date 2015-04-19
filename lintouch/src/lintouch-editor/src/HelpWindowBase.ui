@@ -1,0 +1,123 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>HelpWindowBase</class>
+<widget class="QMainWindow">
+    <property name="name">
+        <cstring>HelpWindowBase</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>494</width>
+            <height>339</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>Manual - Lintouch Editor</string>
+    </property>
+    <property name="usesTextLabel">
+        <bool>true</bool>
+    </property>
+    <vbox>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <widget class="QTextBrowser">
+            <property name="name">
+                <cstring>m_browser</cstring>
+            </property>
+        </widget>
+    </vbox>
+</widget>
+<toolbars>
+    <toolbar dock="2">
+        <property name="name">
+            <cstring>toolBar</cstring>
+        </property>
+        <property name="label">
+            <string>Help Navigation</string>
+        </property>
+        <action name="m_tbBack"/>
+        <action name="m_tbForward"/>
+        <action name="m_tbHome"/>
+        <separator/>
+        <action name="m_tbClose"/>
+    </toolbar>
+</toolbars>
+<actions>
+    <action>
+        <property name="name">
+            <cstring>m_tbHome</cstring>
+        </property>
+        <property name="text">
+            <string>Contents</string>
+        </property>
+        <property name="menuText">
+            <string>Contents</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>m_tbBack</cstring>
+        </property>
+        <property name="text">
+            <string>Back</string>
+        </property>
+        <property name="menuText">
+            <string>Back</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>m_tbForward</cstring>
+        </property>
+        <property name="text">
+            <string>Forward</string>
+        </property>
+        <property name="menuText">
+            <string>Forward</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>m_tbClose</cstring>
+        </property>
+        <property name="text">
+            <string>Close</string>
+        </property>
+        <property name="menuText">
+            <string>Close</string>
+        </property>
+        <property name="accel">
+            <string>Esc</string>
+        </property>
+    </action>
+</actions>
+<connections>
+    <connection>
+        <sender>m_tbBack</sender>
+        <signal>activated()</signal>
+        <receiver>m_browser</receiver>
+        <slot>backward()</slot>
+    </connection>
+    <connection>
+        <sender>m_tbForward</sender>
+        <signal>activated()</signal>
+        <receiver>m_browser</receiver>
+        <slot>forward()</slot>
+    </connection>
+    <connection>
+        <sender>m_tbHome</sender>
+        <signal>activated()</signal>
+        <receiver>m_browser</receiver>
+        <slot>home()</slot>
+    </connection>
+    <connection>
+        <sender>m_tbClose</sender>
+        <signal>activated()</signal>
+        <receiver>HelpWindowBase</receiver>
+        <slot>close()</slot>
+    </connection>
+</connections>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

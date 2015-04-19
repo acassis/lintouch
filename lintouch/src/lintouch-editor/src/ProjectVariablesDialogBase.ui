@@ -1,0 +1,247 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>ProjectVariablesDialogBase</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>ProjectVariablesDialogBase</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>362</width>
+            <height>258</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>Variables - Lintouch Editor</string>
+    </property>
+    <vbox>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <widget class="QLayoutWidget">
+            <property name="name">
+                <cstring>layout4</cstring>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QLabel">
+                    <property name="name">
+                        <cstring>textLabel1</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>4</hsizetype>
+                            <vsizetype>5</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="text">
+                        <string>Connection</string>
+                    </property>
+                </widget>
+                <widget class="QComboBox">
+                    <property name="name">
+                        <cstring>m_connection</cstring>
+                    </property>
+                </widget>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>m_buttonConnEdit</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>4</hsizetype>
+                            <vsizetype>0</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="text">
+                        <string>Edit</string>
+                    </property>
+                </widget>
+            </hbox>
+        </widget>
+        <widget class="QListView">
+            <column>
+                <property name="text">
+                    <string>Variable</string>
+                </property>
+                <property name="clickable">
+                    <bool>false</bool>
+                </property>
+                <property name="resizable">
+                    <bool>true</bool>
+                </property>
+            </column>
+            <column>
+                <property name="text">
+                    <string>Type</string>
+                </property>
+                <property name="clickable">
+                    <bool>false</bool>
+                </property>
+                <property name="resizable">
+                    <bool>true</bool>
+                </property>
+            </column>
+            <property name="name">
+                <cstring>m_variables</cstring>
+            </property>
+            <property name="allColumnsShowFocus">
+                <bool>true</bool>
+            </property>
+            <property name="resizeMode">
+                <enum>LastColumn</enum>
+            </property>
+        </widget>
+        <widget class="QLayoutWidget">
+            <property name="name">
+                <cstring>layout3_2</cstring>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>m_buttonNew</cstring>
+                    </property>
+                    <property name="text">
+                        <string>New</string>
+                    </property>
+                </widget>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>m_buttonEdit</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Edit</string>
+                    </property>
+                </widget>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>m_buttonDelete</cstring>
+                    </property>
+                    <property name="enabled">
+                        <bool>false</bool>
+                    </property>
+                    <property name="text">
+                        <string>Delete</string>
+                    </property>
+                </widget>
+            </hbox>
+        </widget>
+        <widget class="QLayoutWidget">
+            <property name="name">
+                <cstring>layout4</cstring>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <spacer>
+                    <property name="name">
+                        <cstring>spacer1</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>90</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>m_buttonClose</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&amp;Close</string>
+                    </property>
+                    <property name="accel">
+                        <string>Alt+C</string>
+                    </property>
+                </widget>
+            </hbox>
+        </widget>
+    </vbox>
+</widget>
+<connections>
+    <connection>
+        <sender>m_buttonClose</sender>
+        <signal>clicked()</signal>
+        <receiver>ProjectVariablesDialogBase</receiver>
+        <slot>close()</slot>
+    </connection>
+    <connection>
+        <sender>m_variables</sender>
+        <signal>selectionChanged()</signal>
+        <receiver>ProjectVariablesDialogBase</receiver>
+        <slot>selectionChanged()</slot>
+    </connection>
+    <connection>
+        <sender>m_variables</sender>
+        <signal>itemRenamed(QListViewItem*,int)</signal>
+        <receiver>ProjectVariablesDialogBase</receiver>
+        <slot>itemRenamed(QListViewItem*,int)</slot>
+    </connection>
+    <connection>
+        <sender>m_buttonNew</sender>
+        <signal>clicked()</signal>
+        <receiver>ProjectVariablesDialogBase</receiver>
+        <slot>newVariableSlot()</slot>
+    </connection>
+    <connection>
+        <sender>m_buttonEdit</sender>
+        <signal>clicked()</signal>
+        <receiver>ProjectVariablesDialogBase</receiver>
+        <slot>editVariableSlot()</slot>
+    </connection>
+    <connection>
+        <sender>m_buttonDelete</sender>
+        <signal>clicked()</signal>
+        <receiver>ProjectVariablesDialogBase</receiver>
+        <slot>deleteVariableSlot()</slot>
+    </connection>
+    <connection>
+        <sender>m_connection</sender>
+        <signal>activated(const QString&amp;)</signal>
+        <receiver>ProjectVariablesDialogBase</receiver>
+        <slot>connectionChangedSlot(const QString&amp;)</slot>
+    </connection>
+    <connection>
+        <sender>m_variables</sender>
+        <signal>doubleClicked(QListViewItem*)</signal>
+        <receiver>ProjectVariablesDialogBase</receiver>
+        <slot>variableDoubleClicked(QListViewItem*)</slot>
+    </connection>
+    <connection>
+        <sender>m_buttonConnEdit</sender>
+        <signal>clicked()</signal>
+        <receiver>ProjectVariablesDialogBase</receiver>
+        <slot>editConnectionsSlot()</slot>
+    </connection>
+</connections>
+<slots>
+    <slot access="protected">newVariableSlot()</slot>
+    <slot access="protected">deleteVariableSlot()</slot>
+    <slot access="protected">selectionChanged()</slot>
+    <slot access="protected">itemRenamed( QListViewItem* i, int col )</slot>
+    <slot access="protected">duplicateVariableSlot()</slot>
+    <slot access="protected">editVariableSlot()</slot>
+    <slot access="protected">connectionChangedSlot(const QString&amp;)</slot>
+    <slot access="protected">variableDoubleClicked(QListViewItem *)</slot>
+    <slot access="protected">editConnectionsSlot()</slot>
+</slots>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

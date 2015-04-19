@@ -1,0 +1,141 @@
+Lintouch 1.4 Release Announcement
+
+Lintouch Team
+
+<lintouch-dev@lintouch.org>
+
+March 7th, 2005
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Table of Contents
+
+1. Introduction
+2. What's New In Lintouch 1.4
+
+    2.1. Global Changes
+    2.2. Lintouch Runtime
+    2.3. Lintouch Editor
+
+3. Obtaining and Installing Lintouch
+
+    3.1. Ready Made Binaries
+    3.2. Sources
+
+4. What is Lintouch
+5. Screenshots
+
+1. Introduction
+
+Figure 1. Lintouch Logo
+
+Lintouch Logo
+
+After six months of development we (the Lintouch Team) are proud to announce
+the availability of the new stable release of the Lintouch Server, Lintouch
+Runtime, and Lintouch Editor.
+
+This version includes bug fixes plus several new important features. You are
+welcome to download, install, test, and use this version.
+
+Please see Section 4, “What is Lintouch” for more information about Lintouch.
+
+2. What's New In Lintouch 1.4
+
+2.1. Global Changes
+
+New Visualization Objects
+
+    Lintouch Visualization Objects (called Templates) have been split into the
+    following two Template Libraries:
+
+    Display Templates
+
+        containing all templates related to visualization of different types of
+        variables in different forms. This template library includes for
+        example Chart, Meter, and Lamp templates.
+
+    Input Templates
+
+        containing all templates related to control of different types of
+        variables in different forms. This template library includes for
+        example Slider, Button, and LineInput templates.
+
+New Connectivity Options
+
+    Support for Modbus/TCP connectivity is available via Lintouch ModbusTCP
+    Plugin. The plugin is written in Python and although not optimized for
+    time-critical tasks, it can be very effectively used for testing and
+    teaching purposes.
+
+2.2. Lintouch Runtime
+
+Industry Ready
+
+    Runtime has been enhanced to support full screen mode, and automatic
+    reconnects to the server in case of connectivity problems. All the features
+    (such as connecting to a new server, switching panels, etc.) can be
+    disabled/enabled on demand according to concrete deployment requirements.
+
+Support for Local Projects
+
+    Runtime can be also used in a local mode in which no Lintouch Server is
+    required. This mode is designed for devices without TCP/IP connectivity
+    (small touch screen systems) that are connected via industry buses directly
+    to the monitored system and always run only one controlling screen for one
+    monitored system.
+
+2.3. Lintouch Editor
+
+Support for Connections and Variables editing
+
+    Editor has been enhanced to support full Connections and Variables editing.
+    Users can design and test their projects comfortably from within the
+    Lintouch Editor. The preview mode can verify the reaction of the screens to
+    various variable changes.
+
+Support for Online Mode
+
+    When Editor preview mode is not enough to thoroughly test the screens, the
+    online mode takes the project and executes it within Lintouch Runtime in
+    the same way it will be finally executed on a target system.
+
+3. Obtaining and Installing Lintouch
+
+3.1. Ready Made Binaries
+
+Lintouch can be downloaded and installed directly on the Windows and Linux
+based platforms. The detailed instructions are available at our website.
+
+3.2. Sources
+
+The source code of Lintouch Runtime and Lintouch Server is distributed under
+the GNU General Public License 2. It can be downloaded and compiled by hand.
+The detailed instructions are available at our website.
+
+4. What is Lintouch
+
+Lintouch is a real-time data monitoring/controlling system used in automation
+industry and developed by S.W.A.C. GmbH Germany and S.W.A.C. Bohemia s.r.o.
+
+Lintouch is an effort to build fully software-based open source control panel
+software suite. Control panels are usually called HMI - Human Machine Interface
+, or MMI - Man Machine Interface in the automation industry.
+
+Lintouch supports variety of hardware/software platforms (Win32+Intel,
+Linux+Intel, Linux+PPC).
+
+Lintouch has been designed with extensibility in mind. New Server Plugins can
+be developed to bring in new connectivity (ModBus/TCP, and Hilscher already
+available). New Templates (GUI Objects) can be implemented to define new
+control and visualization primitives (Buttons and Lamps already available).
+
+To get more information about Lintouch please visit our website http://
+lintouch.org.
+
+5. Screenshots
+
+Figure 2. Lintouch Editor
+
+Lintouch Editor Screenshot
+

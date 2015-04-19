@@ -1,0 +1,67 @@
+---------------------------------------------------------------------------
+Lintouch Development Weekly News
+http://lintouch.org
+December 17th, 2004
+---------------------------------------------------------------------------
+
+Welcome to the sixteenth issue of the LDWN. I have to apologize for not
+being able to send out LDWN issues for more than four months. The team was
+busy coding and coding and coding and there was not much time remaining
+for PR. I'll nevertheless try to summarize briefly what has happened in the
+Lintouch Land until now.
+
+During the last week of September the stable release of Lintouch 1.2 and
+Lintouch Editor 1.2 have been released [1] [2]. The Editor has been reworked
+from scratch and feels much more comfortable to work with. Template API has
+been cleared and enhanced to support keyboard event handling, and
+localization of template strings.
+
+    1. http://lintouch.org/cvs/lintouch/docs/news/lintouch-1.2-ra.html
+    2. http://lintouch.org/cvs/lintouch/docs/news/lintouch-editor-1.2-ra.html
+
+The Lintouch has been second time presented at SPS Drives fair[3] in
+Nurnberg, Germany. Most of the time in October and November has been spent
+by preparing internal templates, and demonstration projects for the fair.
+During that time lintouch-dev mailing list was looking almost dead.
+
+    3. http://messago.de/sps
+
+Right after the fair our focus shifted on preparations for the new stable
+release of the Runtime, Server, and Editor 1.4. The release is scheduled for
+March 1st, 2005. The Editor will include full support for connectivity
+handling, Runtime will get lot of speed optimizations (much of them are
+already in the CVS) and functionality enhancements intended for production
+environments (full screen mode by default, no possibility to quit or
+disconnect from the Server, etc.).
+
+Lintouch infrastructure is undergoing a lot of changes as well. Among the
+most important ones is the transition from aging source code management
+system CVS[4] to better SVN[5]. This transition will allow us to develop
+entirely new set of quality assurance tools that will help in periodic
+build system testing. Part of the sources has been already moved to SVN and
+is accessible in our public repository[6].
+
+    4. https://www.cvshome.org/
+    5. http://subversion.tigris.org/
+    6. https://lintouch.org/repos/lintouch/lintouch/trunk/
+
+We are also working on simplified lintouch build system, that will allow
+the users wanting to compile Lintouch from sources to simply download one
+package, configure it and install. We have seen this need for more than half
+a year and the time for the change has finally came.
+
+The website will be also updated to reflect the new state of affairs. One of
+the new QA features will be everyday generation of the release snapshots,
+and automated building of Linux and Windows packages.
+
+Since we have the Christmas time in Christian World, I'd like to (on behalf
+of the Lintouch Team) wish you a very happy holidays and peaceful
+New Year 2005.
+
+That's all folks for this week, if you have any comments, corrections or
+ideas to be published, feel free to contact me directly[0].
+
+    0. mailto:mman@swac.cz.
+
+vim: set et tw=76:
+$Id: template.txt,v 1.1 2003/12/04 12:42:51 mman Exp $

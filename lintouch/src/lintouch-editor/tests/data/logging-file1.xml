@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project-logging type="File">
+    <properties>
+      <property name="file-name" value="/tmp/server.log"/>
+    </properties>
+</project-logging>

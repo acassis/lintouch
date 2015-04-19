@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<project-connection type="home-device">
+
+  <properties>
+    <property name="subtype" value="thermometer"/>
+  </properties>
+
+  <variables>
+  </variables>
+
+</project-connection>
+
+

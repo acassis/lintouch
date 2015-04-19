@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<project-connection type="MyConn">
+
+	<properties>
+		<property name="Property1"
+			value="Value with three ,,, commas"/>
+		<property name="Property2"
+			value="Value with one , comma and one &quot; quote"/>
+		<property name="Property3"
+			value="Value with two &quot;&quot; quotes"/>
+	</properties>
+
+	<variables>
+
+		<variable name="vb1" type="bit">
+			<property name="pb1" value="vb1val1"/>
+			<property name="pb2" value="vb1val2"/>
+		</variable>
+		<variable name="vb2" type="bit">
+			<property name="pb1" value="vb2val1"/>
+			<property name="pb2" value="vb2val2"/>
+		</variable>
+		<variable name="vb3" type="bit">
+			<property name="pb1" value="vb3val1"/>
+			<property name="pb2" value="vb3val2"/>
+		</variable>
+
+		<variable name="vn1" type="number">
+			<property name="pn1" value="vn1val1"/>
+			<property name="pn2" value="vn1val2"/>
+			<property name="pn3" value="vn1val3"/>
+			<property name="pn4" value="vn1val4"/>
+			<property name="pn5" value="vn1val5"/>
+		</variable>
+		<variable name="vn2" type="number">
+			<property name="pn1" value="vn2val1"/>
+			<property name="pn2" value="vn2val2"/>
+			<property name="pn3" value="vn2val3"/>
+			<property name="pn4" value="vn2val4"/>
+			<property name="pn5" value="vn2val5"/>
+		</variable>
+		<variable name="vn3" type="number">
+			<property name="pn1" value="vn3val1"/>
+			<property name="pn2" value="vn3val2"/>
+			<property name="pn3" value="vn3val3"/>
+			<property name="pn4" value="vn3val4"/>
+			<property name="pn5" value="vn3val5"/>
+		</variable>
+
+		<variable name="vars1" type="string">
+			<property name="pstr1" value="vars1val1"/>
+			<property name="pstr2" value="vars1val2"/>
+			<property name="pstr3" value="vars1val3"/>
+			<property name="pstr4" value="vars1val4"/>
+		</variable>
+		<variable name="vars2" type="string">
+			<property name="pstr1" value="vars2val1"/>
+			<property name="pstr2" value="vars2val2"/>
+			<property name="pstr3" value="vars2val3"/>
+			<property name="pstr4" value="vars2val4"/>
+		</variable>
+		<variable name="vars3" type="string">
+			<property name="pstr1" value="vars3val1"/>
+			<property name="pstr2" value="vars3val2"/>
+			<property name="pstr3" value="vars3val3"/>
+			<property name="pstr4" value="vars3val4"/>
+		</variable>
+	</variables>
+
+</project-connection>
+
+

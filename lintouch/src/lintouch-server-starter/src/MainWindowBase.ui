@@ -1,0 +1,312 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>MainWindowBase</class>
+<widget class="QMainWindow">
+    <property name="name">
+        <cstring>MainWindowBase</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>600</width>
+            <height>480</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>Lintouch Server Starter</string>
+    </property>
+    <grid>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <widget class="lt::Console" row="0" column="0">
+            <property name="name">
+                <cstring>m_console</cstring>
+            </property>
+            <property name="sizePolicy">
+                <sizepolicy>
+                    <hsizetype>7</hsizetype>
+                    <vsizetype>7</vsizetype>
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                </sizepolicy>
+            </property>
+        </widget>
+    </grid>
+</widget>
+<menubar>
+    <property name="name">
+        <cstring>MenuBar</cstring>
+    </property>
+    <item text="&amp;Project" name="Project">
+        <action name="fileOpenAction"/>
+        <separator/>
+        <action name="fileExitAction"/>
+    </item>
+    <item text="&amp;Server" name="Server">
+        <action name="serverStartAction"/>
+        <action name="serverStopAction"/>
+    </item>
+    <item text="&amp;Help" name="helpMenu">
+        <action name="helpAboutAction"/>
+    </item>
+</menubar>
+<toolbars>
+    <toolbar dock="2">
+        <property name="name">
+            <cstring>Toolbar</cstring>
+        </property>
+        <property name="label">
+            <string>Server Operations</string>
+        </property>
+        <action name="serverStartAction"/>
+        <action name="serverStopAction"/>
+    </toolbar>
+    <toolbar dock="2">
+        <property name="name">
+            <cstring>Toolbar_2</cstring>
+        </property>
+        <property name="label">
+            <string>Project Selector</string>
+        </property>
+        <widget class="QLabel">
+            <property name="name">
+                <cstring>textLabel1</cstring>
+            </property>
+            <property name="text">
+                <string>Project:</string>
+            </property>
+        </widget>
+        <widget class="QLineEdit">
+            <property name="name">
+                <cstring>m_project</cstring>
+            </property>
+        </widget>
+        <widget class="QToolButton">
+            <property name="name">
+                <cstring>m_projectChooser</cstring>
+            </property>
+            <property name="text">
+                <string>...</string>
+            </property>
+        </widget>
+    </toolbar>
+    <toolbar dock="2">
+        <property name="name">
+            <cstring>Toolbar_3</cstring>
+        </property>
+        <property name="label">
+            <string>Server Port Selector</string>
+        </property>
+        <widget class="QLabel">
+            <property name="name">
+                <cstring>textLabel2_2</cstring>
+            </property>
+            <property name="text">
+                <string>Port:</string>
+            </property>
+        </widget>
+        <widget class="QLineEdit">
+            <property name="name">
+                <cstring>m_port</cstring>
+            </property>
+            <property name="inputMask">
+                <string>0000; </string>
+            </property>
+        </widget>
+    </toolbar>
+</toolbars>
+<customwidgets>
+    <customwidget>
+        <class>lt::Console</class>
+        <header location="global">lt/ui/Console.hh</header>
+        <sizehint>
+            <width>-1</width>
+            <height>-1</height>
+        </sizehint>
+        <container>0</container>
+        <sizepolicy>
+            <hordata>5</hordata>
+            <verdata>5</verdata>
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+        </sizepolicy>
+        <pixmap>image0</pixmap>
+    </customwidget>
+</customwidgets>
+<actions>
+    <action>
+        <property name="name">
+            <cstring>fileOpenAction</cstring>
+        </property>
+        <property name="iconSet">
+            <iconset>image1</iconset>
+        </property>
+        <property name="text">
+            <string>Open</string>
+        </property>
+        <property name="menuText">
+            <string>&amp;Open...</string>
+        </property>
+        <property name="toolTip">
+            <string>Open Project</string>
+        </property>
+        <property name="accel">
+            <string>Ctrl+O</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>fileExitAction</cstring>
+        </property>
+        <property name="text">
+            <string>Exit</string>
+        </property>
+        <property name="menuText">
+            <string>E&amp;xit</string>
+        </property>
+        <property name="accel">
+            <string></string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>helpAboutAction</cstring>
+        </property>
+        <property name="text">
+            <string>About</string>
+        </property>
+        <property name="menuText">
+            <string>&amp;About</string>
+        </property>
+        <property name="accel">
+            <string></string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>serverStartAction</cstring>
+        </property>
+        <property name="iconSet">
+            <iconset>image2</iconset>
+        </property>
+        <property name="text">
+            <string>S&amp;tart</string>
+        </property>
+        <property name="menuText">
+            <string>S&amp;tart</string>
+        </property>
+        <property name="toolTip">
+            <string>Start Lintouch Server</string>
+        </property>
+        <property name="accel">
+            <string>Ctrl+S</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>serverStopAction</cstring>
+        </property>
+        <property name="iconSet">
+            <iconset>image3</iconset>
+        </property>
+        <property name="text">
+            <string>Sto&amp;p</string>
+        </property>
+        <property name="menuText">
+            <string>Sto&amp;p</string>
+        </property>
+        <property name="toolTip">
+            <string>Stop Lintouch Server</string>
+        </property>
+        <property name="accel">
+            <string>Ctrl+C</string>
+        </property>
+    </action>
+</actions>
+<images>
+    <image name="image0">
+        <data format="PNG" length="1002">89504e470d0a1a0a0000000d4948445200000016000000160806000000c4b46c3b000003b149444154388dad945f4c5b551cc73fe7dc4b7b4bcba0762d45c43114323599ee6192609c51d883892ce083f1718b3ebb185f8dc91e972cf39d2d2a2f1af664b6f1e0fe3863a0718969700eb0c52142da0242a1bd6d696f7bcff101585203ceb8fd9ece39f99dcff9fe7edf939f88c562ec465f5f9fe609442c161362173c3e3eae7b7a7ac8e7f36432196cdbfe4f907c3e4f2291201e8fe338cec3737357e9e8e828aded1e229d650e1f2d51754b082110124c13a4dc5ea341eb9dc284c0558a853f3ce8cb0677ef500fde7d39d2596679e326597b8e9abb85d7a770ab16ab6983ec5a05b487a70e36f0f4e10afe408d6a558310980108478dba4a1e8233990c5d474b64ed39aa3a8fe5f3317fbf81dbd70bccfeb205947632fd74f6589c1c6ea2f70d03a58ba0c1f2c9bdc1b66de3b8256a6e11cbe7e3ee1d181b590124fe2693aeee08d223c82c3a2c24b7b874bec8f26288774f7bd054504aef0dde6e99c0eb83f9fb266323cb80a27fb0958141836044605a2ee5523393371cc646fee2da37195aa35d0c0c5b4859ac03d7e91712dcaac5adab3650a3ff9d08ef7dd8404bb48869e5d958b5b87dadc4c9a1464e9f0d0326df7ebd86bd2e310cb1bf62d384d59441f2d70a070e1c60e09489929b988681bdd9cc97170bcc4c65595f71f8e0e3301337fc24a7732467831875a47f289652b0be5e4151e6d07316c1b0c0340d8ab92023e76d66a6b2840e36d2fb7a13fee632475e6edc367ea98a90fb98b7dd6310ca0328a44761582e1bab41befabcc0ec940d28bc5e93b68e064cab84e1d9beaeb48934eac1f53b01c1b000fca496aa54b61a99fcde61662a4b4b4b23d1680be9d426173e4df3602a48ea411989a4fd590f52a8fd156b05ed9d350e3defe3cfdf4b4c7ce770ea7d3fb9f520afbe1620daeee5c26735d20b9b9cfb6811a754a439e4e5c5639a4caa1e5caf586bfc0197b78702005cb9b4cae4cd3267ce8638fe964bd72b393e39d74928d242617303a756a37f284447770dcdbffc6384a05a85de1306e9a52057c7527c7131c3c42d3f475eb2303c82d4fc3276d6811db37efeb148723082d9b08f79f97c1e5729109a9a28307cc622d2d6cdf52b2b24efe548dedb00142009862cfa879ee1a71f6cec928353511472fbf4389148b0b0e0c108081412458dfe21c9f11351e67e7358595468246d1d1e5e38a6e9e851bc39d84ab502a669331dafec0d8ec7e3e8cb06e1a881d727d1ae40180a434a8c9db129a54126ad48a7358c2b4c5352c8c374bcccdab2bb37d8719cba79fab8211f9df218e0582c261e95f8bfc04f1a1e8bc5c4dfe0a190172af6a9690000000049454e44ae426082</data>
+    </image>
+    <image name="image1">
+        <data format="PNG" length="210">89504e470d0a1a0a0000000d4948445200000016000000160806000000c4b46c3b0000009949444154388ded94410e85200c445f89c7367f61bc775d2848a42860ffced9548bbe8e13043e1d928177f481a123dc2b34f6f47a3de2b865a8843f4001982a0b3d5f62c58300aa1ad70550449ab9d507a773a8a4ba4f92a2df333c64c63bebbd82e5b8addecbcc7820eb4266c639745dfa80f36faf66c66fa19c3f882fb470ec05cdc0bed07893f68e171492635f686c3eeff6ba3c8fdd366dc4c0452c8781f8080000000049454e44ae426082</data>
+    </image>
+    <image name="image2">
+        <data format="PNG" length="310">89504e470d0a1a0a0000000d4948445200000018000000180806000000e0773df8000000fd494441544889edd2412e435114c6f1ff73ceede3de9797d6a06ca04250f499107bb00c0906986209c21624ac43c2b4fbb08c63201db63df7a59df51b9f7cbf739203abcc8938662e810af86d03ac3966b68131d02c0b98a415e2061eeeef5a216e6023466e6faeb31137a0221c0e0f787e7acc42dc8088a0a234cd096faf2f6ec47f810aaa8a6a606730e0f3e3dd85e45da042504183b2d5eff3f3fd053036339bba581ea06808ac972529551c8f4e31338aa228160254a922c6484a89e1d1686e791650d7352a42afb7c9eedebeab1c32dfb4ee76b3cab3804ed9e1ecfc22abdc9b2bc0009bf52dd3e2b920f1dfbef0cd2769da6ceece32bb5701e00f2efa3d634725886e0000000049454e44ae426082</data>
+    </image>
+    <image name="image3">
+        <data format="PNG" length="272">89504e470d0a1a0a0000000d4948445200000018000000180806000000e0773df8000000d7494441544889ed944d0e823010461fccd41f8620247a00a35b371e4d367a144fe7c65ba8e8868d5a1404624c7c4993a6fda6af6dd2c29f6f1378c6e6c0a4ec3be00444c0b5cc5f1ff20a1c81435de9ba5ca4512b795a4c3d821020cf37645986aa2f72cf76bbab9cabac3633968b05e7cbe5ade0152fb7571405599a762e2800868301aa8299752e00208e0de71c9145ad0461abea1a545ed16c36258e8d68fc83270060341aa22248e87beced04670015455509453a1704002242922438e75a097cace8f92f3afa8235d87f52d488ba27a80cffe9851bac6e461ab59bee7f0000000049454e44ae426082</data>
+    </image>
+</images>
+<connections>
+    <connection>
+        <sender>fileOpenAction</sender>
+        <signal>activated()</signal>
+        <receiver>MainWindowBase</receiver>
+        <slot>fileOpen()</slot>
+    </connection>
+    <connection>
+        <sender>fileExitAction</sender>
+        <signal>activated()</signal>
+        <receiver>MainWindowBase</receiver>
+        <slot>fileExit()</slot>
+    </connection>
+    <connection>
+        <sender>helpAboutAction</sender>
+        <signal>activated()</signal>
+        <receiver>MainWindowBase</receiver>
+        <slot>helpAbout()</slot>
+    </connection>
+    <connection>
+        <sender>serverStartAction</sender>
+        <signal>activated()</signal>
+        <receiver>MainWindowBase</receiver>
+        <slot>serverStart()</slot>
+    </connection>
+    <connection>
+        <sender>serverStopAction</sender>
+        <signal>activated()</signal>
+        <receiver>MainWindowBase</receiver>
+        <slot>serverStop()</slot>
+    </connection>
+    <connection>
+        <sender>m_project</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>MainWindowBase</receiver>
+        <slot>projectOrPortChanged(const QString&amp;)</slot>
+    </connection>
+    <connection>
+        <sender>m_port</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>MainWindowBase</receiver>
+        <slot>projectOrPortChanged(const QString&amp;)</slot>
+    </connection>
+    <connection>
+        <sender>m_projectChooser</sender>
+        <signal>clicked()</signal>
+        <receiver>MainWindowBase</receiver>
+        <slot>fileOpen()</slot>
+    </connection>
+    <connection>
+        <sender>m_project</sender>
+        <signal>returnPressed()</signal>
+        <receiver>MainWindowBase</receiver>
+        <slot>serverStart()</slot>
+    </connection>
+    <connection>
+        <sender>m_port</sender>
+        <signal>returnPressed()</signal>
+        <receiver>MainWindowBase</receiver>
+        <slot>serverStart()</slot>
+    </connection>
+</connections>
+<slots>
+    <slot>fileOpen()</slot>
+    <slot>fileExit()</slot>
+    <slot>serverStart()</slot>
+    <slot>helpAbout()</slot>
+    <slot>serverStop()</slot>
+    <slot>projectOrPortChanged(const QString&amp;)</slot>
+</slots>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

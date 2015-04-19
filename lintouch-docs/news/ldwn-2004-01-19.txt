@@ -1,0 +1,72 @@
+---------------------------------------------------------------------------
+Lintouch Development Weekly News
+http://lintouch.org
+January 19th, 2004
+---------------------------------------------------------------------------
+
+Welcome to the fifth issue of the Lintouch Development Weekly Newsletter
+called by codename "Better Late than Never"...
+
+Because life is not always easy I started to prove this fact by rewriting
+our _libwtngtemplates_ library almost from scratch in order to make
+templates API easier to use and more transparent[1]. The rewrite took about
+6 hours[2] and it indeed was a big cleanup. I'm pretty happy with it right now
+and no major changes are planned within next month or so. Patrik already
+updated the standard template library to conform to the new API[3] and I've
+prepared a patch[4] for Shivaji to ease the adaptation of _wtng-Editor_.
+
+    1. http://lintouch.org/pipermail/lintouch-dev/2004-January/000320.html
+    2. http://lintouch.org/pipermail/lintouch-dev/2004-January/000321.html
+    3. [hidden internal lintouch-cvs@swac.cz url]
+    4. http://lintouch.org/pipermail/lintouch-dev/2004-January/000326.html
+
+Since more and more evidence is showing that our code in _swaloun-framework_
+which handles (by using QT Library) XML configuration parsing is very slow,
+Hynek and jbar started (each on its own part and independently) to
+investigate where the problem is. Hynek found one nasty usage of operator[]
+on top of QValueList which he corrected[5] by correctly using
+QValueList::Iterator. No expected speed improvements happened, though not
+well proven yet, so jbar (to stay on the safe side) implemented progress
+reporting into ProjectAsyncBuilder[6], which means that runtime knows at
+almost every moment what's happening when loading a really big project. User
+is therefore not left alone and always has a feedback.
+
+    5. http://lintouch.org/pipermail/lintouch-cvs/2004-January/000855.html
+    6. http://lintouch.org/pipermail/lintouch-cvs/2004-January/000832.html
+
+Jbar additionally fixed some bugz in _libwtngzip_[7], _libwtngvfs_[8] and
+finished last major tasks within a _libwtngproject_[9] making the list of
+almost-release-ready libraries bigger again.
+
+    7. http://lintouch.org/pipermail/lintouch-cvs/2004-January/000879.html
+    8. http://lintouch.org/pipermail/lintouch-cvs/2004-January/000857.html
+    9. http://lintouch.org/pipermail/lintouch-cvs/2004-January/000880.html
+
+Patrik prepared all missing GUI components for _Runtime_ and implemented
+necessary logic to make the GUI fully work. We are now in GUI polishing
+phase mainly rewriting all messages, choosing good looking icons and
+aligning all controls so that our work looks pretty.
+
+The server work seriously started and we have a skeleton subproject[10] which
+makes some of the most important C libraries available to Python language in
+a CVS. Since Python coding is very comfortable and all C parts are mostly
+ready the first working version of _Lintouch Server_ should be available by
+the end of this week.
+
+    10. http://lintouch.org/pipermail/lintouch-cvs/2004-January/000871.html
+
+At our today's meeting jbar initiated discussion about all goals that must
+be met before the code freeze point which will take place in two weeks,
+exactly at February 1. Additionally we summarized all tasks that must be
+performed and finished during the testing period that will hopefully lead to
+version 1.0 at March 1. Without providing link for the reference to concrete
+items I can state that we are pretty close :-). Keep up good work and
+crossed fingers and we will make it.
+
+That's all folks for this week, if you have any comments, corrections or
+ideas to be published, feel free to contact me directly[0].
+
+    0. mailto:mman@swac.cz.
+
+vim: set et tw=76:
+$Id: ldwn-2004-01-19.txt,v 1.1 2004/01/20 14:40:15 mman Exp $

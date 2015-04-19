@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template type="mytemplatelibrary.Lamp" name="testLamp">
+   <geometry width="20" height="20" left="80" top="80"/>
+    <property name="shape" value="triangle"/>
+    <property name="fill_off" value="#FF0000;DENSE1PATTERN"/>
+</template>
+
+

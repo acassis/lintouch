@@ -1,0 +1,58 @@
+#!/bin/bash
+# (c) 2004 Martin Man <mman@swac.cz>
+
+set -e
+#pipefail does not work under mingw
+#set -o pipefail
+
+. @MYDATA@/functions
+
+print_banner
+
+if test "x$1" == "x"; then
+    echo "usage is: $0 product-suite.conf"
+    exit 1
+fi
+
+echo "Processing suite configuration file $1"
+source $1
+echo "Processing report configuration file @MYDATA@/$REPORTS"
+source @MYDATA@/$REPORTS
+
+LOGDIR=$RESULTDIR/logs
+TASK=$0
+SUITE=$1
+
+# first clean all (possibly forgotten files or files from failed builds)
+rm -rf $PREFIX
+
+# then remove & prepare logdir in case we call this script
+# multiple times per day
+mkdir -p $LOGDIR
+
+BUILD_START=`date +%T`
+
+# configure PKG_CONFIG_PATH, LD_LIBRARY_PATH, PATH
+# should work under linux as well as under mingw
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PREFIX/lib
+export PATH=$PATH:$PREFIX/bin
+export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$PREFIX/lib/pkgconfig
+
+pushd .
+cd @MYDATA@
+
+for i in $PRODUCTS; do
+    echo "Going to snapshot-rpm $i"
+    if ! qat-product-snapshot-rpm $i -t 2>&1 |tee -a $LOGDIR/`basename $i`.snapshot-rpm.log ; then
+        BUILD_END=`date +%T`
+        $_REPORT_FAILURE_COMMAND
+        popd
+        exit 0
+    fi
+done
+
+BUILD_END=`date +%T`
+$_REPORT_SUCCESS_COMMAND
+popd
+
+# vim: set et sw=4 ts=4:

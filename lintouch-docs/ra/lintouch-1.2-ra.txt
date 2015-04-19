@@ -1,0 +1,215 @@
+Lintouch 1.2 Release Announcement
+
+Martin Man
+
+<mman@swac.cz>
+
+September 17th, 2004
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Table of Contents
+
+1. Introduction
+2. What's New In Lintouch 1.2
+
+    2.1. Global Changes
+    2.2. Lintouch Runtime
+    2.3. Lintouch Server
+
+3. Obtaining and Installing Lintouch
+
+    3.1. Ready Made Binaries
+    3.2. Installation from Sources
+
+4. What is Lintouch
+5. Screenshots
+
+1. Introduction
+
+Figure 1. Lintouch Logo
+
+Lintouch Logo
+
+After six months of development we (Lintouch Team) are proud to announce the
+availability of the new stable version of the Lintouch Server and the Lintouch
+Runtime.
+
+This version includes bug fixes plus several new important features. You are
+welcome to download, install, test and use this version.
+
+Please see Section 4, “What is Lintouch” for more information about Lintouch.
+
+2. What's New In Lintouch 1.2
+
+2.1. Global Changes
+
+New Project File Extension
+
+    From now on, all Lintouch Projects use .ltp as the default file extension.
+    The projects are still ordinary ZIP archives, but different extension makes
+    it easier to associate Lintouch applications with such files.
+
+New Project File Format
+
+    To support Panel reuse + keyboard event handling, the format of the project
+    files as been slightly changed.
+
+New Template Property Types
+
+    Property types color, link, and resource have been introduced. They were
+    needed to make the Lintouch Editor operate smoothly.
+
+2.2. Lintouch Runtime
+
+Improved Panel Rendering
+
+    Panel + Template rendering has been reworked to achieve more readable
+    texts. The results are better than what we had in Lintouch 1.0, namely when
+    talking about fonts being rendered at small sizes.
+
+Focus + Keyboard Events Handling
+
+    Templates can now define their focus policy (whether they want to receive
+    events from keyboard). Once they do so, they can process the keyboard
+    events and react to shortcuts. This feature enables the use of Lintouch in
+    environments requiring more input devices than just the plain touch
+    screens.
+
+Access to Variable's Properties
+
+    From now on a Template can access the properties of Variable(s) it has been
+    bound to. The properties of variables usually contain important
+    configuration information for the Server that may be displayed at the
+    Runtime side.
+
+Template IOPin + Property Grouping
+
+    Namely to support more user comfort while working with Lintouch Editor, the
+    Templates can group their IOPins and Properties. A Template can for example
+    define "Inputs", and "Outputs" IOPin groups and "Inactive", and "Active"
+    Property groups.
+
+Template Localization
+
+    Templates and Template Libraries can be fully localized. This includes
+    templates' description, IOPin names, and Property names. Again a feature
+    namely useful when working with Lintouch Editor.
+
+2.3. Lintouch Server
+
+Access to Project Resources
+
+    Plugins now have access to the project's resources. We already had one
+    plugin that needed access to some external file for its operation. Now such
+    files can be obtained directly from the project which simplifies a lot the
+    deployment of Lintouch Projects.
+
+3. Obtaining and Installing Lintouch
+
+3.1. Ready Made Binaries
+
+Lintouch can be downloaded and installed directly on the following platforms.
+The detailed instructions are available at our website.
+
+Windows 2000/XP
+
+    Please see http://lintouch.org/blog/download#win32bin for more information.
+
+Debian/GNU Linux (sarge + sid)
+
+    Please see http://lintouch.org/blog/download#linuxbin for more information.
+
+3.2. Installation from Sources
+
+Lintouch sources can be downloaded from the sources section at our website.
+
+3.2.1. External Dependencies
+
+The following libraries and applications must be installed before you try to
+compile lintouch sources.
+
+Apache Portable Runtime 2.0 +
+
+    Available at http://apr.apache.org.
+
+Cppunit: A Unit test framework for C++
+
+    Available at http://cppunit.sourceforge.net.
+
+Doxygen: documentation system for C++, C
+
+    Available at http://www.doxygen.org.
+
+pkg-config: System for managing link/compile flags
+
+    Available at http://freshmeat.net/projects/pkgconfig/.
+
+SharedPtr: Smart Pointer C++ Template Class
+
+    Available at http://lintouch.org/blog/projects#sharedptr.
+
+Swaloun Framework
+
+    Available at http://lintouch.org/blog/projects#swaloun.
+
+3.2.2. Installation Order
+
+Lintouch components should be installed in the following order:
+
+ 1. libwtngio (needed by Server + Runtime)
+
+ 2. libwtngfsm (needed by Server + Runtime)
+
+ 3. libwtngvars (needed by Server + Runtime)
+
+ 4. libwtngcp (needed by Server + Runtime)
+
+ 5. python-wtng (needed by Server)
+
+ 6. lintouch-server (needed by Server)
+
+ 7. libwtngzip (needed by Runtime)
+
+ 8. libwtngvfs (needed by Runtime)
+
+ 9. libwtnglocalizator (needed by Runtime)
+
+10. libwtngtemplates (needed by Runtime)
+
+11. libwtngproject (needed by Runtime)
+
+12. libwtngpanel (needed by Runtime)
+
+13. lintouch-runtime (needed by Runtime)
+
+4. What is Lintouch
+
+Lintouch is a real-time data monitoring/controlling system used in automation
+industry and developed by S.W.A.C. GmbH Germany and S.W.A.C. Bohemia s.r.o.
+
+Lintouch is an effort to build fully software-based open source control panel
+software suite. Control panels are usually called HMI - Human Machine Interface
+, or MMI - Man Machine Interface in the automation industry.
+
+Lintouch supports variety of hardware/software platforms (Win32+Intel,
+Linux+Intel, Linux+PPC).
+
+Lintouch has been designed with extensibility in mind. New Server Plugins can
+be developed to bring in new connectivity (ModBus/TCP, and Hilscher already
+available). New Templates (GUI Objects) an be implemented to define new control
+and visualization primitives (Buttons and Lamps already available).
+
+To get more information about Lintouch please visit our website http://
+lintouch.org.
+
+5. Screenshots
+
+Figure 2. Lintouch Server
+
+Lintouch Server Screenshot
+
+Figure 3. Lintouch Runtime
+
+Lintouch Runtime Screenshot
+

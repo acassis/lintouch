@@ -1,0 +1,61 @@
+dnl Process this file with autoconf to produce a configure script.
+AC_INIT(README)
+AC_CONFIG_AUX_DIR(config)
+AM_INIT_AUTOMAKE(ltl-qwt, 1.10)
+
+dnl Checks for programs
+AC_PROG_CC
+AC_PROG_CXX
+AC_PROG_INSTALL
+
+LNT_PROG_DOXYGEN
+
+dnl Checks for libraries
+AM_PATH_CPPUNIT(1.8.0,,[
+    AC_MSG_WARN([])
+    AC_MSG_WARN([CppUnit not found])
+    AC_MSG_WARN([Please install CppUnit from http://cppunit.sourceforge.net])
+    AC_MSG_WARN([])
+    AC_MSG_ERROR([Sorry, I can't continue without CppUnit])
+])
+
+LNT_LIB_QT
+CHECK_QT_MISC
+PKG_CHECK_MODULES(LTL, liblttemplates)
+
+dnl Checks for header files
+
+dnl Checks for typedefs, structures, and compiler characteristics.
+
+dnl Checks for library functions.
+dnl TODO: Temporarily disable qwt detection because it's not stable enough to
+dnl work on all supported systems
+dnl AC_CHECK_LIB(qwt,main,,
+dnl                 [AC_MSG_RESULT([not found])
+dnl                 AC_MSG_WARN([])
+dnl                 AC_MSG_WARN([Qwt Library not found])
+dnl                 AC_MSG_WARN([Please install Qwt from http://qwt.sf.net])
+dnl                 AC_MSG_WARN([])
+dnl                 AC_MSG_ERROR([Sorry, I can't continue without Qwt])])
+
+dnl Miscelaneous Variables
+LNT_VAR_TODAY
+LNT_VAR_CONDITIONAL(MWOPTTARGETS, copydeps.stamp, test "$host" == "i686-pc-mingw32" )
+
+LTLQT_TOP_SRCDIR="\$(top_srcdir)"
+AC_SUBST(LTLQT_TOP_SRCDIR)
+
+LTL_LFLAGS=""
+AC_SUBST(LTL_LFLAGS)
+
+dnl Output necessary files
+AC_OUTPUT([
+     Makefile
+     config.h
+     doc/Makefile
+     doc/ltl-qwt.dox
+     config_shared.pri
+     config_unix.pri
+])
+
+dnl vim: set et tw=0:

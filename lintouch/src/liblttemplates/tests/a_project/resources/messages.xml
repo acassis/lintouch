@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messages>
+	<message key="root_and_full" context="lt"
+		comment="">I AM ROOT AND FULL MESSAGE from ROOT</message>
+	<message key="root_and_lang" context="lt"
+		comment="">I AM ROOT AND LANGUAGE MESSAGE from ROOT</message>
+	<message key="root_only" context="lt"
+		comment="">I AM ROOT MESSAGE ONLY</message>
+</messages>

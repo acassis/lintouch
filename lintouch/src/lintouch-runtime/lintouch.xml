@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+ <mime-type type="application/x-lintouch-project">
+  <comment xml:lang="en">Lintouch Project</comment>
+  <comment xml:lang="de">Lintouch Projekt</comment>
+  <comment xml:lang="cs">Lintouch Projekt</comment>
+  <glob pattern="*.ltp"/>
+ </mime-type>
+</mime-info>

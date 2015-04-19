@@ -1,0 +1,146 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>ProjectWindowBase</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>ProjectWindowBase</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>602</width>
+            <height>383</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>$(filename_without_extension) - Lintouch Editor</string>
+    </property>
+    <vbox>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <widget class="lt::EditablePanelViewContainer">
+            <property name="name">
+                <cstring>m_viewContainer</cstring>
+            </property>
+        </widget>
+        <widget class="QLayoutWidget">
+            <property name="name">
+                <cstring>layout3</cstring>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QLabel">
+                    <property name="name">
+                        <cstring>textLabel1</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Zoom</string>
+                    </property>
+                </widget>
+                <widget class="PanelZoomSelector">
+                    <property name="name">
+                        <cstring>zoomLevel</cstring>
+                    </property>
+                </widget>
+                <widget class="QCheckBox">
+                    <property name="name">
+                        <cstring>m_snapToGrid</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Snap to grid</string>
+                    </property>
+                </widget>
+                <widget class="QLabel">
+                    <property name="name">
+                        <cstring>m_unsavedLabel</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>7</hsizetype>
+                            <vsizetype>5</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="frameShape">
+                        <enum>Box</enum>
+                    </property>
+                    <property name="frameShadow">
+                        <enum>Sunken</enum>
+                    </property>
+                    <property name="text">
+                        <string></string>
+                    </property>
+                </widget>
+                <widget class="QComboBox">
+                    <property name="name">
+                        <cstring>m_viewSelector</cstring>
+                    </property>
+                </widget>
+            </hbox>
+        </widget>
+    </vbox>
+</widget>
+<customwidgets>
+    <customwidget>
+        <class>PanelZoomSelector</class>
+        <header location="global">src/PanelZoomSelector.hh</header>
+        <sizehint>
+            <width>58</width>
+            <height>22</height>
+        </sizehint>
+        <container>0</container>
+        <sizepolicy>
+            <hordata>4</hordata>
+            <verdata>0</verdata>
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+        </sizepolicy>
+        <pixmap>image0</pixmap>
+    </customwidget>
+    <customwidget>
+        <class>lt::EditablePanelViewContainer</class>
+        <header location="local">EditablePanelViewContainer.hh</header>
+        <sizehint>
+            <width>-1</width>
+            <height>-1</height>
+        </sizehint>
+        <container>0</container>
+        <sizepolicy>
+            <hordata>5</hordata>
+            <verdata>5</verdata>
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+        </sizepolicy>
+        <pixmap>image0</pixmap>
+    </customwidget>
+</customwidgets>
+<images>
+    <image name="image0">
+        <data format="XBM.GZ" length="79">789c534e494dcbcc4b554829cdcdad8c2fcf4c29c95030e0524611cd48cd4ccf28010a1797249664262b2467241641a592324b8aa363156c15aab914146aadb90067111b1f</data>
+    </image>
+</images>
+<connections>
+    <connection>
+        <sender>m_viewSelector</sender>
+        <signal>activated(const QString&amp;)</signal>
+        <receiver>ProjectWindowBase</receiver>
+        <slot>viewSelectedSlot(const QString&amp;)</slot>
+    </connection>
+    <connection>
+        <sender>m_snapToGrid</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>ProjectWindowBase</receiver>
+        <slot>snapToGridToggledSlot(bool)</slot>
+    </connection>
+</connections>
+<slots>
+    <slot>snapToGridToggledSlot(bool on)</slot>
+    <slot>viewSelectedSlot(const QString &amp;)</slot>
+</slots>
+<pixmapinproject/>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

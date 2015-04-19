@@ -1,0 +1,76 @@
+---------------------------------------------------------------------------
+Lintouch Development Weekly News
+http://lintouch.org
+February 15th, 2004
+---------------------------------------------------------------------------
+
+Welcome to the eighth issue of the Lintouch Development Weekly Newsletter
+codenamed "Getting closer guys..."
+
+After fourteen days since the last issue lot of things has changed. Namely
+Lintouch Server is not deadlocking anymore, thus being much more usable then
+before the freeze, Lintouch Runtime does not leak memory and does not crash
+(or has not crashed for a rather long time). More detailed stories follow.
+
+Jiri did the investigation and figured out that integration of Python and C
+code in a multi-threaded application is not so straightforward as we thought.
+One of the deadlock reasons was the _Global Interpreter Lock_ thing (which
+protects the python interpreter from being corrupted by C extensions which
+somehow interact with threading and scheduler) that we were not unlocking in
+our code. Detailed explanation can be found in his email[1]. Another reason
+of deadlocking was a completely wrong locking scenario which was so wrong,
+that it could have bee used as an example at university in first lessons of
+concurrent programming. Fortunately the solution has been found, implemented
+and till now seems to be working correctly[2].
+
+    1. http://lintouch.org/pipermail/lintouch-dev/2004-February/000382.html
+    2. http://lintouch.org/pipermail/lintouch-dev/2004-February/000389.html
+
+At the Runtime front, all segfaults have hopefully been hunted by simply
+walking through code and deeply thinking about every FIXME: statement that
+was there. Some of the bugs were more than spicy and I must say all have
+been related to memory management: Dangling Pointers(tm)
+and Unfreed Memory et al. Thanx goes to all team members for spending
+sleepless nights with gdb (The GNU Debugger).
+
+Now we are basically going through the TODO lists for every library and
+preparing everything for release. At this moment the following libraries are
+prepared for 1.0 release:
+
+    - libwtngio
+    - libwtngfsm
+    - libwtngvars
+    - libwtngzip
+    - libwtngvfs
+    - libwtnglocalizator
+    - libwtngpanel
+    - libwtngproject
+    - libwtngtemplates
+
+The rest is going through final polishing, Runtime needs all dialogs,
+messages and layouts to be finalized. Server is 99% ready, Python WTNG
+Bindings might be enhanced a little bit but need not to at this moment, the
+same applies for the rest of libraries:
+
+    - libwtngcp
+    - python-wtng
+    - server
+    - runtime
+
+And to make you hot and looking forward to a release, I've prepared one
+little screenshot[3] showing Server running and serving two Runtimes which
+display the same panel with a row of buttons and row of lamps bound to the
+same server variables. Notice how button pressed in the first runtime loops
+back the bit to the lamp just bellow it and how the change is reflected by
+both Runtimes. This is possible thanx to the simple Loopback plugin which is
+included with the server by default to ease testing.
+
+    3. http://www.swac.cz/~mman/lintouch-0.90.png
+
+That's all folks for this week, if you have any comments, corrections or
+ideas to be published, feel free to contact me directly[0].
+
+    0. mailto:mman@swac.cz.
+
+vim: set et tw=76:
+$Id: ldwn-2004-02-15.txt,v 1.1 2004/02/15 21:55:06 mman Exp $

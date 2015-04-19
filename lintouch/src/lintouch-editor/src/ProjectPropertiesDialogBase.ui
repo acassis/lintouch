@@ -1,0 +1,203 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>ProjectPropertiesDialogBase</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>ProjectPropertiesDialogBase</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>460</width>
+            <height>356</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>$(filename_without_extension) Properties - Lintouch Editor</string>
+    </property>
+    <property name="focusPolicy">
+        <enum>NoFocus</enum>
+    </property>
+    <grid>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <widget class="QLayoutWidget" row="1" column="0">
+            <property name="name">
+                <cstring>layout4</cstring>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <spacer>
+                    <property name="name">
+                        <cstring>spacer1</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>20</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>m_buttonClose</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&amp;Close</string>
+                    </property>
+                    <property name="accel">
+                        <string>Alt+C</string>
+                    </property>
+                </widget>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>m_applyButton</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&amp;Apply</string>
+                    </property>
+                    <property name="accel">
+                        <string>Alt+A</string>
+                    </property>
+                </widget>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>m_okButton</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&amp;Ok</string>
+                    </property>
+                    <property name="accel">
+                        <string>Alt+O</string>
+                    </property>
+                </widget>
+            </hbox>
+        </widget>
+        <widget class="QTabWidget" row="0" column="0">
+            <property name="name">
+                <cstring>infoTab</cstring>
+            </property>
+            <widget class="QWidget">
+                <property name="name">
+                    <cstring>pageInfo</cstring>
+                </property>
+                <attribute name="title">
+                    <string>Info</string>
+                </attribute>
+                <grid>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <widget class="QLineEdit" row="0" column="1">
+                        <property name="name">
+                            <cstring>author</cstring>
+                        </property>
+                    </widget>
+                    <widget class="QLineEdit" row="1" column="1">
+                        <property name="name">
+                            <cstring>version</cstring>
+                        </property>
+                    </widget>
+                    <widget class="QLabel" row="0" column="0">
+                        <property name="name">
+                            <cstring>lblAuthor</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Author</string>
+                        </property>
+                    </widget>
+                    <widget class="QLabel" row="1" column="0">
+                        <property name="name">
+                            <cstring>lblVersion</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Version</string>
+                        </property>
+                    </widget>
+                    <widget class="QLabel" row="2" column="0">
+                        <property name="name">
+                            <cstring>lblCreated</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Created</string>
+                        </property>
+                    </widget>
+                    <widget class="QLineEdit" row="3" column="1">
+                        <property name="name">
+                            <cstring>shortDescription</cstring>
+                        </property>
+                    </widget>
+                    <widget class="QTextEdit" row="5" column="0" rowspan="1" colspan="2">
+                        <property name="name">
+                            <cstring>longDescription</cstring>
+                        </property>
+                        <property name="tabChangesFocus">
+                            <bool>true</bool>
+                        </property>
+                    </widget>
+                    <widget class="QLabel" row="3" column="0">
+                        <property name="name">
+                            <cstring>lblShort</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Short Description</string>
+                        </property>
+                    </widget>
+                    <widget class="QLabel" row="4" column="0">
+                        <property name="name">
+                            <cstring>lblLong</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Long Description</string>
+                        </property>
+                    </widget>
+                    <widget class="QDateEdit" row="2" column="1">
+                        <property name="name">
+                            <cstring>dateofCreation</cstring>
+                        </property>
+                        <property name="date">
+                            <date>
+                                <year>2000</year>
+                                <month>1</month>
+                                <day>1</day>
+                            </date>
+                        </property>
+                        <property name="autoAdvance">
+                            <bool>true</bool>
+                        </property>
+                    </widget>
+                </grid>
+            </widget>
+        </widget>
+    </grid>
+</widget>
+<connections>
+    <connection>
+        <sender>m_buttonClose</sender>
+        <signal>clicked()</signal>
+        <receiver>ProjectPropertiesDialogBase</receiver>
+        <slot>close()</slot>
+    </connection>
+</connections>
+<tabstops>
+    <tabstop>author</tabstop>
+    <tabstop>version</tabstop>
+    <tabstop>dateofCreation</tabstop>
+    <tabstop>shortDescription</tabstop>
+    <tabstop>longDescription</tabstop>
+    <tabstop>m_buttonClose</tabstop>
+    <tabstop>m_applyButton</tabstop>
+    <tabstop>m_okButton</tabstop>
+    <tabstop>infoTab</tabstop>
+</tabstops>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

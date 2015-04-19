@@ -1,0 +1,27 @@
+#!/bin/bash
+# (c) 2004 Martin Man <mman@swac.cz>
+
+set -e
+
+. @MYDATA@/functions
+
+print_banner
+
+CONFIG="$1"
+
+do_process_config || exit 1
+
+echo ""
+echo "Product: $PRODUCT"
+echo "Workdir: $RESULTDIR/tmp"
+echo ""
+echo "I'm going to clean the Workdir with rm -rf"
+wait_for_user_break
+
+VER="*"
+
+do_clean_dir "$RESULTDIR/tmp"
+
+exit 0
+
+# vim: set ft=sh et ts=4 sw=4:

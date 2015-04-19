@@ -1,0 +1,53 @@
+---------------------------------------------------------------------------
+Lintouch Development Weekly News
+http://lintouch.org
+January 7th, 2005
+---------------------------------------------------------------------------
+
+Happy new year 2005 to all. This is the seventeenth issue of Lintouch
+Development Weekly Newsletter.
+
+Marc Le Douarain, the author of classicladder[1] (free ladder language
+implementation licensed under LGPL) is interested in interconnecting
+Lintouch with his Classic Ladder Modbus/TCP Server. It has been clarified[3]
+that Modbus/TCP Plugin should be included in Lintouch 1.4 release for free
+and from that point the integration effort should start.
+
+    1. http://sourceforge.net/projects/classicladder
+    2. http://lintouch.org/pipermail/lintouch-dev/2005-January/000608.html
+
+Moving Lintouch code to SVN continues. At the moment _libltvariables_ (former
+libwngio and libwtngvariables), _libltfsm_, _libltcp_, and _liblttemplates_
+(former libwtnglocalizator and libwtngtemplates) are in the SVN[3] and compile
+cleanly.
+
+    3. https://lintouch.org/repos/lintouch/lintouch/trunk
+
+Editor has been moved to the private SVN and while doing Quality Assurance
+tests on its code base, several bugs were discovered in Qt's *qmake* and
+*lrelease*. They have been reported to Trolltech and confirmed, when they
+should be fixed is unclear.
+
+Lintouch Quality Assurance Tool (_lintouch-qa-tools_) are available in
+SVN[4] and written generally enough so that they can be used for other SVN
+and Automake based projects. Their purpose is to export latest sources from
+SVN, configure and compile them, do various pre-distribution checks (make
+distcheck for those who understand), and prepare date based snapshot of the
+code. This snapshot will be published on the web to make the experiments with
+unstable Lintouch easier for less experienced and will guarantee that SVN
+codebase is in compilable state.
+
+    4. https://lintouch.org/repos/lintouch/lintouch-qa-tools/trunk
+
+The QA Tools will now be extended to support automatic generation of debian
+packages and windows installers of Lintouch. This should finally make the
+release process under windows so easy that the saved manpower can be used in
+other areas that need urgent help (documentation for example).
+
+That's all folks for this week, if you have any comments, corrections or
+ideas to be published, feel free to contact me directly[0].
+
+    0. mailto:mman@swac.cz.
+
+vim: set et tw=76:
+$Id: template.txt,v 1.1 2003/12/04 12:42:51 mman Exp $

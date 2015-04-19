@@ -1,0 +1,17 @@
+---------------------------------------------------------------------------
+Lintouch Development Weekly News
+http://lintouch.org
+December 4th, 2003
+---------------------------------------------------------------------------
+
+Welcome to the first issue...
+
+...
+
+That's all folks for this week, if you have any comments, corrections or
+ideas to be published, feel free to contact me directly[0].
+
+    0. mailto:mman@swac.cz.
+
+vim: set et tw=76:
+$Id: template.txt,v 1.1 2003/12/04 12:42:51 mman Exp $

@@ -1,0 +1,14 @@
+# This is a configuration file describing a product suite that should be
+# automatically built by QA Tools.
+
+# products that should be built as part of this suite"
+PRODUCTS="dummy-product.product"
+
+# how to report success/failure of the build
+REPORTS="default-email-reporting.conf"
+
+# export these so that they can be referenced from product files themselves
+export RESULTDIR="/tmp/dummy-product"
+export PREFIX="/tmp/dummy-product-prefix"
+
+# vim set ft=sh:

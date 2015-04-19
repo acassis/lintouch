@@ -1,0 +1,129 @@
+
+                      Lintouch SNMP Server Plugin
+                       Martin Man <mman@swac.cz>
+                      ---------------------------
+
+1. Description
+--------------
+
+Lintouch SNMP Server Plugin allows you to periodically poll specified
+SNMP OIDs using SNMP v1/SNMP v2c protocol. OIDs that are writable can
+also be changed from the Lintouch Side.
+
+The following SNMP data types are supported:
+
+    INTEGER, Integer32, Counter32, Gauge32, Unsigned32, TimeTicks
+
+        - mapped to Lintouch number (32bits), interpretation of the sign
+          is left up to the Lintouch Templates, Lintouch numbers are by
+          default signed.
+
+    OCTET STRING, IpAddress
+
+        - mapped to Lintouch string (unlimited)
+
+    Counter64
+
+        - not supported at the moment
+
+OIDs to poll can be specified either in numerical format, or in its
+string representation. Net-SNMP code will do its best to correctly map
+string IODs to its numerical representation. See Net-SNMP documentation
+for more details.
+
+2. Requirements
+---------------
+
+Lintouch Server + Lintouch Runtime from http://lintouch.org. In order to
+create Lintouch Projects effectively you will need also Lintouch Editor.
+
+Net-SNMP libraries from http://www.net-snmp.org.
+
+3. Installation
+---------------
+
+$ ./configure --prefix=/where/is/your/lintouch/installed
+$ make
+$ make install
+
+The last command might require the root privileges in case you've
+installed Lintouch to some system directories.
+
+4. Configuration
+----------------
+
+4.1 Plugin Properties
+---------------------
+
+    hostname
+
+        the snmp host to poll; ``localhost`` by default
+
+    community
+
+        the SNMP v1 and SNMP v2c community string; ``public`` by default
+
+    refresh
+
+        in seconds; defines how often to poll configured OIDs;
+        10 seconds by default
+
+4.2 Global Plugin Variables
+----------------------------
+
+None at the moment.
+
+4.3 Plugin Variables representing commands
+------------------------------------------
+
+    variable : bit
+
+        will report SNMP value of an OID specified via its ``OID``
+        property. The OID should point to a numerical object (see
+        above). The non-zero value means true, zero means false.
+
+    variable : number
+
+        will report SNMP value of an OID specified via its ``OID``
+        property. The OID should point to a numerical object (see
+        above).
+
+    variable : string
+
+        will report SNMP value of an OID specified via its ``OID``
+        property. The OID should point to a octet string object (see
+        above).
+
+5. Example Connection Descriptor
+--------------------------------
+
+<project-connection type="Exec">
+    <properties>
+        <!-- SNMP host to poll -->
+        <property name="hostname" value="myrouter.mydomain.com"/>
+        <!-- SNMP community to use -->
+        <property name="community" value="mypubcommunity"/>
+        <!-- re-poll all OIDs every 60 seconds -->
+        <property name="refresh" value="60"/>
+    </properties>
+
+    <variables>
+        <!-- global variables -->
+
+        <!-- OIDs to be executed -->
+
+        <!-- sysDescr.0 -->
+        <variable name="description" type="string">
+            <property name="OID" value="sysDescr.0"/>:
+        </variable>
+
+        <!-- sysUpTime.0 -->
+        <variable name="uptime" type="number">
+            <property name="OID" value="sysUpTime.0"/>:
+        </variable>
+
+    </variables>
+
+</project-connection>
+
+vim: set et tw=72:

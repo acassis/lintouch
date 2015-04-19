@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<variable name="temperature" type="number">
+    <property name="address" value="1"/>
+</variable>
+
+

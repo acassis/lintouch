@@ -1,0 +1,189 @@
+Lintouch 1.6 Release Announcement
+
+Lintouch Team
+
+<lintouch-dev@lintouch.org>
+
+July 1st, 2005
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Table of Contents
+
+1. Introduction
+2. What's New In Lintouch 1.6
+
+    2.1. Global Changes
+    2.2. Lintouch Runtime Changes
+    2.3. Lintouch Editor Changes
+
+3. Obtaining and Installing Lintouch
+
+    3.1. Ready Made Binaries
+    3.2. Sources
+
+4. What is Lintouch
+5. Screenshots
+
+1. Introduction
+
+Figure 1. Lintouch Logo
+
+Lintouch Logo
+
+After three months of development we (the Lintouch Team) are proud to announce
+the availability of the new stable release of the Lintouch Server, Lintouch
+Runtime, and Lintouch Editor.
+
+This version includes bug fixes plus several new important features. You are
+welcome to download, install, test, and use this version.
+
+Please see Section 4, “What is Lintouch” for more information about Lintouch.
+
+2. What's New In Lintouch 1.6
+
+2.1. Global Changes
+
+Lintouch Server reimplemented in C
+
+    The original Python based implementation of the Lintouch Server was
+    deprecated due to various reasons (speed, size, and ease of installation
+    being among them) in favor of plain C based implementation.
+
+    The new server (excluding any server plugins) consumes less then 200kb of
+    the disk space. You have to add another ~ 500kb for Apache Portable Runtime
+    plus its dependencies and a space for your Linux system. The small size
+    makes the Lintouch Server ideal for specialized low-cost and low-speed
+    embedded devices.
+
+    All existing server plugins have been ported to the new C language based
+    API to maintain backwards compatibility.
+
+New Visualization Objects
+
+    Display Templates
+
+        The SVGImage template is able to render not-so-complex SVG images (due
+        to SVG rendering limitations posed by Qt library). It will help you
+        make your projects more portable across various screen resolutions,
+        because SVG is essentially a vector based image format (unlike bitmap
+        based JPG or PNG formats).
+
+    Qt Technical Widgets template library
+
+        New template library ltl-qwt contains all widgets from Qwt library
+        available as Lintouch Templates. The library includes control &
+        visualization primitives such as Knob, Dial, Wheel, Plot, and others.
+
+New Connectivity Options
+
+    Modbus/TCP
+
+        New pure-C based implementation of Modbus/TCP connectivity for Lintouch
+        provides ModbusTCPMaster and ModbusTCPSlave plugins that have been
+        successfully tested with PLCs from Modicon and Beckhoff.
+
+    SNMP (Simple Network Management Protocol)
+
+        Lintouch SNMP Server Plugin allows the Lintouch Server to periodically
+        poll specified SNMP OIDs (Object IDs) using SNMP v1/SNMP v2c protocol.
+
+        SNMP protocol is usually used to manage/configure/monitor networking
+        equipment such as routers, switches, and servers.
+
+    Exec
+
+        Lintouch Exec Server Plugin allows the Lintouch Server to periodically
+        execute configured commands and grab their return value and/or output.
+
+        This way an arbitrary commands can be executed at the server machine to
+        provide a bridge to monitor the data that can not be accessed via other
+        server plugins.
+
+        Similar approach is used by the Nagios an open source host, service and
+        network monitoring program.
+
+2.2. Lintouch Runtime Changes
+
+Uses only the Loopback interface when in Local Mode
+
+    Lintouch Runtime does not bind anymore to all network interfaces when used
+    without Lintouch Server in so called Local Mode. This protects the Lintouch
+    Server embedded within the Lintouch Runtime from being accessed via network
+    from the other computers.
+
+2.3. Lintouch Editor Changes
+
+Import/Export/Reimport Connection
+
+    Existing connections can be exported from Lintouch projects to a custom CSV
+    (comma separated values) format understood by all major spreadsheet
+    applications.
+
+    New connections described in CSV can be imported and later on updated into
+    the existing Lintouch Projects making it easier and more comfortable to
+    edit connections with a lot of variables.
+
+Import/Export/Reimport Resource
+
+    Working with resources (images, text files, or arbitrary data files) is now
+    easier. It is possible to export existing resources from the projects and
+    reimport (update) new versions of the existing resources to the projects.
+
+Other UI Changes
+
+    Template Properties Dialog has been reorganized and contains the ability to
+    manually move/resize template to the precisely specified coordinates. New
+    keyboard shortcuts have been added to speed up access to the Variables
+    Dialog (Ctrl-K), Resources Dialog (Ctrl-R), and Preview Dialog (Ctrl-P).
+
+    Selection/Move/Resize handles are now painted always above all other
+    templates and outside of the template occupied area. This makes it easier
+    to move/resize objects that are partially occupied by another objects. It
+    is also possible to resize templates to a very small size (think in
+    pixels).
+
+3. Obtaining and Installing Lintouch
+
+3.1. Ready Made Binaries
+
+Lintouch can be downloaded and installed directly on the Windows and Linux
+based platforms. The detailed instructions are available at our website.
+
+The list of supported platforms includes Microsoft Windows 2000/XP, SuSE Linux
+9.x, Debian/GNU Linux 3.1 (sarge), and LSB based distributions. Source RPM
+archives are provided in order to support other RPM based Linux distributions.
+
+3.2. Sources
+
+The source code of Lintouch Runtime and Lintouch Server is distributed under
+the GNU General Public License 2. It can be downloaded and compiled by hand.
+The detailed instructions are available at our website.
+
+4. What is Lintouch
+
+Lintouch is a real-time data monitoring/controlling system used in automation
+industry and developed by S.W.A.C. GmbH Germany and S.W.A.C. Bohemia s.r.o.
+
+Lintouch is an effort to build fully software-based open source control panel
+software suite. Control panels are usually called HMI - Human Machine Interface
+, or MMI - Man Machine Interface in the automation industry.
+
+Lintouch supports variety of hardware/software platforms (Win32+Intel,
+Linux+Intel, Linux+PPC).
+
+Lintouch has been designed with extensibility in mind. New Server Plugins can
+be developed to bring in new connectivity (ModBus/TCP, and Hilscher already
+available). New Templates (GUI Objects) can be implemented to define new
+control and visualization primitives (Buttons, Lamps, and other Technical
+Objects already available).
+
+To get more information about Lintouch please visit our website http://
+lintouch.org.
+
+5. Screenshots
+
+Figure 2. Lintouch Editor
+
+Lintouch Editor Screenshot
+

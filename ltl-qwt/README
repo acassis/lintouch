@@ -1,0 +1,43 @@
+
+                     Lintouch Qwt Template Library
+                       Martin Man <mman@swac.cz>
+                    Patrik Modesto <modesto@swac.cz>
+                   ----------------------------------
+
+1. Description
+--------------
+
+Lintouch Qwt Template Library wraps widgets from Qt Technical Widgets
+Library and makes them available as Lintouch Templates.
+
+The following widgets (templates) are supported:
+
+    QwtSlider
+    QwtThermo
+    QwtScale
+    QwtDial
+    QwtPushButton
+    QwtAnalogClock
+    QwtKnob
+    QwtPlot
+
+2. Requirements
+---------------
+
+Lintouch Server + Lintouch Runtime from http://lintouch.org. In order to
+create Lintouch Projects effectively you will need also Lintouch Editor.
+
+Qwt libraries from http://qwt.sf.net.
+
+3. Installation
+---------------
+
+$ ./configure --prefix=/where/is/your/lintouch/installed
+$ make
+$ make install
+
+The last command might require the root privileges in case you've
+installed Lintouch to some system directories.
+
+vim: set et tw=72:
+

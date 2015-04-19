@@ -1,0 +1,36 @@
+License for use of software from Linux Network Services.
+
+First of all, this software is provided without any sort of warranty, expressed
+or implied.  We at Linux Network Services do not care what your jurisdiction
+calls it, if it's a warranty, we don't provide it.  By your using this 
+software, you completely agree to hold Linux Network Services, it's owner(s) 
+and agent(s), completely harmless from any possible claims arising from the use 
+of this software.
+
+In any jurisdiction where limits of warranty are not legally allowed, Linux 
+Network Services liability shall in all cases be limited to the purchase
+price (and NOT the licensing fees) of this software.
+
+Please note that improper or incorrect use of this software is the sole
+responsibility of the purchaser of this software.  As Linux Network Services 
+is not capable of controlling how the purchaser of this software uses this
+software, Linux Network Services can not be held responsible for any
+implementation utilizing this software.
+
+By using this software, you agree to purchase 1 copy of the distribution
+CDROM from Linux Network Services per site, plus 1 device license per computer 
+that is using the software.  You also agree to not distribute this software to 
+any person or organization outside of your household or organization - please
+refer any new software users to us, thank you!
+
+In figuring out what constitutes a site, we use a "common campus" method.  If
+your company has several buildings on the same piece (or adjoining) property, 
+that is considered a single site.  Any other arrangement (seperate physical
+locations) is considered a seperate site per building.
+
+For figuring out the per-device royalties, we consider any device using
+the source code or compiled library(development stations, data collection 
+stations) to be seperate devices, requiring a royalty payment per device.  
+PLC's are not to be included (unless you really want to) for purposes of 
+royalties.
+

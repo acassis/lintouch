@@ -1,0 +1,55 @@
+                     Lintouch Template Library boostraper
+                     ====================================
+                       Patrik Modesto <modesto@swac.cz>
+
+1. Introduction
+---------------
+  This directory contains the minimum files needed for starting a new template
+  library development. The sample library contains one template called Tester,
+  which uses one iopin and handles all supported iopins types.
+
+2. Requirements
+---------------
+  Before you start you need these programs/tools:
+  - Ruby 1.8 or newer
+  - make, install, sed, grep, tar, bzip2, chmod
+
+  When you have all above programs/tools, you can try run `make`. If all goes
+  well, you shou see this:
+  -----8<---------8<--------
+  $ make
+  (cd src; tar -cjf ../ltl-bootstrap.tar.bz2 *)
+  cat ltl-bootstrap.rb.part1 > ltl-bootstrap.rb
+  ruby -e 'require "base64"; puts Base64.encode64($<.read)' ltl-bootstrap.tar.bz2 >> ltl-bootstrap.rb
+  cat ltl-bootstrap.rb.part2 >> ltl-bootstrap.rb
+  chmod +x ltl-bootstrap.rb
+  -----8<---------8<--------
+
+  Now there should be two new files created: ltl-bootstrap.tar.bz2 and
+  executable ltl-bootstrap.rb.
+
+3. Usage
+--------
+  Lets start with an example:
+  -----8<---------8<--------
+  $ ./ltl-bootstrap.rb ltl-foo
+  -----8<---------8<--------
+  This simple example shows how to create a new template library called
+  "ltl-foo" in current directory.
+
+  To create the "ltl-foo" for example in ~/work/ directory, you type this:
+  -----8<---------8<--------
+  $ ./ltl-bootstrap.rb ~/work/ltl-foo
+  -----8<---------8<--------
+
+  NOTE: Template libraries are named like "ltl-foo" and not just "foo" by
+  design of the Lintouch, so if you leave the "ltl-" prefix, it is added
+  automaticaly.
+
+  If you run just ltl-bootstrap.rb without parameters, it shows basic usage
+  information:
+  -----8<---------8<--------
+  $ ./ltl-bootstrap.rb
+  Lintouch Template Library bootstraper
+  Usage: ltl-bootstrap.rb <new-library-name>
+  -----8<---------8<--------

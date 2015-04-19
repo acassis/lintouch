@@ -1,0 +1,3 @@
+This directory contains examples demonstrating all features of Lintouch Lua
+bindings, there are several ready made projects. The scripts they use are
+extracted here as well so that you can examine them.

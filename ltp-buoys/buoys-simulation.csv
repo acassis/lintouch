@@ -1,0 +1,14 @@
+"Connection","Type","script"
+"Unnamed","Lua","buoys-simulation.lua"
+,,
+"Variable","Type",
+"b1_pressure","STRING",
+"b1_atmtemp","STRING",
+"b1_seatemp","STRING",
+"b1_north","STRING",
+"b1_east","STRING",
+"b2_pressure","STRING",
+"b2_atmtemp","STRING",
+"b2_seatemp","STRING",
+"b2_north","STRING",
+"b2_east","STRING",

@@ -1,0 +1,67 @@
+---------------------------------------------------------------------------
+Lintouch Development Weekly News
+http://lintouch.org
+May 14th, 2004
+---------------------------------------------------------------------------
+
+This is the eleventh issue of the news from the Lintouch Land.
+
+The new version of _libwtngtemplates_ - The Lintouch Templates Handling
+library has been released[1]. This version 1.0.3 fixes the font size
+handling bug. Fonts specified within a Lintouch Project looked differently
+when the project was displayed on Windows than if it was displayed on Linux.
+Investigation revealed that we treated the specified font size as being
+point-based instead of pixel-based, which resulted in recomputation of the
+font size according to the DPI resolution of the screen where project had
+been displayed. Now all coordinates and sizes specified within a Lintouch
+Project are pixel-based and should look the same no matter where the project
+is displayed.
+
+    1. http://lintouch.org/blog/latest
+
+Patrik finally (after some headaches) got the Lintouch Runtime running on
+the Qt Embedded in version 3.1.2 shipped by ongoing stable release of
+Debian/GNU Linux. Detailed instructions and porting report[2] were sent
+along with the necessary patches to the _lintouch-dev_ mailinglist[3]. It
+must be decided now how the necessary changes will be handled in order to
+maintain the QTE port effectively. The preliminary screenshots of the
+Runtime running on QTE are available[4][5].
+
+    2. http://lintouch.org/pipermail/lintouch-dev/2004-May/000525.html
+    3. http://lintouch.org/pipermail/lintouch-dev/2004-May/thread.html
+    4. http://www.swac.cz/~modesto/screenshots/lintouch-runtime-qte.png
+    5. http://www.swac.cz/~modesto/screenshots/lintouch-runtime2-qte.png
+
+Hynek finished first version of his _Hilscher Plugin_ for Lintouch Server,
+which enables the server to access all industrial buses supported by
+Hilscher Fieldbus Cards. The Plugin uses CIF driver provided by Hilscher[6]
+and uses SWIG Generator[7] to make the CIF API accessible to Python based
+Server Plugin API. The Plugin has not been however released to public yet.
+
+    6. http://hilscher.com/download/software/cifv2000.tgz
+    7. http://www.swig.org
+
+First version of Lintouch Editor, the application for easy creation of
+Lintouch Projects is scheduled for next Friday, 21st of May. The editor will
+be freely available in the Light Edition as a binary for Linux and Windows
+based systems. Full featured version will be available for licensed users
+only.
+
+Jiri started to experiment with opensource diagram editor called Dia[8] and
+has been exploring the possibilities of making Dia able to create and edit
+Lintouch Projects. He can already convert one page of elementary Dia Shapes
+(texts, rectangles) into one Lintouch Panel containing appropriate objects
+from the Common Template Library. Future work should examine the possibility
+of creating multiple panels from one Dia page and also automatic mapping of
+Dia Shapes onto Lintouch Templates and vice versa. The code is for now also
+kept internal.
+
+    8. http://www.gnome.org/projects/dia/
+
+That's all folks for this week, if you have any comments, corrections or
+ideas to be published, feel free to contact me directly[0].
+
+    0. mailto:mman@swac.cz.
+
+vim: set et tw=76:
+$Id: ldwn-2004-05-14.txt,v 1.2 2004/05/21 08:27:36 mman Exp $

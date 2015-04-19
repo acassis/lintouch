@@ -1,0 +1,6 @@
+#!/bin/sh
+
+aclocal -I config \
+&& autoconf \
+&& libtoolize --copy --force \
+&& automake --gnu --add-missing --copy

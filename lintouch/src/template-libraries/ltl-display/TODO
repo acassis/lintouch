@@ -1,0 +1,7 @@
+- provide reasonable defaults for all templates, i.e., off/on colors, borders,
+  etc
+- check all templates and fix their properties/property groups so that they are
+  consistent
+- handle Template::setEnabled( bool ) to provide reasonable
+  "I'm-in-editor-hook"
+- fix all strings to contain 'ltl-display' comment and update translations

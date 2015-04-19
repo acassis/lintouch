@@ -1,0 +1,182 @@
+
+                           Lintouch Release Process
+                          Martin Man <mman@swac.cz>
+                                  12.10.2005
+
+1. About this document
+
+This document describes the steps needed to make a regular or bugfix release
+of Lintouch or related products.
+
+2. Release goals
+
+When releasing a PRODUCT version VERSION we expect the following outputs to be
+available:
+
+  - source code of a product packaged as PROGRAM-VERSION.tar.gz.
+  - source svn repository changed to reflect the released version (in reality
+    this means creating several svn copies to be able to later idetify easily
+    released version)
+  - one or more binaries for various platforms and their
+    platform-and-packaging specific source files (think of .dsc + .diff.gz for
+    debian) packaged usually as PROGRAM-VERSION-PACKAGINGVERSION.*.
+  - source svn repository changed to reflect packaging versions (see below).
+
+The release of source code is a must and should happen first. Binary builds
+are rather complicated because they require platform specific build
+environments to be properly set up. It is also important to consider the
+target platforms that we are going to target with binary builds. It is
+especially important for Linux builds, because usually more than one stable
+version of specific distribution is widely used.
+
+It is also very important to test the released products not only from the
+logical functionality perspective, but also to assure that released sources
+and binaries compile, and run smoothly on all supported systems.
+
+3. Source code management
+
+Sources of Lintouch and related products are stored within SVN version
+management system. The structure of the SVN repository is described in detail
+in the document "Lintouch SVN Repository Structure" [ltrs].
+
+The process of verification of the source code integrity, compiliability, and
+testability is very repetitive. The "Lintouch QA Tools" [ltqa] scripts should
+make this process easier for the maintainer.
+
+4. Making a .tar.gz (source code) release
+
+The following two paragraphs will describe the theory behind the source code
+release process and will outline how to make the process easier using Lintouch
+QA Tools.
+
+4.1. Making a .tar.gz release using autoconf toolset
+
+Any product whose compilation is based on autoconf/automake toolset can be
+released by using the following steps:
+
+  1) svn export <svn-url-of-a-product> myproduct
+  2) cd myproduct
+  3) ./bootstrap && ./configure
+  4) make distcheck dist
+
+Step 4) is optional and does require your sources to compile cleanly with
+different srcdir and builddir. It is enough to state that as of now
+(qmake 3.x series) all sources using qmake are not able to meet this criteria
+and fail to pass `make distcheck`.
+
+You are required to `make dist`, copy the resulting .tar.gz archive somewhere
+and ensure that it will compile cleanly (read: ensure that .tar.gz contains
+all files that it should).
+
+After the step 5) myproduct/ directory should contain PRODUCT-VERSION.tar.gz
+that can be published at the web. 
+
+4.2. Making a .tar.gz release using lintouch-qa-tools
+
+Lintouch QA Tools try to automate the process of svn exporting the sources,
+bootstrapping them, configuring them, and ensuring that they compile.
+
+All Lintouch QA Tools scripts (ltqa-* from now on) require you to prepare
+configuration file describing your product. This configuration file is an
+ordinary shell script defining several mandatory variables that define
+
+  - where is the svn repository of your product and how to find the trunk,
+    specific branch, or specific tag of your product.
+  - where the sources should be exported, built, and where the result should
+    be copied.
+  - what additional `make` steps should be done.
+
+Configuration files for Lintouch and all related products are available within
+svn repository [ltpf]. You have to check them out of the svn repository
+somewhere and cd to this directory, from now on you can try to follow these
+steps:
+
+  1) source auto-TODO.conf
+  2) ltqa-snapshot 41-swaloun-framework.conf -t
+  3) verify that swaloun-framework-VERSIONpreDATE.tar.gz can be extracted and
+     compiled cleanly
+  4) ltqa-svn-release 41-swaloun-framework.conf -t
+  5) ltqa-svn-branch 41-swaloun-framework.conf -t -b BRANCH_VERSION
+  6) ltqa-release 41-swaloun-framework.conf -r VERSION
+
+By examining the auto-TODO.conf file you should be able to figure out where
+the resulting files will be placed and where the sources will be compiled. You
+are free to create your own configuration file auto-TODO.conf that redefines
+the comon paths to suit your needs better.
+
+Step 5) is optional and is required only when you are doing a release from
+trunk and thus new branch for the PRODUCT is required. Suppose the latest
+release of your product was 1.4.2 and you are ready to produce release 1.5.0
+(from trunk). You have to create ltq-svn-release 1.5.0 and you have to create
+ltqa-svn-branch 1.5 as well.
+
+5. Making a binary release for Debian/GNU Linux
+
+Debian/GNU Linux packages are created from so called debian source packages.
+Debian source packages are consisting of three files:
+
+  - PRODUCT_VERSION.orig.tar.gz (simply a copy of PRODUCT-VERSION.tar.gz that
+    you have created in chapter 4),
+  - PRODUCT_VERSION-DEBVERSION.dsc
+  - PRODUCT_VERSION-DEBVERSION.diff.gz
+
+The .diff.gz when applied to extracted .orig.tar.gz prepares the sources to be
+packaged for debian. This usually means adding a debian/ subdirectory that
+contains control files for dpkg-buildpackage program.
+
+The ltqa-snapshot-deb and ltqa-release-deb scripts can be used the same way as
+described in chapter 4.2 to produce debian source package for your product
+either as a combination of product/trunk and product/packaging/debian/trunk or
+as a combination of product/tags/VERSION
+product/packaging/debian/tags/VERSION-DEBVERSION.
+
+The resulting sources must be either extracted using `dpkg-source -x` command
+and built using `dpkg-buildpackage` or can be fed right to the `pbuilder`
+program. You have to ensure that resulting debian packages
+install/uninstall/run properly on the debian system you intend to support.
+
+6. Making a binary release for Win2000/XP
+
+We are using well known Inno Setup and home-grown mingw-package [mnwp] set of
+scripts that make the windows packaging process much the same as the one of
+Debian. The only exceptions that apply are:
+
+  - we don't support dependencies and build dependencies, windows do not
+    support them so you have to make sure that your building and packaging
+    environment is properly set up
+  - windows do not use installation prefix, the code usually uses some
+    heurestics to locate the dependent files, you have to ensure that build
+    dependencies are installed in proper locations before starting the build
+
+mingw-package provides two scripts called `mingw-source` and
+`mingw-buildpackage` that work much the same way (albeit with limited
+features) as dpkg-source and dpkg-buildpackage.
+
+mingw-buildpackage makes use of PREFIX environment variable, that (if found
+and nonempty) it will pass to configure --prefix PREFIX.
+
+You can install all build dependencies into some temporary directory, set
+PREFIX to point there, and it will then force mingw-buildpackage to use the
+same directory for configuration of the package being built.
+
+7. Making a binary release for RPM based systems (SuSE, Fedora)
+
+Source rpm packages are called PRODUCT-VERSION-RPMVERSION.src.rpm and you can
+produce them using ltqa-snapshot-rpm (by using product/trunk and
+product/packaging/suse/trunk) or by ltqa-release-rpm (by using
+product/tags/VERSION and product/packaging/suse/tags/VERSION-RPMVERSION).
+
+.src.rpm files can be fed to `rpmbuild --rebuild` command to produce
+architecture specific rpm files.
+
+A. References
+
+[ltrs] https://lintouch.org/repos/lintouch/lintouch-docs/trunk/specifications/lintouch-repository-structure.html
+
+[ltqa] https://lintouch.org/repos/lintouch/lintouch-qa-tools/trunk
+
+[ltpf] https://lintouch.org/repos/lintouch/lintouch-qa-productfiles/trunk
+
+[mnwp] https://lintouch.org/repos/lintouch/mingw-package/trunk
+
+vim: set et ts=2 sw=2 tw=78:

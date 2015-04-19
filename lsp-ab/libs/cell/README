@@ -1,0 +1,21 @@
+CIP/Ethernet Library for Linux (CELL)
+Copyright (c) 2001 and beyond, Ron Gage - Pontiac, MI
+
+
+CELL is a communications library that facilitates communications to an Allen
+Bradley ControlLogix PLC.  With CELL, a programmer can write programs to do
+the following:
+
+Read/write controller scoped tag data in the ControlLogix PLC
+Read/write program scoped tag data in the ControlLogix PLC
+Retrieve a complete listing of all controller scoped tags
+Retrieve a complete listing of all program scoped tags
+Retrieve a complete listing of all program names
+Browse the ControlLogix Backplane
+Get individual module status (basic support at this time).
+
+
+CELL is distributed as an open-source, commercial software product.  
+
+Custom programming services (PLC and PC) are available.  For more information,
+send an e-mail to ron@rongage.org, detailing what you are looking for.

@@ -1,0 +1,4 @@
+#define PYTHON "@PYTHON@"
+#define PYTHON_NATIVE "@PYTHON_NATIVE@"
+#define PREFIX "@PREFIX@"
+#define PREFIX_NATIVE "@PREFIX_NATIVE@"

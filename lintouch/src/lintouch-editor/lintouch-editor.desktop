@@ -1,0 +1,13 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Name=Lintouch Editor
+Comment=Edit & Preview Lintouch Projects with Lintouch Editor
+Exec=lintouch-editor %F
+Terminal=false
+Type=Application
+Icon=lintouch.png
+StartupNotify=false
+Categories=Application;Engineering;Qt;System;
+MimeType=application/x-lintouch-project
+

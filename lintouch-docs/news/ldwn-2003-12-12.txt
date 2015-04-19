@@ -1,0 +1,78 @@
+---------------------------------------------------------------------------
+Lintouch Development Weekly News
+http://lintouch.org
+December 12th, 2003
+---------------------------------------------------------------------------
+
+Welcome to the second issue of the Lintouch Development Weekly Newsletter.
+This week was rather calm in terms of lines of code produced but
+nevertheless important things and drastic changes happened that you should be
+aware of.
+
+jbar and patrik pointed out during our private discussion that Layout of a
+Template, which defines how a Template is painted and which in long words
+would be called a _Graphical Representation_ of a Template should probably
+not be called _Layout_, since this word is misleading. We have chosen
+another name which according to our ideas suits the purpose better. So from
+now on we refer to a graphical representation of a template as to its
+_Skin_. All sources in a CVS has been updated[1] and patch for wtng-Editor
+was generated[2].
+
+    1. http://lintouch.org/pipermail/lintouch-cvs/2003-December/000662.html
+    2. http://lintouch.org/pipermail/lintouch-dev/2003-December/000222.html
+
+Another conceptual change was that we decided[3] to drop support for
+Skin-specific properties. Original idea was that every template defines set
+of properties which alter the look and behavior of a template. Because some
+skins of a template could be more complicated than others (in terms of
+possible customization) one was able to define also properties which were
+valid only for a specific skin of a template. A workaround how to
+distinguish which properties are global (in terms of a template) and which
+are skin specific has been proposed[4].
+
+    3. http://lintouch.org/pipermail/lintouch-dev/2003-December/000214.html
+    4. http://lintouch.org/pipermail/lintouch-dev/2003-December/000218.html
+
+Shivaji generated the first wtng-Editor coding report[5] and I was able for
+the first time to launch the wtng-Editor, create new project and play with
+some templates on a panel. The result looks nice. Hopefully I'll be able to
+generate some screenshots of Runtime and Editor in action and put them on
+the web.
+
+    5. http://lintouch.org/pipermail/lintouch-dev/2003-December/000176.html
+
+Lintouch Specifications have been slightly updated (for example Wintouch New
+Generation term was replaced by Lintouch everywhere) and have been uploaded
+to the lintouch.org for public consumption[6]. However the license under
+which they should be published is not yet clear to me, so I intentionally
+left them under proprietary license which prohibits everything except
+reading them of course.
+
+    6. http://lintouch.org/blog/projects/lintouch
+
+Since we had rather hot[7] discussion about where and how to use assert(3)
+and I've found another inappropriate use of assert within a text_on_canvas
+module I'm announcing a new "best article on assert" contest. So any
+articles you find useful and explaining well the problematic on assert shall
+be submitted to lintouch-dev[8]. You are of course welcome to write your
+own.
+
+    7. http://lintouch.org/pipermail/lintouch-dev/2003-December/000157.html
+    8. mailto:lintouch-dev@lintouch.org
+
+jbar has updated[9] _ProjectAsyncBuilder_ from _libwtngproject_ to support
+simulated download of local files through file:/// URLs. ProjectAsyncBuilder
+is therefore from now on the preferred way for _Project_ construction on the
+runtime side. He also developed an intentionally-slow-http-server[10] which
+will be used for testing of the Runtime in network-extreme conditions.
+
+    9. http://lintouch.org/pipermail/lintouch-cvs/2003-December/000630.html
+    10. http://lintouch.org/pipermail/lintouch-cvs/2003-December/000638.html
+
+That's all folks for this week, if you have any comments, corrections or
+ideas to be published, feel free to contact me directly[0].
+
+    0. mailto:mman@swac.cz.
+
+vim: set et tw=76:
+$Id: ldwn-2003-12-12.txt,v 1.1 2003/12/12 10:44:20 mman Exp $

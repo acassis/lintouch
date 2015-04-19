@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- $Id: lintouch-server-logging.dbx 1527 2006-03-13 13:29:27Z modesto $ -->
+
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" [
+
+<!ENTITY mody SYSTEM "../common/mody.dbi">
+<!ENTITY swac SYSTEM "../common/swac.dbi">
+
+<!ENTITY lnt "Lintouch">
+<!ENTITY ltp "Lintouch Project">
+<!ENTITY lte "Lintouch Editor">
+<!ENTITY lsp "Lintouch Server Plugin">
+<!ENTITY lsl "Lintouch Server Logging">
+<!ENTITY llp "Lintouch Logging Plugin">
+
+]>
+
+<article>
+
+  <title>&lsl; Specification</title>
+
+  <articleinfo>
+
+    &mody;
+    &swac;
+
+    <pubdate>March 2006</pubdate>
+
+    <abstract>
+      <title>Abstract</title>
+
+      <para>
+        This article describes the new &lsl; module that should allow a
+        developer to log all data that come from HW to &lnt; Server
+        and from &lnt; Clients to the HW.
+      </para>
+
+    </abstract>
+
+  </articleinfo>
+
+  <sect1>
+    <title>Introduction</title>
+
+    <sect2>
+      <title>Why do we need logging?</title>
+      <para>
+        There are many reasons for logging data on the Lintouch Server
+        side. Following are the most important ones.
+      </para>
+      <para>
+        While creating a Lintouch Server Plugin, there is a need to
+        watch and check data sent and received through the plugin. Now
+        the only way to debug the plugin is to put printf in the code -
+        a very unconfortable way of debugging.
+      </para>
+      <para>
+        Another reason is that a developer may need to have all the data
+        that go through a Lintouch Server Plugin for later analysis or
+        playback.
+      </para>
+    </sect2>
+
+    <sect2>
+      <title>Global concept</title>
+      <para>
+        There are many ways a log could be written and how it should be
+        formatted. Thus we have decided to develop new Lintouch Logging
+        Plugins. They are responsible for formatting, storing, and
+        sending the logs.
+      </para>
+      <para>
+        Lintouch Logging Plugins are stored in the directory
+        logging-plugins, next to Lintouch Server Plugins. Their first
+        letter is capitalized. For example, "Console" Lintouch Logging
+        Plugin is stored as Console.dll.
+      </para>
+      <para>
+        Lintouch Server Logging is configured within Lintouch Project
+        file and can only be enabled there. Logging is enabled if there
+        is at least one Logging Plugin configured for the project.
+      </para>
+    </sect2>
+
+
+  </sect1>
+
+  <sect1>
+    <title>Implementation</title>
+
+    <sect2 id="cfg">
+      <title>Configuration</title>
+      <para>
+        The configuration follows the same pattern as Connections
+        configuration. There is a new section in
+        <filename>project-descriptor.xml</filename> with following
+        structure:
+        <programlisting>
+<![CDATA[<project-logging>
+  <logging name="Console" src="logging-console1.xml"/>
+  <logging name="File" src="logging-file1.xml"/>
+</project-logging>]]>
+        </programlisting>
+        Here are declared two logging plugins. The first of name
+        <emphasis>Console</emphasis> logging plugin with configuration
+        stored in <filename>logging-console1.xml</filename> and the
+        second of name <emphasis>File</emphasis> logging plugin with
+        configuration stored in <filename>logging-file1.xml</filename>.
+      </para>
+      <para>
+        Each per-&llp; file has the following structure:
+      <programlisting>
+<![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+
+<project-logging type="File">
+  <properties>
+    <property name="file-name" value="/tmp/server.log"/>
+  </properties>
+</project-logging>]]>
+      </programlisting>
+        Here is example configuration for the second &llp;. The
+        <emphasis>File Logging</emphasis> &llp; is of type
+        <emphasis>File</emphasis> and has a property called
+        <emphasis>file-name</emphasis> with a value
+        <filename>/tmp/server.log</filename>.
+      </para>
+      <para>
+        For handling this configuration, there is a new dialog in the
+        &lnt; which looks like the <emphasis>Connections</emphasis>
+        dialog. A &llp; can be added to or removed from the &ltp;. All
+        its properties can be edited. All actions are undoable.
+      </para>
+    </sect2>
+
+    <sect2>
+      <title>&llp;s</title>
+      <para>
+        A &llp; is a dynamicaly-loadable library which is
+        <filename>.dll</filename> on MS Windows and
+        <filename>.so</filename> on *nix system.
+      </para>
+      <para>
+        A &llp; is responsible for formating and sending/writing the
+        logged data out of the &lnt; Server. For the first version of
+        logging we have decided that a &llp; will be single-thread
+        library. Which means that &llp; has a function that gets called
+        whenever there are data to log. Threaded &llp; may be added
+        later and this specification will be updated.
+      </para>
+      <para>
+        &lnt; Server will load a &llp; on the startup time and only when
+        a &llp; is specified in the &lnt;. All &llp;s are loaded and
+        initialized before any of the &lsp;s get loaded and initialized.
+      </para>
+      <sect3>
+        <title>Plugin Stub API</title>
+        <para>
+          Every &llp; has to have following function along with functions
+          defined in <xref linkend="api"/>:
+          <programlisting>
+<![CDATA[lt_version_info();]]>
+          </programlisting>
+          This function returns array of null-terminated strings, that
+          uniquely distinguish the DLL from other &lnt; Plugins or
+          others DLLs. The array contains these fields:
+          <variablelist><title/>
+            <varlistentry><term><emphasis>interface</emphasis></term>
+              <listitem><para>The interface string has to look like this:
+                  <filename>interface=lt::LoggingPlugin</filename></para>
+              </listitem>
+            </varlistentry>
+            <varlistentry><term><emphasis>apr_version</emphasis></term>
+              <listitem><para>The apr_version string has to look like this:
+                  <filename>apr_version=</filename>
+                  <emphasis>[number]</emphasis></para></listitem>
+            </varlistentry>
+            <varlistentry><term><emphasis>ltserver_major</emphasis></term>
+              <listitem><para>The ltserver_major string has to look like this:
+                  <filename>ltserver_major=</filename>
+                  <emphasis>[number]</emphasis></para></listitem>
+            </varlistentry>
+            <varlistentry><term><emphasis>ltserver_minor</emphasis></term>
+              <listitem><para>The ltserver_minor string has to look like this:
+                  <filename>ltserver_minor=</filename>
+                  <emphasis>[number]</emphasis></para></listitem>
+            </varlistentry>
+            <varlistentry><term><emphasis>ltserver_patchlevel</emphasis></term>
+              <listitem><para>The ltserver_patchlevel string has to look
+                  like this:
+                  <filename>ltserver_patchlevel=</filename>
+                  <emphasis>[number]</emphasis></para></listitem>
+            </varlistentry>
+          </variablelist>
+          The <filename>lt_version_info</filename> function is completely
+          the same as for &lsp;s but the <emphasis>interface</emphasis>
+          string is different.
+        </para>
+        <para>
+          When a &llp; is loaded, the &lnt; Server asks for
+          <filename>lt_version_info</filename> function. If it is there
+          it is checked for the correct <emphasis>interface</emphasis>
+          string and correct versions. If this check pass, &llp; loader
+          tries to find the other functions, see <xref linkend="api"/>.
+        </para>
+      </sect3>
+
+      <sect3 id="api">
+        <title>&llp; API</title>
+
+        <para>
+          The API of &llp; consists with this listing:
+          <programlisting>
+<![CDATA[create();
+init();
+log();
+exit();]]>
+          </programlisting>
+          The detailed description of each function follows.
+        </para>
+        <para>
+          <variablelist><title/>
+            <varlistentry>
+              <term><emphasis>create(apr_pool_t* pool)</emphasis></term>
+              <listitem>
+                <para>
+                  Initializes the plugin. Create a structure that
+                  contains the author, version, build date, short and
+                  long descriptions and a hash of all properties along
+                  with their default values. This function is called
+                  during &lnt; Server startup or during &lte; startup to
+                  inspect the properties.
+                </para>
+                <para>
+                  It is possible to create a new thread here if the
+                  &llp; require specific access to its resource. It is
+                  &llp;s responsibility to feed and control this thread.
+                  The thread must be terminated in the
+                  <emphasis>exit()</emphasis> function when it is
+                  called. &lnt; Sever has no control of this new thread.
+                  Also threaded logging is not requiured at all.
+                </para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term><emphasis>init(apr_hash_t*)</emphasis></term>
+              <listitem>
+                <para>
+                  Gets a hash of
+                  <methodname>lt_project_connection_t</methodname>
+                  structures. There are connection name, type,
+                  <methodname>lt_var_set_t</methodname> and properties.
+                  If a &lsp; wants to log connection name, it should
+                  store it in a hash with a key of the first 12 bytes
+                  from the <methodname>lt_var_set_t</methodname>
+                  structure. An example:
+                  <programlisting>
+<![CDATA[(lt_project_connection_t*)apr_hash_get(connections, varset, 3*sizeof(varset));]]>
+                  </programlisting>
+                </para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term>
+                <emphasis>
+                  log(lt_var_set_t*, bool real, apr_time_exp_t*)
+                </emphasis>
+              </term>
+              <listitem>
+                <para>
+                  Called for whenever a &lsp; synces it's real or
+                  requested values. Passed in are three parameters. The
+                  first is a pointer to the
+                  <methodname>lt_var_set_t</methodname> structure that
+                  uniquelly identify the &lsp; that is logged and the
+                  that contains the dirty real/requested values, the
+                  second parameter is a flag if real or requested values
+                  are to be logged and the third parameter is a pointer
+                  to the timestamp. See apr_time.h for time formating
+                  posibilities.
+                </para>
+                <para>
+                  The log method <emphasis>must</emphasis> be thread
+                  safe because it may be called from different threads
+                  at the same time. It is not recommend to lock the
+                  whole <emphasis>log()</emphasis> function but to
+                  protected just the critical write/send part.
+                </para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term><emphasis>exit()</emphasis></term>
+              <listitem>
+                <para>
+                  Called when &lnt; Server exits. &llp; should flush and
+                  release all its external resources.
+                </para>
+              </listitem>
+            </varlistentry>
+          </variablelist>
+        </para>
+      </sect3>
+    </sect2>
+
+    <sect2>
+      <title>&lnt; Server changes</title>
+      <sect3>
+        <title>An overal look at the new things that will go inside the
+          &lnt; Server</title>
+        <para>
+          When the &lnt; Server starts it parses the &ltp; and loads all
+          necesary components. &llp;s are loaded and initialized right
+          before &lsp;s. Every &llp; gets hash of all &lsp;s. There are
+          all information needed for a &llp; to find a connection name,
+          type, properties and variable properties.
+        </para>
+      </sect3>
+
+      <sect3>
+        <title>Varset Changes</title>
+        <para>
+          A <methodname>lt_var_set_t</methodname> structure gets two new
+          hooks:
+          <itemizedlist>
+            <listitem>
+              <para>The hook for sync real values</para>
+            </listitem>
+            <listitem>
+              <para>The hook for sync requested values</para>
+           </listitem>
+         </itemizedlist>
+         The <methodname>lt_var_set_real_values_sync()</methodname>
+         functions will call the apropriate hook just after the varset,
+         on which it operates, is locked, but before the actual sync is
+         made. The
+         <methodname>lt_var_set_requested_values_sync()</methodname>
+         functions will call the apropriate hook just after the source
+         varset, to which it synces, is locked, but before the actual
+         sync is made.
+        </para>
+      </sect3>
+
+      <sect3>
+        <title>The Logging Flow - Real Values</title>
+        <para>
+          A real value is created in a &lsp;. It is stored to a
+          <methodname>lt_var_set_t</methodname> structure. At the end of
+          a cycle inside the &lsp; all real values are synced to the
+          &lnt; clients. Inside the
+          <methodname>lt_var_set_real_values_sync()</methodname> function
+          the new &lnt; Logging hook gets called. The &lnt; Logging
+          Subsystem now walks through list of all &llp;s and calls their
+          <methodname>lt_server_logging_plugin_log()</methodname>
+          function. After the all &llp;s are called, &lnt; Logging
+          Subsystem returns to the
+          <methodname>lt_var_set_real_values_sync()</methodname> function
+          and the workflow continues.
+        </para>
+      </sect3>
+
+      <sect3>
+        <title>The Logging Flow - Requested Values</title>
+        <para>
+          A requested value is created in a &lnt; Runtime, it is sent to
+          the &lnt; Server and gets stored to a per-client
+          <methodname>lt_var_set_t</methodname> structure. At the end of
+          the cycle inside the client service, all requested values are
+          synced to &lsp;s. Inside the
+          <methodname>lt_var_set_requested_values_sync()</methodname>
+          function the new &lnt; Logging hook that gets called. The
+          &lnt; Logging Subsystem now walks through list of all &llp;s
+          and calls their
+          <methodname>lt_server_logging_plugin_log()</methodname>
+          function. After the all &llp;s are called, &lnt; Logging
+          Subsystem returns to the
+          <methodname>lt_var_set_requested_values_sync()</methodname>
+          function and the workflow continues.
+        </para>
+      </sect3>
+    </sect2>
+  </sect1>
+
+</article>
+
+<!-- vim: set et ts=2 sw=2 tw=72: -->
+<!-- $Id: lintouch-server-logging.dbx 1527 2006-03-13 13:29:27Z modesto $ -->

@@ -1,0 +1,71 @@
+#!/bin/sh
+#
+# This is the builder helper file for mingw-buildpackage and mingw-source.
+# It should be invoked like this
+# mwbuilder build package-version.dsc --buildresult /somewhere/else
+# TODO: --buildresult does not work ATM, ../ is used
+
+set -e
+
+# find operation and dsc file
+op=$1
+shift
+dsc=$1
+resultdir=""
+
+if [ "$op" != "build" ] ; then
+	echo "usage is: $0 build package.dsc --buildresult <dir>"
+	exit 1
+fi
+
+#find resultdir
+while ! [ -z "$1" ] ; do
+	if [ "$1" = "--buildresult" ] ; then
+		shift
+		resultdir="$1"
+	fi
+	shift
+done
+
+echo "DSC file is $dsc"
+echo "RESULTDIR is $resultdir"
+
+#find out package and upstream version
+package=$(echo $dsc|awk 'BEGIN{FS="_"}{print $1}')
+version=$(echo $dsc|awk 'BEGIN{FS="_"}{gsub("\.dsc","");print $2}')
+upstream=$(echo $version|awk 'BEGIN{FS="-"}{print $1}')
+mingw=$(echo $version|awk 'BEGIN{FS="-"}{print $2}')
+
+echo "package is $package"
+echo "upstream version is $upstream"
+echo "mingw version is $mingw"
+
+#extract mingw sources
+mingw-source -x $dsc
+
+#build package
+pushd .
+
+cd $package-$upstream 
+mingw-buildpackage --buildresult $resultdir
+builtpackages=$(cat mingw/control |grep '^Package' |awk '{print $2}')
+
+# TODO: for now, don't move anything since we know that .exe files are in the
+# right place when invoked via qa-tools
+# #move results
+# if ! [ -z "$resultdir" ] ; then 
+# 	mkdir -p "$resultdir"
+# 	for i in $builtpackages; do
+# 		pkg="../${i}-${upstream}-${mingw}.exe"
+# 		echo "Moving $pkg to $resultdir"
+# 		mv $pkg $resultdir
+# 	done
+# fi
+
+popd
+
+echo "Cleaning builddir $package-$upstream"
+rm -r $package-$upstream
+
+
+exit 0

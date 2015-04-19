@@ -1,0 +1,49 @@
+#!/bin/bash
+# (c) 2004 Martin Man <mman@swac.cz>
+#
+# Use this script to snapshot lintouch component after component
+
+set -e
+
+PRODUCTS="\
+libltfsm libltvariables libltcp \
+libltzip libltvfs liblttemplates libltproject libltui \
+python-lt \
+lintouch-runtime \
+lintouch-server lintouch-server-starter \
+server-plugins/lsp-basic \
+template-libraries/ltl-display \
+template-libraries/ltl-input \
+"
+
+export DONTWAIT=yes
+
+. lintouch-component.conf
+
+PKG_CONFIG_PATH=$PREFIX/lib/pkgconfig:$PKG_CONFIG_PATH
+export PKG_CONFIG_PATH
+
+LD_LIBRARY_PATH=$PREFIX/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH
+
+PATH=$PREFIX/bin:$PATH
+export PATH
+
+# build lintouch dependencies
+export WORKDIR
+export PREFIX
+
+./ltqa-snapshot sharedptr.conf -t
+./ltqa-install sharedptr.conf -t
+./ltqa-snapshot swaloun-framework.conf -t
+./ltqa-install swaloun-framework.conf -t
+
+unset WORKDIR
+unset PREFIX
+# EOF build lintouch dependencies
+
+for p in $PRODUCTS; do
+        PRODUCT="$p" ./ltqa-snapshot lintouch-component.conf -t
+        PRODUCT="$p" ./ltqa-install lintouch-component.conf -t
+done
+

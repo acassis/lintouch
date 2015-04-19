@@ -1,0 +1,665 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" [
+
+<!ENTITY legal SYSTEM "../common/legal.dbi">
+<!ENTITY mman SYSTEM "../common/mman.dbi">
+<!ENTITY swac SYSTEM "../common/swac.dbi">
+
+<!ENTITY lnt "Lintouch">
+
+]>
+
+<article>
+
+  <title>
+    &lnt; Coding Style
+  </title>
+
+  <articleinfo>
+
+    &mman;
+    &swac;
+    &legal;
+
+    <pubdate>June 2004</pubdate>
+
+    <revhistory>
+
+      <revision>
+        <revnumber>1.2.1</revnumber>
+        <date>August 17th 2004</date>
+        <authorinitials>mman</authorinitials>
+        <revdescription>
+          <para>
+            Make docbook source valid again.
+          </para>
+        </revdescription>
+      </revision>
+
+      <revision>
+        <revnumber>1.2</revnumber>
+        <date>July 11th 2004</date>
+        <authorinitials>mman</authorinitials>
+        <revdescription>
+          <para>
+            Fix English to be more comprehensible. Based on jbar's
+            proposals. Add reference to PEP7 and PEP8.
+          </para>
+        </revdescription>
+      </revision>
+
+      <revision>
+        <revnumber>1.1</revnumber>
+        <date>July 4th 2004</date>
+        <authorinitials>mman</authorinitials>
+        <revdescription>
+          <para>
+            Add technical notes to clarify that we are not documentation
+            writing guide, not unit tests writing guide and that we don't
+            require VIM control lines to spread around without testing.
+            Add section about required unit testing.
+          </para>
+        </revdescription>
+      </revision>
+
+      <revision>
+        <revnumber>1.0</revnumber>
+        <date>June 27th 2004</date>
+        <authorinitials>mman</authorinitials>
+        <revdescription>
+          <para>
+            Initial revision.
+          </para>
+        </revdescription>
+      </revision>
+
+    </revhistory>
+
+  </articleinfo>
+
+  <abstract>
+    <title>Abstract</title>
+
+    <para>
+      This article describes the source code requirements used by &lnt;
+      Project. Discussed are coding, naming and documentation style
+      conventions for C, C++, Python, and XML languages. While this
+      document does not attempt to be a once-for-all definitive guide,
+      it aims at being helpful for those who want to write code in the
+      way that encourages others to read and use it.
+    </para>
+
+  </abstract>
+
+  <sect1>
+    <title>Introduction</title>
+
+    <sect2>
+      <title>Why Coding Conventions at all?</title>
+
+      <para>
+        Writing good source code in any programming language
+        requires a lot of skills. Not only the programming language related
+        skills but also communication skills. The source code is a
+        product. It tells a lot about its author and about the problem the
+        code is trying to solve.
+      </para>
+      <para>
+        While the code can reveal how well you know the problem domain,
+        and algorithms and data structures design, the form (look of
+        the code) reveals how good you are at communication:
+        it tells about you in which ways you behave when entering a
+        luxury restaurant, how patient you will be while explaining
+        something to your kids, how tolerant you will be when talking
+        with your friends about music.
+      </para>
+      <para>
+        When people write a source code, they usually put
+        in lot of effort and creativity. For some reason programmers are
+        weird animals that always think their creativity produces state-of-art
+        results. It is not always like that.
+      </para>
+      <para>
+        Becoming a part of bigger project (instead of building seats
+        for your own garden) requires adoption of certain standards.
+        You have to always remember what are your goals:
+
+        <itemizedlist>
+          <listitem><para>
+              You want your code to be part of the project forever. You
+              don't want it to be ripped off just because nobody was able
+              to read and understand it.
+          </para></listitem>
+          <listitem><para>
+              You want other people to use your code, you want to
+              encourage them, you want to be proud of your results.
+          </para></listitem>
+          <listitem><para>
+              You want yourself to be considered integral part of the
+              team.
+          </para></listitem>
+        </itemizedlist>
+
+      </para>
+
+      <para>
+        Creating a coding style means agreeing on a set of rules that
+        all the members of team are willing to follow. And if they are
+        not willing to follow they should bring in valuable comments so
+        that consensus can be achieved.
+      </para>
+
+      <para>
+        Since a lot of code has been already written in the World, there
+        exist some agreements on how it should be written, no matter how
+        big is your screen, which fancy refactoring-capable GUI IDE you
+        are using and what your other current personal preferences are.
+      </para>
+
+      <para>
+        This article tries to summarize these agreements.
+      </para>
+
+    </sect2>
+
+    <sect2>
+      <title>Other sources of information</title>
+      <para>
+        Other documents you can read include <ulink
+          url="http://pantransit.reptiles.org/prog/CodingStyle.html">Linux
+          Kernel Coding Style</ulink> and <ulink
+          url="http://www.gnu.org/prep/standards_toc.html">GNU Coding
+          Standards</ulink>. While I am not going to comment on their
+        quality nor their commitment to &lnt;, I still
+        encourage you to read them just to get the "big picture".
+      </para>
+      <para>
+        When writing pure C code or Python code, the <ulink
+          url="http://www.python.org/peps/pep-0007.html">PEP7 - Style
+          Guide for C code</ulink> and <ulink
+          url="http://www.python.org/peps/pep-0008.html">PEP8 - Style
+          Guide for Python code</ulink> should be never missing in your
+        library.
+      </para>
+    </sect2>
+
+  </sect1>
+
+  <sect1>
+    <title>Source code formating</title>
+
+    <sect2>
+      <title>File header and footer</title>
+      <para>
+        Every file should contain an appropriate header and footer. They are
+        included usually as comments. The reasons for an appropriate
+        header and footer are:
+
+        <itemizedlist>
+          <listitem><para>
+              We want to know the author of the file and the date when
+              the file was originally created. We can not assume simply
+              we would be always looking at the file in the filesystem
+              context (file can be printed, attached to email, ...).
+          </para></listitem>
+          <listitem><para>
+              We want to know the legal license that covers
+              redistribution and reproduction of the file's content.
+          </para></listitem>
+          <listitem><para>
+              We want to know some facts from the source code management
+              system (such as <ulink
+                url="http://www.cvshome.org">CVS</ulink> or <ulink
+                url="http://subversion.tigris.org">Subversion</ulink>).
+          </para></listitem>
+        </itemizedlist>
+
+      </para>
+
+      <para>
+        Since we are using CVS at this moment, header and the footer of
+        a typical C file could look as shown in the following examples.
+
+        <example>
+          <title>Sample header of example GPL covered C file.</title>
+          <programlisting>
+            <![CDATA[
+/* $Id: lintouch-coding-style.dbx,v 1.9 2004/08/17 08:53:34 mman Exp $
+ *
+ *   FILE: wtng-io.h --
+ * AUTHOR: Martin Man <mman@swac.cz>
+ *   DATE: 16 June 2003
+ *
+ * Copyright (c) 2001-2004 S.W.A.C. GmbH, Germany.
+ * Copyright (c) 2001-2004 S.W.A.C. Bohemia s.r.o., Czech Republic.
+ *
+ * This application is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This application is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this application; if not, write to the
+ * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ * Boston, MA 02111-1307, USA.
+ */
+            ]]>
+          </programlisting>
+        </example>
+      </para>
+
+      <para>
+        The very first line of source code file should include
+        information from source code version management software (such
+        as CVS). In case of XML, shell scripts and executable python
+        files where the first line is reserved, the second line can
+        serve this purpose.
+      </para>
+
+      <para>
+
+        <example>
+          <title>Sample footer of example GPL covered C file.</title>
+          <programlisting>
+            <![CDATA[
+/* vim: set et ts=4 sw=4 tw=76:
+ * $Id: lintouch-coding-style.dbx,v 1.9 2004/08/17 08:53:34 mman Exp $
+ */
+            ]]>
+          </programlisting>
+        </example>
+      </para>
+
+      <para>
+        Note that the above example of the footer contains not only CVS
+        information tag but also control line with instructions for <ulink
+          url="http://www.vim.org">VIM</ulink> editor. These
+        instructions tell the editor how to do proper indentation and
+        formating.
+      </para>
+
+      <para>
+        While other editors can be driven this way as
+        well, we allow only the VIM instructions to be placed in &lnt;
+        source code files for the following reasons:
+
+        <itemizedlist>
+          <listitem><para>
+              Majority of &lnt; developers use VIM.
+          </para></listitem>
+          <listitem><para>
+              VIM is very mature editor used in all its
+              incarnations for almost 20 years now. It seems that it
+              will (due to its nature and features) not leave us soon.
+          </para></listitem>
+          <listitem><para>
+              VIM is also very tolerant and adoptive in terms of
+              hardware requirements and programming languages it
+              supports.
+          </para></listitem>
+          <listitem><para>
+              VIM is available for more platforms than any other editor.
+          </para></listitem>
+          <listitem><para>
+              VIM community supports poor children in Uganda and we
+              consider this control line to be kind of advertisement for
+              this wonderful piece of software.
+          </para></listitem>
+        </itemizedlist>
+      </para>
+
+      <note>
+        <title>Technical Note</title>
+        <para>
+          If you are not using VIM to edit files, you are free to omit
+          the control line and not copy it blindly to newly created
+          files if there is no way for you to verify that it actually
+          works.
+        </para>
+        <para>
+          If you are on the other hand using another editor and want to
+          add control line for it, you are required to first ask the
+          rest of the community and get their agreement. This is
+          necessary to protect the files from being overfilled with
+          control lines for ten different random editor applications
+          that someone might have used half a year in the past before he
+          switched finally to VIM.
+        </para>
+      </note>
+
+    </sect2>
+
+    <sect2>
+      <title>Line length</title>
+      <para>
+        No line in a file should be longer than 76 characters for the
+        following reasons:
+
+        <itemizedlist>
+          <listitem><para>
+              You usually get 80 characters per line when being
+              connected remotely to a system through SSH or when sending
+              an email to a (possibly small) portable device. Assuming 80
+              characters is the least common denominator among all
+              editors, screens and devices available we still have 4
+              characters to:
+              <itemizedlist>
+                <listitem><para>
+                    comment the code temporarily and not exceed the 80
+                    characters per line limit.
+                </para></listitem>
+                <listitem><para>
+                    include excerpts of code quoted verbatim in an
+                    email without the need to break long lines and make
+                    the code harder to read.
+                </para></listitem>
+                <listitem><para>
+                    include patch segments created by diff(1) unix utility
+                    in an email without breaking the lines. The patch
+                    files with long lines are almost unreadable.
+                </para></listitem>
+              </itemizedlist>
+          </para></listitem>
+          <listitem><para>
+              Even if you have more than 80 characters per line
+              available, too long lines require your eyes to travel long
+              distances in order to read the lines and thus makes
+              working with the code tiring.
+          </para></listitem>
+          <listitem><para>
+              Too long lines are rarely needed and indicate bad design
+              or wrong source code structuring. Exceptions include
+              lines auto generated by source code management system
+              (such as CVS) which are usually tolerated.
+          </para></listitem>
+        </itemizedlist>
+      </para>
+    </sect2>
+
+    <sect2>
+      <title>Tabs and spaces</title>
+      <para>
+        &lnt; sources do not use tabs (due to different handling of
+        them in various editors, printing tools, etc.). All tabs should
+        be therefore expanded into spaces.
+      </para>
+      <para>
+        Indentation level used by &lnt; is 4 characters for C, C++ and
+        Python and 2 characters for XML, HTML and similar.
+      </para>
+      <para>
+        Source code must not contain trailing spaces at the end of
+        lines.
+      </para>
+      <para>
+        To increase readability all major delimiters (comma, function
+        calls, indexing, assignment, comparison) should be followed or
+        prepended by spaces (see the following example).
+      </para>
+      <para>
+        Definition of functions, declaration of their bodies and all
+        major control structures (loops, conditions) should be separated
+        with empty lines to increase readability.
+      </para>
+      <example>
+        <title>C source code indented by 4 characters.</title>
+        <programlisting>
+          <![CDATA[
+void example_func( int arg1, int arg2 )
+{
+    int local = 1;
+    int arr[ 5 ];
+
+    if( arg1 == arg2 ) {
+        local = 2;
+        arr[ 0 ] = 1;
+    }
+
+    return local;
+}
+          ]]>
+        </programlisting>
+      </example>
+    </sect2>
+
+    <sect2>
+      <title>Formating opening/closing brackets</title>
+      <para>
+        Opening bracket should stay on the same line for control
+        structures such as conditions and loops, and should be on a
+        separate line for function bodies (see previous example).
+      </para>
+    </sect2>
+
+    <sect2>
+      <title>Breaking long lines</title>
+      <para>
+        When it is necessary to break a long line it must be always done
+        at the meaningful boundary. Good break candidate is for example
+        comma in a function call, logical operator in an expression,
+        assignment operator in an expression. The break should be always
+        after such delimiter. The next line should be indented by at
+        least two indentation levels (8 characters for us) to clearly
+        indicate that it's a continuation of previous line and not the
+        nested control block.
+      </para>
+      <example>
+        <title>C source code with lengthy condition line broken into
+        two lines</title>
+        <programlisting>
+          <![CDATA[
+if( dont_authorize == 1 || access_allowed == 1 ||
+        magic_code_received == 1 ) {
+
+    perform_secret_action();
+
+}
+          ]]>
+        </programlisting>
+      </example>
+    </sect2>
+
+  </sect1>
+
+  <sect1>
+    <title>Source code documentation</title>
+    <para>
+      Every method that is exported by the library (intended to be
+      reused somehow) must be documented in its header file. The
+      documentation format we use should follow <ulink
+        url="http://www.doxygen.org">Doxygen</ulink> conventions (the
+      de-facto standard in documenting C/C++ code).
+    </para>
+    <para>
+      For C code that means documenting all methods and potential global
+      variables in a header file. For C++ that means documenting all
+      classes and their public or protected methods again within the
+      header file.
+    </para>
+    <para>
+      Methods that are for local purposes of the library (static C
+      methods, C++ private methods) can and should be documented within the
+      C, C++ source file.
+    </para>
+    <para>
+      Unimplemented parts (missing method bodies for example) should be
+      marked with TODO or FIXME statements encapsulated within inline
+      comments. Such TODOs and FIXMEs should explan briefly what has to
+      be done in the code, so that other people can jump in and
+      implement it while not breaking ideas of the original author.
+      Intelligent editors can highlight these FIXMEs and TODOs in a
+      special way so that they are not forgotten.
+    </para>
+    <example>
+      <title>Unimplemented C method body indicated with FIXME</title>
+        <programlisting>
+          <![CDATA[
+int fact( int n )
+{
+    /* FIXME: need to iterate here to compute factorial for i */
+}
+          ]]>
+        </programlisting>
+      </example>
+    <para>
+      Think twice before using inline comments. They should never
+      explain what the code is supposed to do. The code should be
+      written in a way that the developer with right domain skills
+      should understand it even without inline comments.
+      When this is not so, rewrite the complicated parts.
+    </para>
+
+    <note>
+      <title>Technical Note</title>
+
+      <para>
+        We are not going to dictate what exactly should be written
+        in the documentation. Every high school programmer should have
+        learned how to properly document function bodies and class
+        member functions.
+      </para>
+
+    </note>
+
+  </sect1>
+
+  <sect1>
+    <title>Code Testing</title>
+
+    <para>
+      Every part of the &lnt; should be tested using the unit testing
+      techniques. We are using <ulink
+        url="http://cppunit.sourceforge.net">CPPUnit</ulink>, a Unit
+      test framework for C++. Every library, program, class or a
+      function that can be separately distributed as a .tar.gz must be
+      accompanied with test cases that verify its functionality.
+    </para>
+
+    <para>
+      Unit tests must be written by the author of the code that is being
+      tested. The author and only the author has the necessary know-how
+      of the internal operation of the code; the author is the right
+      person to write the "white box tests".
+    </para>
+
+    <note>
+      <title>Theoretical Note</title>
+      <para>
+        The term "white box testing" comes from the unit testing theory
+        and tells that the test code uses the knowledge of the code to
+        verify its functionality. The other approach called "black box
+        testing" uses only the functional specification or interface to
+        prepare the tests. The black box tests might not reveal the
+        problematic parts of the implementation algorithm.
+      </para>
+    </note>
+
+    <para>
+      The "black box tests" (i.e. tests not requiring the knowledge of
+      the internal workings)
+      are usually performed by the QA department. They should
+      be based on the functional specifications of the product.
+    </para>
+
+    <note>
+      <title>Technical Note</title>
+
+      <para>
+        You can find more on test cases in general on the CPPUnit
+        website.  Problems usually occur when testing entities that
+        require the real world dependencies (a running real database, a
+        user interacting with the GUI, etc.). These can be somehow
+        solved using the so-called "mock objects". Whether you decide to
+        use them or not to test the piece of code at all, a general
+        quote applies:
+
+        <quote>
+          The amount of code you can test without using mock objects
+          indicates how good your design is.
+        </quote>
+      </para>
+    </note>
+
+  </sect1>
+
+  <sect1>
+    <title>Naming conventions and other design issues</title>
+    <para>
+      TO BE DONE: globals, locals, members, privates, API, what to put into .h
+      file, what in .cpp, size of a function, purpose of a function,
+      central exit from a function. private methods not in the API but
+      on the private d class, private member d class to simplify
+      extension and maintain binary compatibility, usage of shared
+      pointer and proper implementation of operator= and copy
+      constructor, proper use of const argument modifier, value based
+      vs. pointer based classes.
+    </para>
+  </sect1>
+
+  <appendix>
+    <title>Configuring your editor</title>
+
+    <sect1>
+      <title>Achieving proper indentation and line length</title>
+
+      <para>
+        For VIM that means invoking the following commands from within
+        the editor while editing a file:
+      </para>
+      <screen>
+:set expandtab
+:set tabstop=4
+:set shiftwidth=4
+:set textwidth=76
+      </screen>
+      <para>
+        This instructs VIM to use 4 characters as indentation level,
+        wrap longer lines automatically as entered at 76th character and
+        always use spaces when tab is pressed.
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>Showing tabs and end of lines</title>
+
+      <para>
+        For VIM that means invoking the following commands from within
+        the editor while editing a file:
+      </para>
+      <screen>
+:set list
+      </screen>
+      <para>
+        It will by default show the end of lines as $ (dollars) and tabs
+        as ^I (Ctrl+I).
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>Displaying trailing spaces</title>
+
+      <para>
+        For VIM that means invoking the following commands from within
+        the editor while editing a file:
+      </para>
+      <screen>
+:set listchars=tab:»·,trail:·
+      </screen>
+      <para>
+        Basically this command changes the way special characters (end
+        of line, tab, etc.) are displayed.
+      </para>
+    </sect1>
+
+  </appendix>
+
+</article>
+
+<!-- vim: set et ts=2 sw=2 tw=72: -->

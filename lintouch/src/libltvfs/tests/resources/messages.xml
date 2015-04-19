@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<messages>
+
+  <message key="Welcome Text" context=""
+    comment="">
+    This demo will let you watch and control a simulated real world device.
+
+
+    The object of the demostration is to move a car along the four parts of the scene:
+
+    1. The car is transported in the right direction by the upper conveyor belt.
+
+    2. Next, it is transfered onto the right platform and goes downwards.
+
+    3. Then, it is caught by the lower conveyor and moved leftwards.
+
+    4. Last, the left platform brings it back to the top and it is transported by the upper conveyor
+       again.
+  </message>
+
+
+  <message key="Automatic Explanation" context=""
+    comment="">
+    - the system transports the car
+      in the aforementioned manner:
+      the car goes right, down, left,
+      and right.
+
+    - the LED auto is green:
+  </message>
+
+  <message key="Manual Explanation" context=""
+    comment="">
+    - the user moves the car using buttons.
+      They control the movement of the
+      elevator components.
+
+    - the LED manual is green
+  </message>
+
+  <message key="Automatic Detail" context=""
+    comment="">
+    The system can switch to the automatic mode when the following holds:
+
+    1. By pushing down the button AUTO.
+
+    2. The system must be reset, i.e. in the safe position:
+       a. the left platform must be down, and
+       b. the right platform must be up, and
+       c. the upper conveyor must be in the left position,
+          if carrying the car, or
+       d. the lower conveyor must be in the right position,
+          if carrying the car.
+
+
+
+    If the condition (2.) is not met, the mode
+    will not switch to automatic. The operator must
+    bring the system to reset and request the automatic
+    mode again.
+  </message>
+
+  <message key="Reset Description" context=""
+    comment="">
+    SAFE POSITION. The cars mark the
+    allowed positions for switching
+    to the automatic mode.
+  </message>
+
+  <message key="Manual Detail" context=""
+    comment="">
+    The system can switch to the manual mode on error or if the user requests so:
+
+    The user pushes down the button MANUAL.
+
+
+    Some components of the Elevator system are believed to be faulty. They
+    should be replaced in the real world scenario. Read on to find out
+    what is misbehaving in the system.
+
+    1. The system stops automatically while simulating the malfunction OVERRUN:
+       From time to time, the right platform goes down beyond the allowed limit.
+       The user is then supposed to bring the system back to the safe position.
+
+    2. The system stops automatically while simulating the malfunction SLOW:
+       Sometimes, the right platform gets stuck and is returning upwards slower
+       than it should be. After the system stops, the user is supposed to complete
+       the upwards movement manually and get back to the safe position.
+  </message>
+
+</messages>
+
+<!-- vim: set et sw=2 ts=2: -->

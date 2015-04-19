@@ -1,0 +1,4 @@
+This directory should contain all core editor classes that will be potentially
+moved to their own libraries.
+
+This area is reserved for jbar and mman.

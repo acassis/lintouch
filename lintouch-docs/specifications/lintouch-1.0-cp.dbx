@@ -1,0 +1,927 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" [
+
+<!ENTITY legal SYSTEM "../common/legal.dbi">
+<!ENTITY mman SYSTEM "../common/mman.dbi">
+<!ENTITY swac SYSTEM "../common/swac.dbi">
+
+<!ENTITY lnt "Lintouch">
+
+<!ENTITY string "<type>STRING</type>">
+<!ENTITY bit "<type>BIT</type>">
+<!ENTITY number "<type>NUMBER</type>">
+<!ENTITY sequence "<type>SEQUENCE</type>">
+<!ENTITY timestamp "<type>TIMESTAMP</type>">
+
+<!ENTITY array "<type>ARRAY</type>">
+<!ENTITY hashtable "<type>HASHTABLE</type>">
+
+]>
+
+<article>
+
+  <title>
+    &lnt; 1.0 TCP/IP Communication Protocol Specification
+  </title>
+
+  <articleinfo>
+
+    &mman;
+    &swac;
+    &legal;
+
+    <pubdate>May 2003</pubdate>
+
+    <revhistory>
+
+      <revision>
+        <revnumber>0.96.1</revnumber>
+        <date>August 17th 2004</date>
+        <authorinitials>mman</authorinitials>
+        <revdescription>
+          <para>
+            Make docbook source valid again.
+          </para>
+        </revdescription>
+      </revision>
+
+      <revision>
+        <revnumber>0.96</revnumber>
+        <date>11 December 2003</date>
+        <authorinitials>mman</authorinitials>
+        <revdescription>
+          <para>
+            Use Lintouch in place of Wintouch New Generation.
+          </para>
+        </revdescription>
+      </revision>
+
+      <revision>
+        <revnumber>0.95</revnumber>
+        <date>05 October 2003</date>
+        <authorinitials>mman</authorinitials>
+        <revdescription>
+          <para>
+            Ramcard is dead, vivat Ramcard.
+          </para>
+        </revdescription>
+      </revision>
+
+      <revision>
+        <revnumber>0.94</revnumber>
+        <date>18 July 2003</date>
+        <authorinitials>mman</authorinitials>
+        <revdescription>
+          <para>
+            Finally document message_timestamp field.
+          </para>
+        </revdescription>
+      </revision>
+
+      <revision>
+        <revnumber>0.93</revnumber>
+        <date>19 June 2003</date>
+        <authorinitials>mman</authorinitials>
+        <revdescription>
+          <para>
+            Added message_id field and description of Simplified BER
+            encoding.
+          </para>
+        </revdescription>
+      </revision>
+
+      <revision>
+        <revnumber>0.92</revnumber>
+        <date>11 June 2003</date>
+        <authorinitials>mman</authorinitials>
+        <revdescription>
+          <para>
+            Changed syntax of a message, status field removed because it
+            was essentially unnecessary
+          </para>
+        </revdescription>
+      </revision>
+
+      <revision>
+        <revnumber>0.91</revnumber>
+        <date>4 June 2003</date>
+        <authorinitials>mman</authorinitials>
+        <revdescription>
+          <para>
+            Clarification, added more explanatory images
+          </para>
+        </revdescription>
+      </revision>
+
+    </revhistory>
+
+    <abstract>
+      <title>Abstract</title>
+
+      <para>
+        This article describes the TCP/IP based communication protocol
+        used by &lnt; servers and clients. The protocol is used to
+        transfer named variables of types &bit;, &number; and &string;
+        between the &lnt; servers and clients.
+      </para>
+
+    </abstract>
+
+  </articleinfo>
+
+  <sect1>
+    <title>Introduction to <emphasis>variables</emphasis></title>
+
+    <para>
+      &lnt; uses the concept of variables for data mining and
+      alteration.
+    </para>
+
+    <para>
+      Every variable is defined by its <emphasis>name</emphasis> and
+      <emphasis>value</emphasis>. Value of concrete variable has a
+      <emphasis>data type</emphasis> (see fig. <xref
+        linkend="wtng-var"/>).
+    </para>
+
+    <para>
+      <figure id="wtng-var">
+        <title>&lnt; variable description</title>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="images/variable.eps" format="EPS"/>
+          </imageobject>
+          <imageobject>
+            <imagedata fileref="images/variable.png" format="PNG"/>
+          </imageobject>
+          <textobject>
+            <phrase>&lnt; variable is defined by name (of type
+              &string;) and value (of type &bit;, &number; or
+              &string;)</phrase>
+          </textobject>
+        </mediaobject>
+      </figure>
+    </para>
+
+    <sect2>
+      <title>Name of the variable</title>
+
+      <para>
+        The name of the variable is always of the type &string;. It can
+        contain arbitrary Unicode characters (see <xref
+          linkend="dtype"/> for detailed description of all data types).
+      </para>
+
+    </sect2>
+
+    <sect2 id="dtype">
+      <title>Data type of the variable's value</title>
+
+      <para>
+        At the time of this writing, &lnt; supports four basic data
+        types.  They are mapped one-to-one to the same ASN.1 data types
+        and encoded using either BER or rather SBER (see <xref
+          linkend="wtng-to-asn"/> for the mapping details and <xref
+          linkend="ber"/> and <xref linkend="sber"/> for details on BER
+        and SBER encodings).
+      </para>
+
+      <para>
+        <table id="wtng-to-asn">
+          <title>&lnt; data types mapped to ASN.1 data types.</title>
+          <tgroup cols="4">
+            <thead>
+              <row>
+                <entry>&lnt; data type</entry>
+                <entry>ASN.1 data type</entry>
+                <entry>Notes</entry>
+                <entry>Example</entry>
+              </row>
+            </thead>
+            <tbody>
+              <row>
+                <entry>BIT</entry>
+                <entry>BOOLEAN</entry>
+                <entry></entry>
+                <entry>logical zero / logical one</entry>
+              </row>
+              <row>
+                <entry>NUMBER</entry>
+                <entry>INTEGER</entry>
+                <entry></entry>
+                <entry>-12345</entry>
+              </row>
+              <row>
+                <entry>STRING</entry>
+                <entry>DEFINITE LENGTH OCTET STRING</entry>
+                <entry>UTF-8 (big endian) encoded string</entry>
+                <entry>robot has moved</entry>
+              </row>
+              <row>
+                <entry>SEQUENCE</entry>
+                <entry>DEFINITE LENGTH SEQUENCE</entry>
+                <entry>sequence of BIT, NUMBER, STRING, SEQUENCE
+                  types</entry>
+                <entry></entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
+      </para>
+
+    </sect2>
+
+  </sect1>
+
+  <sect1>
+    <title>Communication protocol</title>
+
+    <para>
+      &lnt; communication protocol is used to transfer values of named
+      variables from one machine to another. Unless stated otherwise,
+      all numeric fields are transmitted in network order (big endian).
+    </para>
+
+    <para>
+      Communication protocol sends all data within messages, each of
+      which has a specific meaning and defines what the message header
+      and payload look like.
+    </para>
+
+    <para>
+      Communication protocol uses TCP/IP as a transport protocol and can
+      be used in connection oriented mode (server to client and vice
+      versa) or streaming mode (server to clients).
+    </para>
+
+    <sect2>
+      <title>Message structure</title>
+
+      <para>
+        Every message contains <emphasis>header</emphasis> and
+        <emphasis>payload</emphasis>.
+      </para>
+
+      <sect3>
+        <title>Message header</title>
+
+        <para>
+          Message header is fixed for all types of messages, it consists
+          of message length, id, timestamp and message type (see <xref
+            linkend="message-header"/> for details).
+        </para>
+
+        <para>
+          <table id="message-header">
+            <title>&lnt; message header</title>
+            <tgroup cols="3">
+              <thead>
+                <row>
+                  <entry>field</entry>
+                  <entry>length (in octets)</entry>
+                  <entry>Notes</entry>
+                </row>
+              </thead>
+              <tbody>
+                <row>
+                  <entry>message_length</entry>
+                  <entry>4 (big endian)</entry>
+                  <entry>contains size of the whole packet including payload
+                    and this field</entry>
+                </row>
+                <row>
+                  <entry>message_id</entry>
+                  <entry>4 (big endian)</entry>
+                  <entry>contains random number (requestid) that the
+                    client can fill in order to associate responses from
+                    the server with its requests. Server will copy
+                    message_id unchanged into the header of the
+                    generated response message.</entry>
+                </row>
+                <row>
+                  <entry>message_timestamp</entry>
+                  <entry>8 (big endian)</entry>
+                  <entry>timestamp in microseconds since 00:00:00 january 1,
+                    1970 UTC when the message was generated</entry>
+                </row>
+                <row>
+                  <entry>message_type</entry>
+                  <entry>2 (big endian)</entry>
+                  <entry>see <xref linkend="message-types"/> for
+                    details</entry>
+                </row>
+                <row>
+                  <entry>message_payload</entry>
+                  <entry>specified by payload itself</entry>
+                  <entry>see <xref linkend="payload"/> for details</entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
+        </para>
+
+      </sect3>
+
+      <sect3 id="payload">
+        <title>Message payload</title>
+
+        <para>
+          At the time of this writing, message payload has fixed
+          structure as specified in <xref linkend="payload"/>. It always
+          contains &sequence; of values that either represent an &array;
+          (possibly of length zero, one or more) or a &hashtable; where
+          each two consecutive values represent one row in such
+          hashtable (meaning the key-value pairs). In case of a
+          hashtable sequence should contain obviously odd number of
+          elements (see <xref linkend="array-vs-hash"/> for details).
+          The payload data can be encoded either using BER (see <xref
+            linkend="ber"/>) or rather with Simplified BER (see <xref
+            linkend="sber"/>) which is easier and faster to
+          encode/decode.
+        </para>
+
+        <para>
+          <figure id="array-vs-hash">
+            <title>message payload_data description</title>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="images/payload-logic.eps" format="EPS"/>
+              </imageobject>
+              <imageobject>
+                <imagedata fileref="images/payload-logic.png" format="PNG"/>
+              </imageobject>
+              <textobject>
+                <phrase> message payload is a &sequence; of values which
+                  either represent an &array; or &hashtable;.
+                  &hashtable; is encoded such that each two consecutive
+                  values represent a key-value pairs.  </phrase>
+              </textobject>
+            </mediaobject>
+          </figure>
+        </para>
+
+        <para>
+          <table id="message-payload">
+            <title>&lnt; message payload</title>
+            <tgroup cols="3">
+              <thead>
+                <row>
+                  <entry>field</entry>
+                  <entry>size (in octets)</entry>
+                  <entry>Notes</entry>
+                </row>
+              </thead>
+              <tbody>
+                <row>
+                  <entry>payload_length</entry>
+                  <entry>4 (big endian)</entry>
+                  <entry>contains size of the whole payload including
+                    this field</entry>
+                </row>
+                <row>
+                  <entry>payload_type</entry>
+                  <entry>2 (big endian)</entry>
+                  <entry>see <xref linkend="payload-encodings"/> for
+                    details </entry>
+                </row>
+                <row>
+                  <entry>payload_data</entry>
+                  <entry>depends on payload_type</entry>
+                  <entry>BER or SBER encoded &sequence;.  Meaning of the
+                    values transferred via this sequence is defined by
+                    each message.</entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
+        </para>
+
+        <para>
+          <table id="payload-encodings">
+            <title>&lnt; message payload encodings.</title>
+            <tgroup cols="3">
+              <thead>
+                <row>
+                  <entry>name</entry>
+                  <entry>numeric code</entry>
+                  <entry>Notes</entry>
+                </row>
+              </thead>
+              <tbody>
+                <row>
+                  <entry>BER_ENCODED_SEQUENCE</entry>
+                  <entry>0x0001</entry>
+                  <entry>see <xref
+                      linkend="ber"/> for details</entry>
+                </row>
+                <row>
+                  <entry>SBER_ENCODED_SEQUENCE</entry>
+                  <entry>0x0002</entry>
+                  <entry>see <xref
+                      linkend="sber"/> for details</entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
+        </para>
+
+      </sect3>
+
+    </sect2>
+
+    <sect2>
+      <title>Message types</title>
+
+      <para>
+        Every message is identified by its type. The following tables
+        describe the documented message types. Any message type not
+        mentioned here shall be considered as a protocol implementation
+        bug and receiving side should immediately terminate the
+        connection.
+      </para>
+
+      <para>
+        <table id="message-types">
+          <title>&lnt; message types - connection setup</title>
+          <tgroup cols="4">
+
+            <thead>
+              <row>
+                <entry>name</entry>
+                <entry>message_type</entry>
+                <entry>message_payload</entry>
+                <entry>Notes</entry>
+              </row>
+            </thead>
+
+            <tbody>
+
+              <row>
+                <entry>INVALID</entry>
+                <entry>0x00</entry>
+                <entry>payload_length = 0</entry>
+                <entry>reserved for internal use of application, must
+                  never be sent to the network, if so, such message
+                  shall cause the connection to be terminated
+                  immediately by the receiving side.</entry>
+              </row>
+
+              <row>
+                <entry>ANY</entry>
+                <entry>0xff</entry>
+                <entry>payload_length = 0</entry>
+                <entry>reserved for internal use of application, must
+                  never be sent to the network, if so, such message
+                  shall cause the connection to be terminated
+                  immediately by the receiving side.</entry>
+              </row>
+
+              <row>
+                <entry>NONE</entry>
+                <entry>0x01</entry>
+                <entry>payload_length = 0</entry>
+                <entry>can be used as a form of keep-alive. Shall be
+                  ignored by the receiving side or used as a note that
+                  sending side is alive.</entry>
+              </row>
+
+              <row>
+                <entry>CONNECT</entry>
+                <entry>0x010</entry>
+                <entry>&array; of exactly one &number; indicating the
+                  communication mode, see <xref
+                    linkend="protocol-types"/> for details</entry>
+                <entry>request for connection sent by the client to the
+                  server</entry>
+              </row>
+
+              <row>
+                <entry >PROJECT_URL</entry>
+                <entry >0x011</entry>
+                <entry>&array; of exactly one &string; containing the
+                  URL from which the project should be downloaded.
+                  </entry>
+                <entry>response to CONNECT from the server to the
+                  client, client shall continue with
+                  SELECT_VIEW</entry>
+              </row>
+
+              <row>
+                <entry >CONNECTION_REFUSED</entry>
+                <entry >0x012</entry>
+                <entry>&array; of exactly one &string; describing the
+                  reason why server can not accept the client
+                  connection.  </entry>
+                <entry>response to CONNECT from the server to the
+                  client, client shall terminate the TCP/IP
+                  connection.</entry>
+              </row>
+
+              <row>
+                <entry>DISCONNECT</entry>
+                <entry>0x013</entry>
+                <entry>payload_length = 0</entry>
+                <entry>request for connection termination, sent by the
+                  client to the server when the connection is not needed
+                  anymore.</entry>
+              </row>
+
+              <row>
+                <entry>SELECT_VIEW</entry>
+                <entry>0x020</entry>
+                <entry>&array; of exactly one &string; containing the
+                  name of the view to be monitored</entry>
+                <entry>request for view selection sent by the client
+                  to the server</entry>
+              </row>
+
+              <row>
+                <entry >AVAILABLE_VARIABLES</entry>
+                <entry >0x021</entry>
+                <entry>&hashtable; of values of type &string;, &number;
+                  or &bit;. Each row in a hashtable representing
+                  variable name and its initial value.  </entry>
+                <entry>response to SELECT_VIEW sent by the server to
+                  the client.</entry>
+              </row>
+
+              <row>
+                <entry>VIEW_NOT_SELECTED</entry>
+                <entry >0x022</entry>
+                <entry>&array; of exactly one string describing the
+                  reason why the view could not be selected.
+                </entry>
+                <entry>client can continue with another SELECT_VIEW
+                  or with DISCONNECT </entry>
+              </row>
+
+              <row>
+                <entry>UNSELECT_VIEW</entry>
+                <entry>0x023</entry>
+                <entry>payload_length = 0</entry>
+                <entry>client sends this message when he wants to select
+                  another view, e.g., before SELECT_VIEW, or when
+                  he wants to terminate the connection, .e.g, before
+                  DISCONNECT</entry>
+              </row>
+
+            </tbody>
+          </tgroup>
+        </table>
+      </para>
+
+      <para>
+        <table id="message-types-active">
+          <title>&lnt; message types - monitoring/altering variables</title>
+          <tgroup cols="4">
+            <thead>
+              <row>
+                <entry>name</entry>
+                <entry>message_type</entry>
+                <entry>message_payload</entry>
+                <entry>Notes</entry>
+              </row>
+            </thead>
+
+            <tbody>
+
+              <row>
+                <entry>MONITOR_VARIABLES</entry>
+                <entry>0x030</entry>
+                <entry>&array; of &string; values describing variables
+                  to be monitored.  Their changes will be reported via
+                  VARIABLE_VALUES.</entry>
+                <entry>request for change notification sent by the
+                  client to the server</entry>
+              </row>
+
+              <row>
+                <entry>UNMONITOR_VARIABLES</entry>
+                <entry>0x031</entry>
+                <entry>&array; of &string; values describing variables
+                  to be unmonitored.  Their changes will not be reported
+                  via VARIABLE_VALUES any further.</entry>
+                <entry>request to stop change notifications sent by the
+                  client to the server</entry>
+              </row>
+
+              <row>
+                <entry>MONITORING_VARIABLES</entry>
+                <entry>0x032</entry>
+                <entry>&array; of &string; values describing variables
+                  that are being monitored and whose changes are sent to
+                  the client.</entry>
+                <entry>confirmation sent by the server to the client as
+                  a response to MONITOR_VARIABLES or
+                  UNMONITOR_VARIABLES.  Receiving side must not assume
+                  that returned &array; will be the same one as
+                  requested by MONITOR_VARIABLES. It can be, but it's up
+                  to the sending side to decide which changes it will
+                  forward to the client.  </entry>
+              </row>
+
+              <row>
+                <entry>MODIFY_VARIABLES</entry>
+                <entry>0x040</entry>
+                <entry>&hashtable; where each row describes variable and
+                  its desired new value.</entry>
+                <entry>request for change of values of one or more
+                  variables sent by the client to the server (as a
+                  result of user interaction with the application for
+                  example).</entry>
+              </row>
+
+              <row>
+                <entry>READ_VARIABLES</entry>
+                <entry>0x041</entry>
+                <entry>&array; of &string; values describing variables
+                  whose actual values are to be sent to the
+                  client.</entry>
+                <entry>request for value of one or more variables sent
+                  by the client to the server</entry>
+              </row>
+
+              <row>
+                <entry>VARIABLE_VALUES</entry>
+                <entry>0x050</entry>
+                <entry>&hashtable; where each row describes a variable
+                  and its actual value</entry>
+                <entry>response to the MONITOR_VARIABLES, READ_VARIABLES
+                  or MODIFY_VARIABLES sent by the server to the client
+                  either periodically (in case of monitoring) or only
+                  once (in case of READing or MODIFYing certain
+                  variables).  Receiving side shall not assume that
+                  returned &hashtable; will contain all variables
+                  requested by READ_VARIABLES, MODIFY_VARIABLES or
+                  MONITOR_VARIABLES. It's up to the sending side to
+                  decide which values it will forward to the receiving
+                  side.</entry>
+              </row>
+
+            </tbody>
+          </tgroup>
+        </table>
+      </para>
+
+    </sect2>
+
+    <sect2>
+      <title>Protocol types</title>
+
+      <para>
+        &lnt; communication protocol can operate in the following two
+        modes:
+      </para>
+
+      <para>
+        Connection oriented protocol is used where full control over all
+        variables is required (e.g., alteration and visualization
+        according to the project view is necessary). Client can select the
+        view and variables defined by this view that he is
+        interested in and that he wants to monitor and possibly alter.
+      </para>
+
+      <para>
+        Streaming oriented mode is used to simply watch all variables
+        server has access to. All changes of those variables are
+        automatically forwarded to the client. Client can as well modify
+        values of those variables.  This mode puts almost no logical
+        complexity on the server and can be therefore run on
+        low-power-low-consumption devices. Note that in this mode
+        runtime has no access to the full project and is therefore
+        unavailable to visualize the variables according to the project.
+      </para>
+
+      <para>
+        <table id="protocol-types">
+          <title>&lnt; protocol type codes (used by CONNECT payload)</title>
+          <tgroup cols="3">
+            <thead>
+              <row>
+                <entry>name</entry>
+                <entry>numeric code</entry>
+                <entry>Notes</entry>
+              </row>
+            </thead>
+            <tbody>
+              <row>
+                <entry>PROTOCOL_CONNECTION_ORIENTED</entry>
+                <entry>0x0001</entry>
+                <entry>server and client must follow <xref
+                    linkend="state-diagram-connection"/></entry>
+              </row>
+              <row>
+                <entry>PROTOCOL_STREAM_ORIENTED</entry>
+                <entry>0x0002</entry>
+                <entry>server and client must follow <xref
+                    linkend="state-diagram-stream"/></entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
+      </para>
+
+    </sect2>
+
+    <sect2>
+      <title>Connection oriented protocol</title>
+
+      <para>
+        The following state diagram describes the &lnt; connection
+        oriented communication protocol. Servers and clients must comply
+        with this diagram in terms that only indicated transitions are
+        allowed. Any transition not mentioned in this diagram must cause
+        the underlying TCP/IP connection to be terminated immediately.
+      </para>
+
+      <para>
+        In the connection oriented mode client requests connection and
+        receives the url from which to download the project.
+        After downloading the project client can open it and determine
+        which view to select. After the client selects view, server
+        simply remembers it. Server will however not send any variable
+        changes to the client unless the client will require them via
+        MONITOR_VARIABLES message.
+      </para>
+
+      <para>
+        This protocol mode puts more responsibilities on the server and
+        as such should be used only on hardware that can handle such
+        complexity.
+      </para>
+
+      <para>
+        <figure id="state-diagram-connection">
+          <title>&lnt; TCP/IP connection oriented protocol (state
+            diagram)</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="images/connected-protocol.eps"
+                format="EPS"/>
+            </imageobject>
+            <imageobject>
+              <imagedata fileref="images/connected-protocol.png"
+                format="PNG"/>
+            </imageobject>
+            <textobject>
+              <phrase> State diagram describing the &lnt; TCP/IP connection
+                oriented protocol.  </phrase>
+            </textobject>
+          </mediaobject>
+        </figure>
+      </para>
+
+    </sect2>
+
+    <sect2>
+      <title>Streaming oriented protocol</title>
+
+      <para>
+        The following state diagram describes the &lnt; streaming
+        oriented communication protocol. Servers and clients must comply
+        with this diagram in terms that only indicated transitions are
+        allowed. Any transition not mentioned in this diagram must cause
+        the underlying TCP/IP connection to be terminated immediately.
+      </para>
+
+      <para>
+        In this mode client requests connection and server simply
+        answers with the hashtable of all available variables and their
+        actual (or initial) values.  Server then continues to
+        periodically send all changes of the variable values. Client can
+        alter value of certain variables by sending MODIFY_VARIABLES to
+        the server.
+      </para>
+
+      <para>
+        This protocol mode puts less responsibilities on the server and
+        as such should be used even on hardware that has limited
+        processing power.
+      </para>
+
+      <para>
+        <figure id="state-diagram-stream">
+          <title>&lnt; TCP/IP stream oriented protocol (state
+            diagram)</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="images/streamed-protocol.eps"
+                format="EPS"/>
+            </imageobject>
+            <imageobject>
+              <imagedata fileref="images/streamed-protocol.png"
+                format="PNG"/>
+            </imageobject>
+            <textobject>
+              <phrase> State diagram describing the &lnt; TCP/IP stream
+                oriented protocol.  </phrase>
+            </textobject>
+          </mediaobject>
+        </figure>
+      </para>
+
+    </sect2>
+
+  </sect1>
+
+  <appendix id="ber">
+    <title>BER description</title>
+
+    <para>
+      BER stands for Binary Encoded Representation and is used to encode
+      ASN.1 data types into stream of bits.
+    </para>
+
+    <para>
+      one octet = tag, one or more octets = length, one or more octets =
+      contents
+    </para>
+
+    <para>
+      tags: 0x1 boolean, 0x2 integer, 0x24 octet string, 0x30
+      definite-length sequence
+    </para>
+
+    <para>
+      length: 0-127 in one byte, more in more bytes with MSB set to 1
+      except the last one (encoded in big endian with base 128)
+    </para>
+
+    <para>
+      contents: 00/FF boolean, big endian integer, big endian utf-8
+      string
+    </para>
+
+    <para>
+      TBD: table of most common rules, such as for OCTET STRING,
+      INTEGER, BOOLEAN, SEQUENCE.
+    </para>
+
+  </appendix>
+
+  <appendix id="sber">
+    <title>Simplified BER description</title>
+
+    <para>
+      Simplified BER is a slightly modified and tightened version of
+      BER. Only a small subset of value types is supported and their
+      encoding is a bit restricted in order to suit most scenarios while
+      speeding up encoding and decoding process.
+    </para>
+
+    <para>
+      tag (1 octet), length (4 octets optionally), data
+    </para>
+
+    <para>
+      tag 0x1: BIT, followed by 1 octet 0x00/false or 0xff/true
+    </para>
+
+    <para>
+      tag 0x2: NUMBER, followed by 4 octets representing big endian
+      int32_t
+    </para>
+
+    <para>
+      tag 0x24: STRING, followed by 4 octets representing big endian
+      uint32_t length, followed by `length` octets of actual string
+      contents
+    </para>
+
+    <para>
+      tag 0x30: SEQUENCE, followed by 4 octets representing big endian
+      uint32_t number of items in a sequence, followed by `items` values
+      encoded with SBER
+    </para>
+
+    <para>
+      TBD: cleanup and examples.
+    </para>
+
+  </appendix>
+
+  <bibliography>
+    <title>References</title>
+
+    <biblioentry>
+      <abbrev>Layman</abbrev>
+      <authorgroup>
+        <author>
+          <firstname>Burton S.</firstname><surname>Kalisky</surname>
+        </author>
+      </authorgroup>
+      <copyright>
+        <year>1991</year>
+        <holder>RSA Data Security, Inc.</holder>
+      </copyright>
+      <title><ulink url="http://www.dcc.ufmg.br/~coelho/nm/asn.1.intro.pdf">A
+          Layman's Guide to a Subset of ASN.1, BER and DER</ulink></title>
+    </biblioentry>
+
+  </bibliography>
+
+</article>
+
+<!-- vim: set et ts=2 sw=2 tw=72: -->

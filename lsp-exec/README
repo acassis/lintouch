@@ -1,0 +1,109 @@
+
+                      Lintouch Exec Server Plugin
+                       Martin Man <mman@swac.cz>
+                      ---------------------------
+
+1. Description
+--------------
+
+Lintouch Exec Server Plugin allows you to periodically execute
+configured commands at the Lintouch Server machine and send their return
+value, standard output and standard error through variables to Lintouch
+Runtime(s).
+
+The commands are executed under the privileges of the user running
+Lintouch Server and within the default shell (/bin/sh on Unixes, cmd.exe
+under Windows).
+
+2. Requirements
+---------------
+
+Lintouch Server + Lintouch Runtime from http://lintouch.org. In order to
+create Lintouch Projects effectively you will need also Lintouch Editor.
+
+3. Installation
+---------------
+
+$ ./configure --prefix=/where/is/your/lintouch/installed
+$ make
+$ make install
+
+The last command might require the root privileges in case you've
+installed Lintouch to some system directories.
+
+4. Configuration
+----------------
+
+4.1 Plugin Properties
+---------------------
+
+    refresh
+
+        in seconds; defines how often to execute configured commands;
+        10 seconds by default
+
+    sleep
+
+        in seconds; defines how long to sleep before executing
+        next command in one batch check (used to not overflow the CPU of
+        the server machine by forking 100 processes at once); 2 seconds
+        by default
+
+4.2 Global Plugin Variables
+----------------------------
+
+    .timer : number
+
+        if defined, will contain the number of seconds remaining until
+        the next check
+
+4.3 Plugin Variables representing commands
+------------------------------------------
+
+    variable : number
+
+        will report return code of a command defined via its ``cmdline``
+        property.
+
+    variable.stdout : string
+    variable.stderr : string
+
+        if defined, will contain stdout and stderr of a command
+        belonging to a ``variable``.
+
+5. Example Connection Descriptor
+--------------------------------
+
+<project-connection type="Exec">
+    <properties>
+        <!-- re-execute all commands every 60 seconds -->
+        <property name="refresh" value="60"/>
+        <!-- sleep 2 seconds before executing each command -->
+        <property name="sleep" value="2"/>
+    </properties>
+
+    <variables>
+        <!-- global variables -->
+        <variable name=".timer" type="string"/>
+
+        <!-- commands to be executed -->
+
+        <!-- /bin/df -->
+        <variable name="disk_free" type="number">
+            <property name="cmdline" value="/bin/df"/>:
+        </variable>
+        <variable name="disk_free.stdout" type="string"/>
+        <variable name="disk_free.stderr" type="string"/>
+
+        <!-- /usr/bin/free -->
+        <variable name="mem_free" type="number">
+            <property name="cmdline" value="/usr/bin/free"/>:
+        </variable>
+        <variable name="mem_free.stdout" type="string"/>
+        <variable name="mem_free.stderr" type="string"/>
+
+    </variables>
+
+</project-connection>
+
+vim: set et tw=72:

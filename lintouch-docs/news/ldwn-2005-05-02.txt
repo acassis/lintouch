@@ -1,0 +1,75 @@
+---------------------------------------------------------------------------
+Lintouch Development Weekly News
+http://lintouch.org
+May 2nd, 2005
+---------------------------------------------------------------------------
+
+Welcome to the twentieth issue of the LDWN.
+
+It has been awhile since the last report from Lintouch Team. We believe it
+is the right time to inform you about the latest and greatest from the
+Lintouch Land.
+
+Python not needed anymore, aka Lintouch Server written in C. It took some 7
+man days to take existing Lintouch libraries _libltfsm_, _libltvariables_,
+_libltcp_, and very cool APR + APR Util[1] library to reimplement Lintouch
+Server while keeping the list of supported features untouched.
+
+    1. http://apr.apache.org
+
+Lintouch Server now takes less than 100kb of the hard drive space (without
+libc + APR + Linux itself) which makes it suitable for low-storage-space
+devices. Lintouch Server Plugins have to be written in C from now on. We
+have already reimplemented demonstration _Loopback_ and _Generator_ plugins
+and the work on _ModbusTCPMaster_ and _ModbusTCPSlave_ plugins is going on
+right now.
+
+Lintouch Editor received UI polishing related to move/resize selection
+handles used to manipulate templates. The handles are now drawn outside of
+the template area and allow templates to be resized to very small sizes.
+Moreover the handles are now always visible and can not be obscured with
+other templates. This was the case with Lintouch Editor 1.4 and it was one
+of the main drawbacks while handling complicated configurations of multiple
+overlying templates.
+
+Lintouch _SNMP_ Server Plugin will allow the Lintouch to periodically poll
+SNMP manageable devices and obtain string/numerical/boolean typed OIDs and
+visualize them with templates. The pilot net-snmp[2] based implementation is
+already available in SVN[3].
+
+    2. http://www.net-snmp.org
+    3. https://lintouch.org/repos/lintouch/lsp-snmp
+
+Lintouch _Exec_ Server Plugin[4] will allow the user to periodically execute
+configured commands at the server machine and grab their return value
+(and/or their output) much the same way Nagios[5] is doing its network checks.
+
+    4. https://lintouch.org/repos/lintouch/lsp-exec
+    5. http://www.nagios.org
+
+Both of these plugins are scheduled to be available for Linux and Windows
+within Lintouch 1.6.
+
+Lintouch Qwt Template Library is being worked on. It will make the widgets
+from Qwt Library[6] available as Lintouch Templates.
+
+    6. http://qwt.sourceforge.net
+
+Lintouch 1.6 is scheduled to be available beginning of July 2005. We are
+stepping aside from our standard 6-months-per-stable-release plan and we
+would like to get 1.6 out as soon as possible.
+
+Until then the adventurous and living-on-the-bleeding-edge-like people can
+try out our automatically generated nighly snapshots[7]. They are verified
+to compile under Linux and can be useful if you want to taste what will be
+in 1.6.
+
+    7. http://builder.lintouch.org/~mman/snapshots
+
+That's all folks for this week, if you have any comments, corrections or
+ideas to be published, feel free to contact me directly[0].
+
+    0. mailto:mman@swac.cz.
+
+vim: set et tw=76:
+$Id: template.txt,v 1.1 2003/12/04 12:42:51 mman Exp $

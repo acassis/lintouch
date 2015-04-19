@@ -1,0 +1,5 @@
+#define PREFIX "@PREFIX@"
+#define PREFIX_NATIVE "@PREFIX_NATIVE@"
+#undef PACKAGE_STRING
+#define PACKAGE_STRING "Lintouch Server (@PACKAGE@-@VERSION@ release)"
+#define TODAY "@TODAY@"

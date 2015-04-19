@@ -1,0 +1,157 @@
+---------------------------------------------------------------------------
+Lintouch Meeting Report
+http://lintouch.org
+November 29th, 2004
+---------------------------------------------------------------------------
+
+Assembled by Martin Man <mman@swac.cz>
+
+1) Font Rendering Problem
+-------------------------
+
+Lintouch determines the real font size used for text drawing by using the
+following algorithm:
+
+- Read text template rectangle R and preferred font size F from the project.
+- Take real area available at the panel for text template R' and
+  compute the desired font size F' as F' = F * R'.y / R.y
+
+It has been revealed by experiments and Hynek proved it by simple program,
+that this algorithm does not work in 100% of the cases, because:
+
+- width of the original text W which originally fits into R does not scale
+  linearly when scaling F down to F'; new width W' could easily be greater
+  than R'.x and results in text being wrapped by word boundary.
+- this happens randomly when resizing Runtime or changing zoom ratio in
+  Editor, thus producing easily reproducible inconsistent results.
+
+Hynek proposed a modification to the simple algorithm, which will, after
+computing F', determine whether W' is smaller than R'.x and if not, tries to
+make F' one or two points smaller. This should work for 100% of the cases.
+
+It has been also decided that this algorithm should be part of
+libwtngtemplates so that all templates handling fonts can make a use of it
+consistently.
+
+[ should be implemented by mman ]
+
+2) Canvas drawing optimizations
+-------------------------------
+
+Runtime and Editor (PanelView.cpp and EditablePanelView.cpp), as well as all
+the templates use at the moment various styles of canvas redrawing. These
+styles are inconsistent and usually not very efficient resulting in
+unnecessary redraws, causing Editor and Runtime being very slow on slower
+computers.
+
+Since the QCanvas is still a black box for all of us, it has been decided to
+make a research that will answer the following questions.
+
+- What should template do in order to indicate that its affected area should
+  be repainted as soon as the canvas will be redrawn?
+- How the whole panel (respectively its changed areas) should be repainted?
+
+We have the following methods available:
+
+- QCanvasItem::update()
+  should repaint changed chunks of canvas; should probably never be called
+  from template directly
+
+- QCanvas::update()
+  should repaint changed chunks of canvas; should probably be called
+  when repaint is needed, i.e., after iopinsChanged, setRect, and
+  propertiesChanged of some templates are called
+
+- QCanvas::setAllChanged()
+  marks all canvas as dirty, next QCanvas::update() should redraw whole
+  canvas.
+
+- QCanvas::setChanged( const QRect & )
+  marks given rect as dirty, next QCanvas::update() should redraw it.
+
+[ should be verified by mody using simple qcanvas program, afterwards
+necessary changes will be merged  into PanelView, EditablePanelView and
+Templates]
+
+3) Runtime Changes
+------------------
+
+After consulting the feedback from Nurnberg fair and seeing Lintouch Runtime
+in action, its use case has been reevaluated and the following changes has
+been proposed.
+
+- All tool bars will be removed, functionality of some tool buttons could be
+  published via special API to interested templates though. Maybe the only
+  one that will remain will be Panel Navigator.
+- Panel should occupy 100% of the Runtime available area and Runtime itself
+  should start in full screen mode in almost all cases.
+- Special "Service Panel" will be created. It will replace connection
+  wizard, Logger, and About
+- Another "Choose View" panel will be created. The details when and how
+  these panels will be displayed will be discussed later.
+- It will be possible to start Runtime with .ltp project directly in which
+  Runtime will fork server bound to localhost redirecting its output to
+  another special panel or Logger.
+
+4) Using Unix sockets for Server-Runtime communication
+------------------------------------------------------
+
+Hynek has reported that according to tests made by Adam unix sockets are
+faster than loopback interface on our Motorola based boards. It will
+probably not be a difficult task to support them in unix/linux based version
+of Server and Runtime.
+
+It has not yet been decided who and when should examine the situation and
+propose the final solution.
+
+5) LTMap and LTDict optimization
+--------------------------------
+
+Hynek has been looking into the (written in a hurry) code of LTMap and
+LTDict containers. He has revealed that iterating over the collection using
+famous
+
+for( int i = 0; i < collection.size(); i ++ ) process( collection[ i ] );
+
+requires O(1) lookup for the key into the QValueVector and then O(log N)
+lookup into the underlying QMap or QDict based on the retrieved key, thus
+resulting into the sub-optimal performance when traversing such collections
+using the above algorithm.
+
+[ mman should take a look at it and optimize LTMap and LTDict ]
+
+6) Moving from CVS to SVN
+-------------------------
+
+It's finally a time to move lintouch.org repositories from CVS to SVN. For
+now two repositories will be created, one containing public (i.e., GPL code)
+and the other containing the private (closed source code). Both repositories
+should have very similar structure allowing easy compilation and checkout of
+particular lintouch version (or branch) and its packaging.
+
+It has been also discussed whether Lintouch itself should have a separate
+release cycle apart from the release cycle of its core components (Runtime,
+Server, Libraries, etc.).
+
+The question of auto-building and testing has been discussed again. It must
+be easy to compile whole lintouch from source easily without downloading and
+hand compiling tons of dependencies. We will try to go autoconf way but some
+sort of lintouch-builder (resembling garnome or konstruct) will probably be
+necessary.
+
+[ mman should get some inspiration from gnome and kde projects and propose
+new release policy as well as the SVN repository structure ]
+
+7) Compilation and testing of Lintouch under Windows
+----------------------------------------------------
+
+The situation under windows is at the moment less than suboptimal, since
+whole lintouch must be compiled by specially maintained buildme.bat scripts
+semi-automatically. It has been decided to look into the mingw compiler
+suite to see what we can do with it and whether we can reuse configure &&
+make && make install process under windows as well as under linux.
+
+[ jbar will do the experiments and will report the results ]
+
+vim: set et tw=76:
+$Id: report-2004-11-29.txt,v 1.1 2004/11/30 11:38:29 mman Exp $

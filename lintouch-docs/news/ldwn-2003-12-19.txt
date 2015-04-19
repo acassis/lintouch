@@ -1,0 +1,77 @@
+---------------------------------------------------------------------------
+Lintouch Development Weekly News
+http://lintouch.org
+December 19th, 2003
+---------------------------------------------------------------------------
+
+Welcome to the third issue of the Lintouch Development Weekly Newsletter.
+This is the last issue for this year, and I (as the editor) of this
+newsletter would like to wish to all of you merry Christmas and happy new
+year 2004.
+
+Transition to pkg-config[1] took place during the last week[2]. On unix it's
+quite common when compiling a piece of software to have all the dependencies
+resolved automatically, i.e., if your software depends on library A, the
+configuration process of your software is able to determine whether you have
+library A installed, whether it does have the right version, where it is
+installed, etc. Though this configuration process is well managed using
+autoconf[3] and automake, one must usually invest quite some effort to
+provide detection macros for its own software. That's the area where
+pkg-config helps and we are proud to use it as the default detection
+mechanism for all lintouch libraries.
+
+    1. http://freshmeat.net/projects/pkgconfig/
+    2. http://lintouch.org/pipermail/lintouch-dev/2003-December/000251.html
+    3. http://www.gnu.org/software/autoconf/
+
+New stable releases for swaloun-framework[4], libwtngio, libwtngfsm,
+libwtngvars, libwtngzip and libwtngvfs[5] are available for download. The
+most interesting ones are probably libwtngzip and libwtngvfs which provide
+uniform access to .zip archive and which are core components for project
+loading/saving in our Runtime and Editor implementations.
+
+   4. http://lintouch.org/blog/projects#swaloun
+   5. http://lintouch.org/blog/projects/lintouch
+
+Lintouch Server written in Python[6]? Though not documented in a mailing
+list, we discussed the possibility to write the Lintouch Server in Python
+while merging in timely-critical parts as Python extensions written
+in pure C. Basic idea looks cool and from the real point of view we have to
+provide swig[7] generated extensions for our basic lowest level libraries
+such as libwtngio (BIT, NUMBER and STRING values handling), libwtngvars
+(variables defining requested/real value which mimic PLC-like I/O addresses)
+and libwtngcp (Lintouch TCP/IP communication protocol flow[8]).
+
+   6. http://www.python.org
+   7. http://www.swig.org
+   8. http://lintouch.org/cvs/lintouch/docs/specs/lintouch-cp.html
+
+Library of legacy Wintouch templates almost complete. Patrik is now working
+on Rectangular and Round skin for Button Template. The features that are
+still missing due to incomplete design (work in progress) are the hypertext
+capabilities (click-to-open-another-panel) and reaction to IOPin value
+changes.
+
+jbar started to profile the ProjectAsyncBuilder[9] to have some real numbers
+for huge projects rather sooner than later. However we still lack any
+real-world project with lot of panels and templates so he meanwhile used the
+dummy project generated automatically using Ruby[10] by Patrik for testing
+purposes[11].
+
+    9. cvs:lt.o:lintouch/libraries/libwtngproject/src/ProjectAsyncBuilder.cpp
+    10. http://www.ruby-lang.org
+    11. cvs:swac.cz:lintouch/scratchpad/template_farm/tests/test-project/
+
+Note that references [9] and [11] point to the CVS managed area where
+special developer access (which developers have and know how to use) is
+needed.
+
+Since we have the Christmas and holiday time, enjoy your families and
+friends and snow and love and don't expect the new issue before the next
+year comes. Again any comments, corrections and ideas to be published point
+directly to me[0].
+
+    0. mailto:mman@swac.cz.
+
+vim: set et tw=76:
+$Id: ldwn-2003-12-19.txt,v 1.2 2003/12/19 16:16:21 mman Exp $

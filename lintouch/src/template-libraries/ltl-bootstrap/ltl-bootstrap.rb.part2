@@ -1,0 +1,69 @@
+LTL_BOOTSTRAP_DATA
+
+def usage
+  puts "Lintouch Template Library bootstraper\n" +
+    "Usage: ltl-bootstrap.rb <new-library-name>"
+end
+
+## main
+if ARGV.size != 1
+  usage()
+  exit -1
+end
+
+ltln = File.basename(ARGV[0])
+ltlp = File.dirname(ARGV[0])
+
+unless ltln.include?("ltl-")
+  ltln = "ltl-#{ltln}"
+end
+
+ltlcn = "LTL#{ltln[4..-1].capitalize}"
+ltlfp = "#{ltlp}/#{ltln}"
+
+##TODO: check the name
+if File.exist?(ltlfp)
+  puts "#{ltlfp} already exist. Can't continue."
+  exit -1
+end
+
+f = Tempfile.new('ltl-bootstrap.tar.bz2')
+tfn = f.path
+f.write(Base64.decode64(data))
+f.close
+
+# Dir.mkdir(ltlfp)
+unless system("install -d #{ltlfp}")
+  puts "Can't create the destination directory"
+  exit -1
+end
+
+unless system("tar -xjf #{tfn} -C #{ltlfp}")
+  puts "An error has occured during bootstrap process"
+  exit -1
+end
+
+begin
+  Dir.chdir(ltlfp)
+
+  `find . -name '*ltl-bootstrap*'`.split("\n").each do |f|
+    File.rename(f, f.sub('ltl-bootstrap',ltln))
+  end
+
+  `find . -name 'LTLBootstrap*'`.split("\n").each do |f|
+    File.rename(f, f.sub('LTLBootstrap',ltlcn))
+  end
+
+  `grep -rli bootstrap .`.split("\n").each do |f|
+    unless system("sed -s -i -e 's/ltl-bootstrap/#{ltln}/g' #{f}") &&
+      system("sed -s -i -e 's/LTLBootstrap/#{ltlcn}/g' #{f}") &&
+      system("sed -s -i -e 's/LTLBOOTSTRAP/#{ltlcn.upcase}/g' #{f}")
+
+      puts "An error occured while finalizing bootstrap process!"
+      return -1
+    end
+  end
+rescue => e
+  puts "#{e.message}"
+  exit -1
+end

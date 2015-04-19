@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<project>
+
+    <project-info>
+        <author>Jiri Barton</author>
+        <version>0.8</version>
+        <date>2003-11-16</date>
+        <shortdesc>Bacon</shortdesc>
+        <longdesc>Monitoring the process of smoking bacon.</longdesc>
+    </project-info>
+
+    <project-connections>
+        <connection name="thermometer" src="Thermometer.xml"/>
+        <connection name="ukrainian" src="Ukrainian.xml"/>
+    </project-connections>
+    
+    <project-views>
+        <view name="chimney" src="View.xml"/>
+    </project-views>
+    
+    <project-template-libraries>
+	<template-library name="mytemplatelibrary"/>
+    </project-template-libraries>
+
+</project>
+
+

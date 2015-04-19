@@ -1,0 +1,100 @@
+
+                      Lintouch Lua Server Plugin
+                       Martin Man <mman@swac.cz>
+                      ---------------------------
+
+1. Description
+--------------
+
+Lintouch Lua Server Plugin allows you to prototype a server plugin code
+in a scripting language called Lua (see http://www.lua.org).
+
+Just write a Lua script using the API briefly described bellow, add it
+as a resource to the Lintouch Project, create new Lua connection while
+specifying this resource as its only property (see example projects
+contained within examples/ subdirectory)
+
+2. Requirements
+---------------
+
+Lintouch Server + Lintouch Runtime from http://lintouch.org. In order to
+create Lintouch Projects effectively you will need also Lintouch Editor.
+
+Lua in version 5.0.2 is part of this plugin and gets linked in
+statically so you are not required to install Lua separately.
+
+3. Installation
+---------------
+
+$ ./configure --prefix=/where/is/your/lintouch/installed
+$ make
+$ make install
+
+The last command might require the root privileges in case you've
+installed Lintouch to some system directories.
+
+4. Configuration
+----------------
+
+4.1 Plugin Properties
+---------------------
+
+    script
+
+        the lua script to be executed; 'script.lua' by default; will be
+        extracted from the project resources
+
+5. Lua API
+----------
+
+The following methods/variables are available from your Lua script.
+
+- variables
+
+  is a global Lua table of all variables managed by the plugin; the
+  table is indexed by variable name and contains lightweight userdata
+  representing each variable
+
+- should_run()
+
+  returns true as long as the plugin should be running
+
+- lock_requested_values()
+- trylock_requested_values()
+- unlock_requested_values()
+
+  these functions provide access to the requested values mutex
+
+- lock_real_values()
+- trylock_real_values()
+- unlock_real_values()
+
+  these functions provide access to the real values mutex
+
+- wait_for_new_requested_values( time_in_useconds )
+
+  sleep for given amount of time while waiting whether the new requested values
+  arrive; requested values should be locked beforehand; returns true when new
+  requested values are available
+
+- get_requested_value( var )
+- set_requested_value( var, val )
+- is_requested_value_dirty( var )
+
+  these functions provide access to the internals of requested value of a
+  variable
+
+- get_real_value( var )
+- set_real_value( var, val )
+- is_real_value_dirty( var )
+
+  these functions provide access to the internals of real value of a variable
+
+- sync_real_values()
+- sync_requested_values()
+
+  clean dirty flags and synchronize real/requested values with the rest of the
+  world
+
+vim: set et tw=72:
+

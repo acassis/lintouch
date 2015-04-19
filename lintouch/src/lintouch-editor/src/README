@@ -1,0 +1,8 @@
+This directory should contain all editor related source code files, i.e.,
+
+*Base.ui
+main.cpp
+
++
+
+classes derived from *Base.ui

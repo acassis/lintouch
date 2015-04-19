@@ -1,0 +1,2 @@
+#define PREFIX "@prefix@"
+#define PREFIX_NATIVE "@PREFIX_NATIVE@"

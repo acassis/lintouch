@@ -1,0 +1,13 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Name=Lintouch Runtime
+Comment=Start Lintouch Runtime for given Lintouch Project
+Exec=lintouch-runtime %f
+Terminal=false
+Type=Application
+Icon=lintouch.png
+StartupNotify=false
+Categories=Application;Engineering;Qt;System;
+MimeType=application/x-lintouch-project
+

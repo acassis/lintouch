@@ -1,0 +1,73 @@
+
+                      Lintouch, the opensource HMI
+                          http://lintouch.org
+                    ================================
+
+1. What is Lintouch
+-------------------
+Lintouch is an opensource HMI software. It lets you design user
+interfaces for process automation. Lintouch runs on most popular
+hardware and software platforms, is lightweight and easily extensible.
+
+Lintouch architecture allows you to develop your own connectivity
+plugins and visualization objects.
+
+2. Installing Lintouch from binaries
+------------------------------------
+
+Latest stable release of Lintouch is always available in binary format for
+various operating systems (Windows and Linux always supported). To
+download binaries for your operating system please visit
+http://lintouch.org/static/download.html.
+
+3. Installing Lintouch from sources
+-----------------------------------
+
+Lintouch can be compiled easily from sources under a unix-like operating
+system using the magic triple:
+
+$ ./configure
+$ make
+$ make install
+
+This sequence will install all Lintouch related files into the default
+prefix /usr/local. You can change this by invoking:
+
+$ ./configure --prefix=/my/path
+
+Note that Lintouch installs several shared libraries and your linker
+must be able to find them. If you install Lintouch to a non-system
+directory, follow ld.so(8) manual page to set up LD_LIBRARY_PATH,
+LD_RUN_PATH, or /etc/ld.so.conf properly. Please adopt these
+instructions accordingly if you are using other unix-like (but not
+linux) operating system. In our example above:
+
+$ export LD_LIBRARY_PATH=/my/path/lib:$LD_LIBRARY_PATH
+
+will indicate that the ld.so linker should look for shared libraries
+also into /my/path/lib.
+
+3.1 Prerequisites
+------------------
+
+In order to compile lintouch from sources you will need several external
+packages to be installed. Please install them in the following order:
+
+(the following ones should be part of your distribution)
+
+  1. pkg-config: http://www.freedesktop.org/software/pkgconfig/
+  2. CppUnit: http://cppunit.sf.net
+  3. Doxygen: http://www.doxygen.org
+  4. APR: http://apr.apache.org
+  5. Qt: http://www.trolltech.com/qt
+
+4. Getting involved
+-------------------
+
+Lintouch is an opensource project and community effort and we always
+welcome feedback, bug reports and feature requests. If you want to get
+involved or just observe how Lintouch is progressing, feel free to join
+our discussion at IRC or via mailing lists. The detailed instructions
+can be found at http://lintouch.org.
+
+vim: set et tw=72:

@@ -1,0 +1,247 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>ProjectPanelsDialogBase</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>ProjectPanelsDialogBase</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>452</width>
+            <height>178</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>$(filename_without_extension/View) Panels - Lintouch Editor</string>
+    </property>
+    <property name="focusPolicy">
+        <enum>NoFocus</enum>
+    </property>
+    <grid>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <widget class="QLayoutWidget" row="0" column="0">
+            <property name="name">
+                <cstring>layout7</cstring>
+            </property>
+            <vbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QListView">
+                    <column>
+                        <property name="text">
+                            <string>Panel</string>
+                        </property>
+                        <property name="clickable">
+                            <bool>false</bool>
+                        </property>
+                        <property name="resizable">
+                            <bool>true</bool>
+                        </property>
+                    </column>
+                    <property name="name">
+                        <cstring>m_panels</cstring>
+                    </property>
+                    <property name="hScrollBarMode">
+                        <enum>AlwaysOff</enum>
+                    </property>
+                    <property name="selectionMode">
+                        <enum>Single</enum>
+                    </property>
+                    <property name="allColumnsShowFocus">
+                        <bool>true</bool>
+                    </property>
+                    <property name="resizeMode">
+                        <enum>LastColumn</enum>
+                    </property>
+                </widget>
+                <widget class="QLayoutWidget">
+                    <property name="name">
+                        <cstring>layout5</cstring>
+                    </property>
+                    <hbox>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <widget class="QPushButton">
+                            <property name="name">
+                                <cstring>m_buttonNew</cstring>
+                            </property>
+                            <property name="text">
+                                <string>New</string>
+                            </property>
+                        </widget>
+                        <widget class="QPushButton">
+                            <property name="name">
+                                <cstring>m_buttonDuplicate</cstring>
+                            </property>
+                            <property name="enabled">
+                                <bool>false</bool>
+                            </property>
+                            <property name="text">
+                                <string>Duplicate</string>
+                            </property>
+                        </widget>
+                        <widget class="QPushButton">
+                            <property name="name">
+                                <cstring>m_buttonUp</cstring>
+                            </property>
+                            <property name="enabled">
+                                <bool>false</bool>
+                            </property>
+                            <property name="text">
+                                <string>Up</string>
+                            </property>
+                        </widget>
+                        <widget class="QPushButton">
+                            <property name="name">
+                                <cstring>m_buttonDown</cstring>
+                            </property>
+                            <property name="enabled">
+                                <bool>false</bool>
+                            </property>
+                            <property name="text">
+                                <string>Down</string>
+                            </property>
+                        </widget>
+                        <widget class="QPushButton">
+                            <property name="name">
+                                <cstring>m_buttonDelete</cstring>
+                            </property>
+                            <property name="enabled">
+                                <bool>false</bool>
+                            </property>
+                            <property name="text">
+                                <string>Delete</string>
+                            </property>
+                        </widget>
+                    </hbox>
+                </widget>
+                <widget class="QLayoutWidget">
+                    <property name="name">
+                        <cstring>layout1</cstring>
+                    </property>
+                    <hbox>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <spacer>
+                            <property name="name">
+                                <cstring>spacer1</cstring>
+                            </property>
+                            <property name="orientation">
+                                <enum>Horizontal</enum>
+                            </property>
+                            <property name="sizeType">
+                                <enum>Expanding</enum>
+                            </property>
+                            <property name="sizeHint">
+                                <size>
+                                    <width>40</width>
+                                    <height>20</height>
+                                </size>
+                            </property>
+                        </spacer>
+                        <widget class="QPushButton">
+                            <property name="name">
+                                <cstring>m_buttonClose</cstring>
+                            </property>
+                            <property name="text">
+                                <string>&amp;Close</string>
+                            </property>
+                            <property name="accel">
+                                <string>Alt+C</string>
+                            </property>
+                        </widget>
+                    </hbox>
+                </widget>
+            </vbox>
+        </widget>
+    </grid>
+</widget>
+<connections>
+    <connection>
+        <sender>m_buttonClose</sender>
+        <signal>clicked()</signal>
+        <receiver>ProjectPanelsDialogBase</receiver>
+        <slot>close()</slot>
+    </connection>
+    <connection>
+        <sender>m_buttonNew</sender>
+        <signal>clicked()</signal>
+        <receiver>ProjectPanelsDialogBase</receiver>
+        <slot>newPanelSlot()</slot>
+    </connection>
+    <connection>
+        <sender>m_buttonDelete</sender>
+        <signal>clicked()</signal>
+        <receiver>ProjectPanelsDialogBase</receiver>
+        <slot>deletePanelSlot()</slot>
+    </connection>
+    <connection>
+        <sender>m_buttonDuplicate</sender>
+        <signal>clicked()</signal>
+        <receiver>ProjectPanelsDialogBase</receiver>
+        <slot>duplicatePanelSlot()</slot>
+    </connection>
+    <connection>
+        <sender>m_panels</sender>
+        <signal>itemRenamed(QListViewItem*,int)</signal>
+        <receiver>ProjectPanelsDialogBase</receiver>
+        <slot>itemRenamedSlot(QListViewItem*,int)</slot>
+    </connection>
+    <connection>
+        <sender>m_panels</sender>
+        <signal>selectionChanged()</signal>
+        <receiver>ProjectPanelsDialogBase</receiver>
+        <slot>selectionChangedSlot()</slot>
+    </connection>
+    <connection>
+        <sender>m_buttonUp</sender>
+        <signal>clicked()</signal>
+        <receiver>ProjectPanelsDialogBase</receiver>
+        <slot>panelUpSlot()</slot>
+    </connection>
+    <connection>
+        <sender>m_buttonDown</sender>
+        <signal>clicked()</signal>
+        <receiver>ProjectPanelsDialogBase</receiver>
+        <slot>panelDownSlot()</slot>
+    </connection>
+    <connection>
+        <sender>m_panels</sender>
+        <signal>doubleClicked(QListViewItem*)</signal>
+        <receiver>ProjectPanelsDialogBase</receiver>
+        <slot>panelDoubleClickedSlot(QListViewItem*)</slot>
+    </connection>
+    <connection>
+        <sender>m_panels</sender>
+        <signal>returnPressed(QListViewItem*)</signal>
+        <receiver>ProjectPanelsDialogBase</receiver>
+        <slot>panelDoubleClickedSlot(QListViewItem*)</slot>
+    </connection>
+</connections>
+<tabstops>
+    <tabstop>m_panels</tabstop>
+    <tabstop>m_buttonNew</tabstop>
+    <tabstop>m_buttonUp</tabstop>
+    <tabstop>m_buttonDown</tabstop>
+    <tabstop>m_buttonDuplicate</tabstop>
+    <tabstop>m_buttonDelete</tabstop>
+    <tabstop>m_buttonClose</tabstop>
+</tabstops>
+<slots>
+    <slot access="protected">newPanelSlot()</slot>
+    <slot access="protected">duplicatePanelSlot()</slot>
+    <slot access="protected">deletePanelSlot()</slot>
+    <slot access="protected">itemRenamedSlot( QListViewItem* i, int col )</slot>
+    <slot access="protected">selectionChangedSlot()</slot>
+    <slot access="protected">panelUpSlot()</slot>
+    <slot access="protected">panelDownSlot()</slot>
+    <slot access="protected">panelDoubleClickedSlot(QListViewItem*)</slot>
+</slots>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

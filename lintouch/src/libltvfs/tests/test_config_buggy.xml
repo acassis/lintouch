@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!--
+  - This is the example configuration file with various features used.
+  - This file is intentionally buggy, so that we can test that our builder
+  - correctly reports parsing errors
+  -->
+<test_config>
+	<parameters>
+		<!-- note the missing closing slash / below -->
+		<parameter name="paramS" value="value">
+	</parameters>
+</test_config>

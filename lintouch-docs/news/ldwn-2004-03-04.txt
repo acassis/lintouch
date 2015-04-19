@@ -1,0 +1,56 @@
+---------------------------------------------------------------------------
+Lintouch Development Weekly News
+http://lintouch.org
+March 4th, 2004
+---------------------------------------------------------------------------
+
+Welcome to the ninth issue of the Lintouch Development Weekly Newsletter.
+
+I'm not going to talk too much today, things are pretty clear. Lintouch 1.0
+has been silently released[1]. The good thing is that it's pretty stable.
+Runtime and the Server both run on Windows and Linux without problems.
+Everything has been packaged and can be installed by point-and-clicking[2]
+under windows or apt-get installing[3] under debian.
+
+    1. http://lintouch.org/pipermail/lintouch-announce/2004-March/000011.html
+    2. http://lintouch.org/win32
+    3. http://lintouch.org/debian
+
+Another good thing is that Runtime has been fully localized to Czech
+Language[4]. More translations are waiting for translators. With QT Linguist
+it's real peace of cake.
+
+    4. http://lintouch.org/pipermail/lintouch-cvs/2004-February/001175.html
+
+Being tired of simultaneous ICQ conversations we got really geeky and opened
+a Lintouch Development IRC Channel. It's much more fun to talk in a huge
+group and it has proven to be a rally useful communication medium. You can
+find the details in my announcing email[5] or on the web[6].
+
+    5. http://lintouch.org/pipermail/lintouch-dev/2004-February/000420.html
+    6. http://lintouch.org/blog/documentation#irc
+
+The IRC channel helped us to fix the two big and for a long time hidden
+bugs. One of them being the incorrect exception raising from Python C
+Extensions, courtesy goes to Jiri for hunting it down and providing
+explanation[7]. The other was well known (not to us) problem with
+non-deterministic initialization of static C++ members, here big thanx
+goes to Hynek for revealing it in the very last moment and proposing a very
+elegant solution[8] (bug never didn't reproduce itself under Linux, but did
+thankfully reproduce itself under Windows very often).
+
+    7. http://lintouch.org/pipermail/lintouch-dev/2004-February/000416.html
+    8. http://lintouch.org/pipermail/lintouch-dev/2004-February/000435.html
+
+Well, and for the historical record, here is the very first screenshot of
+Lintouch Runtime running under the Windows[9].
+
+    9. http://lintouch.org/pipermail/lintouch-dev/2004-February/000452.html
+
+That's all folks for this week, if you have any comments, corrections or
+ideas to be published, feel free to contact me directly[0].
+
+    0. mailto:mman@swac.cz.
+
+vim: set et tw=76:
+$Id: ldwn-2004-03-04.txt,v 1.1 2004/03/04 20:45:22 mman Exp $

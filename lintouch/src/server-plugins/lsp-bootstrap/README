@@ -1,0 +1,56 @@
+                      Lintouch Server Plugin boostraper
+                      =================================
+                       Patrik Modesto <modesto@swac.cz>
+
+1. Introduction
+---------------
+  This directory contains the minimum files needed for starting a new server
+  plugin development. The sample plugin contains a Loopback that may be used
+  as an example or may be overwritten completely.
+
+2. Requirements
+---------------
+  Before you start you need these programs/tools:
+  - Ruby 1.8 or newer
+  - make, install, sed, grep, tar, bzip2, chmod
+
+  When you have all above programs/tools, you can try run `make`. If all goes
+  well, you shou see this:
+  -----8<---------8<--------
+  $ make
+  (cd src; tar -cjf ../lsp-bootstrap.tar.bz2 *)
+  cat lsp-bootstrap.rb.part1 > lsp-bootstrap.rb
+  ruby -e 'require "base64"; puts Base64.encode64($<.read)' lsp-bootstrap.tar.bz2 >> lsp-bootstrap.rb
+  cat lsp-bootstrap.rb.part2 >> lsp-bootstrap.rb
+  chmod +x lsp-bootstrap.rb
+  -----8<---------8<--------
+
+  Now there should be two new files created: lsp-bootstrap.tar.bz2 and
+  executable lsp-bootstrap.rb. Only the later is needed for bootstraping new
+  server plugin.
+
+3. Usage
+--------
+  Lets start with an example:
+  -----8<---------8<--------
+  $ ./lsp-bootstrap.rb lsp-foo
+  -----8<---------8<--------
+  This simple example shows how to create a new server plugin called
+  "lsp-foo" in current directory.
+
+  To create the "lsp-foo" for example in ~/work/ directory, you type this:
+  -----8<---------8<--------
+  $ ./lsp-bootstrap.rb ~/work/lsp-foo
+  -----8<---------8<--------
+
+  NOTE: Server plugins are named like "lsp-foo" and not just "foo" by
+  design of the Lintouch, so if you leave the "lsp-" prefix, it is added
+  automaticaly.
+
+  If you run just lsp-bootstrap.rb without parameters, it shows basic usage
+  information:
+  -----8<---------8<--------
+  $ ./lsp-bootstrap.rb
+  Lintouch Server Plugin bootstraper
+  Usage: lsp-bootstrap.rb <new-library-name>
+  -----8<---------8<--------

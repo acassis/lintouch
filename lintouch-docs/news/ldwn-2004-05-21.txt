@@ -1,0 +1,60 @@
+---------------------------------------------------------------------------
+Lintouch Development Weekly News
+http://lintouch.org
+May 21st, 2004
+---------------------------------------------------------------------------
+
+Welcome to the twelfth (rather short) issue of the Lintouch Weekly Newsletter.
+
+Jbar reworked the production line demo for the Lintouch Demo CD. He has
+modified the layout of buttons, improved the overall consistency and made
+the automatic/manual control mode very logical. I've prepared a screenshot
+of the demo[1]. The code is in the swac CVS for now, but I hope it is
+already prepared to be uploaded to the lintouch.org for public consumption.
+
+    1. http://www.swac.cz/~mman/prodline.png
+
+Lintouch Editor release has been postponed until June 1st. It is mainly due
+to the fact that Editor does not handle transparent templates well and
+Shivaji wants the feature to be definitely implemented before 1.0 can take
+place. Editor tutorial must be also written so that we have a usable piece
+of code.
+
+The main focus during this week was on the Lintouch QTE porting. In order to
+make Lintouch Runtime compile & test & run without problems several steps
+has been taken.
+
+New version of _swac-autofiles_ with simplified QT detection has been
+released[2]. _Swaloun Framework_[3] has been patched and released so that it
+can now be compiled against regular QT as well as QT Embedded. And finally
+code within Lintouch CVS HEAD has been patched and tested to compile against
+QTE successfully. A side note is that one must use _cppunit_ without RTTI
+support to compile testcases for all libraries. A recompiled debian packages
+has been uploaded[4] to the lintouch.org debian repository[5].
+
+    2. http://lintouch.org/blog/projects#swac-autofiles
+    3. http://lintouch.org/blog/projects#swaloun-framework
+    4. http://lintouch.org/pipermail/lintouch-cvs/2004-May/001744.html
+    5. http://lintouch.org/debian
+
+Runtime can be now compiled from CVS HEAD against QT Embedded and all
+testcases pass. One issue still remains and Patrik is investing a lot of
+time to reveal the problem. Texts are not being drawn at all on the panels.
+The panel code uses _QCanvas_, _QPainter_ and _QFont_ classes to do the
+text drawing and it seems that these classes do not want to collaborate
+within Lintouch with QT Embedded. Here is the screenshot which shows the
+problem[6].
+
+    6. http://www.swac.cz/~modesto/screenshots/ltqteiv.png
+
+Last minute info is that Patrik just found an application which uses Texts
+on Canvas under QT Embedded and this application works flawlessly.
+Seems that the problem is purely on the Lintouch side.
+
+That's all folks for this week, if you have any comments, corrections or
+ideas to be published, feel free to contact me directly[0].
+
+    0. mailto:mman@swac.cz.
+
+vim: set et tw=76:
+$Id: ldwn-2004-05-21.txt,v 1.1 2004/05/21 08:27:36 mman Exp $

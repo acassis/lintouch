@@ -1,0 +1,29 @@
+/* XPM */
+static char *Dense1Pattern_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"100 20 3 1",
+"  c black",
+". c gray100",
+"X c None",
+/* pixels */
+"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+"XXXXX                                                                                          XXXXX",
+"XXXXX                                                                                          XXXXX",
+"XXXXX                                                                                          XXXXX",
+"XXXXX X   X   X   X   X   X   X   X   X   X   X   X   X   X   X   X   X   X   X   X   X   X   XXXXXX",
+"XXXXX                                                                                          XXXXX",
+"XXXXX                                                                                          XXXXX",
+"XXXXX                                                                                          XXXXX",
+"XXXXX X   X   X   X   X   X   X   X   X   X   X   X   X   X   X   X   X   X   X   X   X   X   XXXXXX",
+"XXXXX                                                                                          XXXXX",
+"XXXXX                                                                                          XXXXX",
+"XXXXX                                                                                          XXXXX",
+"XXXXX X   X   X   X   X   X   X   X   X   X   X   X   X   X   X   X   X   X   X   X   X   X   XXXXXX",
+"XXXXX                                                                                          XXXXX",
+"XXXXX                                                                                          XXXXX",
+"XXXXX                                                                                          XXXXX",
+"XXXXX X   X   X   X   X   X   X   X   X   X   X   X   X   X   X   X   X   X   X   X   X   X   XXXXXX",
+"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+};

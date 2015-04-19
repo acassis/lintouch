@@ -1,0 +1,4 @@
+server-tester.ltp can be used to test the server functionality with dynamic
+loading of plugins disabled. Just comment the code that parses .ltp project and
+instantiates loaded plugin and uncoment the fragment that creates "generator"
+and "loopback" builtin plugins.

@@ -1,0 +1,450 @@
+Lintouch Coding Style
+
+S.W.A.C. Bohemia s.r.o., Strakonice, Czech Republic
+
+S.W.A.C. GmbH, München, Germany
+
+Ing. Martin Man
+
+<mman@swac.cz>
+
+Copyright © 2001-2005 Martin Man
+
+Copyright © 2001-2005 S.W.A.C. Bohemia s.r.o., Strakonice, Czech Republic
+
+Copyright © 2001-2005 S.W.A.C. GmbH, Münich, Germany
+
+No part of this publication may be reproduced, stored in a retrieval system, or
+transmitted, in any form or by means, electronic, mechanical, photocopying, or
+otherwise, without prior written permission of the publisher.
+
+The copyright holders make no warranty or representation, either express or
+implied, with respect to this manual, its quality, accuracy, merchantability,
+or fittness for a particular purpose. As a result this manual is sold "AS IS",
+and you, the purchaser, are assuming the entire risk as to its quality and
+accuracy.
+
+June 2004
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│Revision History                                                             │
+├───────────────────────────────┬───────────────────────────────────┬─────────┤
+│Revision 1.2.1                 │August 17th 2004                   │mman     │
+├───────────────────────────────┴───────────────────────────────────┴─────────┤
+│Make docbook source valid again.                                             │
+├───────────────────────────────┬───────────────────────────────────┬─────────┤
+│Revision 1.2                   │July 11th 2004                     │mman     │
+├───────────────────────────────┴───────────────────────────────────┴─────────┤
+│Fix English to be more comprehensible. Based on jbar's proposals. Add        │
+│reference to PEP7 and PEP8.                                                  │
+├───────────────────────────────┬───────────────────────────────────┬─────────┤
+│Revision 1.1                   │July 4th 2004                      │mman     │
+├───────────────────────────────┴───────────────────────────────────┴─────────┤
+│Add technical notes to clarify that we are not documentation writing guide,  │
+│not unit tests writing guide and that we don't require VIM control lines to  │
+│spread around without testing. Add section about required unit testing.      │
+├───────────────────────────────┬───────────────────────────────────┬─────────┤
+│Revision 1.0                   │June 27th 2004                     │mman     │
+├───────────────────────────────┴───────────────────────────────────┴─────────┤
+│Initial revision.                                                            │
+└─────────────────────────────────────────────────────────────────────────────┘
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Table of Contents
+
+1. Introduction
+
+    1.1. Why Coding Conventions at all?
+    1.2. Other sources of information
+
+2. Source code formating
+
+    2.1. File header and footer
+    2.2. Line length
+    2.3. Tabs and spaces
+    2.4. Formating opening/closing brackets
+    2.5. Breaking long lines
+
+3. Source code documentation
+4. Code Testing
+5. Naming conventions and other design issues
+A. Configuring your editor
+
+    A.1. Achieving proper indentation and line length
+    A.2. Showing tabs and end of lines
+    A.3. Displaying trailing spaces
+
+Abstract
+
+This article describes the source code requirements used by Lintouch Project.
+Discussed are coding, naming and documentation style conventions for C, C++,
+Python, and XML languages. While this document does not attempt to be a
+once-for-all definitive guide, it aims at being helpful for those who want to
+write code in the way that encourages others to read and use it.
+
+1. Introduction
+
+1.1. Why Coding Conventions at all?
+
+Writing good source code in any programming language requires a lot of skills.
+Not only the programming language related skills but also communication skills.
+The source code is a product. It tells a lot about its author and about the
+problem the code is trying to solve.
+
+While the code can reveal how well you know the problem domain, and algorithms
+and data structures design, the form (look of the code) reveals how good you
+are at communication: it tells about you in which ways you behave when entering
+a luxury restaurant, how patient you will be while explaining something to your
+kids, how tolerant you will be when talking with your friends about music.
+
+When people write a source code, they usually put in lot of effort and
+creativity. For some reason programmers are weird animals that always think
+their creativity produces state-of-art results. It is not always like that.
+
+Becoming a part of bigger project (instead of building seats for your own
+garden) requires adoption of certain standards. You have to always remember
+what are your goals:
+
+  ● You want your code to be part of the project forever. You don't want it to
+    be ripped off just because nobody was able to read and understand it.
+
+  ● You want other people to use your code, you want to encourage them, you
+    want to be proud of your results.
+
+  ● You want yourself to be considered integral part of the team.
+
+Creating a coding style means agreeing on a set of rules that all the members
+of team are willing to follow. And if they are not willing to follow they
+should bring in valuable comments so that consensus can be achieved.
+
+Since a lot of code has been already written in the World, there exist some
+agreements on how it should be written, no matter how big is your screen, which
+fancy refactoring-capable GUI IDE you are using and what your other current
+personal preferences are.
+
+This article tries to summarize these agreements.
+
+1.2. Other sources of information
+
+Other documents you can read include Linux Kernel Coding Style and GNU Coding
+Standards. While I am not going to comment on their quality nor their
+commitment to Lintouch, I still encourage you to read them just to get the "big
+picture".
+
+When writing pure C code or Python code, the PEP7 - Style Guide for C code and
+PEP8 - Style Guide for Python code should be never missing in your library.
+
+2. Source code formating
+
+2.1. File header and footer
+
+Every file should contain an appropriate header and footer. They are included
+usually as comments. The reasons for an appropriate header and footer are:
+
+  ● We want to know the author of the file and the date when the file was
+    originally created. We can not assume simply we would be always looking at
+    the file in the filesystem context (file can be printed, attached to email,
+    ...).
+
+  ● We want to know the legal license that covers redistribution and
+    reproduction of the file's content.
+
+  ● We want to know some facts from the source code management system (such as
+    CVS or Subversion).
+
+Since we are using CVS at this moment, header and the footer of a typical C
+file could look as shown in the following examples.
+
+Example 1. Sample header of example GPL covered C file.
+
+
+/* $Id: lintouch-coding-style.dbx,v 1.9 2004/08/17 08:53:34 mman Exp $
+ *
+ *   FILE: wtng-io.h --
+ * AUTHOR: Martin Man <mman@swac.cz>
+ *   DATE: 16 June 2003
+ *
+ * Copyright (c) 2001-2004 S.W.A.C. GmbH, Germany.
+ * Copyright (c) 2001-2004 S.W.A.C. Bohemia s.r.o., Czech Republic.
+ *
+ * This application is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This application is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this application; if not, write to the
+ * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ * Boston, MA 02111-1307, USA.
+ */
+
+
+
+The very first line of source code file should include information from source
+code version management software (such as CVS). In case of XML, shell scripts
+and executable python files where the first line is reserved, the second line
+can serve this purpose.
+
+Example 2. Sample footer of example GPL covered C file.
+
+
+/* vim: set et ts=4 sw=4 tw=76:
+ * $Id: lintouch-coding-style.dbx,v 1.9 2004/08/17 08:53:34 mman Exp $
+ */
+
+
+
+Note that the above example of the footer contains not only CVS information tag
+but also control line with instructions for VIM editor. These instructions tell
+the editor how to do proper indentation and formating.
+
+While other editors can be driven this way as well, we allow only the VIM
+instructions to be placed in Lintouch source code files for the following
+reasons:
+
+  ● Majority of Lintouch developers use VIM.
+
+  ● VIM is very mature editor used in all its incarnations for almost 20 years
+    now. It seems that it will (due to its nature and features) not leave us
+    soon.
+
+  ● VIM is also very tolerant and adoptive in terms of hardware requirements
+    and programming languages it supports.
+
+  ● VIM is available for more platforms than any other editor.
+
+  ● VIM community supports poor children in Uganda and we consider this control
+    line to be kind of advertisement for this wonderful piece of software.
+
+Technical Note
+
+If you are not using VIM to edit files, you are free to omit the control line
+and not copy it blindly to newly created files if there is no way for you to
+verify that it actually works.
+
+If you are on the other hand using another editor and want to add control line
+for it, you are required to first ask the rest of the community and get their
+agreement. This is necessary to protect the files from being overfilled with
+control lines for ten different random editor applications that someone might
+have used half a year in the past before he switched finally to VIM.
+
+2.2. Line length
+
+No line in a file should be longer than 76 characters for the following
+reasons:
+
+  ● You usually get 80 characters per line when being connected remotely to a
+    system through SSH or when sending an email to a (possibly small) portable
+    device. Assuming 80 characters is the least common denominator among all
+    editors, screens and devices available we still have 4 characters to:
+
+      ○ comment the code temporarily and not exceed the 80 characters per line
+        limit.
+
+      ○ include excerpts of code quoted verbatim in an email without the need
+        to break long lines and make the code harder to read.
+
+      ○ include patch segments created by diff(1) unix utility in an email
+        without breaking the lines. The patch files with long lines are almost
+        unreadable.
+
+  ● Even if you have more than 80 characters per line available, too long lines
+    require your eyes to travel long distances in order to read the lines and
+    thus makes working with the code tiring.
+
+  ● Too long lines are rarely needed and indicate bad design or wrong source
+    code structuring. Exceptions include lines auto generated by source code
+    management system (such as CVS) which are usually tolerated.
+
+2.3. Tabs and spaces
+
+Lintouch sources do not use tabs (due to different handling of them in various
+editors, printing tools, etc.). All tabs should be therefore expanded into
+spaces.
+
+Indentation level used by Lintouch is 4 characters for C, C++ and Python and 2
+characters for XML, HTML and similar.
+
+Source code must not contain trailing spaces at the end of lines.
+
+To increase readability all major delimiters (comma, function calls, indexing,
+assignment, comparison) should be followed or prepended by spaces (see the
+following example).
+
+Definition of functions, declaration of their bodies and all major control
+structures (loops, conditions) should be separated with empty lines to increase
+readability.
+
+Example 3. C source code indented by 4 characters.
+
+
+void example_func( int arg1, int arg2 )
+{
+    int local = 1;
+    int arr[ 5 ];
+
+    if( arg1 == arg2 ) {
+        local = 2;
+        arr[ 0 ] = 1;
+    }
+
+    return local;
+}
+
+
+
+2.4. Formating opening/closing brackets
+
+Opening bracket should stay on the same line for control structures such as
+conditions and loops, and should be on a separate line for function bodies (see
+previous example).
+
+2.5. Breaking long lines
+
+When it is necessary to break a long line it must be always done at the
+meaningful boundary. Good break candidate is for example comma in a function
+call, logical operator in an expression, assignment operator in an expression.
+The break should be always after such delimiter. The next line should be
+indented by at least two indentation levels (8 characters for us) to clearly
+indicate that it's a continuation of previous line and not the nested control
+block.
+
+Example 4. C source code with lengthy condition line broken into two lines
+
+
+if( dont_authorize == 1 || access_allowed == 1 ||
+        magic_code_received == 1 ) {
+
+    perform_secret_action();
+
+}
+
+
+
+3. Source code documentation
+
+Every method that is exported by the library (intended to be reused somehow)
+must be documented in its header file. The documentation format we use should
+follow Doxygen conventions (the de-facto standard in documenting C/C++ code).
+
+For C code that means documenting all methods and potential global variables in
+a header file. For C++ that means documenting all classes and their public or
+protected methods again within the header file.
+
+Methods that are for local purposes of the library (static C methods, C++
+private methods) can and should be documented within the C, C++ source file.
+
+Unimplemented parts (missing method bodies for example) should be marked with
+TODO or FIXME statements encapsulated within inline comments. Such TODOs and
+FIXMEs should explan briefly what has to be done in the code, so that other
+people can jump in and implement it while not breaking ideas of the original
+author. Intelligent editors can highlight these FIXMEs and TODOs in a special
+way so that they are not forgotten.
+
+Example 5. Unimplemented C method body indicated with FIXME
+
+
+int fact( int n )
+{
+    /* FIXME: need to iterate here to compute factorial for i */
+}
+
+
+
+Think twice before using inline comments. They should never explain what the
+code is supposed to do. The code should be written in a way that the developer
+with right domain skills should understand it even without inline comments.
+When this is not so, rewrite the complicated parts.
+
+Technical Note
+
+We are not going to dictate what exactly should be written in the
+documentation. Every high school programmer should have learned how to properly
+document function bodies and class member functions.
+
+4. Code Testing
+
+Every part of the Lintouch should be tested using the unit testing techniques.
+We are using CPPUnit, a Unit test framework for C++. Every library, program,
+class or a function that can be separately distributed as a .tar.gz must be
+accompanied with test cases that verify its functionality.
+
+Unit tests must be written by the author of the code that is being tested. The
+author and only the author has the necessary know-how of the internal operation
+of the code; the author is the right person to write the "white box tests".
+
+Theoretical Note
+
+The term "white box testing" comes from the unit testing theory and tells that
+the test code uses the knowledge of the code to verify its functionality. The
+other approach called "black box testing" uses only the functional
+specification or interface to prepare the tests. The black box tests might not
+reveal the problematic parts of the implementation algorithm.
+
+The "black box tests" (i.e. tests not requiring the knowledge of the internal
+workings) are usually performed by the QA department. They should be based on
+the functional specifications of the product.
+
+Technical Note
+
+You can find more on test cases in general on the CPPUnit website. Problems
+usually occur when testing entities that require the real world dependencies (a
+running real database, a user interacting with the GUI, etc.). These can be
+somehow solved using the so-called "mock objects". Whether you decide to use
+them or not to test the piece of code at all, a general quote applies: “ The
+amount of code you can test without using mock objects indicates how good your
+design is. ”
+
+5. Naming conventions and other design issues
+
+TO BE DONE: globals, locals, members, privates, API, what to put into .h file,
+what in .cpp, size of a function, purpose of a function, central exit from a
+function. private methods not in the API but on the private d class, private
+member d class to simplify extension and maintain binary compatibility, usage
+of shared pointer and proper implementation of operator= and copy constructor,
+proper use of const argument modifier, value based vs. pointer based classes.
+
+A. Configuring your editor
+
+A.1. Achieving proper indentation and line length
+
+For VIM that means invoking the following commands from within the editor while
+editing a file:
+
+:set expandtab
+:set tabstop=4
+:set shiftwidth=4
+:set textwidth=76
+
+
+This instructs VIM to use 4 characters as indentation level, wrap longer lines
+automatically as entered at 76th character and always use spaces when tab is
+pressed.
+
+A.2. Showing tabs and end of lines
+
+For VIM that means invoking the following commands from within the editor while
+editing a file:
+
+:set list
+
+
+It will by default show the end of lines as $ (dollars) and tabs as ^I
+(Ctrl+I).
+
+A.3. Displaying trailing spaces
+
+For VIM that means invoking the following commands from within the editor while
+editing a file:
+
+:set listchars=tab:»·,trail:·
+
+
+Basically this command changes the way special characters (end of line, tab,
+etc.) are displayed.
+

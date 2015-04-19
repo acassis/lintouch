@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<project-connection type="home-device">
+
+  <properties>
+    <property name="subtype" value="thermometer"/>
+  </properties>
+
+  <variables>
+
+    <variable name="temperature" type="number">
+      <property name="address" value="1"/>
+    </variable>
+
+    <variable name="pressure" type="number">
+      <property name="address" value="2"/>
+    </variable>
+
+  </variables>
+
+</project-connection>
+
+

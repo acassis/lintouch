@@ -1,0 +1,71 @@
+---------------------------------------------------------------------------
+Lintouch Development Weekly News
+http://lintouch.org
+December 4th, 2003
+---------------------------------------------------------------------------
+
+Welcome to the historically first (and I hope also not the last) weekly
+newsletter from the Lintouch Development Team. I'll try to get this
+newsletter out once per week to inform you briefly what has been achieved
+in the project and where we are going to.
+
+During the last week of November Lintouch Project has been officially
+introduced at the SPS/IPC/Drives fair in Nürnberg, Germany. Since its more
+of a hardware than software fair, Lintouch did not generate too much
+interest, however support in real-world integration and testing has been
+promised by Blumenbecker[1].
+
+    1. http://www.blumenbecker.sk
+
+As some of you might have noticed, all Lintouch code, except the editor
+(see bellow) has been moved to the lintouch.org CVS. This means that now we
+are really public and everyone can download and compile everything we do[2].
+
+    2. http://lintouch.org/blog/download
+
+Editor has been kept in swac.cz CVS basically because it needs to be adopted
+before we can make it public. This adoption means relicensing, ensuring it
+contains necessary compilation instructions, etc. This will be done
+in the future. I also kindly asked Shivaji through ICQ to provide periodic
+report of the Editor code base status, so the next issue of this newsletter
+will hopefully include more info about Editor.
+
+Hynek announced[3] that _libwtngzip_, our library which handles .zip
+archives has been officially finished and is ready for packaging.
+Integration of the zip support into _libwtngvfs_, the Virtual Filesystem
+Library was rather easy, so you can expect these two essential components to
+be officially released soon.  The packages will be available probably next
+week, after some final polishing will be done.
+
+    3. http://lintouch.org/pipermail/lintouch-dev/2003-November/000140.html
+
+Jiri (jbar) was working hard to get the HTTP support into the
+_libwtngproject_, the Project handling (loading & saving) library.
+At this moment the loading part is complete and we should be able to load
+projects from local directories and .zip archives and from .zip archives
+stored at the web server. The test cases for _libwtngproject_ that use
+embedded HTTP server[4] written in Python[5] look quite impressive.
+
+    4. http://lintouch.org/pipermail/lintouch-cvs/2003-December/000598.html
+    5. http://www.python.org
+
+Since we always had some problems with good on-screen text output under Linux
+with old Lintouch, Patrik did some research and prepared a test application
+that displays texts at various sizes with various font configurations. The
+application itself will be eventually uploaded to lintouch.org CVS, at this
+moment you can already check the results of his work[6].
+
+    6. http://www.swac.cz/~modesto/text_on_canvas/
+
+API for writing Lintouch Templates in C++ is almost finished and Patrik is
+working on "legacy" WinTouch Templates. The code is still in swac.cz CVS but
+will be moved to lintouch.org soon.
+
+
+That's all folks for this week, if you have any comments, corrections or
+ideas to be published, feel free to contact me directly[0].
+
+    0. mailto:mman@swac.cz.
+
+vim: set et tw=76:
+$Id: ldwn-2003-12-04.txt,v 1.1 2003/12/04 12:42:51 mman Exp $

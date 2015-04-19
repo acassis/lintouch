@@ -1,0 +1,983 @@
+# vim: set ft=sh et ts=4 sw=4:
+
+# the variables we expect to come from the product file
+# -----------------------------------------------------
+# REPOSITORY
+# PRODUCT
+# RESULTDIR
+#
+# LAYOUT
+# DEB_BUILDER
+# RPM_BUILDER
+# MINGW_BUILDER
+#
+# DEB_DISTROS
+# RPM_DISTROS
+# MINGW_DISTROS
+#
+# the variables we expect to come from the product suite file
+# -----------------------------------------------------------
+# PRODUCTS
+# REPORTS
+#
+# the variables defined in LAYOUT file (using REPOSITORY, PRODUCT, BRANCH,
+# RELEASE, PKGRELEASE, DISTRO variables)
+# ------------------------------------------------------------------------
+# _TRUNK_PATTERN
+# _BRANCH_PATTERN
+# _RELEASE_PATTERN
+# _PACKAGING_TRUNK_PATTERN
+# _PACKAGING_BRANCH_PATTERN
+# _PACKAGING_RELEASE_PATTERN
+#
+# the variables defined in {DEB,RPM,MINGW}_BUILDER file (using PACKAGE,
+# DISTRO, RESULTDIR variables)
+# ----------------------------------------------------------------------
+# _PACKAGE_BUILDER
+#
+# the variables defined in REPORTS file (using TASK, SUITE
+# DISTRO, BUILD_START, BUILD_END variables)
+# ----------------------------------------------------------------------
+# _REPORT_SUCCESS_COMMAND
+# _REPORT_FAILURE_COMMAND
+#
+# the internals documentation
+# ---------------------------
+# src_url           svn product source url
+# dst_url           svn product destination url (for svn copy)
+#
+# pkg_src_url       svn product debian packaging source url
+# pkg_dst_url       svn product debian packaging destination url (for svn copy)
+#
+# orig_ver          original product version (extracted from configure.in)
+# orig_pkg_ver      original package version (extracted from packaging files)
+# orig_pkg_ver1     upstream part (1.0 for example)
+# orig_pkg_ver2     packaging nr. part (0ubuntu.2 for example)
+#
+# ver           current version (generated for snapshothing, patched into
+#               configure.in)
+# pkg_ver       current package version (generated for snapshoting)
+# pkg_ver1      upstream part
+# pkg_ver2      packaging nr. part
+#
+# functions that begin with ``do_`` prefix don't accept any arguments,
+# they process defined environment variables and put their output to another
+# environment variables
+
+# should not be necessary to change anything bellow
+# -------------------------------------------------
+
+# svn cmdline flags
+SVN_FLAGS=${SVN_FLAGS:="--non-interactive"}
+
+# today's date
+DATE=`date +%Y%m%d`
+
+# the most important functions
+# ----------------------------
+
+# Inputs: $CONFIG
+# Outputs:
+# Returns: 1 in case of problem
+#
+function do_process_config()
+{
+    # read product config file, or product suite config file
+    if [ "x$CONFIG" == "x" ] || ! [ -r "$CONFIG" ]
+    then
+        echo "ERROR: config file '$CONFIG' not specified or not readable"
+        return 1
+    fi
+    echo "Processing product configuration file $CONFIG"
+    . $CONFIG
+
+    # read layout file (iff defined)
+    if [ "x$LAYOUT" != "x" ]
+    then
+        rf="@MYDATA@/$LAYOUT"
+        echo "Processing repository layout file $rf"
+        . $rf
+    else
+        echo "ERROR: LAYOUT file not defined in config file '$CONFIG'"
+        return 1
+    fi
+
+    # read reporting file (iff defined)
+    if [ "x$REPORTS" != "x" ]
+    then
+        rf="@MYDATA@/$REPORTS"
+        echo "Processing reporting file $rf"
+        . $rf
+    fi
+    return 0
+}
+
+# Inputs: $CONFIG $1
+# Outputs: $DISTROS
+# Returns: 1 in case of problem
+#
+function process_config_for_packaging()
+{
+    eval builderfile="\$${1}_BUILDER"
+    eval DISTROS="\$${1}_DISTROS"
+    # read builder file (iff defined)
+    if [ "x$builderfile" != "x" ]
+    then
+        rf="@MYDATA@/$builderfile"
+        echo "Processing builder configuration file $rf"
+        . $rf
+    fi
+}
+
+# process commandline arguments
+#
+# Inputs: $* (commandline args passed in as function args)
+# Outputs: $CONFIG, $MODE, $ARG1, and $ARG2, see bellow for details
+# Returns: 1 in case of problem
+#
+# -t                        MODE=trunk
+# -b $ARG1                  MODE=branch
+# -r $ARG1                  MODE=release
+# -t       -b $ARG2         MODE=trunkbranch
+# -b $ARG1 -b $ARG2         MODE=branchbranch
+#
+function parse_commandline()
+{
+    CONFIG="$1"
+    # go from longest possible commandline to the shortest
+
+    if [ "$2" == "-b" ] && [ "x$3" != "x" ] && \
+        [ "$4" == "-b" ] && [ "x$5" != "x" ]
+    then
+        MODE="branchbranch"
+        ARG1="$3"
+        ARG2="$5"
+        return 0
+    fi
+    if [ "$2" == "-t" ] && [ "$3" == "-b" ] && [ "x$4" != "x" ]
+    then
+        MODE="trunkbranch"
+        ARG1=""
+        ARG2="$4"
+        return 0
+    fi
+    if [ "$2" == "-t" ] && [ "x$3" == "x" ]
+    then
+        MODE="trunk"
+        ARG1=""
+        ARG2=""
+        return 0
+    fi
+    if [ "$2" == "-b" ] && [ "x$3" != "x" ]
+    then
+        MODE="branch"
+        ARG1="$3"
+        ARG2=""
+        return 0
+    fi
+    if [ "$2" == "-r" ] && [ "x$3" != "x" ]
+    then
+        MODE="release"
+        ARG1="$3"
+        ARG2=""
+        return 0
+    fi
+
+    echo "ERROR: incorrect args specified \"$*\""
+    return 1
+}
+
+# prepare product related variables depending on operation mode
+#
+# Inputs: $MODE, $ARG1, $ARG2, _*_PATTERN
+# Outputs: $src_url, $dst_url
+#
+function do_prepare_variables()
+{
+    case "$MODE" in
+        "trunk")
+        eval src_url=$_TRUNK_PATTERN
+        RELEASE="$orig_ver"
+        eval dst_url=$_RELEASE_PATTERN
+        ;;
+        "branch")
+        BRANCH="$ARG1"
+        eval src_url=$_BRANCH_PATTERN
+        RELEASE="$orig_ver"
+        eval dst_url=$_RELEASE_PATTERN
+        ;;
+        "release")
+        RELEASE="$ARG1"
+        eval src_url=$_RELEASE_PATTERN
+        dst_url=""
+        ;;
+        "trunkbranch")
+        eval src_url=$_TRUNK_PATTERN
+        BRANCH="$ARG2"
+        eval dst_url=$_BRANCH_PATTERN
+        ;;
+        "branchbranch")
+        BRANCH="$ARG1"
+        eval src_url=$_BRANCH_PATTERN
+        BRANCH="$ARG2"
+        eval dst_url=$_BRANCH_PATTERN
+        ;;
+    esac
+    return 0
+}
+
+# prepare product related debian variables depending on operation mode
+#
+# Inputs: $MODE, $ARG1, $ARG2, _PACKAGING_*_PATTERN
+# Outputs: $DEB_SRC_URL, $DEB_DST_URL
+#
+function do_prepare_variables_for_packaging()
+{
+    case "$MODE" in
+        "trunk")
+        eval pkg_src_url=$_PACKAGING_TRUNK_PATTERN
+        PKGRELEASE="$orig_pkg_ver"
+        eval pkg_dst_url=$_PACKAGING_RELEASE_PATTERN
+        RELEASE="$orig_pkg_ver1"
+        eval src_url=$_RELEASE_PATTERN
+        ;;
+        "branch")
+        BRANCH="$ARG1"
+        eval pkg_src_url=$_PACKAGING_BRANCH_PATTERN
+        PKGRELEASE="$orig_pkg_ver"
+        eval pkg_dst_url=$_PACKAGING_RELEASE_PATTERN
+        RELEASE="$orig_pkg_ver1"
+        eval src_url=$_RELEASE_PATTERN
+        ;;
+        "release")
+        PKGRELEASE="$ARG1"
+        eval pkg_src_url=$_PACKAGING_RELEASE_PATTERN
+        pkg_dst_url=""
+        RELEASE="$orig_pkg_ver1"
+        eval src_url=$_RELEASE_PATTERN
+        ;;
+        "trunkbranch")
+        eval pkg_src_url=$_PACKAGING_TRUNK_PATTERN
+        BRANCH="$ARG2"
+        eval pkg_dst_url=$_PACKAGING_BRANCH_PATTERN
+        ;;
+        "branchbranch")
+        BRANCH="$ARG1"
+        eval pkg_src_url=$_PACKAGING_BRANCH_PATTERN
+        BRANCH="$ARG2"
+        eval pkg_dst_url=$_PACKAGING_BRANCH_PATTERN
+        ;;
+    esac
+    return 0
+}
+
+# prepare $ver, $pkg_ver depending on operation mode
+#
+# Inputs: $MODE, $DISTRO, $orig_ver, $orig_pkg_ver
+# Outputs: $ver, $pkg_ver
+#
+function do_prepare_versions()
+{
+    append_version="+$DATE"
+    pkg_append_version="0.${DISTRO}${DATE}"
+    case "$MODE" in
+        "trunk")
+        ver="${orig_ver}${append_version}"
+        pkg_ver="${ver}-${pkg_append_version}"
+        ;;
+        "branch")
+        ver="${orig_ver}${append_version}"
+        pkg_ver="${ver}-${pkg_append_version}"
+        ;;
+        "release")
+        ver="${orig_ver}"
+        pkg_ver="${orig_pkg_ver}"
+        ;;
+        "trunkbranch")
+        #don't know whether I need this
+        ;;
+        "branchbranch")
+        #don't know whether I need this
+        ;;
+    esac
+    return 0
+}
+
+# split $pkg_ver, $orig_pkg_ver into 1st and 2nd part
+#
+# Inputs: $pkg_ver, $orig_pkg_ver
+# Outputs: $pkg_ver1, $pkg_ver2, $orig_pkg_ver1, $orig_pkg_ver2
+#
+function do_split_packaging_versions()
+{
+    orig_pkg_ver1=`echo $orig_pkg_ver |\
+    awk 'BEGIN {FS="-"}{print $1}'`
+    orig_pkg_ver2=`echo $orig_pkg_ver |\
+    awk 'BEGIN {FS="-"}{print $2}'`
+
+    pkg_ver1=`echo $pkg_ver |\
+    awk 'BEGIN {FS="-"}{print $1}'`
+    pkg_ver2=`echo $pkg_ver |\
+    awk 'BEGIN {FS="-"}{print $2}'`
+}
+
+# extract $orig_ver from configure.in at $src_url
+#
+# Inputs: $src_url
+# Outputs: $orig_ver
+# Returns: 1 in case of problem
+#
+function do_extract_ver_from_remote_configure_in()
+{
+    local src="$src_url/configure.in"
+    echo "Extracting version from $src..."
+    orig_ver=`svn cat "$src" $SVN_FLAGS | \
+    awk 'BEGIN {FS=","}/AM_INIT_AUTOMAKE/{gsub(")","");gsub(" ","");print $2}'`
+    test -z "$orig_ver" && return 1
+    echo "ok"
+    return 0
+}
+
+# extract $orig_pkg_ver from debian/changelog at $pkg_src_url
+#
+# Inputs: $pkg_src_url
+# Outputs: $orig_pkg_ver
+# Returns: 1 in case of problem
+#
+function do_extract_pkgver_from_remote_debian_changelog()
+{
+    local src="$pkg_src_url/debian/changelog"
+    echo "Extracting debian version from $src..."
+    orig_pkg_ver=`svn cat "$src" $SVN_FLAGS | head -n 1 |\
+    awk 'BEGIN {FS=" "}/^[a-zA-Z0-9-]/{print substr($2,2,length($2)-2)}'`
+    test -z $orig_pkg_ver && return 1
+    echo "ok"
+    return 0
+}
+
+# extract $orig_pkg_ver from mingw/changelog at $pkg_src_url
+#
+# Inputs: $pkg_src_url
+# Outputs: $orig_pkg_ver
+# Returns: 1 in case of problem
+#
+function do_extract_pkgver_from_remote_mingw_changelog()
+{
+    local src="$pkg_src_url/mingw/changelog"
+    echo "Extracting mingw version from $src..."
+    orig_pkg_ver=`svn cat "$src" $SVN_FLAGS | head -n 1 |\
+    awk 'BEGIN {FS=" "}/^[a-zA-Z0-9-]/{print substr($2,2,length($2)-2)}'`
+    test -z $orig_pkg_ver && return 1
+    echo "ok"
+    return 0
+}
+
+# extract $orig_pkg_ver from $PRODUCT.spec at $pkg_src_url
+#
+# Inputs: $pkg_src_url, $PRODUCT
+# Outputs: $orig_pkg_ver
+# Returns: 1 in case of problem
+#
+function do_extract_pkgver_from_remote_product_spec()
+{
+    local src="$pkg_src_url/$PRODUCT.spec"
+    echo "Extracting rpm version from $src..."
+    orig_pkg_ver1=`svn cat "$src" $SVN_FLAGS | head -n 3 |\
+    awk 'BEGIN {FS=" "}/^Version: [a-zA-Z0-9-]/{print $2}'`
+    orig_pkg_ver2=`svn cat "$src" $SVN_FLAGS | head -n 3 |\
+    awk 'BEGIN {FS=" "}/^Release: [a-zA-Z0-9-]/{print $2}'`
+    test -z $orig_pkg_ver1 && return 1
+    test -z $orig_pkg_ver2 && return 1
+    orig_pkg_ver="$orig_pkg_ver1-$orig_pkg_ver2"
+    echo "ok"
+    return 0
+}
+
+# svn export given $src_url to the $RESULTDIR/tmp/$PRODUCT-$ver
+#
+# Inputs: $src_url, $RESULTDIR, $PRODUCT, $ver
+# Outputs:
+# Returns: 1 in case of problem
+#
+function do_svn_export()
+{
+    local exp="$RESULTDIR/tmp/$PRODUCT-$ver"
+    local_check_workdir || return 1
+    local_check_path_does_not_exist "$exp" || return 1
+    svn_check_path_exists "$src_url" || return 1
+    svn_export "$src_url" "$exp" || return 1
+    return 0
+}
+
+# svn export given $pkg_src_url to the $RESULTDIR/tmp/$1/$PRODUCT-$ver
+#
+# Inputs: $deb_src_url, $RESULTDIR, $PRODUCT, $ver, $1
+# Outputs:
+# Returns: 1 in case of problem
+#
+function do_svn_export_debian()
+{
+    local exp="$RESULTDIR/tmp/$1/$PRODUCT-$ver"
+    local_check_workdir || return 1
+    local_check_path_exists "$exp" || return 1
+    svn_check_path_exists "$pkg_src_url" || return 1
+    old_svn_flags="$SVN_FLAGS"
+    SVN_FLAGS="$SVN_FLAGS --force"
+    svn_export "$pkg_src_url" "$exp" || return 1
+    SVN_FLAGS="$old_svn_flags"
+    return 0
+}
+
+# svn export given $pkg_src_url to the $RESULTDIR/tmp/$1/SPECS/$PRODUCT.spec
+#
+# Inputs: $pkg_src_url, $RESULTDIR, $PRODUCT
+# Outputs:
+# Returns: 1 in case of problem
+#
+function do_svn_export_rpm()
+{
+    local exp="$RESULTDIR/tmp/$1/SPECS/"
+    local patchs="$RESULTDIR/tmp/$1/SOURCES/"
+    mkdir -p "$exp"
+    mkdir -p "$patchs"
+    local_check_workdir || return 1
+    local_check_path_exists "$exp" || return 1
+    svn_check_path_exists "$pkg_src_url" || return 1
+    old_svn_flags="$SVN_FLAGS"
+    SVN_FLAGS="$SVN_FLAGS --force"
+    svn_export "$pkg_src_url" "$exp" || return 1
+    # FIXME: for now, just export all rpm related to SOURCES as well, just in
+    # case there are any patches needed by a spec file
+    svn_export "$pkg_src_url" "$patchs" || return 1
+    SVN_FLAGS="$old_svn_flags"
+    return 0
+}
+
+# bootstrap sources in $RESULTDIR/tmp/$PRODUCT-$ver
+#
+# Inputs: $RESULTDIR, $PRODUCT, $ver
+# Outputs:
+# Returns: 1 in case of problem
+#
+function do_bootstrap()
+{
+    local dst="$RESULTDIR/tmp/$PRODUCT-$ver"
+    echo "Bootstrapping $dst..."
+    (cd "$dst" && ./bootstrap) || return 1
+    echo "ok"
+    return 0
+}
+
+# configure sources in $RESULTDIR/tmp/$PRODUCT-$ver
+# with --prefix="$PREFIX" (if defined)
+#
+# Inputs: $RESULTDIR, $PRODUCT, $ver, $PREFIX
+# Outputs:
+# Returns: 1 in case of problem
+#
+function do_configure()
+{
+    local dst="$RESULTDIR/tmp/$PRODUCT-$ver"
+    local pfx=${PREFIX:="/usr/local"}
+    echo "Configuring $dst..."
+    (cd "$dst" && \
+    "./configure" "--prefix=$pfx") || return 1
+    echo "ok"
+    return 0
+}
+
+# make sources in $RESULTDIR/tmp/$PRODUCT-$ver
+# by passing $1 as arg to make
+#
+# Inputs: $RESULTDIR, $PRODUCT, $ver, $1
+# Outputs:
+# Returns: 1 in case of problem
+#
+function do_make()
+{
+    local dst="$RESULTDIR/tmp/$PRODUCT-$ver"
+    echo "Invoking make $1 in $dst..."
+    (cd "$dst" && \
+    make $1) || return 1
+    echo "ok"
+    return 0
+}
+
+# patch configure in $RESULTDIR/tmp/$PRODUCT-$ver
+# by setting its version to $ver
+#
+# Inputs: $RESULTDIR, $PRODUCT, $ver
+# Outputs:
+# Returns: 1 in case of problem
+#
+function do_patch_configure_in()
+{
+    local src="$RESULTDIR/tmp/$PRODUCT-$ver/configure.in"
+    echo "Patching $src to contain version $ver"
+    if ! [ -w "$src" ]
+    then
+        echo "ERROR: unable to open $src for writing"
+        return 1
+    fi
+    export ver
+    cat "$src" | \
+    sed -e "s/\(AM_INIT_AUTOMAKE(.*,\)\(.*\)\()\)/\1$ver\3/g" \
+    >"$src.patched"
+    mv "$src" "$src.orig"
+    mv "$src.patched" "$src"
+    echo "ok"
+    return 0
+}
+
+# patch debian/changelog in $RESULTDIR/tmp/$1/$PRODUCT-$ver
+# by setting its version to $pkg_ver
+#
+# Inputs: $RESULTDIR, $PRODUCT, $ver, $pkg_ver, $1
+# Outputs:
+# Returns: 1 in case of problem
+#
+function do_patch_debian_changelog()
+{
+    local src="$RESULTDIR/tmp/$1/$PRODUCT-$ver/debian/changelog"
+    echo "Patching $src to contain version $pkg_ver"
+    if ! [ -w "$src" ]
+    then
+        echo "ERROR: unable to open $src for writing"
+        return 1
+    fi
+    export pkg_ver
+    cat "$src" | \
+    sed -e "1 s/^\(.*\)\((.*)\)\(.*\)/\1($pkg_ver)\3/g" \
+    >"$src.patched"
+    mv "$src" "$src.orig"
+    mv "$src.patched" "$src"
+    echo "ok"
+    return 0
+}
+
+# patch mingw/changelog in $RESULTDIR/tmp/$1/$PRODUCT-$ver
+# by setting its version to $pkg_ver
+#
+# Inputs: $RESULTDIR, $PRODUCT, $ver, $pkg_ver, $1
+# Outputs:
+# Returns: 1 in case of problem
+#
+function do_patch_mingw_changelog()
+{
+    local src="$RESULTDIR/tmp/$1/$PRODUCT-$ver/mingw/changelog"
+    echo "Patching $src to contain version $pkg_ver"
+    if ! [ -w "$src" ]
+    then
+        echo "ERROR: unable to open $src for writing"
+        return 1
+    fi
+    export pkg_ver
+    cat "$src" | \
+    sed -e "1 s/^\(.*\)\((.*)\)\(.*\)/\1($pkg_ver)\3/g" \
+    >"$src.patched"
+    mv "$src" "$src.orig"
+    mv "$src.patched" "$src"
+    echo "ok"
+    return 0
+}
+
+# patch $PRODUCT.spec in $RESULTDIR/tmp/$1/SPECS
+# by setting its version to $pkg_ver1, $pkg_ver2
+#
+# Inputs: $RESULTDIR, $PRODUCT, $ver, $pkg_ver1, $pkg_ver2
+# Outputs:
+# Returns: 1 in case of problem
+#
+function do_patch_rpm_spec()
+{
+    local src="$RESULTDIR/tmp/$1/SPECS/$PRODUCT.spec"
+    echo "Patching $src to contain version $pkg_ver"
+    if ! [ -w "$src" ]
+    then
+        echo "ERROR: unable to open $src for writing"
+        return 1
+    fi
+    export pkg_ver1
+    export pkg_ver2
+    cat "$src" | \
+    sed -e "s/\(^Version: \)\(.*\)$/\1$pkg_ver1/g" \
+    >"$src.patched1"
+    cat "$src.patched1" | \
+    sed -e "s/\(^Release: \)\(.*\)$/\1$pkg_ver2/g" \
+    >"$src.patched2"
+    mv "$src" "$src.orig"
+    cp "$src.patched2" "$src"
+    echo "ok"
+    return 0
+}
+
+# copy result built in $RESULTDIR/sources/$PRODUCT-$ver.tar.gz
+# to $RESULTDIR/tmp/$1/$PRODUCT_$ver.orig.tar.gz and extract it there
+#
+# Inputs: $RESULTDIR, $PRODUCT, $ver, $1
+# Outputs:
+# Returns: 1 in case of problem
+#
+function do_extract_sources()
+{
+    local src="$RESULTDIR/sources/$PRODUCT-$ver.tar.gz"
+    local dstdir="$RESULTDIR/tmp/$1"
+    mkdir -p "$dstdir"
+    local_check_path_exists "$src" || return 1
+    echo "Extracting $src in $dstdir..."
+    (cd "$dstdir" && tar xfvz "$src") || return 1
+    echo "ok"
+    return 0
+}
+
+# copy result built in $RESULTDIR/sources/$PRODUCT-$ver.tar.gz
+# to $RESULTDIR/tmp/$1/$PRODUCT_$ver.orig.tar.gz
+#
+# Inputs: $RESULTDIR, $PRODUCT, $ver, $1
+# Outputs:
+# Returns: 1 in case of problem
+#
+function do_prepare_orig_tar_gz()
+{
+    local src="$RESULTDIR/sources/$PRODUCT-$ver.tar.gz"
+    local dst="${PRODUCT}_${ver}.orig.tar.gz"
+    local dstdir="$RESULTDIR/tmp/$1"
+    mkdir -p "$dstdir"
+    local_check_path_exists "$src" || return 1
+    echo "Copying $src to $dstdir/$dst..."
+    cp "$src" "$dstdir/$dst" || return 1
+    echo "ok"
+    return 0
+}
+
+# copy result built in $RESULTDIR/sources/$PRODUCT-$ver.tar.gz
+# to $RESULTDIR/tmp/$1/SOURCES/$PRODUCT-$ver.tar.gz
+#
+# Inputs: $RESULTDIR, $PRODUCT, $ver, $1
+# Outputs:
+# Returns: 1 in case of problem
+#
+function do_prepare_sources_for_rpm()
+{
+    local src="$RESULTDIR/sources/$PRODUCT-$ver.tar.gz"
+    local dst="${PRODUCT}-${ver}.tar.gz"
+    local dstdir="$RESULTDIR/tmp/$1/SOURCES/"
+    echo "Copying $src to $dstdir/$dst..."
+    mkdir -p $dstdir
+    cp "$src" "$dstdir/$dst" || return 1
+    echo "ok"
+    return 0
+}
+
+# make debian sources in $RESULTDIR/tmp/$1 from
+# $PRODUCT_$ver.orig.tar.gz and modified $PRODUCT-$ver/ directory
+#
+# Inputs: $RESULTDIR, $PRODUCT, $ver
+# Outputs:
+# Returns: 1 in case of problem
+#
+function do_make_debsources()
+{
+    local prd="$PRODUCT-$ver"
+    local dst="$RESULTDIR/tmp/$1"
+    echo "Invoking dpkg-source for $prd in $dst..."
+    (cd "$dst" && dpkg-source -b "$prd") || return 1
+    echo "ok"
+    return 0
+}
+
+# make mingw sources in $RESULTDIR/tmp/$1 from
+# $PRODUCT_$ver.orig.tar.gz and modified $PRODUCT-$ver/ directory
+#
+# Inputs: $RESULTDIR, $PRODUCT, $ver
+# Outputs:
+# Returns: 1 in case of problem
+#
+function do_make_mingwsources()
+{
+    local orig="${PRODUCT}_${ver}.orig.tar.gz"
+    local prd="$PRODUCT-$ver"
+    local dst="$RESULTDIR/tmp/$1"
+    echo "Invoking mingw-source for $prd in $dst..."
+    (cd "$dst" && mingw-source -b "$prd" "$orig") || return 1
+    echo "ok"
+    return 0
+}
+
+# make rpm sources in $RESULTDIR/tmp/$1/SPECS from the $PRODUCT.spec file
+#
+# Inputs: $RESULTDIR, $PRODUCT, $ver
+# Outputs:
+# Returns: 1 in case of problem
+#
+function do_make_rpmsources()
+{
+    local prd="$PRODUCT.spec"
+    local dst="$RESULTDIR/tmp/$1/SPECS"
+    mkdir -p "$RESULTDIR/tmp/$1/SRPMS"
+    echo "Invoking rpmbuild -bs for $prd in $dst..."
+    (cd "$dst" && rpmbuild --define "_topdir $RESULTDIR/tmp/$1" -bs "$prd") || return 1
+    echo "ok"
+    return 0
+}
+
+# copy result built in $_BUILDDIR/$PRODUCT-$VER.tar.gz
+# to $RESULTDIR/
+#
+# Inputs: $_BUILDDIR, $RESULTDIR, $PRODUCT, $VER
+# Outputs:
+# Returns: 1 in case of problem
+#
+function do_copy_dist()
+{
+    local src="$RESULTDIR/tmp/$PRODUCT-$ver/$PRODUCT-$ver.tar.gz"
+    local dst="$RESULTDIR/sources/$PRODUCT-$ver.tar.gz"
+    echo "Copying $src to $dst..."
+    cp "$src" "$dst" || return 1
+    echo "ok"
+    return 0
+}
+
+# copy result debian sources built in $RESULTDIR/tmp/$1
+# to $RESULTDIR/$1
+#
+# Inputs: $RESULTDIR, $PRODUCT, $ver, $pkg_ver, $1
+# Outputs:
+# Returns: 1 in case of problem
+#
+function do_copy_debsources()
+{
+    local src="$RESULTDIR/tmp/$1/${PRODUCT}_${ver}.orig.tar.gz"
+    local dst="$RESULTDIR/$1"
+    # copy .orig.tar.gz only in case it does not exist already in the dst
+    # since the destination file might have the access rights scrambled by
+    # previous runs of pbuilder
+    if [ ! -f "$dst/${PRODUCT}_${ver}.orig.tar.gz" ] ; then
+        echo "Copying $src to $dst..."
+        cp "$src" "$dst" || return 1
+        echo "ok"
+    else
+        echo "Not Copying $src that is already present in $dst..."
+    fi
+    local src="$RESULTDIR/tmp/$1/${PRODUCT}_${pkg_ver}.diff.gz"
+    echo "Copying $src to $dst..."
+    cp "$src" "$dst" || return 1
+    echo "ok"
+    local src="$RESULTDIR/tmp/$1/${PRODUCT}_${pkg_ver}.dsc"
+    echo "Copying $src to $dst..."
+    cp "$src" "$dst" || return 1
+    echo "ok"
+    return 0
+}
+
+# copy result rpm sources built in $RESULTDIR/tmp/$1/SRPMS
+# to $RESULTDIR/$1
+#
+# Inputs: $RESULTDIR, $PRODUCT, $pkg_ver
+# Outputs:
+# Returns: 1 in case of problem
+#
+function do_copy_rpmsources()
+{
+    local src="$RESULTDIR/tmp/$1/SRPMS/${PRODUCT}-${pkg_ver}.src.rpm"
+    local dst="$RESULTDIR/$1"
+    echo "Copying $src to $dst..."
+    cp "$src" "$dst" || return 1
+    echo "ok"
+    return 0
+}
+
+# make debian packages in $RESULTDIR/$1 from
+# $PRODUCT_$pkg_ver.dsc
+#
+# Inputs: $RESULTDIR, $PRODUCT, $pkg_ver, $1
+# Outputs:
+# Returns: 1 in case of problem
+#
+function do_build_debs()
+{
+    local prd="${PRODUCT}_${pkg_ver}"
+    local dst="$RESULTDIR/$1"
+    if [ -z "$_PACKAGE_BUILDER" ] ; then
+        echo '$_PACKAGE_BUILDER not set, skipping binary builds'
+        return 0
+    fi
+    PACKAGE="$prd.dsc"
+    oldresult=$RESULTDIR
+    RESULTDIR=$dst
+    eval builder=\"${_PACKAGE_BUILDER}\"
+    RESULTDIR=$oldresult
+    echo "Invoking \"$builder\" in $dst..."
+    (cd "$dst" && $builder) || return 1
+    echo "ok"
+    return 0
+}
+
+# make rpm packages in $RESULTDIR/$1 from
+# $PRODUCT-$pkg_ver.src.rpm
+#
+# Inputs: $RESULTDIR, $PRODUCT, $pkg_ver, $1
+# Outputs:
+# Returns: 1 in case of problem
+#
+function do_build_rpms()
+{
+    local prd="${PRODUCT}-${pkg_ver}"
+    local dst="$RESULTDIR/$1"
+    if [ -z "$_PACKAGE_BUILDER" ] ; then
+        echo '$_PACKAGE_BUILDER not set, skipping binary builds'
+        return 0
+    fi
+    PACKAGE="$prd.src.rpm"
+    oldresult=$RESULTDIR
+    RESULTDIR=$dst
+    eval builder=\"${_PACKAGE_BUILDER}\"
+    RESULTDIR=$oldresult
+    echo "Invoking \"$builder\" in $dst..."
+    (cd "$dst" && $builder) || return 1
+    echo "ok"
+    return 0
+}
+
+# remove files in $1/$PRODUCT-$ver
+#
+# Inputs: $PRODUCT, $ver, $1
+# Outputs:
+# Returns: 1 in case of problem
+#
+function do_clean_dir()
+{
+    local dst="$1"
+    echo "Removing directory $dst..."
+    if ! rm -rf "$dst"
+    then
+        echo "ERROR: unable to remove $dst"
+        return 1
+    fi
+    echo "ok"
+    return 0
+}
+
+# helper functions
+# ----------------
+
+# create required directories and create them if necesary
+function local_check_workdir()
+{
+    mkdir -p "$RESULTDIR/tmp" &>/dev/null
+    mkdir -p "$RESULTDIR/sources" &>/dev/null
+    for i in $DISTROS; do
+        mkdir -p "$RESULTDIR/$i" &>/dev/null
+    done
+    return 0
+}
+
+# check that the given $1 is accessible with svn
+function svn_check_path_exists()
+{
+    local src="$1"
+    echo "Checking accessibility of $src..."
+    if ! svn log "$src" $SVN_FLAGS &>/dev/null
+    then
+        echo "ERROR: $src does not exists, or is not accessible"
+        return 1
+    fi
+    echo "ok"
+    return 0
+}
+
+# check that the given $1 does not exist
+function svn_check_path_does_not_exists()
+{
+    local src="$1"
+    echo "Checking accessibility of $src..."
+    if svn log "$src" $SVN_FLAGS &>/dev/null
+    then
+        echo "ERROR: $src already exists"
+        return 1
+    fi
+    echo "does not exist, ok"
+    return 0
+}
+
+# export given $1 to $2
+function svn_export()
+{
+    local src="$1"
+    local dst="$2"
+    echo "svn exporting $src to $dst..."
+    if ! svn export "$src" "$dst" $SVN_FLAGS
+    then
+        echo "ERROR: svn export returned error"
+        return 1
+    fi
+    echo "ok"
+    return 0
+}
+
+# svn copy $1 to $2 and add commit message $3
+function svn_copy()
+{
+    svn_check_path_exists "$1" || return 1
+    svn_check_path_does_not_exists "$2" || return 1
+    test ! -z "$3" || return 1
+    echo "svn copying $1 to $2..."
+    if ! svn copy "$1" "$2" $SVN_FLAGS -m "$3"
+    then
+        echo "ERROR: svn copy returned error"
+        return 1
+    fi
+    echo "ok"
+    return 0
+}
+
+# check that the given $1 directory does exist
+function local_check_path_exists()
+{
+    local src="$1"
+    echo "Checking presence of $src..."
+    if ! [ -d "$src" -o -r "$src" ]
+    then
+        echo "ERROR: $src does not exist, or is not accessible"
+        return 1
+    fi
+    echo "ok"
+    return 0
+}
+
+# check that the given $1 directory does not exist
+function local_check_path_does_not_exist()
+{
+    local src="$1"
+    echo "Checking presence of $src..."
+    if [ -d "$src" ]
+    then
+        echo "ERROR: $src already exists, I'm not going to overwrite it"
+        return 1
+    fi
+    echo "does not exist, ok"
+    return 0
+}
+
+# print application banner
+function print_banner()
+{
+    echo "$0 (QA Tools version @VERSION@)"
+}
+
+function usage()
+{
+    echo "Usage is: $0 $1"
+    exit 1
+}
+
+# wait for interruption
+function wait_for_user_break()
+{
+    test "$DONTWAIT" == "yes" && return 0
+    echo ""
+    echo "Sleeping for 5 seconds, hit Ctrl-C to terminate"
+    echo "export 'DONTWAIT=yes' to suppress this message"
+    echo ""
+    sleep 5
+}

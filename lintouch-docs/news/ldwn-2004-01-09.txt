@@ -1,0 +1,57 @@
+---------------------------------------------------------------------------
+Lintouch Development Weekly News
+http://lintouch.org
+January 9th, 2004
+---------------------------------------------------------------------------
+
+Welcome to the fourth issue of the Lintouch Development Weekly Newsletter.
+
+Everyone is hopefully fresh and full of new ideas so it's the right time to
+announce that the last month of development before the _code freeze_ is just
+beginning[1]. During this month all conceptual and design decisions must be
+made. Format of all project related configuration files must be finished and
+frozen as well. Concerning the project configuration files only one thing is
+missing: the interconnection of IOPins to Project Variables. Note that the
+proposal is in place[2] for more than three months but no code has yet been
+written to prove that the syntax is good.
+
+    1. http://lintouch.org/blog/roadmap
+    2. http://lintouch.org/cvs/lintouch/docs/specs/lintouch-project.html#project-view.xml
+
+Not everyone was sleeping during the Christmas, namely Hynek, who found a
+nice implementation[3] of ModBus TCP/IP Communication Protocol[4] written in
+Java. We will use this implementation to provide software infrastructure for
+integration testing and demonstration purposes.
+
+   3. http://lintouch.org/pipermail/lintouch-dev/2004-January/000266.html
+   4. http://www.modbus.org
+
+Hynek additionally cleared his TODO list and reimplemented SharedPtr[5] to
+be thread safe[6]. SharedPtr is a nice C++ template class that makes the
+life of C++ programmer at least a bit more shiny and peaceful. The official
+release of this new version will be made after some testing period which
+will prove everything works as expected.
+
+   5. http://lintouch.org/blog/projects#sharedptr
+   6. http://lintouch.org/pipermail/lintouch-dev/2003-December/000265.html
+
+Lintouch Server initial import[7] was made. As announced in the previous
+newsletter, Lintouch Server will be written entirely in Python programming
+language[8] in a hope that it will make the development and future
+enhancements easier.
+
+   7. http://lintouch.org/pipermail/lintouch-cvs/2004-January/000770.html
+   8. http://www.python.org
+
+And last but not least I'd like to thank all the members of the Lintouch
+Development Team in Germany, India and Czech Republic for their good work
+hoping our collaboration will continue in the same friendly manner during
+the Year 2004 as well. Thank You!
+
+That's all folks for this week, if you have any comments, corrections or
+ideas to be published, feel free to contact me directly[0].
+
+    0. mailto:mman@swac.cz.
+
+vim: set et tw=76:
+$Id: ldwn-2004-01-09.txt,v 1.1 2004/01/09 08:55:36 mman Exp $

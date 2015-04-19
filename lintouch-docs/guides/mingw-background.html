@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.3.6: http://docutils.sourceforge.net/" />
+<title>MSYS/MINGW Background</title>
+<meta name="author" content="Jiri Barton &lt;jbar&#64;swac.cz&gt;" />
+<meta name="date" content="2004-12-16" />
+<link rel="stylesheet" href="default.css" type="text/css" />
+</head>
+<body>
+<h1 class="title">MSYS/MINGW Background</h1>
+<table class="docinfo" frame="void" rules="none">
+<col class="docinfo-name" />
+<col class="docinfo-content" />
+<tbody valign="top">
+<tr><th class="docinfo-name">Author:</th>
+<td>Jiri Barton &lt;<a class="reference" href="mailto:jbar&#64;swac.cz">jbar&#64;swac.cz</a>&gt;</td></tr>
+<tr><th class="docinfo-name">Date:</th>
+<td>2004-12-16</td></tr>
+</tbody>
+</table>
+<div class="document" id="msys-mingw-background">
+<!-- $Id: background.html,v 1.1 2004/12/16 15:27:06 barton Exp $ -->
+<div class="section" id="gcc">
+<h1><a name="gcc">1. GCC</a></h1>
+<p>There are several compilers for Microsoft Windows. While the Microsoft
+Visual C++ (MSVC) has become de facto standard for developing applications
+for Windows, no sooner version than 7.1. supports the latest ANSI C++.
+And above all, MSVC is not free and free of charge. Worst of all, its
+makefiles are not portable.</p>
+<p>Speaking of the porting, the quality of the compiler, and the price, GCC
+and GNU seem a better option. There are two mainstream ports of GCC for
+Windows:</p>
+<ul class="simple">
+<li>Cygwin (<a class="reference" href="http://www.cygwin.com">http://www.cygwin.com</a>)</li>
+<li>MinGW (<a class="reference" href="http://www.mingw.org">http://www.mingw.org</a>)</li>
+</ul>
+<p>Cygwin environment provides a Unix shell (bash) and other Unix like
+utilities. It is merely a port of the Unix environment in Windows. In order
+to provide full support for the Unix features not available on Windows,
+Cygwin contains many hacks and workarounds. These work pretty well in fact
+but the application developed with Cygwin have to link to Cygwin DLLs is not
+a native Windows application.</p>
+<p>The MingW project provides a GCC for Windows that build native Windows
+applications which link to Windows native DLLs. Best of all, MinGW is
+officially supported compiler for Qt whereas Cygwin GCC is not.</p>
+</div>
+<div class="section" id="shell">
+<h1><a name="shell">2. Shell</a></h1>
+<p>The MinGW GCC package contains tools for working with GNU Makefiles.
+Makefile is always interpreted by the current shell. In the Windows
+environment, this means <tt class="docutils literal"><span class="pre">cmd.exe</span></tt>. Such makefiles are not portable though;
+they cannot be interpreted by the <tt class="docutils literal"><span class="pre">sh</span></tt>-like shells.</p>
+<p>Fortunately, the provides such a decent shell as part of the environment
+called <tt class="docutils literal"><span class="pre">MSYS</span></tt> (<a class="reference" href="http://www.mingw.org/msys.shtml">http://www.mingw.org/msys.shtml</a>). <tt class="docutils literal"><span class="pre">MSYS</span></tt> contains an old
+<tt class="docutils literal"><span class="pre">BASH</span></tt> as its shell.</p>
+<p><tt class="docutils literal"><span class="pre">MSYS</span></tt> contains an xterm-like terminal that works much to the extent that
+the today's linux geek expects. In addition, there are several standard
+utilities such as sed, grep, ssh, and cvs. The only thing I was missing was
+a subversion client but the official svn client for Windows works pretty
+well (<a class="reference" href="http://subversion.tigris.org/project_packages.html">http://subversion.tigris.org/project_packages.html</a>).</p>
+<!-- $Id: background.html,v 1.1 2004/12/16 15:27:06 barton Exp $ -->
+</div>
+</div>
+</body>
+</html>

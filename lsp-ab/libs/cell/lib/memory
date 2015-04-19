@@ -1,0 +1,3028 @@
+aliascheck.c:/* Revised 5/6/02 William Hays - CTI */
+aliascheck.c:   -1  Error
+aliascheck.c:	unsigned long tagbase=tag->topbase&0xffff;
+aliascheck.c:  return -1;
+aliascheck.c:if (tag->type >> 12 == 1)
+aliascheck.c:  return -1;
+aliascheck.c://  if (((tag->topbase>>24) & 0xf) != 0x4)
+aliascheck.c:if (((tag->topbase) & 0x04000000) )
+aliascheck.c:if ((tag->topbase) & 0x20000)	/* Is the tag program scoped? */
+aliascheck.c:	  return -1;
+aliascheck.c:		for (y = 0; y < proglist->count; y++)
+aliascheck.c:			if (proglist->tag[y]->id == tagbase)
+aliascheck.c:		if (y>proglist->count)
+aliascheck.c:			return -1;
+aliascheck.c:		tagbase=proglist->tag[y]->topbase&0xffff;
+aliascheck.c:	while(!(proglist->tag[y]->topbase & 0x04000000) &&
+aliascheck.c:					proglist->tag[y]->topbase & 0x20000);
+aliascheck.c:	if (proglist->tag[y]->topbase & 0x20000)
+aliascheck.c:		  printf( "%s aliases to %s - %08lX\n", tag->name,
+aliascheck.c:			 proglist->tag[y]->name, proglist->tag[y]->id);
+aliascheck.c:		  tag->alias_size = proglist->tag[y]->size;
+aliascheck.c:		  tag->alias_linkid = proglist->tag[y]->linkid;
+aliascheck.c:		  tag->alias_type = proglist->tag[y]->type;
+aliascheck.c:		  tag->alias_topbase = proglist->tag[y]->topbase;
+aliascheck.c:		  tag->alias_id = proglist->tag[y]->id;
+aliascheck.c:		for (y = 0; y < mainlist->count; y++)
+aliascheck.c:			if (mainlist->tag[y]->base == tagbase)
+aliascheck.c:		if (y>mainlist->count)
+aliascheck.c:			return -1;
+aliascheck.c:		tagbase=mainlist->tag[y]->topbase&0xffff;
+aliascheck.c:	while(!(mainlist->tag[y]->topbase & 0x04000000));
+aliascheck.c:	  dprint(DEBUG_VALUES, "%s aliases to %s - %08lX\n", tag->name,
+aliascheck.c:		 mainlist->tag[y]->name, mainlist->tag[y]->base);
+aliascheck.c:	  tag->alias_size = mainlist->tag[y]->size;
+aliascheck.c:	  tag->alias_linkid = mainlist->tag[y]->linkid;
+aliascheck.c:	  tag->alias_type = mainlist->tag[y]->type;
+aliascheck.c:	  tag->alias_topbase = mainlist->tag[y]->topbase;
+aliascheck.c:	  tag->alias_base = mainlist->tag[y]->base;
+aliascheck.c:if ((tag->topbase) & 0x10000)	/* Is the alias to a controller scoped tag? */
+aliascheck.c:		for (y = 0; y < mainlist->count; y++)
+aliascheck.c:			if (mainlist->tag[y]->base == tagbase)
+aliascheck.c:		if (y>mainlist->count)
+aliascheck.c:			return -1;
+aliascheck.c:		tagbase=mainlist->tag[y]->topbase&0xffff;
+aliascheck.c:	while(!(mainlist->tag[y]->topbase & 0x04000000));
+aliascheck.c:	  dprint(DEBUG_VALUES, "%s aliases to %s - %08lX\n", tag->name,
+aliascheck.c:		 mainlist->tag[y]->name, mainlist->tag[y]->base);
+aliascheck.c:	  tag->alias_size = mainlist->tag[y]->size;
+aliascheck.c:	  tag->alias_linkid = mainlist->tag[y]->linkid;
+aliascheck.c:	  tag->alias_type = mainlist->tag[y]->type;
+aliascheck.c:	  tag->alias_topbase = mainlist->tag[y]->topbase;
+aliascheck.c:	  tag->alias_base = mainlist->tag[y]->base;
+aliascheck.c:      sprintf(ac_dmesg,"WARN: Could not find alias tag %s - %08lX\n", 
+aliascheck.c:tag->name,
+aliascheck.c:	   tag->topbase);
+aliascheck.c://    return -1;
+aliascheck.c:	return -1;
+aliascheck.c://  CELLERROR(9,"tag->id was not zero structure is null");
+aliascheck.c:return -1;			/* If we get here, we have problems...  */
+attach.c:/* Revised 5/6/02 William Hays - CTI 
+attach.c:  comm->error = 0;
+attach.c:  hostinfo = gethostbyname(comm->hostname);
+attach.c:    comm->error = NOHOST;
+attach.c:  comm->file_handle = socket(AF_INET, SOCK_STREAM, 0);
+attach.c:  if (comm->file_handle == -1)
+attach.c:    comm->error = NOCONNECT;
+attach.c:  comm->ms_timeout=CELL_DFLT_TIMEOUT;
+attach.c:  address.sin_addr = *(struct in_addr *) *hostinfo->h_addr_list;
+attach.c:    comm->error = BADADDR;
+attach.c:  result = connect(comm->file_handle, (struct sockaddr *) &address, len);
+attach.c:    comm->error = NOCONNECT;
+attach.c:  if (setsockopt(comm->file_handle, IPPROTO_TCP, SO_RCVBUF, &len, sizeof(len)) == -1)
+attach.c:  if (setsockopt(comm->file_handle, IPPROTO_TCP,
+attach.c:     TCP_NODELAY,&len,sizeof(len)) == -1)
+attach.c:  comm->error = OK;
+cell_geterror.c:/* Created 06/20/2002 William Hays - CTI */
+cell_perror.c:/* Created 05/03/2002 William Hays - CTI */
+cpf.c:  dprint(DEBUG_TRACE, "cpf entered.  Buff->len = %d\n", buff->len);
+cpf.c:  buff->data[buff->len++] = 2;
+cpf.c:  buff->len++;
+cpf_data.c:  start = buff->len;
+cpf_data.c:  dprint(DEBUG_TRACE, "cpf_data entered - datatype = %d, buff->len = %d\n",
+cpf_data.c:	 datatype, buff->len);
+cpf_data.c:    len = cpf_data->len;
+cpf_data.c:  buff->data[buff->len++] = datatype & 255;
+cpf_data.c:  buff->data[buff->len++] = datatype / 0x100;
+cpf_data.c:  buff->data[buff->len++] = len & 255;
+cpf_data.c:  buff->data[buff->len++] = len / 0x100;
+cpf_data.c:    memcpy(buff->data + buff->len, cpf_data->data, len);
+cpf_data.c:    buff->len += len;
+cpf_data.c:  dprint(DEBUG_DATA, "Copied %d bytes...\n", buff->len - start);
+cpf_data.c:  dprint(DEBUG_DATA, "buff->len = %d\n", buff->len);
+cpf_data.c:    for (x = start; x < buff->len; x++)
+cpf_data.c:      dprint(DEBUG_BUILD, "%02X ", buff->data[x]);
+defs.c:  "Not Defined - 0x01",
+defs.c:  "Not Defined - 0x08",
+defs.c:  "Analog I/O Device - 0x0a",
+defs.c:  "Not Defined - 0x0b",
+defs.c:  "Not Defined - 0x0d",
+defs.c:  "Not Defined - 0x0f",
+defs.c:  "Not Defined - 0x11",
+defs.c:  "Not Defined - 0x12",
+defs.c:  "Not Defined - 0x14",
+defs.c:  "Not Defined - 0x19",
+defs.c:  "Not Defined - 0x1a" "Pneumatic Valves",
+defs.c:  "Not Defined - 0x1d",
+defs.c:  "Not Defined - 0x1e",
+defs.c:  "Not Defined - 0x1f",
+defs.c:  "Not Defined - 0x20",
+defs.c:  "Not Defined - 0x21",
+defs.c:  "Not Defined - 0x22",
+defs.c:  "Not Defined - 0x23",
+defs.c:  "Not Defined - 0x24",
+defs.c:  "Not Defined - 0x25",
+defs.c:  "Not Defined - 0x26",
+defs.c:  "Not Defined - 0x27",
+defs.c:  "Not Defined - 0x28",
+defs.c:  "Not Defined - 0x29",
+defs.c:  "Not Defined - 0x2a",
+defs.c:  "Not Defined - 0x2b",
+defs.c:  "Not Defined - 0x2c",
+defs.c:  "Not Defined - 0x2d",
+defs.c:  "Not Defined - 0x2e",
+defs.c:  "Not Defined - 0x2f",
+defs.c:  "Not Defined - 0x30",
+defs.c:  "Not Defined - 0x31",
+defs.c:	"Wait ACK (1775-KA buffer full)",
+defs.c:	"Wait ACK (1775-KA buffer full)",
+defs.c:	"reserved - 2",
+defs.c:	"Idle - SUS command",
+defs.c:	"reserved - 4",
+defs.c:	"reserved - 5",
+defs.c:	"Test - Continuous Scan",
+defs.c:	"Test - Single Scan",
+defs.c:	"Test - Single Step",
+defs.c:	"reserved - 10",
+defs.c:	"reserved - 11",
+defs.c:	"reserved - 12",
+defs.c:	"reserved - 13",
+defs.c:	"reserved - 14",
+defs.c:	"reserved - 15",
+defs.c:	"reserved - 18",
+defs.c:	"reserved - 19",
+defs.c:	"reserved - 20",
+defs.c:	"reserved - 21",
+defs.c:	"reserved - 22",
+defs.c:	"reserved - 23",
+defs.c:	"reserved - 24",
+defs.c:	"reserved - 25",
+defs.c:	"reserved - 26",
+defs.c:	"Idle - SUS command",
+defs.c:	"reserved - 28",
+defs.c:	"reserved - 29",
+defs.c:	"1785 - L40B (PLC5/40 ) ",
+defs.c:	"1785 - LT4  (PLC5/10 ) ",
+defs.c:	"1785 - L60B (PLC5/60 ) ",
+defs.c:	"1785 - L40L (PLC5/40L) ",
+defs.c:	"1785 - L60L (PLC5/60L) ",
+defs.c:	"1785 - L11B (PLC5/11 ) ",
+defs.c:	"1785 - L20B (PLC5/20 ) ",
+defs.c:	"1785 - L30B (PLC5/30 ) ",
+defs.c:	"1785 - L20E (PLC5/20E) ",
+defs.c:	"1785 - L40E (PLC5/40E) ",
+defs.c:	"1785 - L80B (PLC5/25 ) ",
+defs.c:	"1785 - L80E (PLC5/80E) ",
+defs.c:	"1785 - xxxx (SoftLogix PLC)"};
+defs.c:			"not defined - 10",
+defs.c:			"not defined - 11",
+defs.c:			"not defined - 12",
+defs.c:			"not defined - 14",
+df1_close.c:/* Revised 5/6/02 William Hays - CTI */
+df1_close.c:    return -1;
+df1_close.c:    return -1;
+df1_close.c:    return -1;
+df1_close.c:    return -1;
+df1_close.c:    return -1;
+df1_close.c:    return -1;
+df1_close.c:    return -1;
+df1_close.c:    return -1;
+df1_close.c:  msgbuff->len = 0;
+df1_close.c:  msgbuff->data[msgbuff->len++] = (byte)(df1_comm->conn_serial & 255);
+df1_close.c:  msgbuff->data[msgbuff->len++] = (byte)(df1_comm->conn_serial >> 8);
+df1_close.c:  msgbuff->data[msgbuff->len++] = (byte)(df1_comm->conn_serial >> 16);
+df1_close.c:  msgbuff->data[msgbuff->len++] = (byte)(df1_comm->conn_serial >> 24);
+df1_close.c:  msgbuff->data[msgbuff->len++] = (byte)(VENDOR_ID & 255);
+df1_close.c:  msgbuff->data[msgbuff->len++] = (byte)(VENDOR_ID / 256);
+df1_close.c:  msgbuff->data[msgbuff->len++] = (byte)(VENDOR_SN & 255);
+df1_close.c:  msgbuff->data[msgbuff->len++] = (byte)(VENDOR_SN >> 8);
+df1_close.c:  msgbuff->data[msgbuff->len++] = (byte)(VENDOR_SN >> 16);
+df1_close.c:  msgbuff->data[msgbuff->len++] = (byte)(VENDOR_SN >> 24);
+df1_close.c:  msgbuff->data[msgbuff->len++] = 0;
+df1_close.c:  msgbuff->data[msgbuff->len++] = 0;
+df1_close.c:    for (x = 0; x < msgbuff->len; x++)
+df1_close.c:      dprint(DEBUG_BUILD, "%02X ", msgbuff->data[x]);
+df1_close.c:  /*pathsize = msgbuff->len++;
+df1_close.c:  if (path->device1 != -1)
+df1_close.c:    msgbuff->data[msgbuff->len++] = path->device1;
+df1_close.c:  if (path->device2 != -1)
+df1_close.c:    msgbuff->data[msgbuff->len++] = path->device2;
+df1_close.c:  if (path->device3 != -1)
+df1_close.c:    msgbuff->data[msgbuff->len++] = path->device3;
+df1_close.c:  if (path->device4 != -1)
+df1_close.c:    msgbuff->data[msgbuff->len++] = path->device4;
+df1_close.c:  if (path->device5 != -1)
+df1_close.c:    msgbuff->data[msgbuff->len++] = path->device5;
+df1_close.c:  if (path->device6 != -1)
+df1_close.c:    msgbuff->data[msgbuff->len++] = path->device6;
+df1_close.c:  if (path->device7 != -1)
+df1_close.c:    msgbuff->data[msgbuff->len++] = path->device7;
+df1_close.c:  if (path->device8 != -1)
+df1_close.c:    msgbuff->data[msgbuff->len++] = path->device8;
+df1_close.c:  msgbuff->data[msgbuff->len++] = 0x20;
+df1_close.c:  msgbuff->data[msgbuff->len++] = DF1CMD;
+df1_close.c:  msgbuff->data[msgbuff->len++] = 0x24;
+df1_close.c:  msgbuff->data[msgbuff->len++] = FIRST_INSTANCE;
+df1_close.c:  msgbuff->data[msgbuff->len++] = 0x2c;
+df1_close.c:  msgbuff->data[msgbuff->len++] = dh_channel;
+df1_close.c:    msgbuff->data[msgbuff->len++] = 0;
+df1_close.c:  msgbuff->data[pathsize] = (count + 6)/2;  
+df1_close.c:    for (x = 0; x < msgbuff->len; x++)
+df1_close.c:      dprint(DEBUG_BUILD, "%02X ", msgbuff->data[x]);
+df1_close.c:  if (path->device1 != -1)
+df1_close.c:    cpf_buffer->data[cpf_buffer->len++] = PDU_Forward_Close;
+df1_close.c:    ioi1->ioiclass = CONNECTION_MANAGER;
+df1_close.c:    ioi1->instance = FIRST_INSTANCE;
+df1_close.c:    ioi1->member = -1;
+df1_close.c:    ioi1->point = -1;
+df1_close.c:    ioi1->attribute = -1;
+df1_close.c:    ioi1->tagname = NULL;
+df1_close.c:    ioi1->elem[0] = -1;
+df1_close.c:    ioi1->elem[1] = -1;
+df1_close.c:    ioi1->elem[2] = -1;
+df1_close.c://    cpf_buffer->data[cpf_buffer->len++] = msgbuff->len & 255;
+df1_close.c://    cpf_buffer->data[cpf_buffer->len++] = msgbuff->len / 0x100;
+df1_close.c:  memcpy(cpf_buffer->data + cpf_buffer->len, msgbuff->data, msgbuff->len);
+df1_close.c:  cpf_buffer->len += msgbuff->len;
+df1_close.c:  head->len = buff->len;
+df1_close.c:  memcpy(sendbuff->data, head, ENCAPS_Header_Length);
+df1_close.c:  sendbuff->overall_len = ENCAPS_Header_Length;
+df1_close.c:    for (x = 0; x < buff->len; x++)
+df1_close.c:      dprint(DEBUG_BUILD, "%02X ", buff->data[x]);
+df1_close.c:  memcpy(sendbuff->data + sendbuff->overall_len, buff->data, buff->len);
+df1_close.c:  sendbuff->overall_len += buff->len;
+df1_close.c:  comm->df1_tns += 4;
+df1_close.c:  memcpy(head, buff->data, ENCAPS_Header_Length);
+df1_close.c:  if (head->status != 0)
+df1_close.c:    ret=-1;
+df1_close.c:    return -1;
+df1_close.c:    dprint(DEBUG_VALUES, "Got good reply to DF1 Open Command - %d\n",
+df1_close.c:	   buff->overall_len);
+df1_close.c:    for (x = 44; x < buff->overall_len; x++)
+df1_close.c:      dprint(DEBUG_VALUES, "%02X ", buff->data[x]);
+df1_get_status.c:  return (-1);
+df1_get_status.c:  return (-2);
+df1_get_status.c:  return (-3);
+df1_get_status.c:  return (-4);
+df1_get_status.c:  return (-5);
+df1_get_status.c:  return (-6);
+df1_get_status.c:df1->df1_port = channel;
+df1_get_status.c:df1->df1_datalen = 11;
+df1_get_status.c:cmd->cmd = 6;
+df1_get_status.c:cmd->fnc = 3;
+df1_get_status.c:cmd->tns = comm->df1_tns;
+df1_get_status.c:cmd->dst = node;
+df1_get_status.c:memcpy(df1->cmd, cmd, 11);
+df1_get_status.c:  printf ("Send_DF1 failed - status = %d.\n",x);
+df1_open.c:/* Revised 5/6/02 William Hays - CTI */
+df1_open.c:    return -1;
+df1_open.c:    return -1;
+df1_open.c:    return -1;
+df1_open.c:    return -1;
+df1_open.c:    return -1;
+df1_open.c:    return -1;
+df1_open.c:    return -1;
+df1_open.c:    return -1;
+df1_open.c:  msgbuff->len = 0;
+df1_open.c:  df1_comm->ot_conn_id = 0x00000000;
+df1_open.c:  df1_comm->to_conn_id = 0x98000000 + count;
+df1_open.c:  df1_comm->conn_serial = count;;
+df1_open.c:  df1_comm->vendor_id = VENDOR_ID;
+df1_open.c:  df1_comm->orig_serial = VENDOR_SN;
+df1_open.c:  df1_comm->timeout_mul = 1;
+df1_open.c:  df1_comm->ot_rpi = 0x3d0900;
+df1_open.c:  df1_comm->ot_param = 0x4302;
+df1_open.c:  df1_comm->to_rpi = 0x3d0900;
+df1_open.c:  df1_comm->to_param = 0x4302;
+df1_open.c:  df1_comm->trigger = 0xa3;
+df1_open.c:  memcpy (msgbuff->data, df1_comm, sizeof(_df1_comm));
+df1_open.c:  msgbuff->len = sizeof(_df1_comm);
+df1_open.c:    for (x = 0; x < msgbuff->len; x++)
+df1_open.c:      dprint(DEBUG_BUILD, "%02X ", msgbuff->data[x]);
+df1_open.c:  pathsize = msgbuff->len++;
+df1_open.c:  if (path->device1 != -1)
+df1_open.c:    msgbuff->data[msgbuff->len++] = path->device1;
+df1_open.c:  if (path->device2 != -1)
+df1_open.c:    msgbuff->data[msgbuff->len++] = path->device2;
+df1_open.c:  if (path->device3 != -1)
+df1_open.c:    msgbuff->data[msgbuff->len++] = path->device3;
+df1_open.c:  if (path->device4 != -1)
+df1_open.c:    msgbuff->data[msgbuff->len++] = path->device4;
+df1_open.c:  if (path->device5 != -1)
+df1_open.c:    msgbuff->data[msgbuff->len++] = path->device5;
+df1_open.c:  if (path->device6 != -1)
+df1_open.c:    msgbuff->data[msgbuff->len++] = path->device6;
+df1_open.c:  if (path->device7 != -1)
+df1_open.c:    msgbuff->data[msgbuff->len++] = path->device7;
+df1_open.c:  if (path->device8 != -1)
+df1_open.c:    msgbuff->data[msgbuff->len++] = path->device8;
+df1_open.c:  msgbuff->data[msgbuff->len++] = 0x20;
+df1_open.c:  msgbuff->data[msgbuff->len++] = DF1CMD;
+df1_open.c:  msgbuff->data[msgbuff->len++] = 0x24;
+df1_open.c:  msgbuff->data[msgbuff->len++] = dh_channel;
+df1_open.c:  msgbuff->data[msgbuff->len++] = 0x2c;
+df1_open.c:  msgbuff->data[msgbuff->len++] = 1;
+df1_open.c:    msgbuff->data[msgbuff->len++] = 0;
+df1_open.c:  msgbuff->data[pathsize] = (count + 6)/2;  
+df1_open.c:    for (x = 0; x < msgbuff->len; x++)
+df1_open.c:      dprint(DEBUG_BUILD, "%02X ", msgbuff->data[x]);
+df1_open.c:  if (path->device1 != -1)
+df1_open.c:    cpf_buffer->data[cpf_buffer->len++] = PDU_Forward_Open;
+df1_open.c:    ioi1->ioiclass = CONNECTION_MANAGER;
+df1_open.c:    ioi1->instance = FIRST_INSTANCE;
+df1_open.c:    ioi1->member = -1;
+df1_open.c:    ioi1->point = -1;
+df1_open.c:    ioi1->attribute = -1;
+df1_open.c:    ioi1->tagname = NULL;
+df1_open.c:    ioi1->elem[0] = -1;
+df1_open.c:    ioi1->elem[1] = -1;
+df1_open.c:    ioi1->elem[2] = -1;
+df1_open.c://    cpf_buffer->data[cpf_buffer->len++] = msgbuff->len & 255;
+df1_open.c://    cpf_buffer->data[cpf_buffer->len++] = msgbuff->len / 0x100;
+df1_open.c:  memcpy(cpf_buffer->data + cpf_buffer->len, msgbuff->data, msgbuff->len);
+df1_open.c:  cpf_buffer->len += msgbuff->len;
+df1_open.c:  head->len = buff->len;
+df1_open.c:  memcpy(sendbuff->data, head, ENCAPS_Header_Length);
+df1_open.c:  sendbuff->overall_len = ENCAPS_Header_Length;
+df1_open.c:    for (x = 0; x < buff->len; x++)
+df1_open.c:      dprint(DEBUG_BUILD, "%02X ", buff->data[x]);
+df1_open.c:  memcpy(sendbuff->data + sendbuff->overall_len, buff->data, buff->len);
+df1_open.c:  sendbuff->overall_len += buff->len;
+df1_open.c:  comm->df1_tns += 4;
+df1_open.c:  memcpy(head, buff->data, ENCAPS_Header_Length);
+df1_open.c:  if (head->status != 0)
+df1_open.c:    ret=-1;
+df1_open.c:    return -1;
+df1_open.c:  df1_comm->ot_conn_id = buff->data[44] + \
+df1_open.c:    (buff->data[45] * 0x100) + \
+df1_open.c:    (buff->data[46] * 0x10000) + \
+df1_open.c:    (buff->data[47] * 0x1000000);
+df1_open.c:    dprint(DEBUG_VALUES, "Got good reply to DF1 Open Command - %d\n",
+df1_open.c:	   buff->overall_len);
+df1_open.c:    for (x = 44; x < buff->overall_len; x++)
+df1_open.c:      dprint(DEBUG_VALUES, "%02X ", buff->data[x]);
+df1_typed_read.c:  return (-1);
+df1_typed_read.c:  return (-2);
+df1_typed_read.c:  return (-3);
+df1_typed_read.c:  return (-4);
+df1_typed_read.c:  return (-5);
+df1_typed_read.c:  return (-6);
+df1_typed_read.c:  return (-8);
+df1_typed_read.c:  return (-9);
+df1_typed_read.c:df1->df1_port = channel;
+df1_typed_read.c:cmd->cmd = 0x0f;
+df1_typed_read.c:cmd->fnc = 0x68;
+df1_typed_read.c:cmd->tns = comm->df1_tns;
+df1_typed_read.c:cmd->dst = node;
+df1_typed_read.c:cmd->offset = 0;
+df1_typed_read.c:memcpy (cmd->data, name->data, name->len);
+df1_typed_read.c:place = name->len;
+df1_typed_read.c:if (name->floatdata == TRUE)
+df1_typed_read.c:cmd->data[place++] = (byte)count;
+df1_typed_read.c:  cmd->trans = htons(count/2);
+df1_typed_read.c:  cmd->trans = (count);  
+df1_typed_read.c:df1->df1_datalen = 16 + place;
+df1_typed_read.c:memcpy (df1->cmd, cmd, 16+place);
+df1_typed_read.c:  printf ("Send_DF1 failed - status = %d.\n",x);
+df1_word_read.c:  return (-1);
+df1_word_read.c:  return (-2);
+df1_word_read.c:  return (-3);
+df1_word_read.c:  return (-4);
+df1_word_read.c:  return (-5);
+df1_word_read.c:  return (-6);
+df1_word_read.c:  return (-8);
+df1_word_read.c:  return (-9);
+df1_word_read.c:df1->df1_port = channel;
+df1_word_read.c:cmd->cmd = 0x0f;
+df1_word_read.c:cmd->fnc = 0x01;
+df1_word_read.c:cmd->tns = comm->df1_tns;
+df1_word_read.c:cmd->dst = node;
+df1_word_read.c:cmd->offset = 0;
+df1_word_read.c:memcpy (cmd->data, name->data, name->len);
+df1_word_read.c:place = name->len;
+df1_word_read.c:if (name->floatdata == TRUE)
+df1_word_read.c:cmd->data[place++] = (byte)count;
+df1_word_read.c:  cmd->trans = htons(count/2);
+df1_word_read.c:  cmd->trans = (count);  
+df1_word_read.c:df1->df1_datalen = 16 + place;
+df1_word_read.c:memcpy (df1->cmd, cmd, 16+place);
+df1_word_read.c:  printf ("Send_DF1 failed - status = %d.\n",x);
+df1_word_write.c:  return (-1);
+df1_word_write.c:  return (-2);
+df1_word_write.c:  return (-3);
+df1_word_write.c:  return (-4);
+df1_word_write.c:  return (-5);
+df1_word_write.c:  return (-6);
+df1_word_write.c:  return (-8);
+df1_word_write.c:  return (-9);
+df1_word_write.c:  return (-10);
+df1_word_write.c:if (data->len == 0)
+df1_word_write.c:  return (-11);
+df1_word_write.c:df1->df1_port = channel;
+df1_word_write.c:cmd->cmd = 0x0f;
+df1_word_write.c:cmd->fnc = 0x00;
+df1_word_write.c:cmd->tns = comm->df1_tns;
+df1_word_write.c:cmd->dst = node;
+df1_word_write.c:cmd->offset = 0;
+df1_word_write.c:memcpy (cmd->data, name->data, name->len);
+df1_word_write.c:place = name->len;
+df1_word_write.c:if (name->floatdata == TRUE)
+df1_word_write.c:memcpy (&cmd->data[place], data->data, data->len);
+df1_word_write.c:place += data->len;
+df1_word_write.c:  cmd->trans = htons(count/2);
+df1_word_write.c:  cmd->trans = (count);  
+df1_word_write.c:df1->df1_datalen = 16 + place;
+df1_word_write.c:memcpy (df1->cmd, cmd, 16+place);
+df1_word_write.c:  printf ("Send_DF1 failed - status = %d.\n",x);
+establish_connection.c:  dprint(DEBUG_TRACE, "Entering establish_connection.c - %s\n",comm->hostname);
+establish_connection.c:  if (comm->error != OK)
+establish_connection.c:      switch (comm->error)
+establish_connection.c:	       comm->hostname);
+establish_connection.c:	dprint(DEBUG_TRACE, "Bad address for host %s.\n", comm->hostname);
+establish_connection.c:	dprint(DEBUG_TRACE, "Unknown error occured - %d\n", comm->error);
+establish_connection.c:  comm->df1_tns = (unsigned short) time ((time_t *)0);
+establish_connection.c:  dprint(DEBUG_VALUES, "Session ID = %ld\n", comm->session_id);
+establish_connection.c:  dprint(DEBUG_VALUES, "File Handle = %d\n", comm->file_handle);
+fill_header.c:  memcpy(head->context, comm->context, 8);
+fill_header.c:  head->handle = comm->session_id;
+get_backplane_data.c:/* Revised 5/6/02 William Hays - CTI */
+get_backplane_data.c:    return -1;
+get_backplane_data.c:    return -1;
+get_backplane_data.c:    return -1;
+get_backplane_data.c:    return -1;
+get_backplane_data.c:    return -1;
+get_backplane_data.c:    return -1;
+get_backplane_data.c:    return -1;
+get_backplane_data.c:    return -1;
+get_backplane_data.c:    return -1;
+get_backplane_data.c:  msgbuff->data[msgbuff->len++] = GET_ATTRIBUTE_ALL;
+get_backplane_data.c:  ioi1->ioiclass = BACKPLANE_DATA;
+get_backplane_data.c:  ioi1->instance = FIRST_INSTANCE;
+get_backplane_data.c:  ioi1->member = -1;
+get_backplane_data.c:  ioi1->point = -1;
+get_backplane_data.c:  ioi1->attribute = -1;
+get_backplane_data.c:  ioi1->tagname = NULL;
+get_backplane_data.c:  ioi1->elem[0] = -1;
+get_backplane_data.c:  ioi1->elem[1] = -1;
+get_backplane_data.c:  ioi1->elem[2] = -1;
+get_backplane_data.c:  if (path->device1 != -1)
+get_backplane_data.c:    cpf_buffer->data[cpf_buffer->len++] = PDU_Unconnected_Send;
+get_backplane_data.c:    ioi1->ioiclass = CONNECTION_MANAGER;
+get_backplane_data.c:    ioi1->instance = FIRST_INSTANCE;
+get_backplane_data.c:    ioi1->member = -1;
+get_backplane_data.c:    ioi1->point = -1;
+get_backplane_data.c:    ioi1->attribute = -1;
+get_backplane_data.c:    ioi1->tagname = NULL;
+get_backplane_data.c:    ioi1->elem[0] = -1;
+get_backplane_data.c:    ioi1->elem[1] = -1;
+get_backplane_data.c:    ioi1->elem[2] = -1;
+get_backplane_data.c:    cpf_buffer->data[cpf_buffer->len++] = msgbuff->len & 255;
+get_backplane_data.c:    cpf_buffer->data[cpf_buffer->len++] = msgbuff->len / 0x100;
+get_backplane_data.c:  memcpy(cpf_buffer->data + cpf_buffer->len, msgbuff->data, msgbuff->len);
+get_backplane_data.c:  cpf_buffer->len += msgbuff->len;
+get_backplane_data.c:  head->len = buff->len;
+get_backplane_data.c:  memcpy(sendbuff->data, head, ENCAPS_Header_Length);
+get_backplane_data.c:  sendbuff->overall_len = ENCAPS_Header_Length;
+get_backplane_data.c:    for (x = 0; x < buff->len; x++)
+get_backplane_data.c:      dprint(DEBUG_BUILD, "%02X ", buff->data[x]);
+get_backplane_data.c:  memcpy(sendbuff->data + sendbuff->overall_len, buff->data, buff->len);
+get_backplane_data.c:  sendbuff->overall_len += buff->len;
+get_backplane_data.c:  memcpy(head, buff->data, ENCAPS_Header_Length);
+get_backplane_data.c:  if (head->status != 0)
+get_backplane_data.c:    ret=-1;
+get_backplane_data.c:    return -1;
+get_backplane_data.c:  memcpy(backplane, buff->data + 44, sizeof(_backplane_data));
+get_backplane_data.c:  rack->slot = backplane->address;
+get_backplane_data.c:  rack->size = backplane->rack_size;
+get_backplane_data.c:    for (x = 44; x < buff->overall_len; x++)
+get_backplane_data.c:      dprint(DEBUG_VALUES, "%02X ", buff->data[x]);
+get_device_data.c:/* Revised 5/6/02 William Hays - CTI */
+get_device_data.c:    return -1;
+get_device_data.c:    return -1;
+get_device_data.c:    return -1;
+get_device_data.c:    return -1;
+get_device_data.c:    return -1;
+get_device_data.c:    return -1;
+get_device_data.c:    return -1;
+get_device_data.c:    return -1;
+get_device_data.c:  buff->len = 0;
+get_device_data.c:  msgbuff->data[msgbuff->len++] = GET_ATTRIBUTE_ALL;
+get_device_data.c:  ioi1->ioiclass = IDENTITY;
+get_device_data.c:  ioi1->instance = FIRST_INSTANCE;
+get_device_data.c:  ioi1->member = -1;
+get_device_data.c:  ioi1->point = -1;
+get_device_data.c:  ioi1->attribute = -1;
+get_device_data.c:  ioi1->tagname = NULL;
+get_device_data.c:  ioi1->elem[0] = -1;
+get_device_data.c:  ioi1->elem[1] = -1;
+get_device_data.c:  ioi1->elem[2] = -1;
+get_device_data.c:    for (x = 0; x < msgbuff->len; x++)
+get_device_data.c:      dprint(DEBUG_BUILD, "%02X ", msgbuff->data[x]);
+get_device_data.c:  if (path->device1 != -1)
+get_device_data.c:    cpf_buffer->data[cpf_buffer->len++] = PDU_Unconnected_Send;
+get_device_data.c:    ioi1->ioiclass = CONNECTION_MANAGER;
+get_device_data.c:    ioi1->instance = FIRST_INSTANCE;
+get_device_data.c:    ioi1->member = -1;
+get_device_data.c:    ioi1->point = -1;
+get_device_data.c:    ioi1->attribute = -1;
+get_device_data.c:    ioi1->tagname = NULL;
+get_device_data.c:    ioi1->elem[0] = -1;
+get_device_data.c:    ioi1->elem[1] = -1;
+get_device_data.c:    ioi1->elem[2] = -1;
+get_device_data.c:    cpf_buffer->data[cpf_buffer->len++] = msgbuff->len & 255;
+get_device_data.c:    cpf_buffer->data[cpf_buffer->len++] = msgbuff->len / 0x100;
+get_device_data.c:  memcpy(cpf_buffer->data + cpf_buffer->len, msgbuff->data, msgbuff->len);
+get_device_data.c:  cpf_buffer->len += msgbuff->len;
+get_device_data.c:  head->len = buff->len;
+get_device_data.c:  memcpy(sendbuff->data, head, ENCAPS_Header_Length);
+get_device_data.c:  sendbuff->overall_len = ENCAPS_Header_Length;
+get_device_data.c:    for (x = 0; x < buff->len; x++)
+get_device_data.c:      dprint(DEBUG_BUILD, "%02X ", buff->data[x]);
+get_device_data.c:  memcpy(sendbuff->data + sendbuff->overall_len, buff->data, buff->len);
+get_device_data.c:  sendbuff->overall_len += buff->len;
+get_device_data.c:  memcpy(head, buff->data, ENCAPS_Header_Length);
+get_device_data.c:  if (head->status != 0)
+get_device_data.c:    ret=-1;
+get_device_data.c:    return -1;
+get_device_data.c:  if (buff->overall_len > 68)
+get_device_data.c:    memcpy(identity, buff->data + 44, sizeof(_identity));
+get_device_data.c:    dprint(DEBUG_VALUES, "Got good reply to Get Identity Data Command - %d\n",
+get_device_data.c:	   buff->overall_len);
+get_device_data.c:    for (x = 44; x < buff->overall_len; x++)
+get_device_data.c:      dprint(DEBUG_VALUES, "%02X ", buff->data[x]);
+get_dh_map.c:/* Revised 5/6/02 William Hays - CTI */
+get_dh_map.c:    return -1;
+get_dh_map.c:    return -1;
+get_dh_map.c:    return -1;
+get_dh_map.c:    return -1;
+get_dh_map.c:    return -1;
+get_dh_map.c:    return -1;
+get_dh_map.c:    return -1;
+get_dh_map.c:    return -1;
+get_dh_map.c:  buff->len = 0;
+get_dh_map.c:  msgbuff->data[msgbuff->len++] = GET_ATTRIBUTE_ALL;
+get_dh_map.c:  ioi1->ioiclass = DHMAP;
+get_dh_map.c:  ioi1->instance = dhport;
+get_dh_map.c:  ioi1->member = -1;
+get_dh_map.c:  ioi1->point = -1;
+get_dh_map.c:  ioi1->attribute = -1;
+get_dh_map.c:  ioi1->tagname = NULL;
+get_dh_map.c:  ioi1->elem[0] = -1;
+get_dh_map.c:  ioi1->elem[1] = -1;
+get_dh_map.c:  ioi1->elem[2] = -1;
+get_dh_map.c:    for (x = 0; x < msgbuff->len; x++)
+get_dh_map.c:      dprint(DEBUG_BUILD, "%02X ", msgbuff->data[x]);
+get_dh_map.c:  if (path->device1 != -1)
+get_dh_map.c:    cpf_buffer->data[cpf_buffer->len++] = PDU_Unconnected_Send;
+get_dh_map.c:    ioi1->ioiclass = CONNECTION_MANAGER;
+get_dh_map.c:    ioi1->instance = FIRST_INSTANCE;
+get_dh_map.c:    ioi1->member = -1;
+get_dh_map.c:    ioi1->point = -1;
+get_dh_map.c:    ioi1->attribute = -1;
+get_dh_map.c:    ioi1->tagname = NULL;
+get_dh_map.c:    ioi1->elem[0] = -1;
+get_dh_map.c:    ioi1->elem[1] = -1;
+get_dh_map.c:    ioi1->elem[2] = -1;
+get_dh_map.c:    cpf_buffer->data[cpf_buffer->len++] = msgbuff->len & 255;
+get_dh_map.c:    cpf_buffer->data[cpf_buffer->len++] = msgbuff->len / 0x100;
+get_dh_map.c:  memcpy(cpf_buffer->data + cpf_buffer->len, msgbuff->data, msgbuff->len);
+get_dh_map.c:  cpf_buffer->len += msgbuff->len;
+get_dh_map.c:  head->len = buff->len;
+get_dh_map.c:  memcpy(sendbuff->data, head, ENCAPS_Header_Length);
+get_dh_map.c:  sendbuff->overall_len = ENCAPS_Header_Length;
+get_dh_map.c:    for (x = 0; x < buff->len; x++)
+get_dh_map.c:      dprint(DEBUG_BUILD, "%02X ", buff->data[x]);
+get_dh_map.c:  memcpy(sendbuff->data + sendbuff->overall_len, buff->data, buff->len);
+get_dh_map.c:  sendbuff->overall_len += buff->len;
+get_dh_map.c:  memcpy(head, buff->data, ENCAPS_Header_Length);
+get_dh_map.c:  if (head->status != 0)
+get_dh_map.c:    ret=-1;
+get_dh_map.c:    return -1;
+get_dh_map.c:  if (buff->overall_len > 44)
+get_dh_map.c:    memcpy(data, buff->data + 44, buff->overall_len - 44);
+get_dh_map.c:    dprint(DEBUG_VALUES, "Got good reply to Get DH Map Command - %d\n",
+get_dh_map.c:	   buff->overall_len);
+get_dh_map.c:    for (x = 44; x < buff->overall_len; x++)
+get_dh_map.c:      dprint(DEBUG_VALUES, "%02X ", buff->data[x]);
+get_element_size.c:   Copyright (c) 2002 any beyond - Ron Gage.  */
+get_object_config.c:/* Revised 5/6/02 William Hays - CTI */
+get_object_config.c:    return -1;
+get_object_config.c:    return -1;
+get_object_config.c:    return -1;
+get_object_config.c:    return -1;
+get_object_config.c:    return -1;
+get_object_config.c:    return -1;
+get_object_config.c:    return -1;
+get_object_config.c:    return -1;
+get_object_config.c:  buff->len = 0;
+get_object_config.c:  msgbuff->data[msgbuff->len++] = GET_ATTRIBUTE_LIST;
+get_object_config.c:  ioi1->ioiclass = OBJECT_CONFIG;
+get_object_config.c:  ioi1->instance = tag->base;
+get_object_config.c:  if (tag->id != 0)
+get_object_config.c:    ioi1->ioiclass = OBJECT_SUB_OBJECT;
+get_object_config.c:    ioi1->instance = tag->base;
+get_object_config.c:  ioi1->member = -1;
+get_object_config.c:  ioi1->point = -1;
+get_object_config.c:  ioi1->attribute = -1;
+get_object_config.c:  ioi1->tagname = NULL;
+get_object_config.c:  ioi1->elem[0] = -1;
+get_object_config.c:  ioi1->elem[1] = -1;
+get_object_config.c:  ioi1->elem[2] = -1;
+get_object_config.c:  if (tag->id != 0)
+get_object_config.c:      return -1;
+get_object_config.c:    ioi2->ioiclass = OBJECT_CONFIG;
+get_object_config.c:    ioi2->instance = tag->id;
+get_object_config.c:    ioi2->member = -1;
+get_object_config.c:    ioi2->point = -1;
+get_object_config.c:    ioi2->attribute = -1;
+get_object_config.c:    ioi2->tagname = NULL;
+get_object_config.c:    ioi2->elem[0] = -1;
+get_object_config.c:    ioi2->elem[1] = -1;
+get_object_config.c:    ioi2->elem[2] = -1;
+get_object_config.c:  msgbuff->data[msgbuff->len++] = 3;
+get_object_config.c:  msgbuff->data[msgbuff->len++] = 0;
+get_object_config.c:  msgbuff->data[msgbuff->len++] = 1;
+get_object_config.c:  msgbuff->data[msgbuff->len++] = 0;
+get_object_config.c:  msgbuff->data[msgbuff->len++] = 2;
+get_object_config.c:  msgbuff->data[msgbuff->len++] = 0;
+get_object_config.c:  msgbuff->data[msgbuff->len++] = 3;
+get_object_config.c:  msgbuff->data[msgbuff->len++] = 0;
+get_object_config.c:    for (x = 0; x < msgbuff->len; x++)
+get_object_config.c:      dprint(DEBUG_BUILD, "%02X ", msgbuff->data[x]);
+get_object_config.c:  cpf_buffer->data[cpf_buffer->len++] = PDU_Unconnected_Send;
+get_object_config.c:  ioiCM.member = -1;
+get_object_config.c:  ioiCM.point = -1;
+get_object_config.c:  ioiCM.attribute = -1;
+get_object_config.c:  ioiCM.elem[0] = -1;
+get_object_config.c:  ioiCM.elem[1] = -1;
+get_object_config.c:  ioiCM.elem[2] = -1;
+get_object_config.c:  cpf_buffer->data[cpf_buffer->len++] = msgbuff->len & 255;
+get_object_config.c:  cpf_buffer->data[cpf_buffer->len++] = msgbuff->len / 0x100;
+get_object_config.c:  memcpy(cpf_buffer->data + cpf_buffer->len, msgbuff->data, msgbuff->len);
+get_object_config.c:  cpf_buffer->len += msgbuff->len;
+get_object_config.c:  head->len = buff->len;
+get_object_config.c:  memcpy(sendbuff->data, head, ENCAPS_Header_Length);
+get_object_config.c:  sendbuff->overall_len = ENCAPS_Header_Length;
+get_object_config.c:    for (x = 0; x < buff->len; x++)
+get_object_config.c:      dprint(DEBUG_BUILD, "%02X ", buff->data[x]);
+get_object_config.c:  memcpy(sendbuff->data + sendbuff->overall_len, buff->data, buff->len);
+get_object_config.c:  sendbuff->overall_len += buff->len;
+get_object_config.c:  memcpy(head, buff->data, ENCAPS_Header_Length);
+get_object_config.c:  if (head->status != 0)
+get_object_config.c:    ret=-1;
+get_object_config.c:    return -1;
+get_object_config.c:	   "Got good reply to Get Object Config Command - %d\n",
+get_object_config.c:	   buff->overall_len);
+get_object_config.c:    for (x = 44; x < buff->overall_len; x++)
+get_object_config.c:      dprint(DEBUG_VALUES, "%02X ", buff->data[x]);
+get_object_config.c:  tag->arraysize1 = buff->data[start] +
+get_object_config.c:    (buff->data[start + 1] * 0x100) +
+get_object_config.c:    (buff->data[start + 2] * 0x10000) + (buff->data[start + 3] * 0x1000000);
+get_object_config.c:  tag->arraysize2 = buff->data[start] +
+get_object_config.c:    (buff->data[start + 1] * 0x100) +
+get_object_config.c:    (buff->data[start + 2] * 0x10000) + (buff->data[start + 3] * 0x1000000);
+get_object_config.c:  tag->arraysize3 = buff->data[start] +
+get_object_config.c:    (buff->data[start + 1] * 0x100) +
+get_object_config.c:    (buff->data[start + 2] * 0x10000) + (buff->data[start + 3] * 0x1000000);
+get_object_config.c:  tag->type = buff->data[start] + (buff->data[start + 1] * 256);
+get_object_config.c:  tag->linkid = buff->data[start] +
+get_object_config.c:    (buff->data[start + 1] * 0x100) +
+get_object_config.c:    (buff->data[start + 2] * 0x10000) + (buff->data[start + 3] * 0x1000000);
+get_object_config.c:  tag->topbase = buff->data[start] + (buff->data[start + 1] * 256);
+get_object_config.c:    tag->data = malloc(tagsize);
+get_object_config.c:    if (tag->data == NULL)
+get_object_config.c:      ret=-1;
+get_object_config_list.c:/* Revised 5/6/02 William Hays - CTI 
+get_object_config_list.c:    return -1;
+get_object_config_list.c:    return -1;
+get_object_config_list.c:    return -1;
+get_object_config_list.c:    return -1;
+get_object_config_list.c:    return -1;
+get_object_config_list.c:    return -1;
+get_object_config_list.c:    return -1;
+get_object_config_list.c:    return -1;
+get_object_config_list.c:    return -1;
+get_object_config_list.c:  tags->count = 0;
+get_object_config_list.c:    ioi2->ioiclass = -1;
+get_object_config_list.c:    ioi2->instance = -1;
+get_object_config_list.c:    ioi2->member = -1;
+get_object_config_list.c:    ioi2->point = -1;
+get_object_config_list.c:    ioi2->point = -1;
+get_object_config_list.c:    ioi2->attribute = -1;
+get_object_config_list.c:    ioi2->tagname = NULL;
+get_object_config_list.c:    ioi2->elem[0] = -1;
+get_object_config_list.c:    ioi2->elem[1] = -1;
+get_object_config_list.c:    ioi2->elem[2] = -1;
+get_object_config_list.c:    buff->len = 0;
+get_object_config_list.c:    msgbuff->data[msgbuff->len++] = LIST_ALL_OBJECTS;
+get_object_config_list.c:    ioi1->ioiclass = OBJECT_CONFIG;
+get_object_config_list.c:    ioi1->instance = BASE_INSTANCE;
+get_object_config_list.c:    if (tags->count != 0)
+get_object_config_list.c:      ioi1->instance = tags->tag[(tags->count)-1]->base;
+get_object_config_list.c:      ioi1->ioiclass = OBJECT_SUB_OBJECT;
+get_object_config_list.c:      ioi1->instance = base;
+get_object_config_list.c:      ioi2->ioiclass = OBJECT_CONFIG;
+get_object_config_list.c:      ioi2->instance = 0;
+get_object_config_list.c:    ioi1->member = -1;
+get_object_config_list.c:    ioi1->point = -1;
+get_object_config_list.c:    ioi1->attribute = -1;
+get_object_config_list.c:    ioi1->tagname = NULL;
+get_object_config_list.c:    ioi1->elem[0] = -1;
+get_object_config_list.c:    ioi1->elem[1] = -1;
+get_object_config_list.c:    ioi1->elem[2] = -1;
+get_object_config_list.c:      for (x = 0; x < msgbuff->len; x++)
+get_object_config_list.c:	dprint(DEBUG_BUILD, "%02X ", msgbuff->data[x]);
+get_object_config_list.c:    cpf_buffer->data[cpf_buffer->len++] = PDU_Unconnected_Send;
+get_object_config_list.c:    ioi1->ioiclass = CONNECTION_MANAGER;
+get_object_config_list.c:    ioi1->instance = FIRST_INSTANCE;
+get_object_config_list.c:    ioi1->member = -1;
+get_object_config_list.c:    ioi1->point = -1;
+get_object_config_list.c:    ioi1->attribute = -1;
+get_object_config_list.c:    ioi1->tagname = NULL;
+get_object_config_list.c:    ioi1->elem[0] = -1;
+get_object_config_list.c:    ioi1->elem[1] = -1;
+get_object_config_list.c:    ioi1->elem[2] = -1;
+get_object_config_list.c:    cpf_buffer->data[cpf_buffer->len++] = msgbuff->len & 255;
+get_object_config_list.c:    cpf_buffer->data[cpf_buffer->len++] = msgbuff->len / 0x100;
+get_object_config_list.c:    memcpy(cpf_buffer->data + cpf_buffer->len, msgbuff->data, msgbuff->len);
+get_object_config_list.c:    cpf_buffer->len += msgbuff->len;
+get_object_config_list.c:    head->len = buff->len;
+get_object_config_list.c:    memcpy(sendbuff->data, head, ENCAPS_Header_Length);
+get_object_config_list.c:    sendbuff->overall_len = ENCAPS_Header_Length;
+get_object_config_list.c:      for (x = 0; x < buff->len; x++)
+get_object_config_list.c:	dprint(DEBUG_BUILD, "%02X ", buff->data[x]);
+get_object_config_list.c:    memcpy(sendbuff->data + sendbuff->overall_len, buff->data, buff->len);
+get_object_config_list.c:    sendbuff->overall_len += buff->len;
+get_object_config_list.c:    memcpy(head, buff->data, ENCAPS_Header_Length);
+get_object_config_list.c:    if (head->status != 0)
+get_object_config_list.c:      ret=-1;
+get_object_config_list.c:      for(i=0;i<tags->count;i++)
+get_object_config_list.c:	free(tags->tag[i]);
+get_object_config_list.c:      return -1;
+get_object_config_list.c:	     "Got good reply to Get Object Config List Command - %d\n",
+get_object_config_list.c:	     buff->overall_len);
+get_object_config_list.c:      for (x = 44; x < buff->overall_len; x++)
+get_object_config_list.c:	dprint(DEBUG_BUILD, "%02X ", buff->data[x]);
+get_object_config_list.c:    for (x = 44; x < buff->overall_len; x += 4)
+get_object_config_list.c:      if (tags->count + count >= CELL_MAX_TAGS)
+get_object_config_list.c:        dprint (DEBUG_TRACE, "Ran out of tag space - get_object_config_list.c\n");
+get_object_config_list.c:        for (i=0;i<tags->count + count;i++)
+get_object_config_list.c:	  free(tags->tag[i]);
+get_object_config_list.c:	return -1;
+get_object_config_list.c:      tags->tag[tags->count + count] = 0;
+get_object_config_list.c:	     tags->count + count);
+get_object_config_list.c:      tags->tag[tags->count + count] = malloc(sizeof(_tag_detail));
+get_object_config_list.c:      if (tags->tag[tags->count + count] == NULL)
+get_object_config_list.c:	       tags->count + count);
+get_object_config_list.c:        for(i=0;i<tags->count + count;i++)
+get_object_config_list.c:	   free(tags->tag[i]);
+get_object_config_list.c:	return -1;
+get_object_config_list.c:	     tags->tag[tags->count + count]);
+get_object_config_list.c:      memset(tags->tag[tags->count + count], 0, sizeof(_tag_detail));
+get_object_config_list.c:	tags->tag[tags->count + count]->base =
+get_object_config_list.c:	 (byte) buff->data[x] +
+get_object_config_list.c:	  ((byte)buff->data[x + 1] * 0x100) +
+get_object_config_list.c:	  ((byte)buff->data[x + 2] * 0x10000) + ((byte)buff->data[x + 3] * 0x1000000);
+get_object_config_list.c:	tags->tag[tags->count + count]->id = 0;
+get_object_config_list.c:	dprint (DEBUG_BUILD,"Retrieved BASE value: %08lX\n",tags->tag[tags->count + count]->base);
+get_object_config_list.c:	tags->tag[tags->count + count]->base = base;
+get_object_config_list.c:	tags->tag[tags->count + count]->id =
+get_object_config_list.c:	  (byte)buff->data[x] +
+get_object_config_list.c:	  ((byte)buff->data[x + 1] * 0x100) +
+get_object_config_list.c:	  ((byte)buff->data[x + 2] * 0x10000) + ((byte)buff->data[x + 3] * 0x1000000);
+get_object_config_list.c:	dprint (DEBUG_BUILD,"Retrieved ID value: %08lX\n",tags->tag[tags->count + count]->id);
+get_object_config_list.c:    tags->count += count;
+get_object_config_list.c:    if (buff->data[42] != 6)
+get_object_details.c:/* Revised 5/6/02 William Hays - CTI */
+get_object_details.c:    return -1;
+get_object_details.c:    return -1;
+get_object_details.c:    return -1;
+get_object_details.c:    return -1;
+get_object_details.c:    return -1;
+get_object_details.c:    return -1;
+get_object_details.c:    return -1;
+get_object_details.c:    return -1;
+get_object_details.c:  buff->len = 0;
+get_object_details.c:  msgbuff->data[msgbuff->len++] = GET_ATTRIBUTE_LIST;
+get_object_details.c:  ioi1->ioiclass = OBJECT_DETAILS;
+get_object_details.c:  ioi1->instance = tag->base;
+get_object_details.c:  if (tag->id != 0)
+get_object_details.c:    ioi1->ioiclass = OBJECT_SUB_OBJECT;
+get_object_details.c:    ioi1->instance = tag->base;
+get_object_details.c:  ioi1->member = -1;
+get_object_details.c:  ioi1->point = -1;
+get_object_details.c:  ioi1->attribute = -1;
+get_object_details.c:  ioi1->tagname = NULL;
+get_object_details.c:  ioi1->elem[0] = -1;
+get_object_details.c:  ioi1->elem[1] = -1;
+get_object_details.c:  ioi1->elem[2] = -1;
+get_object_details.c:  if (tag->id != 0)
+get_object_details.c:      return -1;
+get_object_details.c:    ioi2->ioiclass = OBJECT_DETAILS;
+get_object_details.c:    ioi2->instance = tag->id;
+get_object_details.c:    ioi2->member = -1;
+get_object_details.c:    ioi2->point = -1;
+get_object_details.c:    ioi2->attribute = -1;
+get_object_details.c:    ioi2->tagname = NULL;
+get_object_details.c:    ioi2->elem[0] = -1;
+get_object_details.c:    ioi2->elem[1] = -1;
+get_object_details.c:    ioi2->elem[2] = -1;
+get_object_details.c:  msgbuff->data[msgbuff->len++] = 7;
+get_object_details.c:  msgbuff->data[msgbuff->len++] = 0;
+get_object_details.c:  msgbuff->data[msgbuff->len++] = 1;
+get_object_details.c:  msgbuff->data[msgbuff->len++] = 0;
+get_object_details.c:  msgbuff->data[msgbuff->len++] = 2;
+get_object_details.c:  msgbuff->data[msgbuff->len++] = 0;
+get_object_details.c:  msgbuff->data[msgbuff->len++] = 3;
+get_object_details.c:  msgbuff->data[msgbuff->len++] = 0;
+get_object_details.c:  msgbuff->data[msgbuff->len++] = 5;
+get_object_details.c:  msgbuff->data[msgbuff->len++] = 0;
+get_object_details.c:  msgbuff->data[msgbuff->len++] = 6;
+get_object_details.c:  msgbuff->data[msgbuff->len++] = 0;
+get_object_details.c:  msgbuff->data[msgbuff->len++] = 7;
+get_object_details.c:  msgbuff->data[msgbuff->len++] = 0;
+get_object_details.c:  msgbuff->data[msgbuff->len++] = 8;
+get_object_details.c:  msgbuff->data[msgbuff->len++] = 0;
+get_object_details.c:    for (x = 0; x < msgbuff->len; x++)
+get_object_details.c:      dprint(DEBUG_BUILD, "%02X ", msgbuff->data[x]);
+get_object_details.c:  cpf_buffer->data[cpf_buffer->len++] = PDU_Unconnected_Send;
+get_object_details.c:  ioi1->ioiclass = CONNECTION_MANAGER;
+get_object_details.c:  ioi1->instance = FIRST_INSTANCE;
+get_object_details.c:  ioi1->member = -1;
+get_object_details.c:  ioi1->point = -1;
+get_object_details.c:  ioi1->attribute = -1;
+get_object_details.c:  ioi1->tagname = NULL;
+get_object_details.c:  cpf_buffer->data[cpf_buffer->len++] = msgbuff->len & 255;
+get_object_details.c:  cpf_buffer->data[cpf_buffer->len++] = msgbuff->len / 0x100;
+get_object_details.c:  memcpy(cpf_buffer->data + cpf_buffer->len, msgbuff->data, msgbuff->len);
+get_object_details.c:  cpf_buffer->len += msgbuff->len;
+get_object_details.c:  head->len = buff->len;
+get_object_details.c:  memcpy(sendbuff->data, head, ENCAPS_Header_Length);
+get_object_details.c:  sendbuff->overall_len = ENCAPS_Header_Length;
+get_object_details.c:    for (x = 0; x < buff->len; x++)
+get_object_details.c:      dprint(DEBUG_BUILD, "%02X ", buff->data[x]);
+get_object_details.c:  memcpy(sendbuff->data + sendbuff->overall_len, buff->data, buff->len);
+get_object_details.c:  sendbuff->overall_len += buff->len;
+get_object_details.c:  memcpy(head, buff->data, ENCAPS_Header_Length);
+get_object_details.c:  if (head->status != 0)
+get_object_details.c:    ret = -1;
+get_object_details.c:    return -1;
+get_object_details.c:	   "Got good reply to Get Object Details Command - %d\n",
+get_object_details.c:	   buff->overall_len);
+get_object_details.c:    for (x = 44; x < buff->overall_len; x++)
+get_object_details.c:      dprint(DEBUG_VALUES, "%02X ", buff->data[x]);
+get_object_details.c:/* Property 0x01  - the tag name */
+get_object_details.c:  namelen = buff->data[50] + (buff->data[51] * 256);
+get_object_details.c:  if (namelen > sizeof(tag->name))
+get_object_details.c:    dprint(DEBUG_VALUES, "Tag name length %d truncated to %d bytes.\n",namelen,sizeof(tag->name));
+get_object_details.c:    namelen=sizeof(tag->name);
+get_object_details.c:  memcpy(tag->name, buff->data + start, namelen);
+get_object_details.c:/* Property 0x02  - Data type indicator */
+get_object_details.c:  tag->type = buff->data[start] + (buff->data[start + 1] * 256);
+get_object_details.c:/* Property 0x03 - Suspected Link ID between detail and config lists */
+get_object_details.c:  tag->linkid = buff->data[start] +
+get_object_details.c:    (buff->data[start + 1] * 0x100) +
+get_object_details.c:    (buff->data[start + 2] * 0x10000) + (buff->data[start + 3] * 0x1000000);
+get_object_details.c:/* Property 0x05 - ??? */
+get_object_details.c:  tag->memory = buff->data[start] +
+get_object_details.c:    (buff->data[start + 1] * 0x100) +
+get_object_details.c:    (buff->data[start + 2] * 0x10000) + (buff->data[start + 3] * 0x1000000);
+get_object_details.c:/* Property 0x06  - Base Object ID */
+get_object_details.c:  tag->topbase = buff->data[start] + (buff->data[start + 1] * 0x100) +
+get_object_details.c:    (buff->data[start + 2] * 0x10000) + (buff->data[start + 3] * 0x1000000);
+get_object_details.c:/* Property 0x07 - Element size  */
+get_object_details.c:  tag->size = buff->data[start] + (buff->data[start + 1] * 256);
+get_object_details.c:/* Property 0x08 - Array Size data */
+get_object_details.c:  tag->arraysize1 = buff->data[start] +
+get_object_details.c:    (buff->data[start + 1] * 0x100) +
+get_object_details.c:    (buff->data[start + 2] * 0x10000) + (buff->data[start + 3] * 0x1000000);
+get_object_details.c:  tag->arraysize2 = buff->data[start] +
+get_object_details.c:    (buff->data[start + 1] * 0x100) +
+get_object_details.c:    (buff->data[start + 2] * 0x10000) + (buff->data[start + 3] * 0x1000000);
+get_object_details.c:  tag->arraysize3 = buff->data[start] +
+get_object_details.c:    (buff->data[start + 1] * 0x100) +
+get_object_details.c:    (buff->data[start + 2] * 0x10000) + (buff->data[start + 3] * 0x1000000);
+get_object_details.c:     tag->data = malloc(tagsize);
+get_object_details.c:     if (tag->data == NULL)
+get_object_details.c:       ret=-1;
+get_object_details_list.c:/* Revised 5/6/02 William Hays - CTI 
+get_object_details_list.c:    return -1;
+get_object_details_list.c:    return -1;
+get_object_details_list.c:    return -1;
+get_object_details_list.c:    return -1;
+get_object_details_list.c:    return -1;
+get_object_details_list.c:    return -1;
+get_object_details_list.c:    return -1;
+get_object_details_list.c:    return -1;
+get_object_details_list.c:    return -1;
+get_object_details_list.c:    return -1;
+get_object_details_list.c:  tags->count = 0;
+get_object_details_list.c:    ioi2->ioiclass = -1;
+get_object_details_list.c:    ioi2->instance = -1;
+get_object_details_list.c:    ioi2->member = -1;
+get_object_details_list.c:    ioi2->point = -1;
+get_object_details_list.c:    ioi2->point = -1;
+get_object_details_list.c:    ioi2->attribute = -1;
+get_object_details_list.c:    ioi2->tagname = NULL;
+get_object_details_list.c:    ioi2->elem[0] = -1;
+get_object_details_list.c:    ioi2->elem[1] = -1;
+get_object_details_list.c:    ioi2->elem[2] = -1;
+get_object_details_list.c:    buff->len = 0;
+get_object_details_list.c:    msgbuff->data[msgbuff->len++] = LIST_ALL_OBJECTS;
+get_object_details_list.c:    ioi1->ioiclass = OBJECT_DETAILS;
+get_object_details_list.c:    ioi1->instance = BASE_INSTANCE;
+get_object_details_list.c:      ioi1->ioiclass = OBJECT_SUB_OBJECT;
+get_object_details_list.c:      ioi1->instance = base;
+get_object_details_list.c:      ioi2->ioiclass = OBJECT_DETAILS;
+get_object_details_list.c:      ioi2->instance = 0;
+get_object_details_list.c:      if (tags->count != 0)
+get_object_details_list.c:	ioi2->instance = tags->tag[tags->count-1]->id;
+get_object_details_list.c:      if (tags->count != 0)
+get_object_details_list.c:	ioi1->instance = tags->tag[tags->count-1]->base;
+get_object_details_list.c:    ioi1->member = -1;
+get_object_details_list.c:    ioi1->point = -1;
+get_object_details_list.c:    ioi1->attribute = -1;
+get_object_details_list.c:    ioi1->tagname = NULL;
+get_object_details_list.c:    ioi1->elem[0] = -1;
+get_object_details_list.c:    ioi1->elem[1] = -1;
+get_object_details_list.c:    ioi1->elem[2] = -1;
+get_object_details_list.c:      for (x = 0; x < msgbuff->len; x++)
+get_object_details_list.c:	dprint(DEBUG_BUILD, "%02X ", msgbuff->data[x]);
+get_object_details_list.c:    cpf_buffer->data[cpf_buffer->len++] = PDU_Unconnected_Send;
+get_object_details_list.c:    ioiCM->ioiclass = CONNECTION_MANAGER;
+get_object_details_list.c:    ioiCM->instance = FIRST_INSTANCE;
+get_object_details_list.c:    ioiCM->member = -1;
+get_object_details_list.c:    ioiCM->point = -1;
+get_object_details_list.c:    ioiCM->attribute = -1;
+get_object_details_list.c:    ioiCM->tagname = NULL;
+get_object_details_list.c:    ioiCM->elem[0] = -1;
+get_object_details_list.c:    ioiCM->elem[1] = -1;
+get_object_details_list.c:    ioiCM->elem[2] = -1;
+get_object_details_list.c:    cpf_buffer->data[cpf_buffer->len++] = msgbuff->len & 255;
+get_object_details_list.c:    cpf_buffer->data[cpf_buffer->len++] = msgbuff->len / 0x100;
+get_object_details_list.c:    memcpy(cpf_buffer->data + cpf_buffer->len, msgbuff->data, msgbuff->len);
+get_object_details_list.c:    cpf_buffer->len += msgbuff->len;
+get_object_details_list.c:    head->len = buff->len;
+get_object_details_list.c:    memcpy(sendbuff->data, head, ENCAPS_Header_Length);
+get_object_details_list.c:    sendbuff->overall_len = ENCAPS_Header_Length;
+get_object_details_list.c:      for (x = 0; x < buff->len; x++)
+get_object_details_list.c:	dprint(DEBUG_BUILD, "%02X ", buff->data[x]);
+get_object_details_list.c:    memcpy(sendbuff->data + sendbuff->overall_len, buff->data, buff->len);
+get_object_details_list.c:    sendbuff->overall_len += buff->len;
+get_object_details_list.c:    memcpy(head, buff->data, ENCAPS_Header_Length);
+get_object_details_list.c:    if (head->status != 0)
+get_object_details_list.c:      ret = -1;
+get_object_details_list.c:      for (i=0;i<tags->count;i++)
+get_object_details_list.c:	free(tags->tag[i]);
+get_object_details_list.c:      return -1;
+get_object_details_list.c:	     "Got good reply to Get Object Details List Command - %d\n",
+get_object_details_list.c:	     buff->overall_len);
+get_object_details_list.c:      for (x = 44; x < buff->overall_len; x++)
+get_object_details_list.c:	dprint(DEBUG_BUILD, "%02X ", buff->data[x]);
+get_object_details_list.c:    for (x = 44; x < buff->overall_len; x += 4)
+get_object_details_list.c:      if (tags->count + count >= CELL_MAX_TAGS)
+get_object_details_list.c:        dprint (DEBUG_TRACE,"Ran out of tag space - get_object_details_list.c\n");
+get_object_details_list.c:        for (i=0;i<tags->count + count;i++)
+get_object_details_list.c:	  free(tags->tag[i]);
+get_object_details_list.c:	return -1;
+get_object_details_list.c:      tags->tag[tags->count + count] = 0;
+get_object_details_list.c:	     tags->count + count);
+get_object_details_list.c:      tags->tag[tags->count + count] = malloc(sizeof(_tag_detail));
+get_object_details_list.c:      if (tags->tag[tags->count + count] == NULL)
+get_object_details_list.c:	       tags->count + count);
+get_object_details_list.c:        for (i=0;i<tags->count + count;i++)
+get_object_details_list.c:	  free(tags->tag[i]);
+get_object_details_list.c:	return -1;
+get_object_details_list.c:	     tags->tag[tags->count + count]);
+get_object_details_list.c:      memset(tags->tag[tags->count + count], 0, sizeof(_tag_detail));
+get_object_details_list.c:	tags->tag[tags->count + count]->base =
+get_object_details_list.c:	  buff->data[x] +
+get_object_details_list.c:	  (buff->data[x + 1] * 0x100) +
+get_object_details_list.c:	  (buff->data[x + 2] * 0x10000) + (buff->data[x + 3] * 0x1000000);
+get_object_details_list.c:	tags->tag[tags->count + count]->id = 0;
+get_object_details_list.c:	tags->tag[tags->count + count]->base = base;
+get_object_details_list.c:	tags->tag[tags->count + count]->id =
+get_object_details_list.c:	  buff->data[x] +
+get_object_details_list.c:	  (buff->data[x + 1] * 0x100) +
+get_object_details_list.c:	  (buff->data[x + 2] * 0x10000) + (buff->data[x + 3] * 0x1000000);
+get_object_details_list.c:    tags->count += count;
+get_object_details_list.c:    if (buff->data[42] != 6)
+get_port_data.c:/* Revised 5/6/02 William Hays - CTI */
+get_port_data.c:    return -1;
+get_port_data.c:    return -1;
+get_port_data.c:    return -1;
+get_port_data.c:    return -1;
+get_port_data.c:    return -1;
+get_port_data.c:    return -1;
+get_port_data.c:    return -1;
+get_port_data.c:  buff->len = 0;
+get_port_data.c:  msgbuff->data[msgbuff->len++] = GET_ATTRIBUTE_SINGLE;
+get_port_data.c:  ioi1->ioiclass = PORT_OBJECT;
+get_port_data.c:  ioi1->instance = BASE_INSTANCE;
+get_port_data.c:  ioi1->member = -1;
+get_port_data.c:  ioi1->point = -1;
+get_port_data.c:  ioi1->attribute = ENTRY_PORT;
+get_port_data.c:  ioi1->tagname = NULL;
+get_port_data.c:  ioi1->elem[0] = -1;
+get_port_data.c:  ioi1->elem[1] = -1;
+get_port_data.c:  ioi1->elem[2] = -1;
+get_port_data.c:    for (x = 0; x < msgbuff->len; x++)
+get_port_data.c:      dprint(DEBUG_BUILD, "%02X ", msgbuff->data[x]);
+get_port_data.c:  head->len = buff->len;
+get_port_data.c:  memcpy(sendbuff->data, head, ENCAPS_Header_Length);
+get_port_data.c:  sendbuff->overall_len = ENCAPS_Header_Length;
+get_port_data.c:    for (x = 0; x < buff->len; x++)
+get_port_data.c:      dprint(DEBUG_BUILD, "%02X ", buff->data[x]);
+get_port_data.c:  memcpy(sendbuff->data + sendbuff->overall_len, buff->data, buff->len);
+get_port_data.c:  sendbuff->overall_len += buff->len;
+get_port_data.c:  memcpy(head, buff->data, ENCAPS_Header_Length);
+get_port_data.c:  if (head->status != 0)
+get_port_data.c:    ret=-1;
+get_port_data.c:    return -1;
+get_port_data.c:  memcpy(port, buff->data + 40, sizeof(_port));
+get_port_data.c:    dprint(DEBUG_VALUES, "Port slot reported as %d.\n", port->slot);
+get_port_data.c:      dprint(DEBUG_VALUES, "%02X ", buff->data[x]);
+get_program_details.c:/* Revised 5/6/02 William Hays - CTI */
+get_program_details.c:    return -1;
+get_program_details.c:    return -1;
+get_program_details.c:    return -1;
+get_program_details.c:    return -1;
+get_program_details.c:    return -1;
+get_program_details.c:    return -1;
+get_program_details.c:    return -1;
+get_program_details.c:    return -1;
+get_program_details.c:  buff->len = 0;
+get_program_details.c:  msgbuff->data[msgbuff->len++] = GET_ATTRIBUTE_LIST;
+get_program_details.c:  ioi1->ioiclass = OBJECT_SUB_OBJECT;
+get_program_details.c:  ioi1->instance = prog->base;
+get_program_details.c:  ioi1->member = -1;
+get_program_details.c:  ioi1->point = -1;
+get_program_details.c:  ioi1->attribute = -1;
+get_program_details.c:  ioi1->tagname = NULL;
+get_program_details.c:  ioi1->elem[0] = -1;
+get_program_details.c:  ioi1->elem[1] = -1;
+get_program_details.c:  ioi1->elem[2] = -1;
+get_program_details.c:  msgbuff->data[msgbuff->len++] = 1;
+get_program_details.c:  msgbuff->data[msgbuff->len++] = 0;
+get_program_details.c:  msgbuff->data[msgbuff->len++] = 0x10;
+get_program_details.c:  msgbuff->data[msgbuff->len++] = 0;
+get_program_details.c:    for (x = 0; x < msgbuff->len; x++)
+get_program_details.c:      dprint(DEBUG_BUILD, "%02X ", msgbuff->data[x]);
+get_program_details.c:  cpf_buffer->data[cpf_buffer->len++] = PDU_Unconnected_Send;
+get_program_details.c:  ioi1->ioiclass = CONNECTION_MANAGER;
+get_program_details.c:  ioi1->instance = FIRST_INSTANCE;
+get_program_details.c:  ioi1->member = -1;
+get_program_details.c:  ioi1->point = -1;
+get_program_details.c:  ioi1->attribute = -1;
+get_program_details.c:  ioi1->tagname = NULL;
+get_program_details.c:  ioi1->elem[0] = -1;
+get_program_details.c:  ioi1->elem[1] = -1;
+get_program_details.c:  ioi1->elem[2] = -1;
+get_program_details.c:  cpf_buffer->data[cpf_buffer->len++] = msgbuff->len & 255;
+get_program_details.c:  cpf_buffer->data[cpf_buffer->len++] = msgbuff->len / 0x100;
+get_program_details.c:  memcpy(cpf_buffer->data + cpf_buffer->len, msgbuff->data, msgbuff->len);
+get_program_details.c:  cpf_buffer->len += msgbuff->len;
+get_program_details.c:  head->len = buff->len;
+get_program_details.c:  memcpy(sendbuff->data, head, ENCAPS_Header_Length);
+get_program_details.c:  sendbuff->overall_len = ENCAPS_Header_Length;
+get_program_details.c:    for (x = 0; x < buff->len; x++)
+get_program_details.c:      dprint(DEBUG_BUILD, "%02X ", buff->data[x]);
+get_program_details.c:  memcpy(sendbuff->data + sendbuff->overall_len, buff->data, buff->len);
+get_program_details.c:  sendbuff->overall_len += buff->len;
+get_program_details.c:  memcpy(head, buff->data, ENCAPS_Header_Length);
+get_program_details.c:  if (head->status != 0)
+get_program_details.c:    ret=-1;
+get_program_details.c:    return -1;
+get_program_details.c:	   "Got good reply to Get Program Details Command - %d\n",
+get_program_details.c:	   buff->overall_len);
+get_program_details.c:    for (x = 44; x < buff->overall_len; x++)
+get_program_details.c:      dprint(DEBUG_VALUES, "%02X ", buff->data[x]);
+get_program_details.c:/* Property 0x10  - the link id */
+get_program_details.c:  prog->linkid = buff->data[start] +
+get_program_details.c:    (buff->data[start + 1] * 0x100) +
+get_program_details.c:    (buff->data[start + 2] * 0x10000) + (buff->data[start + 3] * 0x1000000);
+get_program_list.c:/* Revised 5/6/02 William Hays - CTI 
+get_program_list.c:    return -1;
+get_program_list.c:    return -1;
+get_program_list.c:    return -1;
+get_program_list.c:    return -1;
+get_program_list.c:    return -1;
+get_program_list.c:    return -1;
+get_program_list.c:    return -1;
+get_program_list.c:    return -1;
+get_program_list.c:  progs->count = 0;
+get_program_list.c:    buff->len = 0;
+get_program_list.c:    msgbuff->data[msgbuff->len++] = LIST_ALL_OBJECTS;
+get_program_list.c:    ioi1->ioiclass = OBJECT_SUB_OBJECT;
+get_program_list.c:    ioi1->instance = BASE_INSTANCE;
+get_program_list.c:    ioi1->member = -1;
+get_program_list.c:    ioi1->point = -1;
+get_program_list.c:    ioi1->attribute = -1;
+get_program_list.c:    ioi1->tagname = NULL;
+get_program_list.c:    ioi1->elem[0] = -1;
+get_program_list.c:    ioi1->elem[1] = -1;
+get_program_list.c:    ioi1->elem[2] = -1;
+get_program_list.c:      for (x = 0; x < msgbuff->len; x++)
+get_program_list.c:	dprint(DEBUG_BUILD, "%02X ", msgbuff->data[x]);
+get_program_list.c:    cpf_buffer->data[cpf_buffer->len++] = PDU_Unconnected_Send;
+get_program_list.c:    ioi1->ioiclass = CONNECTION_MANAGER;
+get_program_list.c:    ioi1->instance = FIRST_INSTANCE;
+get_program_list.c:    ioi1->member = -1;
+get_program_list.c:    ioi1->point = -1;
+get_program_list.c:    ioi1->attribute = -1;
+get_program_list.c:    ioi1->tagname = NULL;
+get_program_list.c:    ioi1->elem[0] = -1;
+get_program_list.c:    ioi1->elem[1] = -1;
+get_program_list.c:    ioi1->elem[2] = -1;
+get_program_list.c:    cpf_buffer->data[cpf_buffer->len++] = msgbuff->len & 255;
+get_program_list.c:    cpf_buffer->data[cpf_buffer->len++] = msgbuff->len / 0x100;
+get_program_list.c:    memcpy(cpf_buffer->data + cpf_buffer->len, msgbuff->data, msgbuff->len);
+get_program_list.c:    cpf_buffer->len += msgbuff->len;
+get_program_list.c:    head->len = buff->len;
+get_program_list.c:    memcpy(sendbuff->data, head, ENCAPS_Header_Length);
+get_program_list.c:    sendbuff->overall_len = ENCAPS_Header_Length;
+get_program_list.c:      for (x = 0; x < buff->len; x++)
+get_program_list.c:	dprint(DEBUG_BUILD, "%02X ", buff->data[x]);
+get_program_list.c:    memcpy(sendbuff->data + sendbuff->overall_len, buff->data, buff->len);
+get_program_list.c:    sendbuff->overall_len += buff->len;
+get_program_list.c:    memcpy(head, buff->data, ENCAPS_Header_Length);
+get_program_list.c:    if (head->status != 0)
+get_program_list.c:      ret = -1;
+get_program_list.c:      for (i=0;i<progs->count;i++)
+get_program_list.c:        free(progs->prog[i]);
+get_program_list.c:      return -1;
+get_program_list.c:      dprint(DEBUG_BUILD, "Got good reply to Get Program List Command - %d\n",
+get_program_list.c:	     buff->overall_len);
+get_program_list.c:      for (x = 44; x < buff->overall_len; x++)
+get_program_list.c:	dprint(DEBUG_BUILD, "%02X ", buff->data[x]);
+get_program_list.c:    for (x = 44; x < buff->overall_len; x += 4)
+get_program_list.c:      if (progs->count + count >= CELL_MAX_PROGS)
+get_program_list.c:        for (i=0;i<progs->count+count;i++)
+get_program_list.c:          free(progs->prog[i]);
+get_program_list.c:	return -1;
+get_program_list.c:      progs->prog[progs->count + count] = 0;
+get_program_list.c:	     progs->count + count);
+get_program_list.c:      progs->prog[progs->count + count] = malloc(sizeof(_prog_detail));
+get_program_list.c:      if (progs->prog[progs->count + count] == NULL)
+get_program_list.c:	       progs->count + count);
+get_program_list.c:        for (i=0;i<progs->count+count;i++)
+get_program_list.c:          free(progs->prog[i]);
+get_program_list.c:	return -1;
+get_program_list.c:	     progs->prog[progs->count + count]);
+get_program_list.c:      memset(progs->prog[progs->count + count], 0, sizeof(_prog_detail));
+get_program_list.c:      progs->prog[progs->count + count]->base =
+get_program_list.c:	buff->data[x] +
+get_program_list.c:	(buff->data[x + 1] * 0x100) +
+get_program_list.c:	(buff->data[x + 2] * 0x10000) + (buff->data[x + 3] * 0x1000000);
+get_program_list.c:    progs->count += count;
+get_program_list.c:    if (buff->data[42] != 6)
+get_program_list.c:    dprint(DEBUG_TRACE, "Get Program List looping - count = %d\n",count);
+get_remote_dh.c:/* Revised 5/6/02 William Hays - CTI */
+get_remote_dh.c:    return -1;
+get_remote_dh.c:    return -1;
+get_remote_dh.c:    return -1;
+get_remote_dh.c:    return -1;
+get_remote_dh.c:    return -1;
+get_remote_dh.c:    return -1;
+get_remote_dh.c:    return -1;
+get_remote_dh.c:    return -1;
+get_remote_dh.c:  buff->len = 0;
+get_remote_dh.c:  msgbuff->data[msgbuff->len++] = GET_ATTRIBUTE_ALL;
+get_remote_dh.c:  ioi1->ioiclass = REMOTE_DH;
+get_remote_dh.c:  ioi1->instance = FIRST_INSTANCE;
+get_remote_dh.c:  ioi1->member = -1;
+get_remote_dh.c:  ioi1->point = -1;
+get_remote_dh.c:  ioi1->attribute = dhport;
+get_remote_dh.c:  ioi1->tagname = NULL;
+get_remote_dh.c:  ioi1->elem[0] = -1;
+get_remote_dh.c:  ioi1->elem[1] = -1;
+get_remote_dh.c:  ioi1->elem[2] = -1;
+get_remote_dh.c:    for (x = 0; x < msgbuff->len; x++)
+get_remote_dh.c:      dprint(DEBUG_BUILD, "%02X ", msgbuff->data[x]);
+get_remote_dh.c:  if (path->device1 != -1)
+get_remote_dh.c:    cpf_buffer->data[cpf_buffer->len++] = PDU_Unconnected_Send;
+get_remote_dh.c:    ioi1->ioiclass = CONNECTION_MANAGER;
+get_remote_dh.c:    ioi1->instance = FIRST_INSTANCE;
+get_remote_dh.c:    ioi1->member = -1;
+get_remote_dh.c:    ioi1->point = -1;
+get_remote_dh.c:    ioi1->attribute = -1;
+get_remote_dh.c:    ioi1->tagname = NULL;
+get_remote_dh.c:    ioi1->elem[0] = -1;
+get_remote_dh.c:    ioi1->elem[1] = -1;
+get_remote_dh.c:    ioi1->elem[2] = -1;
+get_remote_dh.c:    cpf_buffer->data[cpf_buffer->len++] = msgbuff->len & 255;
+get_remote_dh.c:    cpf_buffer->data[cpf_buffer->len++] = msgbuff->len / 0x100;
+get_remote_dh.c:  memcpy(cpf_buffer->data + cpf_buffer->len, msgbuff->data, msgbuff->len);
+get_remote_dh.c:  cpf_buffer->len += msgbuff->len;
+get_remote_dh.c:  head->len = buff->len;
+get_remote_dh.c:  memcpy(sendbuff->data, head, ENCAPS_Header_Length);
+get_remote_dh.c:  sendbuff->overall_len = ENCAPS_Header_Length;
+get_remote_dh.c:    for (x = 0; x < buff->len; x++)
+get_remote_dh.c:      dprint(DEBUG_BUILD, "%02X ", buff->data[x]);
+get_remote_dh.c:  memcpy(sendbuff->data + sendbuff->overall_len, buff->data, buff->len);
+get_remote_dh.c:  sendbuff->overall_len += buff->len;
+get_remote_dh.c:  memcpy(head, buff->data, ENCAPS_Header_Length);
+get_remote_dh.c:  if (head->status != 0)
+get_remote_dh.c:    ret=-1;
+get_remote_dh.c:    return -1;
+get_remote_dh.c:  if (buff->overall_len > 44)
+get_remote_dh.c:    memcpy(data, buff->data + 44, sizeof(_data_buffer)-44);
+get_remote_dh.c:    data->overall_len = buff->overall_len - 44;
+get_remote_dh.c:    dprint(DEBUG_VALUES, "Got good reply to Get Remote DH Command - %d\n",
+get_remote_dh.c:	   buff->overall_len);
+get_remote_dh.c:    for (x = 44; x < buff->overall_len; x++)
+get_remote_dh.c:      dprint(DEBUG_VALUES, "%02X ", buff->data[x]);
+get_struct_config.c:/* Revised 5/6/02 William Hays - CTI */
+get_struct_config.c:    return -1;
+get_struct_config.c:    return -1;
+get_struct_config.c:    return -1;
+get_struct_config.c:    return -1;
+get_struct_config.c:    return -1;
+get_struct_config.c:    return -1;
+get_struct_config.c:    return -1;
+get_struct_config.c:    return -1;
+get_struct_config.c:  buff->len = 0;
+get_struct_config.c:  msgbuff->data[msgbuff->len++] = GET_ATTRIBUTE_LIST;
+get_struct_config.c:  ioi1->ioiclass = STRUCT_LIST;
+get_struct_config.c:  ioi1->instance = tag->base;
+get_struct_config.c:  ioi1->member = -1;
+get_struct_config.c:  ioi1->point = -1;
+get_struct_config.c:  ioi1->attribute = -1;
+get_struct_config.c:  ioi1->tagname = NULL;
+get_struct_config.c:  ioi1->elem[0] = -1;
+get_struct_config.c:  ioi1->elem[1] = -1;
+get_struct_config.c:  ioi1->elem[2] = -1;
+get_struct_config.c:  msgbuff->data[msgbuff->len++] = 3;
+get_struct_config.c:  msgbuff->data[msgbuff->len++] = 0;
+get_struct_config.c:  msgbuff->data[msgbuff->len++] = 1;
+get_struct_config.c:  msgbuff->data[msgbuff->len++] = 0;
+get_struct_config.c:  msgbuff->data[msgbuff->len++] = 2;
+get_struct_config.c:  msgbuff->data[msgbuff->len++] = 0;
+get_struct_config.c:  msgbuff->data[msgbuff->len++] = 4;
+get_struct_config.c:  msgbuff->data[msgbuff->len++] = 0;
+get_struct_config.c:    for (x = 0; x < msgbuff->len; x++)
+get_struct_config.c:      dprint(DEBUG_BUILD, "%02X ", msgbuff->data[x]);
+get_struct_config.c:  cpf_buffer->data[cpf_buffer->len++] = PDU_Unconnected_Send;
+get_struct_config.c:  ioi1->ioiclass = CONNECTION_MANAGER;
+get_struct_config.c:  ioi1->instance = FIRST_INSTANCE;
+get_struct_config.c:  ioi1->member = -1;
+get_struct_config.c:  ioi1->point = -1;
+get_struct_config.c:  ioi1->attribute = -1;
+get_struct_config.c:  ioi1->tagname = NULL;
+get_struct_config.c:  ioi1->elem[0] = -1;
+get_struct_config.c:  ioi1->elem[1] = -1;
+get_struct_config.c:  ioi1->elem[2] = -1;
+get_struct_config.c:  cpf_buffer->data[cpf_buffer->len++] = msgbuff->len & 255;
+get_struct_config.c:  cpf_buffer->data[cpf_buffer->len++] = msgbuff->len / 0x100;
+get_struct_config.c:  memcpy(cpf_buffer->data + cpf_buffer->len, msgbuff->data, msgbuff->len);
+get_struct_config.c:  cpf_buffer->len += msgbuff->len;
+get_struct_config.c:  head->len = buff->len;
+get_struct_config.c:  memcpy(sendbuff->data, head, ENCAPS_Header_Length);
+get_struct_config.c:  sendbuff->overall_len = ENCAPS_Header_Length;
+get_struct_config.c:    for (x = 0; x < buff->len; x++)
+get_struct_config.c:      dprint(DEBUG_BUILD, "%02X ", buff->data[x]);
+get_struct_config.c:  memcpy(sendbuff->data + sendbuff->overall_len, buff->data, buff->len);
+get_struct_config.c:  sendbuff->overall_len += buff->len;
+get_struct_config.c:  memcpy(head, buff->data, ENCAPS_Header_Length);
+get_struct_config.c:  if (head->status != 0)
+get_struct_config.c:    ret = -1;
+get_struct_config.c:    return -1;
+get_struct_config.c:	   "Got good reply to Get struct Details Command - %d\n",
+get_struct_config.c:	   buff->overall_len);
+get_struct_config.c:    for (x = 44; x < buff->overall_len; x++)
+get_struct_config.c:      dprint(DEBUG_VALUES, "%02X ", buff->data[x]);
+get_struct_config.c:  tag->linkid = buff->data[start] + (buff->data[start + 1] * 0x100);
+get_struct_config.c:  tag->count = buff->data[start] + (buff->data[start + 1] * 0x100);
+get_struct_config.c:  junk = buff->data[start] + (buff->data[start + 1] * 0x100);
+get_struct_config.c:  tag->detailsize = (junk - 4) * 4;
+get_struct_config.c:  for (x = 0; x < tag->count; x++)
+get_struct_config.c:    tag->data[x] = malloc(sizeof(_element));
+get_struct_config.c:    if (tag->data[x] == NULL)
+get_struct_config.c:      for (i=0;i<x-1;i++)  /* Wipe out tag structure */
+get_struct_config.c:        free(tag->data[i]);
+get_struct_config.c:      return -1;
+get_struct_config.c:    memset(tag->data[x], 0, sizeof(_element));
+get_struct_details.c:/* Revised 5/6/02 William Hays - CTI */
+get_struct_details.c:    return -1;
+get_struct_details.c:    return -1;
+get_struct_details.c:    return -1;
+get_struct_details.c:    return -1;
+get_struct_details.c:    return -1;
+get_struct_details.c:    return -1;
+get_struct_details.c:    return -1;
+get_struct_details.c:    return -1;
+get_struct_details.c:    return -1;
+get_struct_details.c:  buff->len = 0;
+get_struct_details.c:    size = tag->detailsize - offset;
+get_struct_details.c:    msgbuff->data[msgbuff->len++] = DATA_TYPE_CONFIG;
+get_struct_details.c:    ioi1->ioiclass = STRUCT_LIST;
+get_struct_details.c:    ioi1->instance = tag->base;
+get_struct_details.c:    ioi1->member = -1;
+get_struct_details.c:    ioi1->point = -1;
+get_struct_details.c:    ioi1->attribute = -1;
+get_struct_details.c:    ioi1->tagname = NULL;
+get_struct_details.c:    msgbuff->data[msgbuff->len++] = offset & 255;
+get_struct_details.c:    msgbuff->data[msgbuff->len++] = offset / 0x100;
+get_struct_details.c:    msgbuff->data[msgbuff->len++] = 0;
+get_struct_details.c:    msgbuff->data[msgbuff->len++] = 0;
+get_struct_details.c:    msgbuff->data[msgbuff->len++] = size & 255;
+get_struct_details.c:    msgbuff->data[msgbuff->len++] = size / 0x100;
+get_struct_details.c:      for (x = 0; x < msgbuff->len; x++)
+get_struct_details.c:	dprint(DEBUG_BUILD, "%02X ", msgbuff->data[x]);
+get_struct_details.c:    cpf_buffer->data[cpf_buffer->len++] = PDU_Unconnected_Send;
+get_struct_details.c:    ioi1->ioiclass = CONNECTION_MANAGER;
+get_struct_details.c:    ioi1->instance = FIRST_INSTANCE;
+get_struct_details.c:    ioi1->member = -1;
+get_struct_details.c:    ioi1->point = -1;
+get_struct_details.c:    ioi1->attribute = -1;
+get_struct_details.c:    ioi1->tagname = NULL;
+get_struct_details.c:    cpf_buffer->data[cpf_buffer->len++] = msgbuff->len & 255;
+get_struct_details.c:    cpf_buffer->data[cpf_buffer->len++] = msgbuff->len / 0x100;
+get_struct_details.c:    memcpy(cpf_buffer->data + cpf_buffer->len, msgbuff->data, msgbuff->len);
+get_struct_details.c:    cpf_buffer->len += msgbuff->len;
+get_struct_details.c:    head->len = buff->len;
+get_struct_details.c:    memcpy(sendbuff->data, head, ENCAPS_Header_Length);
+get_struct_details.c:    sendbuff->overall_len = ENCAPS_Header_Length;
+get_struct_details.c:      for (x = 0; x < buff->len; x++)
+get_struct_details.c:	dprint(DEBUG_BUILD, "%02X ", buff->data[x]);
+get_struct_details.c:    memcpy(sendbuff->data + sendbuff->overall_len, buff->data, buff->len);
+get_struct_details.c:    sendbuff->overall_len += buff->len;
+get_struct_details.c:    memcpy(head, buff->data, ENCAPS_Header_Length);
+get_struct_details.c:    if (head->status != 0)
+get_struct_details.c:      ret = -1;
+get_struct_details.c:      return -1;
+get_struct_details.c:	     "Got good reply to Get Struct Details Command - %d\n",
+get_struct_details.c:	     buff->overall_len);
+get_struct_details.c:      for (x = 44; x < buff->overall_len; x++)
+get_struct_details.c:	dprint(DEBUG_VALUES, "%02X ", buff->data[x]);
+get_struct_details.c:    memcpy(&buffer[start2], &buff->data[44], size);
+get_struct_details.c:  for (x = 0; x < tag->count; x++)
+get_struct_details.c:    tag->data[x]->arraysize = buffer[start] + (buffer[start + 1] * 256);
+get_struct_details.c:    tag->data[x]->type = buffer[start + 2] + (buffer[start + 3] * 256);
+get_struct_details.c:    tag->name[y++] = x;
+get_struct_details.c:  for (x = 0; x < tag->count; x++)
+get_struct_details.c:    strcpy(tag->data[x]->name, &buffer[start]);
+get_struct_details.c:    start += strlen(tag->data[x]->name) + 1;
+get_struct_list.c:/* Revised 5/6/02 William Hays - CTI 
+get_struct_list.c:    return -1;
+get_struct_list.c:    return -1;
+get_struct_list.c:    return -1;
+get_struct_list.c:    return -1;
+get_struct_list.c:    return -1;
+get_struct_list.c:    return -1;
+get_struct_list.c:    return -1;
+get_struct_list.c:    return -1;
+get_struct_list.c:  structs->count = 0;
+get_struct_list.c:    buff->len = 0;
+get_struct_list.c:    msgbuff->data[msgbuff->len++] = LIST_ALL_OBJECTS;
+get_struct_list.c:    ioi1->ioiclass = STRUCT_LIST;
+get_struct_list.c:    ioi1->instance = BASE_INSTANCE;
+get_struct_list.c:    ioi1->member = -1;
+get_struct_list.c:    ioi1->point = -1;
+get_struct_list.c:    ioi1->attribute = -1;
+get_struct_list.c:    ioi1->tagname = NULL;
+get_struct_list.c:    ioi1->elem[0] = -1;
+get_struct_list.c:    ioi1->elem[1] = -1;
+get_struct_list.c:    ioi1->elem[2] = -1;
+get_struct_list.c:      for (x = 0; x < msgbuff->len; x++)
+get_struct_list.c:	dprint(DEBUG_BUILD, "%02X ", msgbuff->data[x]);
+get_struct_list.c:    cpf_buffer->data[cpf_buffer->len++] = PDU_Unconnected_Send;
+get_struct_list.c:    ioi1->ioiclass = CONNECTION_MANAGER;
+get_struct_list.c:    ioi1->instance = FIRST_INSTANCE;
+get_struct_list.c:    ioi1->member = -1;
+get_struct_list.c:    ioi1->point = -1;
+get_struct_list.c:    ioi1->attribute = -1;
+get_struct_list.c:    ioi1->tagname = NULL;
+get_struct_list.c:    ioi1->elem[0] = -1;
+get_struct_list.c:    ioi1->elem[1] = -1;
+get_struct_list.c:    ioi1->elem[2] = -1;
+get_struct_list.c:    cpf_buffer->data[cpf_buffer->len++] = msgbuff->len & 255;
+get_struct_list.c:    cpf_buffer->data[cpf_buffer->len++] = msgbuff->len / 0x100;
+get_struct_list.c:    memcpy(cpf_buffer->data + cpf_buffer->len, msgbuff->data, msgbuff->len);
+get_struct_list.c:    cpf_buffer->len += msgbuff->len;
+get_struct_list.c:    head->len = buff->len;
+get_struct_list.c:    memcpy(sendbuff->data, head, ENCAPS_Header_Length);
+get_struct_list.c:    sendbuff->overall_len = ENCAPS_Header_Length;
+get_struct_list.c:      for (x = 0; x < buff->len; x++)
+get_struct_list.c:	dprint(DEBUG_BUILD, "%02X ", buff->data[x]);
+get_struct_list.c:    memcpy(sendbuff->data + sendbuff->overall_len, buff->data, buff->len);
+get_struct_list.c:    sendbuff->overall_len += buff->len;
+get_struct_list.c:    memcpy(head, buff->data, ENCAPS_Header_Length);
+get_struct_list.c:    if (head->status != 0)
+get_struct_list.c:      ret = -1;
+get_struct_list.c:      return -1;
+get_struct_list.c:      dprint(DEBUG_BUILD, "Got good reply to Get Program List Command - %d\n",
+get_struct_list.c:	     buff->overall_len);
+get_struct_list.c:      for (x = 44; x < buff->overall_len; x++)
+get_struct_list.c:	dprint(DEBUG_BUILD, "%02X ", buff->data[x]);
+get_struct_list.c:    for (x = 44; x < buff->overall_len; x += 4)
+get_struct_list.c:      junk = buff->data[x] + (buff->data[x + 1] * 0x100);
+get_struct_list.c:	    free(structs->base[i]);
+get_struct_list.c:	  return -1;
+get_struct_list.c:	structs->base[count] = 0;
+get_struct_list.c:	structs->base[count] = malloc(sizeof(_struct_base));
+get_struct_list.c:	if (structs->base[count] == NULL)
+get_struct_list.c:	    free(structs->base[i]);
+get_struct_list.c:	  return -1;
+get_struct_list.c:	dprint(DEBUG_BUILD, "Memory allocated: %p\n", structs->base[count]);
+get_struct_list.c:	memset(structs->base[count], 0, sizeof(_struct_base));
+get_struct_list.c:	structs->base[count]->base =
+get_struct_list.c:	  buff->data[x] +
+get_struct_list.c:	  (buff->data[x + 1] * 0x100) +
+get_struct_list.c:	  (buff->data[x + 2] * 0x10000) + (buff->data[x + 3] * 0x1000000);
+get_struct_list.c:    if (buff->data[42] != 6)
+get_struct_list.c:  structs->count = count;
+get_struct_list.c:  return -1;
+getsize.c:/* Revised 5/6/02 William Hays - CTI */
+getsize.c:  size = tag->size;
+getsize.c:  if (tag->alias_size != 0)
+getsize.c:    size = tag->alias_size;
+getsize.c:  if (tag->arraysize1 == 0)
+getsize.c:  if (tag->arraysize2 == 0)
+getsize.c:    return (unsigned short)(size * tag->arraysize1);
+getsize.c:  if (tag->arraysize3 == 0)
+getsize.c:    return (unsigned short)(size * tag->arraysize1 * tag->arraysize2);
+getsize.c:  return (unsigned short)(size * tag->arraysize1 * tag->arraysize2 * tag->arraysize3);
+ioi.c:/* Revised 5/6/02 William Hays - CTI */
+ioi.c:    return -1;
+ioi.c:  start = buff->len;
+ioi.c:  if (ioi1->ioiclass != -1)
+ioi.c:    if ((ioi1->ioiclass < 256) & (ioi1->ioiclass >= 0))
+ioi.c:    if ((ioi1->ioiclass > 255) & (ioi1->ioiclass < 65536))
+ioi.c:    if ((ioi1->ioiclass < 0) | (ioi1->ioiclass > 65535))
+ioi.c:  dprint(DEBUG_BUILD, "ioiclass = %lX, count = %d\n", ioi1->ioiclass, count);
+ioi.c:  if (ioi1->instance != -1)
+ioi.c:    if ((ioi1->instance < 256) & (ioi1->instance >= 0))
+ioi.c:    if ((ioi1->instance > 255) & (ioi1->instance < 65536))
+ioi.c:    if ((ioi1->instance < 0) | (ioi1->instance > 65535))
+ioi.c:  dprint(DEBUG_BUILD, "instance = %lX, count = %d\n", ioi1->instance, count);
+ioi.c:  if (ioi1->member != -1)
+ioi.c:    if ((ioi1->member < 256) & (ioi1->member >= 0))
+ioi.c:    if ((ioi1->member > 255) & (ioi1->member < 65536))
+ioi.c:    if ((ioi1->member < 0) | (ioi1->member > 65535))
+ioi.c:  dprint(DEBUG_BUILD, "member = %lX, count = %d\n", ioi1->member, count);
+ioi.c:  if (ioi1->point != -1)
+ioi.c:    if ((ioi1->point < 256) & (ioi1->point >= 0))
+ioi.c:    if ((ioi1->point > 255) & (ioi1->point < 65536))
+ioi.c:    if ((ioi1->point < 0) | (ioi1->point > 65535))
+ioi.c:  dprint(DEBUG_BUILD, "point = %lX, count = %d\n", ioi1->point, count);
+ioi.c:  if (ioi1->attribute != -1)
+ioi.c:    if ((ioi1->attribute < 256) & (ioi1->attribute >= 0))
+ioi.c:    if ((ioi1->attribute > 255) & (ioi1->attribute < 65536))
+ioi.c:    if ((ioi1->attribute < 0) | (ioi1->attribute > 65535))
+ioi.c:  dprint(DEBUG_BUILD, "attribute = %lX, count = %d\n", ioi1->attribute,
+ioi.c:  if (ioi1->tagname != NULL)
+ioi.c:    count += (strlen(ioi1->tagname)+3)/2;
+ioi.c:    dprint(DEBUG_BUILD, "tagname = %s, length = %d\n", ioi1->tagname,
+ioi.c:	   strlen(ioi1->tagname));
+ioi.c:  if (ioi1->elem[0] != -1)
+ioi.c:    if ((ioi1->elem[0] < 256) & (ioi1->elem[0] >= 0))
+ioi.c:    if ((ioi1->elem[0] > 255) & (ioi1->elem[0] < 65536))
+ioi.c:    if ((ioi1->elem[0] < 0) | (ioi1->elem[0] > 65535))
+ioi.c:  if (ioi1->elem[1] != -1)
+ioi.c:    if ((ioi1->elem[1] < 256) & (ioi1->elem[1] >= 0))
+ioi.c:    if ((ioi1->elem[1] > 255) & (ioi1->elem[1] < 65536))
+ioi.c:    if ((ioi1->elem[1] < 0) | (ioi1->elem[1] > 65535))
+ioi.c:  if (ioi1->elem[2] != -1)
+ioi.c:    if ((ioi1->elem[2] < 256) & (ioi1->elem[2] >= 0))
+ioi.c:    if ((ioi1->elem[2] > 255) & (ioi1->elem[2] < 65536))
+ioi.c:    if ((ioi1->elem[2] < 0) | (ioi1->elem[2] > 65535))
+ioi.c:    if (ioi2->ioiclass != -1)
+ioi.c:      if ((ioi2->ioiclass < 256) & (ioi2->ioiclass >= 0))
+ioi.c:      if ((ioi2->ioiclass > 255) & (ioi2->ioiclass < 65536))
+ioi.c:      if ((ioi2->ioiclass < 0) | (ioi2->ioiclass > 65535))
+ioi.c:    dprint(DEBUG_BUILD, "ioiclass = %lX, count = %d\n", ioi2->ioiclass, count);
+ioi.c:    if (ioi2->instance != -1)
+ioi.c:      if ((ioi2->instance < 256) & (ioi2->instance >= 0))
+ioi.c:      if ((ioi2->instance > 255) & (ioi2->instance < 65536))
+ioi.c:      if ((ioi2->instance < 0) | (ioi2->instance > 65535))
+ioi.c:    dprint(DEBUG_BUILD, "instance = %lX, count = %d\n", ioi2->instance,
+ioi.c:    if (ioi2->member != -1)
+ioi.c:      if ((ioi2->member < 256) & (ioi2->member >= 0))
+ioi.c:      if ((ioi2->member > 255) & (ioi2->member < 65536))
+ioi.c:      if ((ioi2->member < 0) | (ioi2->member > 65535))
+ioi.c:    dprint(DEBUG_BUILD, "member = %lX, count = %d\n", ioi2->member, count);
+ioi.c:    if (ioi2->point != -1)
+ioi.c:      if ((ioi2->point < 256) & (ioi2->point >= 0))
+ioi.c:      if ((ioi2->point > 255) & (ioi2->point < 65536))
+ioi.c:      if ((ioi2->point < 0) | (ioi2->point > 65535))
+ioi.c:    dprint(DEBUG_BUILD, "point = %lX, count = %d\n", ioi2->point, count);
+ioi.c:    if (ioi2->attribute != -1)
+ioi.c:      if ((ioi2->attribute < 256) & (ioi2->attribute >= 0))
+ioi.c:      if ((ioi2->attribute > 255) & (ioi2->attribute < 65536))
+ioi.c:      if ((ioi2->attribute < 0) | (ioi2->attribute > 65535))
+ioi.c:    dprint(DEBUG_BUILD, "attribute = %lX, count = %d\n", ioi2->attribute,
+ioi.c:    if (ioi2->tagname != NULL)
+ioi.c:      count += (strlen(ioi2->tagname)+3)/2;
+ioi.c:      dprint(DEBUG_BUILD, "tagname = %s, length = %d\n", ioi2->tagname,
+ioi.c:	     strlen(ioi2->tagname));
+ioi.c:    buff->data[buff->len++] = count;
+ioi.c:  if (ioi1->ioiclass != -1)
+ioi.c:    if ((ioi1->ioiclass < 256) & (ioi1->ioiclass >= 0))
+ioi.c:      buff->data[buff->len++] = 0x20;
+ioi.c:      buff->data[buff->len++] = (byte) ioi1->ioiclass;
+ioi.c:    if ((ioi1->ioiclass > 255) & (ioi1->ioiclass < 65536))
+ioi.c:      buff->data[buff->len++] = 0x21;
+ioi.c:      buff->data[buff->len++] = 0;
+ioi.c:      buff->data[buff->len++] = (byte)(ioi1->ioiclass & 255);
+ioi.c:      buff->data[buff->len++] = (byte)(ioi1->ioiclass / 0x100);
+ioi.c:    if ((ioi1->ioiclass < 0) | (ioi1->ioiclass > 65535))
+ioi.c:      buff->data[buff->len++] = 0x22;
+ioi.c:      buff->data[buff->len++] = 0;
+ioi.c:      buff->data[buff->len++] = (byte)ioi1->ioiclass & 255;
+ioi.c:      buff->data[buff->len++] = (byte)(ioi1->ioiclass / 0x100) & 255;
+ioi.c:      buff->data[buff->len++] = (byte)(ioi1->ioiclass / 0x10000) & 255;
+ioi.c:      buff->data[buff->len++] = (byte)(ioi1->ioiclass / 0x1000000);
+ioi.c:  if (ioi1->instance != -1)
+ioi.c:    if ((ioi1->instance < 256) & (ioi1->instance >= 0))
+ioi.c:      buff->data[buff->len++] = 0x24;
+ioi.c:      buff->data[buff->len++] = (byte) ioi1->instance;
+ioi.c:    if ((ioi1->instance > 255) & (ioi1->instance < 65536))
+ioi.c:      buff->data[buff->len++] = 0x25;
+ioi.c:      buff->data[buff->len++] = 0;
+ioi.c:      buff->data[buff->len++] = (byte)(ioi1->instance & 255);
+ioi.c:      buff->data[buff->len++] = (byte)(ioi1->instance / 0x100);
+ioi.c:    if ((ioi1->instance < 0) | (ioi1->instance > 65535))
+ioi.c:      buff->data[buff->len++] = 0x26;
+ioi.c:      buff->data[buff->len++] = 0;
+ioi.c:      buff->data[buff->len++] = (byte)ioi1->instance & 255;
+ioi.c:      buff->data[buff->len++] = (byte)(ioi1->instance / 0x100) & 255;
+ioi.c:      buff->data[buff->len++] = (byte)(ioi1->instance / 0x10000) & 255;
+ioi.c:      buff->data[buff->len++] = (byte)(ioi1->instance / 0x1000000);
+ioi.c:  if (ioi1->member != -1)
+ioi.c:    if ((ioi1->member < 256) & (ioi1->member >= 0))
+ioi.c:      buff->data[buff->len++] = 0x28;
+ioi.c:      buff->data[buff->len++] = (byte) ioi1->member;
+ioi.c:    if ((ioi1->member > 255) & (ioi1->member < 65536))
+ioi.c:      buff->data[buff->len++] = 0x29;
+ioi.c:      buff->data[buff->len++] = 0;
+ioi.c:      buff->data[buff->len++] = (byte)(ioi1->member & 255);
+ioi.c:      buff->data[buff->len++] = (byte)(ioi1->member / 0x100);
+ioi.c:    if ((ioi1->member < 0) | (ioi1->member > 65535))
+ioi.c:      buff->data[buff->len++] = 0x2a;
+ioi.c:      buff->data[buff->len++] = 0;
+ioi.c:      buff->data[buff->len++] = (byte)ioi1->member & 255;
+ioi.c:      buff->data[buff->len++] = (byte)(ioi1->member / 0x100) & 255;
+ioi.c:      buff->data[buff->len++] = (byte)(ioi1->member / 0x10000) & 255;
+ioi.c:      buff->data[buff->len++] = (byte)(ioi1->member / 0x1000000);
+ioi.c:  if (ioi1->point != -1)
+ioi.c:    if ((ioi1->point < 256) & (ioi1->point >= 0))
+ioi.c:      buff->data[buff->len++] = 0x2c;
+ioi.c:      buff->data[buff->len++] = (byte) ioi1->point;
+ioi.c:    if ((ioi1->point > 255) & (ioi1->point < 65536))
+ioi.c:      buff->data[buff->len++] = 0x2d;
+ioi.c:      buff->data[buff->len++] = 0;
+ioi.c:      buff->data[buff->len++] = (byte)(ioi1->point & 255);
+ioi.c:      buff->data[buff->len++] = (byte)(ioi1->point / 0x100);
+ioi.c:    if ((ioi1->point < 0) | (ioi1->point > 65535))
+ioi.c:      buff->data[buff->len++] = 0x2e;
+ioi.c:      buff->data[buff->len++] = 0;
+ioi.c:      buff->data[buff->len++] = (byte)ioi1->point & 255;
+ioi.c:      buff->data[buff->len++] = (byte)(ioi1->point / 0x100) & 255;
+ioi.c:      buff->data[buff->len++] = (byte)(ioi1->point / 0x10000) & 255;
+ioi.c:      buff->data[buff->len++] = (byte)(ioi1->point / 0x1000000);
+ioi.c:  if (ioi1->attribute != -1)
+ioi.c:    if ((ioi1->attribute < 256) & (ioi1->attribute >= 0))
+ioi.c:      buff->data[buff->len++] = 0x30;
+ioi.c:      buff->data[buff->len++] = (byte) ioi1->attribute;
+ioi.c:    if ((ioi1->attribute > 255) & (ioi1->attribute < 65536))
+ioi.c:      buff->data[buff->len++] = 0x31;
+ioi.c:      buff->data[buff->len++] = 0;
+ioi.c:      buff->data[buff->len++] = (byte)(ioi1->attribute & 255);
+ioi.c:      buff->data[buff->len++] = (byte)(ioi1->attribute / 0x100);
+ioi.c:    if ((ioi1->attribute < 0) | (ioi1->attribute > 65535))
+ioi.c:      buff->data[buff->len++] = 0x32;
+ioi.c:      buff->data[buff->len++] = 0;
+ioi.c:      buff->data[buff->len++] = (byte)ioi1->attribute & 255;
+ioi.c:      buff->data[buff->len++] = (byte)(ioi1->attribute / 0x100) & 255;
+ioi.c:      buff->data[buff->len++] = (byte)(ioi1->attribute / 0x10000) & 255;
+ioi.c:      buff->data[buff->len++] = (byte)(ioi1->attribute / 0x1000000);
+ioi.c:  if (ioi1->tagname != NULL)
+ioi.c:    buff->data[buff->len++] = 0x91;
+ioi.c:    buff->data[buff->len++] = strlen(ioi1->tagname);
+ioi.c:    memcpy(&buff->data[buff->len], ioi1->tagname, strlen(ioi1->tagname));
+ioi.c:    buff->len = buff->len + strlen(ioi1->tagname);
+ioi.c:    if (strlen(ioi1->tagname) & 1)
+ioi.c:      buff->data[buff->len++] = 0;
+ioi.c:  if (ioi1->elem[0] != -1)
+ioi.c:    if ((ioi1->elem[0] < 256) & (ioi1->elem[0] >= 0))
+ioi.c:      buff->data[buff->len++] = 0x28;
+ioi.c:      buff->data[buff->len++] = (byte) ioi1->elem[0];
+ioi.c:    if ((ioi1->elem[0] > 255) & (ioi1->elem[0] < 65536))
+ioi.c:      buff->data[buff->len++] = 0x29;
+ioi.c:      buff->data[buff->len++] = 0;
+ioi.c:      buff->data[buff->len++] = (byte)(ioi1->elem[0] & 255);
+ioi.c:      buff->data[buff->len++] = (byte)(ioi1->elem[0] / 0x100);
+ioi.c:    if ((ioi1->elem[0] < 0) | (ioi1->elem[0] > 65535))
+ioi.c:      buff->data[buff->len++] = 0x2a;
+ioi.c:      buff->data[buff->len++] = 0;
+ioi.c:      buff->data[buff->len++] = (byte)ioi1->elem[0] & 255;
+ioi.c:      buff->data[buff->len++] = (byte)(ioi1->elem[0] / 0x100) & 255;
+ioi.c:      buff->data[buff->len++] = (byte)(ioi1->elem[0] / 0x10000) & 255;
+ioi.c:      buff->data[buff->len++] = (byte)(ioi1->elem[0] / 0x1000000);
+ioi.c:  if (ioi1->elem[1] != -1)
+ioi.c:    if ((ioi1->elem[1] < 256) & (ioi1->elem[1] >= 0))
+ioi.c:      buff->data[buff->len++] = 0x28;
+ioi.c:      buff->data[buff->len++] = (byte) ioi1->elem[1];
+ioi.c:    if ((ioi1->elem[1] > 255) & (ioi1->elem[1] < 65536))
+ioi.c:      buff->data[buff->len++] = 0x29;
+ioi.c:      buff->data[buff->len++] = 0;
+ioi.c:      buff->data[buff->len++] = (byte)(ioi1->elem[1] & 255);
+ioi.c:      buff->data[buff->len++] = (byte)(ioi1->elem[1] / 0x100);
+ioi.c:    if ((ioi1->elem[1] < 0) | (ioi1->elem[1] > 65535))
+ioi.c:      buff->data[buff->len++] = 0x2a;
+ioi.c:      buff->data[buff->len++] = 0;
+ioi.c:      buff->data[buff->len++] = (byte)ioi1->elem[1] & 255;
+ioi.c:      buff->data[buff->len++] = (byte)(ioi1->elem[1] / 0x100) & 255;
+ioi.c:      buff->data[buff->len++] = (byte)(ioi1->elem[1] / 0x10000) & 255;
+ioi.c:      buff->data[buff->len++] = (byte)(ioi1->elem[1] / 0x1000000);
+ioi.c:  if (ioi1->elem[2] != -1)
+ioi.c:    if ((ioi1->elem[2] < 256) & (ioi1->elem[2] >= 0))
+ioi.c:      buff->data[buff->len++] = 0x28;
+ioi.c:      buff->data[buff->len++] = (byte) ioi1->elem[2];
+ioi.c:    if ((ioi1->elem[2] > 255) & (ioi1->elem[2] < 65536))
+ioi.c:      buff->data[buff->len++] = 0x29;
+ioi.c:      buff->data[buff->len++] = 0;
+ioi.c:      buff->data[buff->len++] = (byte)(ioi1->elem[2] & 255);
+ioi.c:      buff->data[buff->len++] = (byte)(ioi1->elem[2] / 0x100);
+ioi.c:    if ((ioi1->elem[2] < 0) | (ioi1->elem[2] > 65535))
+ioi.c:      buff->data[buff->len++] = 0x2a;
+ioi.c:      buff->data[buff->len++] = 0;
+ioi.c:      buff->data[buff->len++] = (byte)ioi1->elem[2] & 255;
+ioi.c:      buff->data[buff->len++] = (byte)(ioi1->elem[2] / 0x100) & 255;
+ioi.c:      buff->data[buff->len++] = (byte)(ioi1->elem[2] / 0x10000) & 255;
+ioi.c:      buff->data[buff->len++] = (byte)(ioi1->elem[2] / 0x1000000);
+ioi.c:    if (ioi2->ioiclass != -1)
+ioi.c:      if ((ioi2->ioiclass < 256) & (ioi2->ioiclass >= 0))
+ioi.c:	buff->data[buff->len++] = 0x20;
+ioi.c:	buff->data[buff->len++] = (byte) ioi2->ioiclass;
+ioi.c:      if ((ioi2->ioiclass > 255) & (ioi2->ioiclass < 65536))
+ioi.c:	buff->data[buff->len++] = 0x21;
+ioi.c:	buff->data[buff->len++] = 0;
+ioi.c:	buff->data[buff->len++] = (byte)(ioi2->ioiclass & 255);
+ioi.c:	buff->data[buff->len++] = (byte)(ioi2->ioiclass / 0x100);
+ioi.c:      if ((ioi2->ioiclass < 0) | (ioi2->ioiclass > 65535))
+ioi.c:	buff->data[buff->len++] = 0x22;
+ioi.c:	buff->data[buff->len++] = 0;
+ioi.c:	buff->data[buff->len++] = (byte)ioi2->ioiclass & 255;
+ioi.c:	buff->data[buff->len++] = (byte)(ioi2->ioiclass / 0x100) & 255;
+ioi.c:	buff->data[buff->len++] = (byte)(ioi2->ioiclass / 0x10000) & 255;
+ioi.c:	buff->data[buff->len++] = (byte)(ioi2->ioiclass / 0x1000000);
+ioi.c:    if (ioi2->instance != -1)
+ioi.c:      if ((ioi2->instance < 256) & (ioi2->instance >= 0))
+ioi.c:	buff->data[buff->len++] = 0x24;
+ioi.c:	buff->data[buff->len++] = (byte) ioi2->instance;
+ioi.c:      if ((ioi2->instance > 255) & (ioi2->instance < 65536))
+ioi.c:	buff->data[buff->len++] = 0x25;
+ioi.c:	buff->data[buff->len++] = 0;
+ioi.c:	buff->data[buff->len++] = (byte)(ioi2->instance & 255);
+ioi.c:	buff->data[buff->len++] = (byte)(ioi2->instance / 0x100);
+ioi.c:      if ((ioi2->instance < 0) | (ioi2->instance > 65535))
+ioi.c:	buff->data[buff->len++] = 0x26;
+ioi.c:	buff->data[buff->len++] = 0;
+ioi.c:	buff->data[buff->len++] = (byte)ioi2->instance & 255;
+ioi.c:	buff->data[buff->len++] = (byte)(ioi2->instance / 0x100) & 255;
+ioi.c:	buff->data[buff->len++] = (byte)(ioi2->instance / 0x10000) & 255;
+ioi.c:	buff->data[buff->len++] = (byte)(ioi2->instance / 0x1000000);
+ioi.c:    if (ioi2->member != -1)
+ioi.c:      if ((ioi2->member < 256) & (ioi2->member >= 0))
+ioi.c:	buff->data[buff->len++] = 0x28;
+ioi.c:	buff->data[buff->len++] = (byte) ioi2->member;
+ioi.c:      if ((ioi2->member > 255) & (ioi2->member < 65536))
+ioi.c:	buff->data[buff->len++] = 0x29;
+ioi.c:	buff->data[buff->len++] = 0;
+ioi.c:	buff->data[buff->len++] = (byte)(ioi2->member & 255);
+ioi.c:	buff->data[buff->len++] = (byte)(ioi2->member / 0x100);
+ioi.c:      if ((ioi2->member < 0) | (ioi2->member > 65535))
+ioi.c:	buff->data[buff->len++] = 0x2a;
+ioi.c:	buff->data[buff->len++] = 0;
+ioi.c:	buff->data[buff->len++] = (byte)ioi2->member & 255;
+ioi.c:	buff->data[buff->len++] = (byte)(ioi2->member / 0x100) & 255;
+ioi.c:	buff->data[buff->len++] = (byte)(ioi2->member / 0x10000) & 255;
+ioi.c:	buff->data[buff->len++] = (byte)(ioi2->member / 0x1000000);
+ioi.c:    if (ioi2->point != -1)
+ioi.c:      if ((ioi2->point < 256) & (ioi2->point >= 0))
+ioi.c:	buff->data[buff->len++] = 0x2c;
+ioi.c:	buff->data[buff->len++] = (byte) ioi2->point;
+ioi.c:      if ((ioi2->point > 255) & (ioi2->point < 65536))
+ioi.c:	buff->data[buff->len++] = 0x2d;
+ioi.c:	buff->data[buff->len++] = 0;
+ioi.c:	buff->data[buff->len++] = (byte)(ioi2->point & 255);
+ioi.c:	buff->data[buff->len++] = (byte)(ioi2->point / 0x100);
+ioi.c:      if ((ioi2->point < 0) | (ioi2->point > 65535))
+ioi.c:	buff->data[buff->len++] = 0x2e;
+ioi.c:	buff->data[buff->len++] = 0;
+ioi.c:	buff->data[buff->len++] = (byte)ioi2->point & 255;
+ioi.c:	buff->data[buff->len++] = (byte)(ioi2->point / 0x100) & 255;
+ioi.c:	buff->data[buff->len++] = (byte)(ioi2->point / 0x10000) & 255;
+ioi.c:	buff->data[buff->len++] = (byte)(ioi2->point / 0x1000000);
+ioi.c:    if (ioi2->attribute != -1)
+ioi.c:      if ((ioi2->attribute < 256) & (ioi2->attribute >= 0))
+ioi.c:	buff->data[buff->len++] = 0x30;
+ioi.c:	buff->data[buff->len++] = (byte) ioi2->attribute;
+ioi.c:      if ((ioi2->attribute > 255) & (ioi2->attribute < 65536))
+ioi.c:	buff->data[buff->len++] = 0x31;
+ioi.c:	buff->data[buff->len++] = 0;
+ioi.c:	buff->data[buff->len++] = (byte)(ioi2->attribute & 255);
+ioi.c:	buff->data[buff->len++] = (byte)(ioi2->attribute / 0x100);
+ioi.c:      if ((ioi2->attribute < 0) | (ioi2->attribute > 65535))
+ioi.c:	buff->data[buff->len++] = 0x32;
+ioi.c:	buff->data[buff->len++] = 0;
+ioi.c:	buff->data[buff->len++] = (byte)ioi2->attribute & 255;
+ioi.c:	buff->data[buff->len++] = (byte)(ioi2->attribute / 0x100) & 255;
+ioi.c:	buff->data[buff->len++] = (byte)(ioi2->attribute / 0x10000) & 255;
+ioi.c:	buff->data[buff->len++] = (byte)(ioi2->attribute / 0x1000000);
+ioi.c:    if (ioi2->tagname != NULL)
+ioi.c:      strcpy(&buff->data[buff->len], ioi2->tagname);
+ioi.c:      buff->len = buff->len + strlen(ioi2->tagname);
+ioi.c:    dprint(DEBUG_BUILD, "Buffer Started at %d, Length = %d, buff->len = %d\n",
+ioi.c:	   start, buff->len - start, buff->len);
+ioi.c:    for (x = 0; x < (buff->len - start); x++)
+ioi.c:      dprint(DEBUG_BUILD, "%02X  ", buff->data[x + start]);
+list_interfaces.c:/* Revised 5/6/02 William Hays - CTI */
+list_interfaces.c:  dprint(DEBUG_TRACE, "--- List_interfaces.c entered\n");
+list_interfaces.c:    return -1;
+list_interfaces.c:    return -1;
+list_interfaces.c:  head->command = ENCAPS_List_Interfaces;
+list_interfaces.c:  memcpy(buff->data, head, ENCAPS_Header_Length);
+list_interfaces.c:  buff->overall_len = ENCAPS_Header_Length;
+list_ports.c:/* Revised 5/6/02 William Hays - CTI */
+list_ports.c:  dprint(DEBUG_TRACE, "--- List_targets.c entered\n");
+list_ports.c:    return -1;
+list_ports.c:    return -1;
+list_ports.c:  head->command = ENCAPS_List_Targets;
+list_ports.c:  memcpy(buff->data, head, ENCAPS_Header_Length);
+list_ports.c:  buff->overall_len = ENCAPS_Header_Length;
+list_services.c:/* Revised 5/6/02 William Hays - CTI */
+list_services.c:  dprint(DEBUG_TRACE, "--- List_services.c entered\n");
+list_services.c:    return -1;
+list_services.c:    return -1;
+list_services.c:  head->command = ENCAPS_List_Services;
+list_services.c:  memcpy(buff->data, head, ENCAPS_Header_Length);
+list_services.c:  buff->overall_len = ENCAPS_Header_Length;
+list_services.c:    dprint(DEBUG_VALUES, "Item Type = %X\n", services->type);
+list_services.c:    dprint(DEBUG_VALUES, "Descriptor Length = %d\n", services->length);
+list_services.c:    dprint(DEBUG_VALUES, "Protocol Version = %d\n", services->version);
+list_services.c:    dprint(DEBUG_VALUES, "Flags = %04X\n", services->flags);
+list_services.c:    dprint(DEBUG_VALUES, "Service name = %s\n", services->name);
+makepath.c:    return -1;
+makepath.c:    CELLERROR(2,"Path structure not set - path.c");
+makepath.c:    return -1;
+makepath.c:  if (path->device1 != -1)
+makepath.c:  if (path->device2 != -1)
+makepath.c:  if (path->device3 != -1)
+makepath.c:  if (path->device4 != -1)
+makepath.c:  if (path->device5 != -1)
+makepath.c:  if (path->device6 != -1)
+makepath.c:  if (path->device7 != -1)
+makepath.c:  if (path->device8 != -1)
+makepath.c:    buff->data[buff->len++] = count & 255;
+makepath.c:    buff->data[buff->len++] = count / 0x100;
+makepath.c:  if (path->device1 != -1)
+makepath.c:    buff->data[buff->len++] = path->device1;
+makepath.c:  if (path->device2 != -1)
+makepath.c:    buff->data[buff->len++] = path->device2;
+makepath.c:  if (path->device3 != -1)
+makepath.c:    buff->data[buff->len++] = path->device3;
+makepath.c:  if (path->device4 != -1)
+makepath.c:    buff->data[buff->len++] = path->device4;
+makepath.c:  if (path->device5 != -1)
+makepath.c:    buff->data[buff->len++] = path->device5;
+makepath.c:  if (path->device6 != -1)
+makepath.c:    buff->data[buff->len++] = path->device6;
+makepath.c:  if (path->device7 != -1)
+makepath.c:    buff->data[buff->len++] = path->device7;
+makepath.c:  if (path->device8 != -1)
+makepath.c:    buff->data[buff->len++] = path->device8;
+nameconv5.c:// This is an example program for communicating with an Allen Bradley PLC-5 over
+nameconv5.c:bitdata=-1;
+nameconv5.c:name->mask=0; 
+nameconv5.c:name->module=-1; 
+nameconv5.c:name->area=-1; 
+nameconv5.c:name->subarea=-1; 
+nameconv5.c:name->section=-1; 
+nameconv5.c:name->bit=-1;
+nameconv5.c:name->file=-1; 
+nameconv5.c:name->element=-1;
+nameconv5.c:name->subelement=-1; 
+nameconv5.c:name->floatdata=FALSE;
+nameconv5.c:		type = -1;
+nameconv5.c:		if (type == -1)
+nameconv5.c:			return (-1);
+nameconv5.c:				name->section = 0;
+nameconv5.c:				name->file = 0;
+nameconv5.c:				name->type = 1;
+nameconv5.c:				name->typelen = 2;
+nameconv5.c:				name->section = 0;
+nameconv5.c:				name->file = 1;
+nameconv5.c:				name->type = 1;
+nameconv5.c:				name->typelen = 2;
+nameconv5.c:				name->section = 0;
+nameconv5.c:				name->file = 2;
+nameconv5.c:				name->type = 4;
+nameconv5.c:				name->typelen = 2;
+nameconv5.c:				name->section = 0;
+nameconv5.c:				name->type = 1;
+nameconv5.c:				name->typelen = 2;
+nameconv5.c:				name->section = 0;
+nameconv5.c:				name->type = 5;
+nameconv5.c:				name->typelen = 2;
+nameconv5.c:				name->section = 0;
+nameconv5.c:				name->type = 6;
+nameconv5.c:				name->typelen = 2;
+nameconv5.c:				name->section = 0;
+nameconv5.c:				name->type = 7;
+nameconv5.c:				name->typelen = 2;
+nameconv5.c:				name->section = 0;
+nameconv5.c:				name->type = 4;
+nameconv5.c:				name->typelen = 2;
+nameconv5.c:				name->section = 0;
+nameconv5.c:				name->floatdata = TRUE;
+nameconv5.c:				name->type = 8;
+nameconv5.c:				name->typelen = 4;
+nameconv5.c:				name->section = 0;
+nameconv5.c:				name->type = 3;
+nameconv5.c:				name->typelen = 1;
+nameconv5.c:				name->section = 0;
+nameconv5.c:				name->type = 16;
+nameconv5.c:				name->typelen = 2;
+nameconv5.c:				name->section = 0;
+nameconv5.c:				name->type = 7;
+nameconv5.c:				name->typelen = 2;
+nameconv5.c:				name->section = 0;
+nameconv5.c:				name->type = 4;
+nameconv5.c:				name->typelen = 4;
+nameconv5.c:				name->section = 0;
+nameconv5.c:				name->type = 7;
+nameconv5.c:				name->typelen = 2;
+nameconv5.c:				name->section = 0;
+nameconv5.c:				name->type = 7;
+nameconv5.c:				name->typelen = 2;
+nameconv5.c:			case 15:	// SC - ??
+nameconv5.c:				name->section = 0;
+nameconv5.c:				name->type = 4;
+nameconv5.c:				name->typelen = 4;
+nameconv5.c:				name->section = 0;
+nameconv5.c:				name->type = 3;
+nameconv5.c:				name->typelen = 1;
+nameconv5.c:				name->section = 1;
+nameconv5.c:				name->type = 3;
+nameconv5.c:				name->typelen = 1;
+nameconv5.c:				name->section = 1;
+nameconv5.c:				name->type = 0x0d;
+nameconv5.c:				name->section = 2;
+nameconv5.c:				name->file=0;
+nameconv5.c:				name->type = 1;
+nameconv5.c:				name->typelen = 2;
+nameconv5.c:				name->section = 2;
+nameconv5.c:				name->file=1;
+nameconv5.c:				name->type = 1;
+nameconv5.c:				name->typelen = 2;
+nameconv5.c:				name->section = 3;
+nameconv5.c:				name->type = 4;
+nameconv5.c:				name->typelen = 2;
+nameconv5.c:				name->section = 4;
+nameconv5.c:				name->type = 4;
+nameconv5.c:				name->typelen = 2;
+nameconv5.c:				name->section = 5;
+nameconv5.c:				name->type = 4;
+nameconv5.c:				name->typelen = 2;
+nameconv5.c:				name->section = 6;
+nameconv5.c:				name->type = 4;
+nameconv5.c:				name->typelen = 2;
+nameconv5.c:				name->section = 2;
+nameconv5.c:				name->type = 1;
+nameconv5.c:				name->typelen = 1;
+nameconv5.c:		dprint (DEBUG_TRACE,"Data Section = %d, type = %d\n",name->section, name->type);
+nameconv5.c:			name->file = atoi(&dataaddr[start]);
+nameconv5.c:			dprint (DEBUG_TRACE,"File is %d\n",name->file);
+nameconv5.c:						name->element = atoi(&dataaddr[x]);
+nameconv5.c:						if (name->element == -1)
+nameconv5.c:							name->element = 0;
+nameconv5.c:						name->bit = bitdata % 16;
+nameconv5.c:						name->element += (bitdata/16);
+nameconv5.c:					if ( bitdata == -1)
+nameconv5.c:					if (bitdata == -1)
+nameconv5.c:						name->subelement=0;
+nameconv5.c:						l=strlen(dataaddr) - x;
+nameconv5.c:							name->subelement = 2;
+nameconv5.c:							name->subelement = 1;
+nameconv5.c:							name->subelement = 1;
+nameconv5.c:							name->subelement = 2;
+nameconv5.c:							name->bit = 13;
+nameconv5.c:							name->bit = 14;
+nameconv5.c:							name->bit = 15;
+nameconv5.c:						x = strlen(dataaddr)-1;
+nameconv5.c:			dprint (DEBUG_TRACE,"Element is now %d\n",name->element);
+nameconv5.c:			dprint (DEBUG_TRACE,"Bit is %d\n",name->bit);
+nameconv5.c:		name->len = 1;
+nameconv5.c:		if (name->section != -1)
+nameconv5.c:			name->data[name->len++] = name->section;
+nameconv5.c:			name->data[0] = name->data[0] | 1;
+nameconv5.c:		if (name->file != -1)
+nameconv5.c:			name->data[0] = name->data[0] | 2;
+nameconv5.c:			if (name->file >= 255)
+nameconv5.c:				name->data[name->len++] = 0xff;
+nameconv5.c:				name->data[name->len++] = (name->file & 255);
+nameconv5.c:				name->data[name->len++] = (name->file / 256);
+nameconv5.c:			if (name->file < 255)
+nameconv5.c:				name->data[name->len++] = name->file;
+nameconv5.c:		if (name->element != -1)
+nameconv5.c:			name->data[0] = name->data[0] | 4;
+nameconv5.c:			if (name->element >= 255)
+nameconv5.c:				name->data[name->len++] = 0xff;
+nameconv5.c:				name->data[name->len++] = (name->element & 255);
+nameconv5.c:				name->data[name->len++] = (name->element / 256);
+nameconv5.c:			if (name->element < 255)
+nameconv5.c:				name->data[name->len++] = name->element;
+nameconv5.c:		if (name->subelement != -1)
+nameconv5.c:			name->data[0] = name->data[0] | 8;
+nameconv5.c:			name->data[name->len++] = name->subelement;
+nameconv5.c:			dprint (DEBUG_TRACE, "%s -> ",dataaddr);
+nameconv5.c:			for (x=0; x<name->len; x++)
+nameconv5.c:				dprint (DEBUG_TRACE,"%02X ", name->data[x]);
+nameconv5.c:// -------------------------------PLC5/250 Decoding----------------------
+nameconv5.c:			name->module = atoi(&dataaddr[0]);
+nameconv5.c:			if (name->module > 0)
+nameconv5.c:				name->module = name->module + 30;
+nameconv5.c:			name->area = 2; // identifies data section
+nameconv5.c:			name->subarea = 0;
+nameconv5.c:					name->module = 1;
+nameconv5.c:					name->type = 4;
+nameconv5.c:					name->area = 0;
+nameconv5.c:					name->module = 1;
+nameconv5.c:					name->area = 1;
+nameconv5.c:					name->type = 4;
+nameconv5.c:					name->section=0;
+nameconv5.c:					name->type = 1;
+nameconv5.c:					name->file = atoi(&dataaddr[x]);
+nameconv5.c:					name->section=1;
+nameconv5.c:					name->type = 4;
+nameconv5.c:					name->file = atoi(&dataaddr[x]);
+nameconv5.c:					name->section=4;
+nameconv5.c:					name->type = 8;
+nameconv5.c:					name->floatdata=TRUE;
+nameconv5.c:					name->file = atoi(&dataaddr[x]);
+nameconv5.c:					name->section=5;
+nameconv5.c:					name->type = 5;
+nameconv5.c:					name->file = atoi(&dataaddr[x]);
+nameconv5.c:					name->section=6;
+nameconv5.c:					name->type = 6;
+nameconv5.c:					name->file = atoi(&dataaddr[x]);
+nameconv5.c:					name->section=7;
+nameconv5.c:					name->type = 7;
+nameconv5.c:					name->file = atoi(&dataaddr[x]);
+nameconv5.c:					if (name->module == 1)
+nameconv5.c:						name->subarea = atoi(&dataaddr[++x]);
+nameconv5.c:					if (name->module != 1)
+nameconv5.c:						name->element = atoi(&dataaddr[++x]);
+nameconv5.c:					l=strlen(dataaddr) - x;
+nameconv5.c:						name->subelement=0;
+nameconv5.c:						name->subelement=1;
+nameconv5.c:						name->subelement=2;
+nameconv5.c:						if (name->section == 5)
+nameconv5.c:							name->subelement=3;
+nameconv5.c:						if (name->section == 6)
+nameconv5.c:							name->subelement=5;
+nameconv5.c:						if (name->section == 5)
+nameconv5.c:							name->subelement=4;
+nameconv5.c:						if (name->section == 6)
+nameconv5.c:							name->subelement=6;
+nameconv5.c:						name->subelement=0;
+nameconv5.c:						name->subelement=1;
+nameconv5.c:						name->subelement=2;
+nameconv5.c:						name->subelement=3;
+nameconv5.c:						name->subelement=4;
+nameconv5.c:					x = strlen(dataaddr) -1;
+nameconv5.c:		if (name->subelement != -1)
+nameconv5.c:			name->type = 4;
+nameconv5.c:		dprint (DEBUG_TRACE,"module = %d\n",name->module);
+nameconv5.c:		dprint (DEBUG_TRACE,"area = %d\n",name->area);
+nameconv5.c:		dprint (DEBUG_TRACE,"subarea = %d\n",name->subarea);
+nameconv5.c:		dprint (DEBUG_TRACE,"section = %d\n",name->section);
+nameconv5.c:		dprint (DEBUG_TRACE,"file = %d\n",name->file);
+nameconv5.c:		dprint (DEBUG_TRACE,"element = %d\n",name->element);
+nameconv5.c:		dprint (DEBUG_TRACE,"subelement = %d\n",name->subelement);
+nameconv5.c:		name->len = 1;
+nameconv5.c:		if ((name->module != -1) && (name->module != 0))
+nameconv5.c:			name->data[name->len++]=name->module;
+nameconv5.c:			name->data[0] = name->data[0] | 1;
+nameconv5.c:		if ((name->area != -1) && (name->area != 0))
+nameconv5.c:			name->data[name->len++]=name->area;
+nameconv5.c:			name->data[0] = name->data[0] | 2;
+nameconv5.c:		if ((name->subarea != -1) && (name->subarea != 0))
+nameconv5.c:			name->data[name->len++]=name->subarea;
+nameconv5.c:			name->data[0] = name->data[0] | 4;
+nameconv5.c:		if ((name->section != -1) && (name->section != 0))
+nameconv5.c:			name->data[name->len++]=name->section;
+nameconv5.c:			name->data[0] = name->data[0] | 8;
+nameconv5.c:		if ((name->file != -1) && (name->file != 0))
+nameconv5.c:			name->data[0] = name->data[0] | 16;
+nameconv5.c:			if (name->file >= 255)
+nameconv5.c:				name->data[name->len++] = 0xff;
+nameconv5.c:				name->data[name->len++] = (name->file & 255);
+nameconv5.c:				name->data[name->len++] = (name->file / 256);
+nameconv5.c:			if (name->file < 255)
+nameconv5.c:				name->data[name->len++] = name->file;
+nameconv5.c:		if (name->element != -1)
+nameconv5.c:			name->data[0] = name->data[0] | 32;
+nameconv5.c:			if (name->element >= 255)
+nameconv5.c:				name->data[name->len++] = 0xff;
+nameconv5.c:				name->data[name->len++] = (name->element & 255);
+nameconv5.c:				name->data[name->len++] = (name->element / 256);
+nameconv5.c:			if (name->element < 255)
+nameconv5.c:				name->data[name->len++] = name->element;
+nameconv5.c:		if (name->subelement != -1)
+nameconv5.c:			name->data[0] = name->data[0] | 64;
+nameconv5.c:			name->data[name->len++] = name->subelement;
+nameconv5.c:			dprint (DEBUG_TRACE,"name->len = %d\n",name->len);
+nameconv5.c:			for (x=0;x<name->len;x++)
+nameconv5.c:				dprint (DEBUG_TRACE,"%02X  ",name->data[x]);
+nameconv5.c://------------------------- SLC 5/05 Encoding ----------------------
+nameconv5.c:		name->file=-1;
+nameconv5.c:		name->element=-1;
+nameconv5.c:		name->subelement=-1;
+nameconv5.c:		name->section=-1;
+nameconv5.c:					name->type = 0x8b;
+nameconv5.c:					name->file = 0;
+nameconv5.c:					name->typelen = 2;
+nameconv5.c:					name->type = 0x8c;
+nameconv5.c:					name->file = 1;
+nameconv5.c:					name->typelen = 2;
+nameconv5.c:					name->type = 0x84;
+nameconv5.c:					name->typelen = 2;
+nameconv5.c:						name->type=0x8d;
+nameconv5.c:						name->typelen = 0x54;
+nameconv5.c:					name->file = atoi(&dataaddr[x]);
+nameconv5.c:					name->type = 0x85;
+nameconv5.c:					name->file = atoi(&dataaddr[x]);
+nameconv5.c:					name->typelen = 2;
+nameconv5.c:					name->type = 0x86;
+nameconv5.c:					name->file = atoi(&dataaddr[x]);
+nameconv5.c:					name->typelen = 2;
+nameconv5.c:					name->type = 0x87;
+nameconv5.c:					name->file = atoi(&dataaddr[x]);
+nameconv5.c:					name->typelen = 2;
+nameconv5.c:					name->type = 0x88;
+nameconv5.c:					name->file = atoi(&dataaddr[x]);
+nameconv5.c:					name->typelen = 2;
+nameconv5.c:					name->type = 0x89;
+nameconv5.c:					name->file = atoi(&dataaddr[x]);
+nameconv5.c:					name->typelen=2;
+nameconv5.c:					name->type = 0x8a;
+nameconv5.c:					name->file = atoi(&dataaddr[x]);
+nameconv5.c:					name->floatdata=TRUE;
+nameconv5.c:					name->typelen = 4;
+nameconv5.c:					name->type = 0x8e;
+nameconv5.c:					name->file = atoi(&dataaddr[x]);
+nameconv5.c:					name->typelen = 1;
+nameconv5.c:					name->type = 0x8f;
+nameconv5.c:					name->file = atoi(&dataaddr[x]);
+nameconv5.c:					name->typelen = 2;
+nameconv5.c:					name->element = atoi(&dataaddr[++x]);
+nameconv5.c:					name->section  = 1;
+nameconv5.c:					name->file = 7;
+nameconv5.c:					name->element = 0;
+nameconv5.c:					l=strlen(dataaddr) - x;
+nameconv5.c:						name->subelement = 2;
+nameconv5.c:						name->subelement = 1;
+nameconv5.c:						name->subelement = 1;
+nameconv5.c:						name->subelement = 2;
+nameconv5.c:					x = strlen(dataaddr)-1;
+nameconv5.c:		name->len = 1;
+nameconv5.c:		if (name->file != -1)
+nameconv5.c:			name->data[0] = name->data[0] | 2;
+nameconv5.c:			name->data[name->len++] = name->file;
+nameconv5.c:		if (name->section != -1)
+nameconv5.c:			name->data[name->len++] = name->section;
+nameconv5.c:			name->data[0] = name->data[0] | 1;
+nameconv5.c:		if (name->element != -1)
+nameconv5.c:			name->data[0] = name->data[0] | 4;
+nameconv5.c:			name->data[name->len++] = name->element;
+nameconv5.c:		if (name->subelement != -1)
+nameconv5.c:			name->data[0] = name->data[0] | 8;
+nameconv5.c:			name->data[name->len++] = name->subelement;
+nameconv5.c:return -1;
+nop.c:/* Revised 5/6/02 William Hays - CTI */
+nop.c:  dprint (DEBUG_TRACE, "--- nop.c entered\n");
+nop.c:      return -1;
+nop.c:      return -1;
+nop.c:  head->command = ENCAPS_NOP;
+nop.c:  memcpy (buff->data, head, ENCAPS_Header_Length);
+nop.c:  buff->overall_len = ENCAPS_Header_Length;
+object_bit_modify.c:    return -1;
+object_bit_modify.c:    return -1;
+object_bit_modify.c:    return -1;
+object_bit_modify.c:    return -1;
+object_bit_modify.c:    return -1;
+object_bit_modify.c:    return -1;
+object_bit_modify.c:    return -1;
+object_bit_modify.c:    return -1;
+object_bit_modify.c:    return -1;
+object_bit_modify.c:    return -1;
+object_bit_modify.c:    ioi1->class = OBJECT_CONFIG;
+object_bit_modify.c:    ioi1->instance = tag->topbase & 0xffff;
+object_bit_modify.c:    if (tag->alias_topbase != 0)
+object_bit_modify.c:      ioi1->instance = tag->alias_topbase & 0xffff;
+object_bit_modify.c:    ioi1->member = -1;
+object_bit_modify.c:    ioi1->point = -1;
+object_bit_modify.c:    ioi1->attribute = -1;
+object_bit_modify.c:    ioi1->tagname = NULL;
+object_bit_modify.c:    ioi1->elem[0] = -1;
+object_bit_modify.c:    ioi1->elem[1] = -1;
+object_bit_modify.c:    ioi1->elem[2] = -1;
+object_bit_modify.c:    a = tag->id;
+object_bit_modify.c:    b = tag->topbase & 0xffff;
+object_bit_modify.c:    if (tag->alias_id != 0)
+object_bit_modify.c:      a = tag->alias_id;
+object_bit_modify.c:    if (tag->alias_topbase != 0)
+object_bit_modify.c:      b = tag->alias_topbase & 0xffff;
+object_bit_modify.c:      ioi1->class = OBJECT_SUB_OBJECT;
+object_bit_modify.c:      ioi1->instance = tag->base;
+object_bit_modify.c:      if (tag->alias_base != 0)
+object_bit_modify.c:	ioi1->instance = tag->alias_base;
+object_bit_modify.c:	return -1;
+object_bit_modify.c:      ioi2->class = OBJECT_CONFIG;
+object_bit_modify.c:      ioi2->instance = tag->id;
+object_bit_modify.c:      if (tag->alias_id != 0)
+object_bit_modify.c:	ioi2->instance = tag->alias_id;
+object_bit_modify.c:      ioi2->member = -1;
+object_bit_modify.c:      ioi2->point = -1;
+object_bit_modify.c:      ioi2->attribute = -1;
+object_bit_modify.c:      ioi2->tagname = NULL;
+object_bit_modify.c:      ioi2->elem[0] = -1;
+object_bit_modify.c:      ioi2->elem[1] = -1;
+object_bit_modify.c:      ioi2->elem[2] = -1;
+object_bit_modify.c:	   "Write loop entered - totalsize = %d, size = %d\n",
+object_bit_modify.c:    buff->len = 0;
+object_bit_modify.c:    msgbuff->data[msgbuff->len++] = OBJECT_RMW;
+object_bit_modify.c:    msgbuff->data[msgbuff->len++] = count;
+object_bit_modify.c:    msgbuff->data[msgbuff->len++] = 0;
+object_bit_modify.c:      msgbuff->data[msgbuff->len++] = ormask->data[x];
+object_bit_modify.c:      msgbuff->data[msgbuff->len++] = andmask->data[x];
+object_bit_modify.c:    memcpy(msgbuff->data + msgbuff->len, tag->data, size);
+object_bit_modify.c:    msgbuff->len += size;
+object_bit_modify.c:      msgbuff->data[msgbuff->len++] = 0;
+object_bit_modify.c://msgbuff->data[msgbuff->len++] = 0;
+object_bit_modify.c:      for (x = 0; x < msgbuff->len; x++)
+object_bit_modify.c:	dprint(DEBUG_BUILD, "%02X ", msgbuff->data[x]);
+object_bit_modify.c:    cpf_buffer->data[cpf_buffer->len++] = PDU_Unconnected_Send;
+object_bit_modify.c:    ioiCM.member = -1;
+object_bit_modify.c:    ioiCM.point = -1;
+object_bit_modify.c:    ioiCM.attribute = -1;
+object_bit_modify.c:    ioiCM.elem[0] = -1;
+object_bit_modify.c:    ioiCM.elem[1] = -1;
+object_bit_modify.c:    ioiCM.elem[2] = -1;
+object_bit_modify.c:    cpf_buffer->data[cpf_buffer->len++] = msgbuff->len & 255;
+object_bit_modify.c:    cpf_buffer->data[cpf_buffer->len++] = msgbuff->len / 0x100;
+object_bit_modify.c:    memcpy(cpf_buffer->data + cpf_buffer->len, msgbuff->data, msgbuff->len);
+object_bit_modify.c:    cpf_buffer->len += msgbuff->len;
+object_bit_modify.c:    head->len = buff->len;
+object_bit_modify.c:    memcpy(sendbuff->data, head, ENCAPS_Header_Length);
+object_bit_modify.c:    sendbuff->overall_len = ENCAPS_Header_Length;
+object_bit_modify.c:      for (x = 0; x < buff->len; x++)
+object_bit_modify.c:	dprint(DEBUG_BUILD, "%02X ", buff->data[x]);
+object_bit_modify.c:    memcpy(sendbuff->data + sendbuff->overall_len, buff->data, buff->len);
+object_bit_modify.c:    sendbuff->overall_len += buff->len;
+object_bit_modify.c:    memcpy(head, buff->data, ENCAPS_Header_Length);
+object_bit_modify.c:    if (head->status != 0)
+object_bit_modify.c:      ret = -1;
+object_bit_modify.c:      return -1;
+object_bit_modify.c:	     "Got good reply to Write Object Range Value Command - %d\n",
+object_bit_modify.c:	     buff->overall_len);
+object_bit_modify.c:      for (x = 44; x < buff->overall_len; x++)
+object_bit_modify.c:	dprint(DEBUG_VALUES, "%02X ", buff->data[x]);
+object_bit_modify_byte.c:    return -1;
+object_bit_modify_byte.c:    return -1;
+object_bit_modify_byte.c:    return -1;
+object_bit_modify_byte.c:    return -1;
+object_bit_modify_byte.c:    return -1;
+object_bit_modify_byte.c:    return -1;
+object_bit_modify_byte.c:    return -1;
+object_bit_modify_byte.c:    return -1;
+object_bit_modify_byte.c:    ioi1->ioiclass = OBJECT_CONFIG;
+object_bit_modify_byte.c:    ioi1->instance = tag->topbase & 0xffff;
+object_bit_modify_byte.c:    if (tag->alias_topbase != 0)
+object_bit_modify_byte.c:      ioi1->instance = tag->alias_topbase & 0xffff;
+object_bit_modify_byte.c:    ioi1->member = -1;
+object_bit_modify_byte.c:    ioi1->point = -1;
+object_bit_modify_byte.c:    ioi1->attribute = -1;
+object_bit_modify_byte.c:    ioi1->tagname = NULL;
+object_bit_modify_byte.c:    ioi1->elem[0] = -1;
+object_bit_modify_byte.c:    ioi1->elem[1] = -1;
+object_bit_modify_byte.c:    ioi1->elem[2] = -1;
+object_bit_modify_byte.c:    a = tag->id;
+object_bit_modify_byte.c:    b = tag->topbase & 0xffff;
+object_bit_modify_byte.c:    if (tag->alias_id != 0)
+object_bit_modify_byte.c:      a = tag->alias_id;
+object_bit_modify_byte.c:    if (tag->alias_topbase != 0)
+object_bit_modify_byte.c:      b = tag->alias_topbase & 0xffff;
+object_bit_modify_byte.c:      ioi1->ioiclass = OBJECT_SUB_OBJECT;
+object_bit_modify_byte.c:      ioi1->instance = tag->base;
+object_bit_modify_byte.c:      if (tag->alias_base != 0)
+object_bit_modify_byte.c:	ioi1->instance = tag->alias_base;
+object_bit_modify_byte.c:	return -1;
+object_bit_modify_byte.c:      ioi2->ioiclass = OBJECT_CONFIG;
+object_bit_modify_byte.c:      ioi2->instance = tag->id;
+object_bit_modify_byte.c:      if (tag->alias_id != 0)
+object_bit_modify_byte.c:	ioi2->instance = tag->alias_id;
+object_bit_modify_byte.c:      ioi2->member = -1;
+object_bit_modify_byte.c:      ioi2->point = -1;
+object_bit_modify_byte.c:      ioi2->attribute = -1;
+object_bit_modify_byte.c:      ioi2->tagname = NULL;
+object_bit_modify_byte.c:      ioi2->elem[0] = -1;
+object_bit_modify_byte.c:      ioi2->elem[1] = -1;
+object_bit_modify_byte.c:      ioi2->elem[2] = -1;
+object_bit_modify_byte.c:	   "Write loop entered - totalsize = %d, size = %d\n",
+object_bit_modify_byte.c:    buff->len = 0;
+object_bit_modify_byte.c:    msgbuff->data[msgbuff->len++] = OBJECT_RMW_BYTE;
+object_bit_modify_byte.c:    msgbuff->data[msgbuff->len++] = (offset & 255);
+object_bit_modify_byte.c:    msgbuff->data[msgbuff->len++] = ((offset >> 8) & 255);
+object_bit_modify_byte.c:    msgbuff->data[msgbuff->len++] = ((offset >> 16) & 255);
+object_bit_modify_byte.c:    msgbuff->data[msgbuff->len++] = ((offset >> 24) & 255);
+object_bit_modify_byte.c:    msgbuff->data[msgbuff->len++] = 1;
+object_bit_modify_byte.c:    msgbuff->data[msgbuff->len++] = 0;
+object_bit_modify_byte.c:    msgbuff->data[msgbuff->len++] = ormask;
+object_bit_modify_byte.c:    msgbuff->data[msgbuff->len++] = andmask;
+object_bit_modify_byte.c:      for (x = 0; x < msgbuff->len; x++)
+object_bit_modify_byte.c:	dprint(DEBUG_BUILD, "%02X ", msgbuff->data[x]);
+object_bit_modify_byte.c:    cpf_buffer->data[cpf_buffer->len++] = PDU_Unconnected_Send;
+object_bit_modify_byte.c:    ioiCM.member = -1;
+object_bit_modify_byte.c:    ioiCM.point = -1;
+object_bit_modify_byte.c:    ioiCM.attribute = -1;
+object_bit_modify_byte.c:    ioiCM.elem[0] = -1;
+object_bit_modify_byte.c:    ioiCM.elem[1] = -1;
+object_bit_modify_byte.c:    ioiCM.elem[2] = -1;
+object_bit_modify_byte.c:    cpf_buffer->data[cpf_buffer->len++] = msgbuff->len & 255;
+object_bit_modify_byte.c:    cpf_buffer->data[cpf_buffer->len++] = msgbuff->len / 0x100;
+object_bit_modify_byte.c:    memcpy(cpf_buffer->data + cpf_buffer->len, msgbuff->data, msgbuff->len);
+object_bit_modify_byte.c:    cpf_buffer->len += msgbuff->len;
+object_bit_modify_byte.c:    head->len = buff->len;
+object_bit_modify_byte.c:    memcpy(sendbuff->data, head, ENCAPS_Header_Length);
+object_bit_modify_byte.c:    sendbuff->overall_len = ENCAPS_Header_Length;
+object_bit_modify_byte.c:      for (x = 0; x < buff->len; x++)
+object_bit_modify_byte.c:	dprint(DEBUG_BUILD, "%02X ", buff->data[x]);
+object_bit_modify_byte.c:    memcpy(sendbuff->data + sendbuff->overall_len, buff->data, buff->len);
+object_bit_modify_byte.c:    sendbuff->overall_len += buff->len;
+object_bit_modify_byte.c:    memcpy(head, buff->data, ENCAPS_Header_Length);
+object_bit_modify_byte.c:    if (head->status != 0)
+object_bit_modify_byte.c:      ret = -1;
+object_bit_modify_byte.c:      return -1;
+object_bit_modify_byte.c:	     "Got good reply to Write Object Range Value Command - %d\n",
+object_bit_modify_byte.c:	     buff->overall_len);
+object_bit_modify_byte.c:      for (x = 44; x < buff->overall_len; x++)
+object_bit_modify_byte.c:	dprint(DEBUG_VALUES, "%02X ", buff->data[x]);
+object_bit_modify_word.c:    return -1;
+object_bit_modify_word.c:    return -1;
+object_bit_modify_word.c:    return -1;
+object_bit_modify_word.c:    return -1;
+object_bit_modify_word.c:    return -1;
+object_bit_modify_word.c:    return -1;
+object_bit_modify_word.c:    return -1;
+object_bit_modify_word.c:    return -1;
+object_bit_modify_word.c:    return -1;
+object_bit_modify_word.c:    return -1;
+object_bit_modify_word.c:    ioi1->ioiclass = OBJECT_CONFIG;
+object_bit_modify_word.c:    ioi1->instance = tag->topbase & 0xffff;
+object_bit_modify_word.c:    if (tag->alias_topbase != 0)
+object_bit_modify_word.c:      ioi1->instance = tag->alias_topbase & 0xffff;
+object_bit_modify_word.c:    ioi1->member = -1;
+object_bit_modify_word.c:    ioi1->point = -1;
+object_bit_modify_word.c:    ioi1->attribute = -1;
+object_bit_modify_word.c:    ioi1->tagname = NULL;
+object_bit_modify_word.c:    ioi1->elem[0] = -1;
+object_bit_modify_word.c:    ioi1->elem[1] = -1;
+object_bit_modify_word.c:    ioi1->elem[2] = -1;
+object_bit_modify_word.c:    a = tag->id;
+object_bit_modify_word.c:    b = tag->topbase & 0xffff;
+object_bit_modify_word.c:    if (tag->alias_id != 0)
+object_bit_modify_word.c:      a = tag->alias_id;
+object_bit_modify_word.c:    if (tag->alias_topbase != 0)
+object_bit_modify_word.c:      b = tag->alias_topbase & 0xffff;
+object_bit_modify_word.c:      ioi1->ioiclass = OBJECT_SUB_OBJECT;
+object_bit_modify_word.c:      ioi1->instance = tag->base;
+object_bit_modify_word.c:      if (tag->alias_base != 0)
+object_bit_modify_word.c:	ioi1->instance = tag->alias_base;
+object_bit_modify_word.c:	return -1;
+object_bit_modify_word.c:      ioi2->ioiclass = OBJECT_CONFIG;
+object_bit_modify_word.c:      ioi2->instance = tag->id;
+object_bit_modify_word.c:      if (tag->alias_id != 0)
+object_bit_modify_word.c:	ioi2->instance = tag->alias_id;
+object_bit_modify_word.c:      ioi2->member = -1;
+object_bit_modify_word.c:      ioi2->point = -1;
+object_bit_modify_word.c:      ioi2->attribute = -1;
+object_bit_modify_word.c:      ioi2->tagname = NULL;
+object_bit_modify_word.c:      ioi2->elem[0] = -1;
+object_bit_modify_word.c:      ioi2->elem[1] = -1;
+object_bit_modify_word.c:      ioi2->elem[2] = -1;
+object_bit_modify_word.c:	   "Write loop entered - totalsize = %d, size = %d\n",
+object_bit_modify_word.c:    buff->len = 0;
+object_bit_modify_word.c:    msgbuff->data[msgbuff->len++] = OBJECT_RMW;
+object_bit_modify_word.c:    msgbuff->data[msgbuff->len++] = count;
+object_bit_modify_word.c:    msgbuff->data[msgbuff->len++] = 0;
+object_bit_modify_word.c:      msgbuff->data[msgbuff->len++] = ormask->data[x];
+object_bit_modify_word.c:      msgbuff->data[msgbuff->len++] = andmask->data[x];
+object_bit_modify_word.c:    memcpy(msgbuff->data + msgbuff->len, tag->data, size);
+object_bit_modify_word.c:    msgbuff->len += size;
+object_bit_modify_word.c:      msgbuff->data[msgbuff->len++] = 0;
+object_bit_modify_word.c://msgbuff->data[msgbuff->len++] = 0;
+object_bit_modify_word.c:      for (x = 0; x < msgbuff->len; x++)
+object_bit_modify_word.c:	dprint(DEBUG_BUILD, "%02X ", msgbuff->data[x]);
+object_bit_modify_word.c:    cpf_buffer->data[cpf_buffer->len++] = PDU_Unconnected_Send;
+object_bit_modify_word.c:    ioiCM.member = -1;
+object_bit_modify_word.c:    ioiCM.point = -1;
+object_bit_modify_word.c:    ioiCM.attribute = -1;
+object_bit_modify_word.c:    ioiCM.elem[0] = -1;
+object_bit_modify_word.c:    ioiCM.elem[1] = -1;
+object_bit_modify_word.c:    ioiCM.elem[2] = -1;
+object_bit_modify_word.c:    cpf_buffer->data[cpf_buffer->len++] = msgbuff->len & 255;
+object_bit_modify_word.c:    cpf_buffer->data[cpf_buffer->len++] = msgbuff->len / 0x100;
+object_bit_modify_word.c:    memcpy(cpf_buffer->data + cpf_buffer->len, msgbuff->data, msgbuff->len);
+object_bit_modify_word.c:    cpf_buffer->len += msgbuff->len;
+object_bit_modify_word.c:    head->len = buff->len;
+object_bit_modify_word.c:    memcpy(sendbuff->data, head, ENCAPS_Header_Length);
+object_bit_modify_word.c:    sendbuff->overall_len = ENCAPS_Header_Length;
+object_bit_modify_word.c:      for (x = 0; x < buff->len; x++)
+object_bit_modify_word.c:	dprint(DEBUG_BUILD, "%02X ", buff->data[x]);
+object_bit_modify_word.c:    memcpy(sendbuff->data + sendbuff->overall_len, buff->data, buff->len);
+object_bit_modify_word.c:    sendbuff->overall_len += buff->len;
+object_bit_modify_word.c:    memcpy(head, buff->data, ENCAPS_Header_Length);
+object_bit_modify_word.c:    if (head->status != 0)
+object_bit_modify_word.c:      ret = -1;
+object_bit_modify_word.c:      return -1;
+object_bit_modify_word.c:	     "Got good reply to Write Object Range Value Command - %d\n",
+object_bit_modify_word.c:	     buff->overall_len);
+object_bit_modify_word.c:      for (x = 44; x < buff->overall_len; x++)
+object_bit_modify_word.c:	dprint(DEBUG_VALUES, "%02X ", buff->data[x]);
+read_memory_value.c:/* Revised 5/6/02 William Hays - CTI */
+read_memory_value.c:    return -1;
+read_memory_value.c:    return -1;
+read_memory_value.c:    return -1;
+read_memory_value.c:    return -1;
+read_memory_value.c:    return -1;
+read_memory_value.c:    return -1;
+read_memory_value.c:    return -1;
+read_memory_value.c:    return -1;
+read_memory_value.c:    return -1;
+read_memory_value.c:  buff->len = 0;
+read_memory_value.c:/*  msgbuff->data[msgbuff->len++] = DATA_TYPE_CONFIG;
+read_memory_value.c:  ioi1->ioiclass = DATA_OBJECT;
+read_memory_value.c:  ioi1->instance = BASE_INSTANCE;
+read_memory_value.c:  ioi1->member = -1;
+read_memory_value.c:  ioi1->point = -1;
+read_memory_value.c:  ioi1->attribute = -1;
+read_memory_value.c:  ioi1->tagname = NULL;
+read_memory_value.c:  ioi1->elem[0] = -1;
+read_memory_value.c:  ioi1->elem[1] = -1;
+read_memory_value.c:  ioi1->elem[2] = -1;
+read_memory_value.c:  msgbuff->data[msgbuff->len++] = (byte)(list->count & 255);
+read_memory_value.c:  msgbuff->data[msgbuff->len++] = (byte)(list->count / 256); */
+read_memory_value.c:    junk = tag->linkid;
+read_memory_value.c:    ioilist->data[ioilist->len++] = DATA_TYPE_CONFIG;
+read_memory_value.c:    ioi1->ioiclass = DATA_OBJECT;
+read_memory_value.c:    ioi1->instance =BASE_INSTANCE;
+read_memory_value.c:    ioi1->member = -1;
+read_memory_value.c:    ioi1->point = -1;
+read_memory_value.c:    ioi1->attribute = -1;
+read_memory_value.c:    ioi1->tagname = NULL;
+read_memory_value.c:    ioi1->elem[0] = -1;
+read_memory_value.c:    ioi1->elem[1] = -1;
+read_memory_value.c:    ioi1->elem[2] = -1;
+read_memory_value.c:    ioilist->data[ioilist->len++] = (byte)(junk & 255);
+read_memory_value.c:    ioilist->data[ioilist->len++] = (byte)((junk >> 8) & 255);
+read_memory_value.c:    ioilist->data[ioilist->len++] = (byte)((junk >> 16) & 255);
+read_memory_value.c:    ioilist->data[ioilist->len++] = (byte)((junk >> 24) & 255);
+read_memory_value.c:    ioilist->data[ioilist->len++] = (byte)(junk & 255);
+read_memory_value.c:    ioilist->data[ioilist->len++] = (byte)((junk >> 8) & 255);
+read_memory_value.c:  memcpy (msgbuff->data + msgbuff->len, ioilist->data, ioilist->len);
+read_memory_value.c:  msgbuff->len += ioilist->len;
+read_memory_value.c:    for (x = 0; x < msgbuff->len; x++)
+read_memory_value.c:      dprint(DEBUG_BUILD, "%02X ", msgbuff->data[x]);
+read_memory_value.c:  cpf_buffer->data[cpf_buffer->len++] = PDU_Unconnected_Send;
+read_memory_value.c:  ioi1->ioiclass = CONNECTION_MANAGER;
+read_memory_value.c:  ioi1->instance = FIRST_INSTANCE;
+read_memory_value.c:  ioi1->member = -1;
+read_memory_value.c:  ioi1->point = -1;
+read_memory_value.c:  ioi1->attribute = -1;
+read_memory_value.c:  ioi1->tagname = NULL;
+read_memory_value.c:  ioi1->elem[0] = -1;
+read_memory_value.c:  ioi1->elem[1] = -1;
+read_memory_value.c:  ioi1->elem[2] = -1;
+read_memory_value.c:  cpf_buffer->data[cpf_buffer->len++] = msgbuff->len & 255;
+read_memory_value.c:  cpf_buffer->data[cpf_buffer->len++] = msgbuff->len / 0x100;
+read_memory_value.c:  memcpy(cpf_buffer->data + cpf_buffer->len, msgbuff->data, msgbuff->len);
+read_memory_value.c:  cpf_buffer->len += msgbuff->len;
+read_memory_value.c:  head->len = buff->len;
+read_memory_value.c:  memcpy(sendbuff->data, head, ENCAPS_Header_Length);
+read_memory_value.c:  sendbuff->overall_len = ENCAPS_Header_Length;
+read_memory_value.c:    for (x = 0; x < buff->len; x++)
+read_memory_value.c:      dprint(DEBUG_BUILD, "%02X ", buff->data[x]);
+read_memory_value.c:  memcpy(sendbuff->data + sendbuff->overall_len, buff->data, buff->len);
+read_memory_value.c:  sendbuff->overall_len += buff->len;
+read_memory_value.c:  memcpy(head, buff->data, ENCAPS_Header_Length);
+read_memory_value.c:  if (head->status != 0)
+read_memory_value.c:    ret = -1;
+read_memory_value.c:    return -1;
+read_memory_value.c:    dprint(DEBUG_BUILD, "Got good reply to Read Memory Value Command - %d\n",
+read_memory_value.c:	   buff->overall_len);
+read_memory_value.c:    for (x = 44; x < buff->overall_len; x++)
+read_memory_value.c:      dprint(DEBUG_BUILD, "%02X ", buff->data[x]);
+read_memory_value.c:  junk = buff->data[start] + (buff->data[start+1]*256);
+read_memory_value.c:        if (tag->data != NULL)
+read_memory_value.c:          memcpy (tag->data, buff->data + start, 4);
+read_memory_value.c:  x = buff->data[42];
+read_multi_object_value.c:/* Revised 5/6/02 William Hays - CTI */
+read_multi_object_value.c:    return -1;
+read_multi_object_value.c:    return -1;
+read_multi_object_value.c:    return -1;
+read_multi_object_value.c:    return -1;
+read_multi_object_value.c:    return -1;
+read_multi_object_value.c:    return -1;
+read_multi_object_value.c:    return -1;
+read_multi_object_value.c:    return -1;
+read_multi_object_value.c:    return -1;
+read_multi_object_value.c:    return -1;
+read_multi_object_value.c:  buff->len = 0;
+read_multi_object_value.c:  msgbuff->data[msgbuff->len++] = MULTI_SERVICE;
+read_multi_object_value.c:  ioi1->ioiclass = ROUTER;
+read_multi_object_value.c:  ioi1->instance = 1;
+read_multi_object_value.c:  ioi1->member = -1;
+read_multi_object_value.c:  ioi1->point = -1;
+read_multi_object_value.c:  ioi1->attribute = -1;
+read_multi_object_value.c:  ioi1->tagname = NULL;
+read_multi_object_value.c:  ioi1->elem[0] = -1;
+read_multi_object_value.c:  ioi1->elem[1] = -1;
+read_multi_object_value.c:  ioi1->elem[2] = -1;
+read_multi_object_value.c:  msgbuff->data[msgbuff->len++] = (byte)(list->count & 255);
+read_multi_object_value.c:  msgbuff->data[msgbuff->len++] = (byte)(list->count / 256);
+read_multi_object_value.c:  for (x=0;x<list->count;x++)
+read_multi_object_value.c:    stuff = 2+(list->count * 2) + ioilist->len;
+read_multi_object_value.c:    junk = list->tag[x]->linkid;
+read_multi_object_value.c://    if (list->tag[x]->alias_linkid != 0)
+read_multi_object_value.c:  //   junk = list->tag[x]->alias_linkid;
+read_multi_object_value.c:    totalsize = getsize(list->tag[x]);
+read_multi_object_value.c:    ioilist->data[ioilist->len++] = DATA_TYPE_CONFIG;
+read_multi_object_value.c:    ioi1->ioiclass = DATA_OBJECT;
+read_multi_object_value.c:    ioi1->instance =BASE_INSTANCE;
+read_multi_object_value.c:    ioi1->member = -1;
+read_multi_object_value.c:    ioi1->point = -1;
+read_multi_object_value.c:    ioi1->attribute = -1;
+read_multi_object_value.c:    ioi1->tagname = NULL;
+read_multi_object_value.c:    ioi1->elem[0] = -1;
+read_multi_object_value.c:    ioi1->elem[1] = -1;
+read_multi_object_value.c:    ioi1->elem[2] = -1;
+read_multi_object_value.c:    ioilist->data[ioilist->len++] = (byte)(junk & 255);
+read_multi_object_value.c:    ioilist->data[ioilist->len++] = (byte)((junk >> 8) & 255);
+read_multi_object_value.c:    ioilist->data[ioilist->len++] = (byte)((junk >> 16) & 255);
+read_multi_object_value.c:    ioilist->data[ioilist->len++] = (byte)((junk >> 24) & 255);
+read_multi_object_value.c://    junk = getsize(list->tag[x])/4;
+read_multi_object_value.c:    ioilist->data[ioilist->len++] = (byte)(junk & 255);
+read_multi_object_value.c:    ioilist->data[ioilist->len++] = (byte)((junk >> 8) & 255);
+read_multi_object_value.c:    msgbuff->data[msgbuff->len++] = (byte)(stuff & 255);
+read_multi_object_value.c:    msgbuff->data[msgbuff->len++] = (byte)(stuff / 256);
+read_multi_object_value.c:  memcpy (msgbuff->data + msgbuff->len, ioilist->data, ioilist->len);
+read_multi_object_value.c:  msgbuff->len += ioilist->len;
+read_multi_object_value.c:    for (x = 0; x < msgbuff->len; x++)
+read_multi_object_value.c:      dprint(DEBUG_BUILD, "%02X ", msgbuff->data[x]);
+read_multi_object_value.c:  cpf_buffer->data[cpf_buffer->len++] = PDU_Unconnected_Send;
+read_multi_object_value.c:  ioi1->ioiclass = CONNECTION_MANAGER;
+read_multi_object_value.c:  ioi1->instance = FIRST_INSTANCE;
+read_multi_object_value.c:  ioi1->member = -1;
+read_multi_object_value.c:  ioi1->point = -1;
+read_multi_object_value.c:  ioi1->attribute = -1;
+read_multi_object_value.c:  ioi1->tagname = NULL;
+read_multi_object_value.c:  ioi1->elem[0] = -1;
+read_multi_object_value.c:  ioi1->elem[1] = -1;
+read_multi_object_value.c:  ioi1->elem[2] = -1;
+read_multi_object_value.c:  cpf_buffer->data[cpf_buffer->len++] = msgbuff->len & 255;
+read_multi_object_value.c:  cpf_buffer->data[cpf_buffer->len++] = msgbuff->len / 0x100;
+read_multi_object_value.c:  memcpy(cpf_buffer->data + cpf_buffer->len, msgbuff->data, msgbuff->len);
+read_multi_object_value.c:  cpf_buffer->len += msgbuff->len;
+read_multi_object_value.c:  head->len = buff->len;
+read_multi_object_value.c:  memcpy(sendbuff->data, head, ENCAPS_Header_Length);
+read_multi_object_value.c:  sendbuff->overall_len = ENCAPS_Header_Length;
+read_multi_object_value.c:    for (x = 0; x < buff->len; x++)
+read_multi_object_value.c:      dprint(DEBUG_BUILD, "%02X ", buff->data[x]);
+read_multi_object_value.c:  memcpy(sendbuff->data + sendbuff->overall_len, buff->data, buff->len);
+read_multi_object_value.c:  sendbuff->overall_len += buff->len;
+read_multi_object_value.c:  memcpy(head, buff->data, ENCAPS_Header_Length);
+read_multi_object_value.c:  if (head->status != 0)
+read_multi_object_value.c:    ret = -1;
+read_multi_object_value.c:    return -1;
+read_multi_object_value.c:    dprint(DEBUG_BUILD, "Got good reply to Read Object Value Command - %d\n",
+read_multi_object_value.c:	   buff->overall_len);
+read_multi_object_value.c:    for (x = 44; x < buff->overall_len; x++)
+read_multi_object_value.c:      dprint(DEBUG_BUILD, "%02X ", buff->data[x]);
+read_multi_object_value.c:  junk = buff->data[start] + (buff->data[start+1]*256);
+read_multi_object_value.c:  for (x = 0; x < list->count; x++)
+read_multi_object_value.c:    if (buff->data[start] == 0xcc)
+read_multi_object_value.c:      if (buff->data[start] == 0)
+read_multi_object_value.c:        if (list->tag[x]->data != NULL)
+read_multi_object_value.c:          memcpy (list->tag[x]->data, buff->data + start, 4);
+read_multi_object_value.c:  x = buff->data[42];
+read_object_range_value.c:/* Revised 5/3/02 William Hays - CTI */
+read_object_range_value.c:    return -1;
+read_object_range_value.c:    return -1;
+read_object_range_value.c:    return -1;
+read_object_range_value.c:    return -1;
+read_object_range_value.c:    return -1;
+read_object_range_value.c:    return -1;
+read_object_range_value.c:    return -1;
+read_object_range_value.c:      "Could not allocate memory for send buffer - read_object_range_value.c");
+read_object_range_value.c:    return -1;
+read_object_range_value.c:      "Could not allocate memory for ioi1 buffer - read_object_range_value.c");
+read_object_range_value.c:    return -1;
+read_object_range_value.c:  tag->datalen = 0;
+read_object_range_value.c:  buff->len = 0;
+read_object_range_value.c:    ioi1->ioiclass = OBJECT_CONFIG;
+read_object_range_value.c:    ioi1->instance = tag->topbase & 0xffff;
+read_object_range_value.c:    if (tag->alias_topbase != 0)
+read_object_range_value.c:      ioi1->instance = tag->alias_topbase & 0xffff;
+read_object_range_value.c:    ioi1->member = -1;
+read_object_range_value.c:    ioi1->point = -1;
+read_object_range_value.c:    ioi1->attribute = -1;
+read_object_range_value.c:    ioi1->tagname = NULL;
+read_object_range_value.c:    ioi1->elem[0] = -1;
+read_object_range_value.c:    ioi1->elem[1] = -1;
+read_object_range_value.c:    ioi1->elem[2] = -1;
+read_object_range_value.c:    a = tag->id;
+read_object_range_value.c:    b = tag->topbase & 0xffff;
+read_object_range_value.c:    if (tag->alias_id != 0)
+read_object_range_value.c:      a = tag->alias_id;
+read_object_range_value.c:    if ((tag->alias_topbase & 0xffff) != 0)
+read_object_range_value.c:      b = tag->alias_topbase;
+read_object_range_value.c:    if (a != 0  && tag->topbase&0x20000 &&
+read_object_range_value.c:				!(tag->alias_topbase&0x1000)) //*** added - I think b is now redundant
+read_object_range_value.c:      ioi1->ioiclass = OBJECT_SUB_OBJECT;
+read_object_range_value.c:      ioi1->instance = tag->base;
+read_object_range_value.c:      if (tag->alias_base != 0)
+read_object_range_value.c:	ioi1->instance = tag->alias_base;
+read_object_range_value.c:	  "Could not allocate memory for ioi2 buffer - read_object_range_value.c");
+read_object_range_value.c:	return -1;
+read_object_range_value.c:      ioi2->ioiclass = OBJECT_CONFIG;
+read_object_range_value.c:      //ioi2->instance = tag->id; //*** removed
+read_object_range_value.c:	  ioi2->instance = tag->topbase&0xffff; //*** added
+read_object_range_value.c:      if (tag->alias_id != 0)
+read_object_range_value.c:		//ioi2->instance = tag->alias_id; //*** removed
+read_object_range_value.c:		ioi2->instance = tag->alias_topbase&0xffff; //*** added
+read_object_range_value.c:      ioi2->member = -1;
+read_object_range_value.c:      ioi2->point = -1;
+read_object_range_value.c:      ioi2->attribute = -1;
+read_object_range_value.c:      ioi2->tagname = NULL;
+read_object_range_value.c:      ioi2->elem[0] = -1;
+read_object_range_value.c:      ioi2->elem[1] = -1;
+read_object_range_value.c:      ioi2->elem[2] = -1;
+read_object_range_value.c:    size = totalsize - offset;
+read_object_range_value.c:    msgbuff->data[msgbuff->len++] = GET_SINGLE_PROP;
+read_object_range_value.c:    msgbuff->data[msgbuff->len++] = offset & 255;
+read_object_range_value.c:    msgbuff->data[msgbuff->len++] = offset / 0x100;
+read_object_range_value.c:    msgbuff->data[msgbuff->len++] = 0;
+read_object_range_value.c:    msgbuff->data[msgbuff->len++] = 0;
+read_object_range_value.c:    msgbuff->data[msgbuff->len++] = size & 255;
+read_object_range_value.c:    msgbuff->data[msgbuff->len++] = size / 256;
+read_object_range_value.c:      for (x = 0; x < msgbuff->len; x++)
+read_object_range_value.c:	dprint(DEBUG_BUILD, "%02X ", msgbuff->data[x]);
+read_object_range_value.c:    cpf_buffer->data[cpf_buffer->len++] = PDU_Unconnected_Send;
+read_object_range_value.c:    ioiCM.member = -1; //*** changed
+read_object_range_value.c:    ioiCM.point = -1; //*** changed
+read_object_range_value.c:    ioiCM.attribute = -1; //*** changed
+read_object_range_value.c:    ioiCM.elem[0] = -1;
+read_object_range_value.c:    ioiCM.elem[1] = -1;
+read_object_range_value.c:    ioiCM.elem[2] = -1;
+read_object_range_value.c:    cpf_buffer->data[cpf_buffer->len++] = msgbuff->len & 255;
+read_object_range_value.c:    cpf_buffer->data[cpf_buffer->len++] = msgbuff->len / 0x100;
+read_object_range_value.c:    memcpy(cpf_buffer->data + cpf_buffer->len, msgbuff->data, msgbuff->len);
+read_object_range_value.c:    cpf_buffer->len += msgbuff->len;
+read_object_range_value.c:    head->len = buff->len;
+read_object_range_value.c:    memcpy(sendbuff->data, head, ENCAPS_Header_Length);
+read_object_range_value.c:    sendbuff->overall_len = ENCAPS_Header_Length;
+read_object_range_value.c:      for (x = 0; x < buff->len; x++)
+read_object_range_value.c:	dprint(DEBUG_BUILD, "%02X ", buff->data[x]);
+read_object_range_value.c:    memcpy(sendbuff->data + sendbuff->overall_len, buff->data, buff->len);
+read_object_range_value.c:    sendbuff->overall_len += buff->len;
+read_object_range_value.c:    memcpy(head, buff->data, ENCAPS_Header_Length);
+read_object_range_value.c:    if (head->status != 0)
+read_object_range_value.c:      ret = -1;
+read_object_range_value.c:      return -1;
+read_object_range_value.c:	     "Got good reply to Read Object Range Value Command - %d\n",
+read_object_range_value.c:	     buff->overall_len);
+read_object_range_value.c:      for (x = 44; x < buff->overall_len; x++)
+read_object_range_value.c:	dprint(DEBUG_BUILD, "%02X ", buff->data[x]);
+read_object_range_value.c:	if ((x = buff->data[42])) //*** added all the way down to ...
+read_object_range_value.c:tag->datalen);
+read_object_range_value.c:    if (tag->alias_size == 0)
+read_object_range_value.c:      memcpy(&tag->data[offset], buff->data + 44, size);
+read_object_range_value.c:    if (tag->alias_size != 0)
+read_object_range_value.c:    if (((tag->alias_type & 0xf000) == 0x8000) && ((tag->type & 0xf000) != 
+read_object_range_value.c:      junk = tag->linkid - tag->alias_linkid;
+read_object_range_value.c:    memcpy(&tag->data[offset],
+read_object_range_value.c:	     buff->data + 44 + junk, tag->size);
+read_object_range_value.c:    tag->datalen += size;
+read_object_range_value.c:    if (tag->alias_size != 0)
+read_object_range_value.c:  x = buff->data[42];
+read_object_range_value.c:tag->datalen);
+read_object_value.c:/* Revised 5/3/02 William Hays - CTI */
+read_struct_element.c:   Copyright (c) 2002 and beyond - Ron Gage  */
+read_struct_element.c:	return -1;
+read_struct_element.c:	return -1;
+read_struct_element.c:	return -1;
+read_struct_element.c:	return -1;
+read_struct_element.c:if (structs->count == 0)
+read_struct_element.c:	return -1;
+read_struct_element.c:dprint (DEBUG_VALUES,"Searching for struct type %04X.\n",tag->type);
+read_struct_element.c:for (x=0; x < structs->count; x++)
+read_struct_element.c:	if ((tag->type & 0x0fff) == (structs->base[x]->base & 0x0fff))
+read_struct_element.c:				offset += get_element_size(structs->base[x]->data[y]->type);
+read_struct_element.c:		return (read_object_range_value(comm, path, tag, offset, get_element_size(structs->base[x]->data[num]->type), debug));
+read_struct_element.c:return -1;
+read_tag.c:/* Revised 5/3/02 William Hays - CTI */
+read_tag.c:  long elem[3]={-1,-1,-1},found;
+read_tag.c:    return -1;
+read_tag.c:    return -1;
+read_tag.c:    return -1;
+read_tag.c:    return -1;
+read_tag.c:    return -1;
+read_tag.c:    return -1;
+read_tag.c:      "Could not allocate memory for send buffer - read_tag.c");
+read_tag.c:    return -1;
+read_tag.c:      "Could not allocate memory for ioi1 buffer - read_tag.c");
+read_tag.c:    return -1;
+read_tag.c:  tag->datalen = 0;
+read_tag.c:  buff->len = 0;
+read_tag.c://    ioi1->ioiclass = OBJECT_CONFIG;
+read_tag.c:    ioi1->ioiclass = -1;
+read_tag.c://    ioi1->instance = 1;
+read_tag.c:    ioi1->instance = -1;
+read_tag.c:    ioi1->member = -1;
+read_tag.c:    ioi1->point = -1;
+read_tag.c:    ioi1->attribute = -1;
+read_tag.c:    ioi1->tagname = tagname;
+read_tag.c:    ioi1->elem[0] = elem[0];
+read_tag.c:    ioi1->elem[1] = elem[1];
+read_tag.c:    ioi1->elem[2] = elem[2];
+read_tag.c:	  "Could not allocate memory for ioi2 buffer - read_tag.c");
+read_tag.c:	return -1;
+read_tag.c://      ioi2->ioiclass = OBJECT_CONFIG;
+read_tag.c:      ioi2->ioiclass = -1;
+read_tag.c:      //ioi2->instance = -1
+read_tag.c:      ioi2->member = -1;
+read_tag.c:      ioi2->point = -1;
+read_tag.c:      ioi2->attribute = -1;
+read_tag.c:      ioi2->tagname = tagname;
+read_tag.c://      memset (ioi1->tagname,0,strlen(tagname));
+read_tag.c:      ioi1->tagname = program;
+read_tag.c:      msgbuff->data[msgbuff->len++] = DATA_TYPE_CONFIG;
+read_tag.c://    msgbuff->data[msgbuff->len++] = GET_SINGLE_PROP;
+read_tag.c:    msgbuff->data[msgbuff->len++] = 1;
+read_tag.c:    msgbuff->data[msgbuff->len++] = 0;
+read_tag.c:    msgbuff->data[msgbuff->len++] = 0;
+read_tag.c:    msgbuff->data[msgbuff->len++] = 0;
+read_tag.c:    msgbuff->data[msgbuff->len++] = offset & 255;
+read_tag.c:    msgbuff->data[msgbuff->len++] = offset / 0x100;
+read_tag.c:    msgbuff->data[msgbuff->len++] = 0;
+read_tag.c:    msgbuff->data[msgbuff->len++] = 0;
+read_tag.c:    msgbuff->data[msgbuff->len++] = size & 255;
+read_tag.c:    msgbuff->data[msgbuff->len++] = size / 256;
+read_tag.c:      for (x = 0; x < msgbuff->len; x++)
+read_tag.c:	dprint(DEBUG_BUILD, "%02X ", msgbuff->data[x]);
+read_tag.c:    cpf_buffer->data[cpf_buffer->len++] = PDU_Unconnected_Send;
+read_tag.c:    ioiCM.member = -1; //*** changed
+read_tag.c:    ioiCM.point = -1; //*** changed
+read_tag.c:    ioiCM.attribute = -1; //*** changed
+read_tag.c:    ioiCM.elem[0] = -1;
+read_tag.c:    ioiCM.elem[1] = -1;
+read_tag.c:    ioiCM.elem[2] = -1;
+read_tag.c:    cpf_buffer->data[cpf_buffer->len++] = msgbuff->len & 255;
+read_tag.c:    cpf_buffer->data[cpf_buffer->len++] = msgbuff->len / 0x100;
+read_tag.c:    memcpy(cpf_buffer->data + cpf_buffer->len, msgbuff->data, msgbuff->len);
+read_tag.c:    cpf_buffer->len += msgbuff->len;
+read_tag.c:    head->len = buff->len;
+read_tag.c:    memcpy(sendbuff->data, head, ENCAPS_Header_Length);
+read_tag.c:    sendbuff->overall_len = ENCAPS_Header_Length;
+read_tag.c:      for (x = 0; x < buff->len; x++)
+read_tag.c:	dprint(DEBUG_BUILD, "%02X ", buff->data[x]);
+read_tag.c:    memcpy(sendbuff->data + sendbuff->overall_len, buff->data, buff->len);
+read_tag.c:    sendbuff->overall_len += buff->len;
+read_tag.c:    memcpy(head, buff->data, ENCAPS_Header_Length);
+read_tag.c:    if (head->status != 0)
+read_tag.c:      ret = -1;
+read_tag.c:      return -1;
+read_tag.c:	     "Got good reply to Read Tag Command - %d\n",
+read_tag.c:	     buff->overall_len);
+read_tag.c:      for (x = 44; x < buff->overall_len; x++)
+read_tag.c:	dprint(DEBUG_BUILD, "%02X ", buff->data[x]);
+read_tag.c:	if ((x = buff->data[42])) //*** added all the way down to ...
+read_tag.c:tag->datalen);
+read_tag.c:  tag->type = buff->data[44] + (buff->data[45] * 256);
+read_tag.c:  dprint (DEBUG_TRACE, "data type =  %04X\n",tag->type);
+read_tag.c:  if (tag->type == 0x2a0)
+read_tag.c:  tag->data = malloc(buff->overall_len - start);
+read_tag.c:  if (tag->data == NULL)
+read_tag.c:  	return -1;
+read_tag.c:  memcpy (tag->data, &buff->data[start], buff->overall_len - start);
+read_tag.c:  tag->datalen = buff->overall_len - start;
+read_tag.c:  x = buff->data[42];
+read_tag.c:tag->datalen);
+readdata.c:/* Revised 5/6/02 William Hays - CTI */
+readdata.c:  dprint(DEBUG_TRACE, "--- readdata.c REVISED TIMEOUT entered at %ld\n",time(NULL));
+readdata.c:  FD_SET(comm->file_handle,&s_readfds);
+readdata.c:  nfds = comm->file_handle+1;
+readdata.c:  s_timeout.tv_sec = comm->ms_timeout / 1000;
+readdata.c:  s_timeout.tv_usec = (comm->ms_timeout % 1000) * 1000;
+readdata.c:    dprint(DEBUG_TRACE, "--- readdata.c error timestamp %ld errno %d\n",
+readdata.c:    return -1;
+readdata.c:  else if (ret == -1)
+readdata.c:    return -1;
+readdata.c:  buff->overall_len = read(comm->file_handle, buff->data, DATA_Buffer_Length);
+readdata.c:  buff->overall_len = recv(comm->file_handle, buff->data, DATA_Buffer_Length, 0);
+readdata.c:  exp_len = sizeof(_encaps_header) + buff->data[2] + (buff->data[3]*256);
+readdata.c:  dprint (DEBUG_TRACE, "expected length = %d, received length = %d\n",exp_len, buff->overall_len);
+readdata.c:  if (exp_len != buff->overall_len)
+readdata.c:      bump = recv(comm->file_handle, &buff->data[buff->overall_len], DATA_Buffer_Length, 0);
+readdata.c:      bump = read(comm->file_handle, &buff->data[buff->overall_len], DATA_Buffer_Length);
+readdata.c:    buff->overall_len += bump;
+readdata.c:    dprint (DEBUG_TRACE, "Final received length: %d\n",buff->overall_len);
+readdata.c:  if (buff->overall_len < 1)
+readdata.c:    return -1;
+readdata.c:    dprint(DEBUG_DATA, "Received back %d bytes:\n",buff->overall_len);
+readdata.c:    for (x = 0; x < buff->overall_len; x++)
+readdata.c:      dprint(DEBUG_DATA, "%02X ", buff->data[x]);
+register_session.c:/* Revised 5/6/02 William Hays - CTI */
+register_session.c:  dprint(DEBUG_TRACE, "--- Register_session.c entered\n");
+register_session.c:    return -1;
+register_session.c:    return -1;
+register_session.c:      "Could not allocate memory for Receive Buffer - Register_session.");
+register_session.c:    return -1;
+register_session.c:  head->command = ENCAPS_Register_Session;
+register_session.c:  head->len = 4;
+register_session.c:  memcpy(buff->data, head, ENCAPS_Header_Length);
+register_session.c:  buff->data[ENCAPS_Header_Length] = 1;	/* Protocol Version Number */
+register_session.c:  buff->overall_len = ENCAPS_Header_Length + 4;
+register_session.c:  memcpy(head, receive_buffer->data, ENCAPS_Header_Length);
+register_session.c:  comm->session_id = head->handle;
+register_session.c:    dprint(DEBUG_VALUES, "command = %02X\n", head->command);
+register_session.c:    dprint(DEBUG_VALUES, "len = %d\n", head->len);
+register_session.c:    dprint(DEBUG_VALUES, "handle = %ld\n", head->handle);
+register_session.c:    dprint(DEBUG_VALUES, "status = %ld\n", head->status);
+register_session.c:      dprint(DEBUG_VALUES, "%02X ", head->context[x]);
+register_session.c:    dprint(DEBUG_VALUES, "\nOptions = %ld\n", head->options);
+sendConnecteddata.c:/* Revised 5/6/02 William Hays - CTI */
+sendConnecteddata.c:  dprint(DEBUG_TRACE, "sendConnecteddata.c entered.  buff->len = %d\n", buff->len);
+sendConnecteddata.c:    return -1;
+sendConnecteddata.c:    return -1;
+sendConnecteddata.c:  head->command = ENCAPS_SendUnitData;
+sendConnecteddata.c:  buff->data[buff->len += 4] = 0;
+sendConnecteddata.c:  buff->data[buff->len++] = (byte)timeout;
+sendConnecteddata.c:  buff->len++;
+sendConnecteddata.c:	 "SendConnectedData.c exited - added %d timeout value to packet.\n",
+sendRRdata.c:/* Revised 5/6/02 William Hays - CTI */
+sendRRdata.c:  dprint(DEBUG_TRACE, "sendRRdata.c entered.  buff->len = %d\n", buff->len);
+sendRRdata.c:    return -1;
+sendRRdata.c:    return -1;
+sendRRdata.c:  head->command = ENCAPS_SendRRData;
+sendRRdata.c:  buff->data[buff->len += 4] = 0;
+sendRRdata.c:  buff->data[buff->len++] = (byte)timeout;
+sendRRdata.c:  buff->len++;
+sendRRdata.c:	 "SendRRData.c exited - added %d timeout value to packet.\n",
+send_df1.c:/* Revised 5/6/02 William Hays - CTI */
+send_df1.c:    return -1;
+send_df1.c:    return -1;
+send_df1.c:    return -1;
+send_df1.c:    return -1;
+send_df1.c:    return -1;
+send_df1.c:    return -1;
+send_df1.c:    return -1;
+send_df1.c:    return -1;
+send_df1.c:    return -1;
+send_df1.c:  cpf_address->data[0] = (byte)(df1_comm->ot_conn_id & 255);
+send_df1.c:  cpf_address->data[1] = (byte)(df1_comm->ot_conn_id >> 8) & 255;
+send_df1.c:  cpf_address->data[2] = (byte)(df1_comm->ot_conn_id >> 16) & 255;
+send_df1.c:  cpf_address->data[3] = (byte)(df1_comm->ot_conn_id >> 24) & 255;
+send_df1.c:  cpf_address->len = 4;
+send_df1.c:  msgbuff->len = 0;
+send_df1.c:  msgbuff->data[msgbuff->len++] = comm->sequence & 255;
+send_df1.c:  msgbuff->data[msgbuff->len++] = comm->sequence / 256;
+send_df1.c:  comm->sequence++;
+send_df1.c:  msgbuff->data[msgbuff->len++] = 0;
+send_df1.c:  msgbuff->data[msgbuff->len++] = 0;
+send_df1.c:  memcpy (msgbuff->data + msgbuff->len, &df1->cmd, df1->df1_datalen);
+send_df1.c:  msgbuff->len += df1->df1_datalen;
+send_df1.c:    for (x = 0; x < msgbuff->len; x++)
+send_df1.c:      dprint(DEBUG_BUILD, "%02X ", msgbuff->data[x]);
+send_df1.c:  memcpy(cpf_buffer->data + cpf_buffer->len, msgbuff->data, msgbuff->len);
+send_df1.c:  cpf_buffer->len += msgbuff->len;
+send_df1.c:  head->len = buff->len;
+send_df1.c:  memcpy(sendbuff->data, head, ENCAPS_Header_Length);
+send_df1.c:  sendbuff->overall_len = ENCAPS_Header_Length;
+send_df1.c:    for (x = 0; x < buff->len; x++)
+send_df1.c:      dprint(DEBUG_VALUES, "%02X ", buff->data[x]);
+send_df1.c:  memcpy(sendbuff->data + sendbuff->overall_len, buff->data, buff->len);
+send_df1.c:  sendbuff->overall_len += buff->len;
+send_df1.c:  comm->df1_tns += 4;
+send_df1.c:  memcpy(head, buff->data, ENCAPS_Header_Length);
+send_df1.c:  if (head->status != 0)
+send_df1.c:    ret=-1;
+send_df1.c:    return -1;
+send_df1.c:  if (buff->overall_len > 48)
+send_df1.c:    dprint (DEBUG_TRACE, "copying %d bytes data to resp struct\n",buff->overall_len - 48);
+send_df1.c:    memmove(resp, &buff->data[48], buff->overall_len-48);
+send_df1.c://    data->overall_len = buff->overall_len - 44;
+send_df1.c:    dprint(DEBUG_VALUES, "Got good reply to Send DF1 Command - %d\n",
+send_df1.c:	   buff->overall_len);
+send_df1.c:    for (x = 48; x < buff->overall_len; x++)
+send_df1.c:      dprint(DEBUG_VALUES, "%02X ", buff->data[x]);
+send_df1.c:  x = buff->overall_len - 48;
+senddata.c:/* Revised 5/7/02 William Hays - CTI */
+senddata.c:    dprint(DEBUG_TRACE, "--- Senddata.c entered.\n");
+senddata.c:    for (x = 0; x < buff->overall_len; x++)
+senddata.c:      dprint(DEBUG_DATA, "%02X ", buff->data[x]);
+senddata.c:    dprint(DEBUG_DATA, "Overall Length = %d\n", buff->overall_len);
+senddata.c:  FD_SET(comm->file_handle,&s_writefds);
+senddata.c:  nfds = comm->file_handle+1;
+senddata.c:  s_timeout.tv_usec = comm->ms_timeout * 1000;
+senddata.c:    return -1;
+senddata.c:  if (comm->file_handle != 0)
+senddata.c:    write(comm->file_handle, buff->data, buff->overall_len);
+senddata.c:    send (comm->file_handle, buff->data, buff->overall_len,0);
+settimeout.c:/* Revised 5/6/02 William Hays - CTI */
+settimeout.c:    return -1;
+settimeout.c:    return -1;
+settimeout.c:    return -1;
+settimeout.c:  buff->data[buff->len++] = priority;
+settimeout.c:  buff->data[buff->len++] = timeout;
+settimeout.c:  return -0;
+unconnected_send.c:/* Revised 5/6/02 William Hays - CTI */
+unconnected_send.c:    return -1;
+unconnected_send.c:  buff->data[buff->len++] = PDU_Unconnected_Send;
+unregister_session.c:/* Revised 5/6/02 William Hays - CTI */
+unregister_session.c:  dprint(DEBUG_TRACE, "--- UnRegister_session.c entered\n");
+unregister_session.c:    return -1;
+unregister_session.c:    return -1;
+unregister_session.c:  head->command = ENCAPS_UnRegister_Session;
+unregister_session.c:  memcpy(buff->data, head, ENCAPS_Header_Length);
+unregister_session.c:  buff->overall_len = ENCAPS_Header_Length;
+unregister_session.c:  senddata(buff, comm, debug); /* If this fails, oh-well, we are closing the socket */
+unregister_session.c:  closesocket(comm->file_handle);
+who.c:/* Revised 5/6/02 William Hays - CTI 
+who.c:    return -1;
+who.c:    return -1;
+who.c:    return -1;
+who.c:  if (rack->size == 0)
+who.c:    return -1;
+who.c:  if (rack->size >= CELL_MAX_RACKID)
+who.c:      return -1;
+who.c:  for (x = 0; x < rack->size; x++)
+who.c:    if (rack->identity[x] == NULL)
+who.c:      rack->identity[x] = malloc(sizeof(_identity));
+who.c:      if (rack->identity[x] == NULL)
+who.c:	return -1;
+who.c:    memset(rack->identity[x], 0, sizeof(_identity));
+who.c:    strcpy(rack->identity[x]->name, "--Empty Slot--");
+who.c:    rack->identity[x]->namelen = strlen(rack->identity[x]->name);
+who.c:    path->device1 = -1;
+who.c:    path->device2 = -1;
+who.c:    path->device3 = -1;
+who.c:    path->device4 = -1;
+who.c:    path->device5 = -1;
+who.c:    path->device6 = -1;
+who.c:    path->device7 = -1;
+who.c:    path->device8 = -1;
+who.c:  dprint(DEBUG_VALUES, "Got slot number %d for communications card.\n", rack->slot);
+who.c:  get_device_data(comm, path, rack->identity[rack->slot], debug);
+who.c:  for (x = 0; x < rack->size; x++)
+who.c:    if (rack->identity[x]->ID == 0)
+who.c:        path->device1 = 1;
+who.c:        path->device2 = x;
+who.c:        path->device3 = -1;
+who.c:        path->device4 = -1;
+who.c:        path->device5 = -1;
+who.c:        path->device6 = -1;
+who.c:        path->device7 = -1;
+who.c:        path->device8 = -1;
+who.c:        if ((basepath->device6 != -1) && (basepath->device7 == -1))
+who.c:          path->device7 = 1;
+who.c:          path->device8 = x;
+who.c:        if ((basepath->device5 != -1) && (basepath->device6 == -1))
+who.c:          path->device6 = 1;
+who.c:          path->device7 = x;
+who.c:        if ((basepath->device4 != -1) && (basepath->device5 == -1))
+who.c:          path->device5 = 1;
+who.c:          path->device6 = x;
+who.c:        if ((basepath->device3 != -1) && (basepath->device4 == -1))
+who.c:          path->device4 = 1;
+who.c:          path->device5 = x;
+who.c:        if ((basepath->device2 != -1) && (basepath->device3 == -1))
+who.c:          path->device3 = 1;
+who.c:          path->device4 = x;
+who.c:        if ((basepath->device1 != -1) && (basepath->device2 == -1))
+who.c:          path->device2 = 1;
+who.c:          path->device3 = x;
+who.c:      get_device_data(comm, path, rack->identity[x], debug);
+who.c:    /* This is important to note:  The identity->name  field is fixed at 32 characters and
+who.c:    non-null characters in the name string.  */
+who.c:    strncpy (temp, rack->identity[x]->name, 32);
+who.c:    dprint(DEBUG_VALUES, "Slot %d - %s\n", x, temp);
+who.c:    if (rack->identity[x]->type == 0x0e)
+who.c:      rack->cpulocation = x;
+who.c:      dprint(DEBUG_VALUES, "ID = %02X   type = %02X - ",
+who.c:	     rack->identity[x]->ID, rack->identity[x]->type);
+who.c:      if (rack->identity[x]->type < 32)
+who.c:	dprint(DEBUG_VALUES, "%s", PROFILE_Names[rack->identity[x]->type]);
+who.c:	     rack->identity[x]->product_code, rack->identity[x]->rev_hi,
+who.c:	     rack->identity[x]->rev_lo);
+who.c:	     "Device Status = %04X    Device serial number - %08lX\n",
+who.c:	     rack->identity[x]->status, rack->identity[x]->serial);
+who.c:      dprint(DEBUG_VALUES, "---------------------------\n");
+write_object_range_value.c:/* Revised 5/6/02 William Hays - CTI */
+write_object_range_value.c:    return -1;
+write_object_range_value.c:    return -1;
+write_object_range_value.c:    return -1;
+write_object_range_value.c:    return -1;
+write_object_range_value.c:    return -1;
+write_object_range_value.c:    return -1;
+write_object_range_value.c:    return -1;
+write_object_range_value.c:    return -1;
+write_object_range_value.c:    return -1;
+write_object_range_value.c:  if (tag->alias_size != 0)
+write_object_range_value.c:      return -1;
+write_object_range_value.c:    basetag->topbase = tag->alias_topbase;
+write_object_range_value.c:    basetag->base = tag->alias_base;
+write_object_range_value.c:    basetag->id = tag->alias_id;
+write_object_range_value.c:    basetag->linkid = tag->alias_linkid;
+write_object_range_value.c:    basetag->type = tag->alias_type;
+write_object_range_value.c:    basetag->size = tag->alias_size;
+write_object_range_value.c:      basetag->data = malloc(tagsize);
+write_object_range_value.c:      for (x = 0; x < basetag->datalen; x++)
+write_object_range_value.c:	dprint(DEBUG_VALUES, "%02X ", basetag->data[x]);
+write_object_range_value.c:    memcpy(basetag->data + (tag->linkid - tag->alias_linkid), tag->data,
+write_object_range_value.c:	   tag->size);
+write_object_range_value.c:      for (x = 0; x < basetag->datalen; x++)
+write_object_range_value.c:	dprint(DEBUG_VALUES, "%02X ", basetag->data[x]);
+write_object_range_value.c:    free(basetag->data);
+write_object_range_value.c:    ioi1->ioiclass = OBJECT_CONFIG;
+write_object_range_value.c:    ioi1->instance = tag->topbase & 0xffff;
+write_object_range_value.c:    if (tag->alias_topbase != 0)
+write_object_range_value.c:      ioi1->instance = tag->alias_topbase & 0xffff;
+write_object_range_value.c:    ioi1->member = -1;
+write_object_range_value.c:    ioi1->point = -1;
+write_object_range_value.c:    ioi1->attribute = -1;
+write_object_range_value.c:    ioi1->tagname = NULL;
+write_object_range_value.c:    ioi1->elem[0] = -1;
+write_object_range_value.c:    ioi1->elem[1] = -1;
+write_object_range_value.c:    ioi1->elem[2] = -1;
+write_object_range_value.c:    a = tag->id;
+write_object_range_value.c:    b = tag->topbase & 0xffff;
+write_object_range_value.c:    if (tag->alias_id != 0)
+write_object_range_value.c:      a = tag->alias_id;
+write_object_range_value.c:    if (tag->alias_topbase != 0)
+write_object_range_value.c:      b = tag->alias_topbase & 0xffff;
+write_object_range_value.c:      ioi1->ioiclass = OBJECT_SUB_OBJECT;
+write_object_range_value.c:      ioi1->instance = tag->base;
+write_object_range_value.c:      if (tag->alias_base != 0)
+write_object_range_value.c:	ioi1->instance = tag->alias_base;
+write_object_range_value.c:	return -1;
+write_object_range_value.c:      ioi2->ioiclass = OBJECT_CONFIG;
+write_object_range_value.c:      ioi2->instance = tag->id;
+write_object_range_value.c:      if (tag->alias_id != 0)
+write_object_range_value.c:	ioi2->instance = tag->alias_id;
+write_object_range_value.c:      ioi2->member = -1;
+write_object_range_value.c:      ioi2->point = -1;
+write_object_range_value.c:      ioi2->attribute = -1;
+write_object_range_value.c:      ioi2->tagname = NULL;
+write_object_range_value.c:      ioi2->elem[0] = -1;
+write_object_range_value.c:      ioi2->elem[1] = -1;
+write_object_range_value.c:      ioi2->elem[2] = -1;
+write_object_range_value.c:    size = totalsize - (offset);
+write_object_range_value.c:	   "Write loop entered - totalsize = %d, size = %d, offset = %d\n",
+write_object_range_value.c:    buff->len = 0;
+write_object_range_value.c:    msgbuff->data[msgbuff->len++] = PUT_SINGLE_PROP;
+write_object_range_value.c:    msgbuff->data[msgbuff->len++] = ((offset) & 255);
+write_object_range_value.c:    msgbuff->data[msgbuff->len++] = ((offset) / 0x100);
+write_object_range_value.c:    msgbuff->data[msgbuff->len++] = 0;
+write_object_range_value.c:    msgbuff->data[msgbuff->len++] = 0;
+write_object_range_value.c:    msgbuff->data[msgbuff->len++] = 0;
+write_object_range_value.c:    msgbuff->data[msgbuff->len++] = (size & 255);
+write_object_range_value.c:    msgbuff->data[msgbuff->len++] = (size / 256);
+write_object_range_value.c:    memcpy(msgbuff->data + msgbuff->len, tag->data + offset, size);
+write_object_range_value.c:    msgbuff->len += size;
+write_object_range_value.c:      msgbuff->data[msgbuff->len++] = 0;
+write_object_range_value.c://msgbuff->data[msgbuff->len++] = 0;
+write_object_range_value.c:      for (x = 0; x < msgbuff->len; x++)
+write_object_range_value.c:	dprint(DEBUG_BUILD, "%02X ", msgbuff->data[x]);
+write_object_range_value.c:    cpf_buffer->data[cpf_buffer->len++] = PDU_Unconnected_Send;
+write_object_range_value.c:    ioiCM.member = -1;
+write_object_range_value.c:    ioiCM.point = -1;
+write_object_range_value.c:    ioiCM.attribute = -1;
+write_object_range_value.c:    ioiCM.elem[0] = -1;
+write_object_range_value.c:    ioiCM.elem[1] = -1;
+write_object_range_value.c:    ioiCM.elem[2] = -1;
+write_object_range_value.c:    cpf_buffer->data[cpf_buffer->len++] = msgbuff->len & 255;
+write_object_range_value.c:    cpf_buffer->data[cpf_buffer->len++] = msgbuff->len / 0x100;
+write_object_range_value.c:    memcpy(cpf_buffer->data + cpf_buffer->len, msgbuff->data, msgbuff->len);
+write_object_range_value.c:    cpf_buffer->len += msgbuff->len;
+write_object_range_value.c:    head->len = buff->len;
+write_object_range_value.c:    memcpy(sendbuff->data, head, ENCAPS_Header_Length);
+write_object_range_value.c:    sendbuff->overall_len = ENCAPS_Header_Length;
+write_object_range_value.c:      for (x = 0; x < buff->len; x++)
+write_object_range_value.c:	dprint(DEBUG_BUILD, "%02X ", buff->data[x]);
+write_object_range_value.c:    memcpy(sendbuff->data + sendbuff->overall_len, buff->data, buff->len);
+write_object_range_value.c:    sendbuff->overall_len += buff->len;
+write_object_range_value.c:    memcpy(head, buff->data, ENCAPS_Header_Length);
+write_object_range_value.c:    if (head->status != 0)
+write_object_range_value.c:      ret = -1;
+write_object_range_value.c:      return -1;
+write_object_range_value.c:	     "Got good reply to Write Object Range Value Command - %d\n",
+write_object_range_value.c:	     buff->overall_len);
+write_object_range_value.c:      for (x = 44; x < buff->overall_len; x++)
+write_object_range_value.c:	dprint(DEBUG_VALUES, "%02X ", buff->data[x]);
+write_object_value.c:/* Revised 5/6/02 William Hays - CTI */

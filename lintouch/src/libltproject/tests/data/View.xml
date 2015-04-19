@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<project-view>
+    
+    <geometry width="170" height="100"/>
+    
+    <panels>
+    
+        <panel id="temperatureMonitor">
+          <property name="background_color" value="#FFFFFF"/>
+        
+          <templates>
+        
+            <template type="mytemplatelibrary.Lamp" name="overHeat">
+              <geometry width="20" height="20" left="80" top="80"/>
+        
+              <property name="border_off" value="#000000;2;SOLIDLINE"/>
+              <property name="fill_off" value="#FF0000;SOLIDPATTERN"/>
+            </template>
+        
+            <template type="mytemplatelibrary.Lamp" name="underHeat">
+              <geometry width="20" height="20" left="180" top="80"/>
+        
+              <property name="border_off" value="#000000;2;SOLIDLINE"/>
+              <property name="fill_off" value="#0000FF;SOLIDPATTERN"/>
+            </template>
+        
+          </templates>
+        </panel>
+        
+        <panel id="smokeMonitor">
+          <property name="background_color" value="#FF00FF"/>
+        
+          <templates>
+        
+            <template type="mytemplatelibrary.Lamp" name="cyanide">
+              <geometry width="70" height="20" left="80" top="80"/>
+        
+              <property name="border_off" value="#000000;1;SOLIDLINE"/>
+	      <property name="fill_off" value="#FF0000;SOLIDPATTERN"/>
+            </template>
+        
+          </templates>
+        </panel>
+        
+    </panels>    
+    
+</project-view>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<project-connection type="manual-monitor">
+
+  <properties>
+    <property name="agility" value="extraordinary"/>
+    <property name="cost" value="reaching zero"/>
+  </properties>
+
+  <variables>
+
+    <variable name="smoke" type="bit">
+      <property name="phrase" value="dyme"/>
+    </variable>
+
+    <variable name="readiness" type="bit">
+      <property name="phrase" value="gotovo"/>
+    </variable>
+
+  </variables>
+
+</project-connection>
+
+

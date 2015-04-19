@@ -1,0 +1,76 @@
+#!/bin/bash
+# (c) 2004 Martin Man <mman@swac.cz>
+
+set -e
+
+. @MYDATA@/functions
+
+print_banner
+parse_commandline $* ||\
+    usage "product.conf {-t||-b debbranch}"
+
+if [ $MODE != "trunk" ] && [ $MODE != "branch" ]
+then
+    echo "ERROR: $0 is supposed to work with -t or -b only"
+    exit 1
+fi
+
+do_process_config || exit 1
+process_config_for_packaging "DEB" || exit 1
+
+do_prepare_variables
+do_prepare_variables_for_packaging
+
+echo ""
+echo "Product: $PRODUCT"
+echo "Distributions: $DISTROS"
+wait_for_user_break
+
+for DISTRO in $DISTROS; do
+
+    echo ""
+    echo "Packaging $PRODUCT for distribution: $DISTRO"
+
+    do_prepare_variables_for_packaging
+
+    svn_check_path_exists "$pkg_src_url" || exit 1
+    do_extract_pkgver_from_remote_debian_changelog || exit 1
+
+    do_split_packaging_versions || exit 1
+    # we don't have orig_ver, because it's usually extracted from configure.in,
+    # so we steal it from debian version
+    orig_ver="$orig_pkg_ver1"
+    do_prepare_versions
+    do_split_packaging_versions
+    # our ver and pkg_ver contain snapshotted versions, we have to fix them
+    # manually
+    ver="$orig_ver"
+    pkg_ver1="$ver"
+    pkg_ver="$pkg_ver1-$pkg_ver2"
+    # be careful here, order matters
+    do_prepare_variables
+    do_prepare_variables_for_packaging
+
+    echo ""
+    echo "Packaging version: $orig_pkg_ver"
+    echo "Product version: $orig_ver"
+    echo "Packaging: $pkg_src_url"
+    echo "Product: $src_url"
+    echo "Results go to: $RESULTDIR/$DISTRO"
+    wait_for_user_break
+
+    do_prepare_orig_tar_gz "$DISTRO" || exit 1
+    do_extract_sources "$DISTRO" || exit 1
+    do_svn_export_debian "$DISTRO" || exit 1
+    do_patch_debian_changelog "$DISTRO" || exit 1
+    do_make_debsources "$DISTRO" || exit 1
+    do_copy_debsources "$DISTRO" || exit 1
+    do_build_debs "$DISTRO" || exit 1
+
+    do_clean_dir "$RESULTDIR/tmp" || exit 1
+
+done
+
+exit 0
+
+# vim: set ft=sh et ts=4 sw=4:

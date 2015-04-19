@@ -1,0 +1,68 @@
+---------------------------------------------------------------------------
+Lintouch Development Weekly News
+http://lintouch.org
+January 24th, 2004
+---------------------------------------------------------------------------
+
+Welcome to the sixth issue of the Lintouch Development Weekly Newsletter
+codenamed "One week to freeze..."
+
+Lintouch Specifications[1] ready for freeze. Since the first issue of the
+specifications back in September, several small changes had to be done to
+communication protocol and overall project structure. Now we can say that
+time has shown what was initially designed well and what not. During the
+testing month of February the specifications will be cleaned up and printable
+versions will be prepared.
+
+    1. http://lintouch.org/blog/projects/lintouch
+
+Patrik was working hard to bring Wintouch Legacy templates up to date with
+new Template API announced last week. After some small gotchas the templates
+within a library work once again and can be used for testing.
+
+Communication protocol library _libwtngcp_ has been touched and updated
+after almost five months to conform to the updated protocol specification.
+To ease usability of this C written library in various environments such as
+Python, C++ QT, and possibly others, I've decided to take socket management
+entirely out of the library and provide a lot more simplified API.
+
+Several parts of the _libwtngcp_ are unimplemented at the moment, but API is
+frozen and Python bindings which are hosted within unreleased _python-wtng_
+package are 90% ready[2]. Only small enhancements are missing, these are
+however not blocking _python-wtng_ to be used in a production environment.
+
+    2. http://lintouch.org/pipermail/lintouch-cvs/2004-January/000932.html
+
+Huge progress has been made on the server side. Lintouch Server is already
+able to serve given zipped project via HTTP to Lintouch Runtimes[3], open
+given project and determine which Plugins has to be loaded and instantiated.
+It can already manage client connections and interaction among clients and
+plugins. Lintouch Server highly depends on _python-wtng_ bindings which do
+the dirty low-level time-critical stuff.
+
+    3. http://lintouch.org/pipermail/lintouch-cvs/2004-January/000890.html
+
+Since Python makes you more productive when writing small but useful tools,
+jbar started to hack on a small Python based GUI-less Lintouch Runtime which
+will be used for testing purposes.
+
+Lintouch Runtime is continuously being polished. The interaction between
+Runtime and communication library has been discussed[4] and will be
+implemented soon.
+
+    4. http://lintouch.org/pipermail/lintouch-dev/2004-January/000336.html
+
+Lot of work is happening on the Editor front as well. Editor is able to load
+template libraries, add views and panels, instantiate (read: place on a
+panel) templates, change their properties, save whole work to the .zip file,
+albeit with some small syntactic errors, which, when fixed by hand lead to a
+project that is loadable by Runtime. Good work from our colleagues at
+India.
+
+That's all folks for this week, if you have any comments, corrections or
+ideas to be published, feel free to contact me directly[0].
+
+    0. mailto:mman@swac.cz.
+
+vim: set et tw=76:
+$Id: ldwn-2004-01-24.txt,v 1.1 2004/01/24 12:36:15 mman Exp $
