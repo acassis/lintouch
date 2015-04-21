@@ -678,7 +678,7 @@ class TestProject :
 
         waitAndProcessEvents(30*1000);
 
-        /*CPPUNIT_ASSERT(m_status == ProjectAsyncBuilder::Finished);
+        CPPUNIT_ASSERT(m_status == ProjectAsyncBuilder::Finished);
 
         Project p = pab->getProject();
         CPPUNIT_ASSERT(p.isValid());
@@ -691,7 +691,7 @@ class TestProject :
                 .panels()["temperatureMonitor"]
                 .templates()["overHeat"]
                 ->properties()["fill_off"]->encodeValue() ==
-                "#FF0000;SOLIDPATTERN");*/
+                "#FF0000;SOLIDPATTERN");
         delete pab;
         m_status = -1;
     }
@@ -860,7 +860,7 @@ class TestProject :
         while (m_status == -1)
             g_app->processEvents();
 
-        /*CPPUNIT_ASSERT(m_status == ProjectAsyncBuilder::Cancelled);
+        CPPUNIT_ASSERT(m_status == ProjectAsyncBuilder::Cancelled);
 
         //wait for the script to terminate
         shutdownHTTPServer();
@@ -871,7 +871,7 @@ class TestProject :
         m_status = -1;
 
         p = pab->getProject();
-        CPPUNIT_ASSERT(!p.isValid());*/
+        CPPUNIT_ASSERT(!p.isValid());
 
         delete pab;
     }
