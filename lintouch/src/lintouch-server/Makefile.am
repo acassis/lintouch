@@ -31,7 +31,7 @@ COMMON_CFLAGS = -g -Wall -fno-strict-aliasing \
 				-I@LTSERVER_TOP_SRCDIR@/src \
 				@APR_CFLAGS@ @APR_INCLUDES@ \
 				@APU_INCLUDES@ \
-				@LTSERVER_CFLAGS@
+				@LTSERVER_CFLAGS@ -lz
 
 bin_PROGRAMS = lintouch-server
 lintouch_server_SOURCES = src/main.c
