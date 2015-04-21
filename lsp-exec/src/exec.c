@@ -406,7 +406,7 @@ static void _my_exec( my_vardata * command )
             NULL,
             attr, pool );
 
-    if( ! APR_STATUS_IS_SUCCESS( rv ) ) {
+    if( ! ((rv) == APR_SUCCESS) ) {
         lt_server_logger_print_apr( PRIO_PLUGIN, "apr_proc_create",
                 "Exec: failed to exec '%s'\n", command->cmdline );
     }
