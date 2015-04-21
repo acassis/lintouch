@@ -30,6 +30,9 @@
 
 #include "lt/fsm/fsm.h"
 
+#define LINUX 2
+#define _LARGEFILE64_SOURCE
+
 struct lt_fsm_transition_t {
     apr_pool_t * pool;
     const void * transition_input;

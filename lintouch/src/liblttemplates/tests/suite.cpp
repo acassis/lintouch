@@ -28,6 +28,7 @@
 #include <cppunit/extensions/TestFactoryRegistry.h>
 #include <cppunit/ui/text/TestRunner.h>
 
+#include <stdlib.h>
 #include <qstring.h>
 #include <qapplication.h>
 

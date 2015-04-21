@@ -25,6 +25,7 @@
 // Boston, MA 02111-1307, USA.
 
 // custom tests
+#include <stdlib.h>
 #include <cppunit/extensions/HelperMacros.h>
 
 #include <apr_strings.h>
