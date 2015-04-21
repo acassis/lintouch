@@ -84,8 +84,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION ( TestPlugin );
 
 int main ( int argc, const char * const * argv, const char * const * env )
 {
-    if ( ! APR_STATUS_IS_SUCCESS (
-                apr_app_initialize ( &argc, &argv, &env ) ) ) {
+    if ( ! (apr_app_initialize ( &argc, &argv, &env ) == APR_SUCCESS ) ) {
         fprintf ( stderr, "Unable to initialize APR Library\n" );
         return -1;
     }

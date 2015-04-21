@@ -22,6 +22,7 @@
 // Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 // Boston, MA 02111-1307, USA.
 
+#include <stdlib.h>
 // custom tests
 #include <cppunit/extensions/HelperMacros.h>
 
@@ -83,8 +84,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION ( TestPlugin );
 
 int main ( int argc, const char * const * argv, const char * const * env )
 {
-    if ( ! APR_STATUS_IS_SUCCESS (
-                apr_app_initialize ( &argc, &argv, &env ) ) ) {
+    if ( ! (apr_app_initialize ( &argc, &argv, &env ) == APR_SUCCESS ) ) {
         fprintf ( stderr, "Unable to initialize APR Library\n" );
         return -1;
     }
